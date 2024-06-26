@@ -18,28 +18,22 @@ export const headerData = {
 
 export const navMobileList = [
   {
+    name: 'Home',
+    link: '/',
+    id: 'navbar-link-explore',
+    className: 'navMobileItem',
+  },
+  {
     name: 'Explore',
     link: '/explore',
     id: 'navbar-link-explore',
     className: 'navMobileItem',
   },
   {
-    name: 'Studies',
+    name: 'Study',
     link: '/study/NCT04314401',
     id: 'navbar-link-study',
     className: 'navMobileItem',
-  },
-  {
-    name: 'Data',
-    link: '',
-    id: 'navbar-dropdown-about',
-    className: 'navMobileItem clickable',
-  },
-  {
-    name: 'For Developers',
-    link: '',
-    id: 'navbar-dropdown-about',
-    className: 'navMobileItem clickable',
   },
   {
     name: 'About',
@@ -47,68 +41,10 @@ export const navMobileList = [
     id: 'navbar-dropdown-about',
     className: 'navMobileItem clickable',
   },
-  {
-    name: 'Request Access',
-    link: '/request-access',
-    id: 'navbar-link-request-access',
-    className: 'navMobileItem',
-  },
 ];
 
 export const navbarSublists = {
   // Example of how to do a navMobileSubTitle and subtext
-  "Data": [
-    {
-      name: 'Cloud Computing',
-      link: '/cloud-computing',
-      id: 'navbar-dropdown-item-data-harmonization',
-      className: 'navMobileSubItem',
-    },
-    {
-      name: 'Data Model',
-      link: '/data-model',
-      id: 'navbar-dropdown-item-CTDC-data-model',
-      className: 'navMobileSubItem',
-    },
-    {
-      name: 'Data Harmonization',
-      link: '/data-harmonization',
-      id: 'navbar-dropdown-item-data-harmonization',
-      className: 'navMobileSubItem',
-    },
-    {
-      name: 'Data Terms of Use',
-      link: '/data-use',
-      id: 'navbar-dropdown-item-data-use',
-      className: 'navMobileSubItem',
-    },
-    {
-      name: 'Data Submission',
-      link: '/submit',
-      id: 'navbar-dropdown-item-data-submission',
-      className: 'navMobileSubItem',
-    },
-  ],
-    "For Developers": [
-    {
-      name: 'GraphQL',
-      link: '/graphql',
-      id: 'navbar-dropdown-item-graphql',
-      className: 'navMobileSubItem',
-    },
-    {
-      name: 'GitHub',
-      link: 'https://github.com/CBIIT/crdc-ctdc-starter-kit',
-      id: 'navbar-dropdown-item-developers',
-      className: 'navMobileSubItem',
-    },
-    {
-      name: 'Additional Information',
-      link: '/additional-information',
-      id: 'navbar-dropdown-item-developers',
-      className: 'navMobileSubItem',
-    },
-  ],
   About: [
     {
       name: 'Purpose',

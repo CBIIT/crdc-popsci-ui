@@ -59,6 +59,12 @@ const LiSection = styled.li`
   letter-spacing: 1px;
   text-align: center;
   transition:all 0.3s ease-in-out;
+  margin-right: 16px;
+
+  /* Apply margin to all except the first li */
+  &:not(:first-child) {
+    margin-left: 16px;
+  }
 
   a {
     color: #565c65;
@@ -239,18 +245,18 @@ const DropdownContainer = styled.div`
 `;
 
 const StyledLoginLink = styled(Link)`
-  color: #00846A;
+  color: #717A7A;
   font-size: 14px;
   font-family: Poppins;
   font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-  letter-spacing: 0.42px;
+  font-weight: 600;
+  line-height: 21px;
+  letter-spacing: 0.04em;
   text-decoration: none;
   text-transform: uppercase;
   padding: 10px 0 10px 0;
   margin-bottom: 4.5px;
-  margin-right: -1px;
+  margin-right: 8px;
 `;
 
 const CartSpan = styled.span`

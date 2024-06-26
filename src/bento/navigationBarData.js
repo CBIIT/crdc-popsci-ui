@@ -87,5 +87,5 @@ export const navBarCartData = {
   cartLink: '/fileCentricCart',
   cartIcon: cartIcon,
   cartIconAlt: 'cart_logo',
-  cartLabelType: 'labelUnderCount',
+  cartLabelType: '',
 };

@@ -21,6 +21,7 @@ const CartContainer = styled.div`
   },
   .cartIcon{
      height: 63px;
+     z-index: 1;
   },
   .cartCounter {
     min-width: 16px;
@@ -68,9 +69,21 @@ const getCartLabel = (labelType) => {
         );
       default:
         return (
-          <span className="badge">
-            <span className="cartCounter">
-              {props.numberOfFiles || 0}
+          <span className="" style={{marginLeft: '-16px', marginTop: '10px'}}>
+            <span
+              className="cartCounter"
+              style={{
+                backgroundColor: '#24415C',
+                color: '#FFFFFF',
+                fontFamily: 'Open Sans',
+                fontWeight: 700,
+                fontSize: '11px',
+                lineHeight: '14.98px',
+                letterSpacing: '0.08em',
+                borderRadius: '5px',
+                padding: '0px 5px 0px 15px',
+              }}>
+              {props.numberOfFiles || 258}
             </span>
           </span>
 
@@ -82,14 +95,15 @@ const getCartLabel = (labelType) => {
   return (
     <CartContainer>
       <Link to="/fileCentricCart" className="cartLink">
-        <span className="badge">
+        <dev className="badge">
             <img
               className="cartIcon"
               src={navBarCartData.cartIcon}
               alt={navBarCartData.cartIconAlt}
             />
+          
           {getCartLabel(navBarCartData.cartLabelType)}
-        </span>
+        </dev>
       </Link>
     </CartContainer>
   )
