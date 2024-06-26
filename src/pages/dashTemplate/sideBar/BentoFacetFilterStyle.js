@@ -24,13 +24,13 @@ export default () => ({
   resetText: {
     marginTop: '0px',
     marginLeft: '8px',
-    color: '#638fb5',
+    color: '#0E6292',
     fontSize: 14,
   },
   resetTextDisabled: {
     marginTop: '0px',
     marginLeft: '8px',
-    color: '#a9b2b9',
+    color: '#4E575F',
     fontSize: 14,
   },
   cases: {
@@ -56,10 +56,11 @@ export default () => ({
     flexShrink: '0',
     fontFamily: 'Open Sans',
     fontWeight: '600',
-    lineHeight: '0',
+    lineHeight: '1',
     marginLeft: '5px',
     letterSpacing: '0',
-    textTransform: 'uppercase',
+    overflowWrap: 'break-word',
+    // textTransform: 'uppercase',
   },
   dropDownIconSubSection: {
     marginLeft: '0px',
@@ -69,13 +70,17 @@ export default () => ({
     flexDirection: 'row-reverse',
     paddingLeft: 4,
   },
+  customExpansionPanelSummaryRootView: {
+    flexDirection: 'row-reverse',
+    paddingLeft: 8,
+  },
   sectionSummaryTextContainer: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
     zIndex: 2,
     fontFamily: 'Open Sans, Lato',
-    fontSize: 20,
+    fontSize: 16, // 20
     fontWeight: 300,
     marginLeft: 3,
     color: '#000000',
@@ -102,14 +107,14 @@ export default () => ({
     fontSize: '14px',
     marginRight: '0px',
   },
-  activeFacetCases: {
-    color: '#10a075',
+  "activeFacetFilter_by_Participants": {
+    color: '#076448',
   },
-  activeFacetSamples: {
-    color: '#10beff',
+  "activeFacetFilter_by_Biospecimens": {
+    color: '#843806',
   },
-  activeFacetFiles: {
-    color: '#e636e4',
+  "activeFacetFilter_by_Data_Files": {
+    color: '#005A7A',
   },
   searchContainer: {
     paddingTop: '15px',
@@ -117,7 +122,7 @@ export default () => ({
     marginRight: 6,
   },
   findCaseButton: {
-    marginLeft: '105px',
+    marginLeft: '0px', // 105px
     backgroundColor: '#10A075',
     boxSizing: 'border-box',
     height: 30,

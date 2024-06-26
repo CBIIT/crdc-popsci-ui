@@ -28,14 +28,29 @@ export default {
   custom: {
     maxContentWidth: '1440px',
     maxContent: 'white',
-    bodyBackGround: '#E5F0FA',
+    bodyBackGround: '#FFFFFF',
     cardBackGround: '#f0f6f8',
     fontFamilySans: '"Open Sans", sans-serif',
     footorBackground: '#325068',
     fontFamily: 'Lato,"Open Sans", sans-serif',
     fontFamilyRaleway: "'Raleway', sans-serif",
+    fontFamilyInter: '"Inter", sans-serif',
+    fontFamilyNunitoSansRegular: 'Nunito Sans Regular',
+    fontFamilyNunito: 'Nunito',
+    fontFamilyNunitoSansBold: 'Nunito Sans Bold',
     drawerWidth: '240px',
     widgetDivider: '#E2E7EC',
+    breakpoints: { 
+      values: {
+        xs: 0,
+        sm: 600,
+        md: 960,
+        lg: 1280,
+        xl: 1920,
+        customSm: 800, // Custom breakpoint for sm used for Studies page
+        customMd: 1100, // Custom breakpoint for md used for Studies page
+      },
+    },
   },
   palette: {
     primary: {
@@ -218,14 +233,14 @@ export default {
     },
     text: {
       withbackground: 'white',
-      primary: '#4A4A4A',
+      primary: '##4D4D4D',
       secondary: '#6E6E6E',
       hint: '#B9B9B9',
       link: '#0083c6',
       footerText: 'white',
     },
     background: {
-      default: '#E5F0FA',
+      default: '#FFFFFF',
       light: '#F3F5FF',
     },
     clearQueryResultColor: {

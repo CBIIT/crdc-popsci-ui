@@ -56,6 +56,7 @@ const styles = (theme) => ({
   floatRight: {
     float: 'right',
     marginRight: '80px',
+    marginTop: '4px'
   },
   floatLeft: {
     float: 'left',
@@ -92,6 +93,9 @@ const styles = (theme) => ({
   statsBar: {
     position: 'fixed',
   },
+  switchRoot:{
+    display: 'none',
+  },
   switchBase: {
     color: theme.palette.widgetBackground.contrastText,
     '&$checked': {
@@ -103,6 +107,11 @@ const styles = (theme) => ({
   },
   checked: {},
   track: {},
+  title: {
+    maxWidth: '200px',
+    textAlign: 'center',
+    margin: '0 auto',
+  }
 });
 
 export default styles;
