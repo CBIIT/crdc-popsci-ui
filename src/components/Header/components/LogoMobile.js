@@ -6,11 +6,12 @@ const LogoArea = styled.div`
     display: flex;
     img {
       width: fit-content;
-      height: 100px;
+      height: 51px;
       max-width: 400px;
     }
     .logoContainer {
       margin-top: 32px;
+      margin-bottom: 6px;
     }
 `;
 

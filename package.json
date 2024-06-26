@@ -1,6 +1,6 @@
 {
   "homepage": ".",
-  "name": "CRDC-CTDC-UI",
+  "name": "crdc-popsci-ui",
   "version": "1.0.0",
   "private": true,
   "dependencies": {

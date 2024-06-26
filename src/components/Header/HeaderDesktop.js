@@ -25,7 +25,7 @@ const HeaderContainer = styled.div`
     }
 
     .searchBarArea {
-      margin-top: 42px;
+      margin-top: 29px;
     }
 `;
 

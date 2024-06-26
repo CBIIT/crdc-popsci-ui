@@ -187,7 +187,7 @@ const Header = () => {
     return state.login;
   } );
 
-  const [isSignedIn, setIsSignedIn] = useState(authData.name?authData.isSignedIn:false);
+  const [isSignedIn, ] = useState(authData.name?authData.isSignedIn:false);
 
   const displayName = authData.name || "N/A";
 
@@ -255,7 +255,7 @@ const Header = () => {
                     onKeyDown={(e) => { if (e.key === "Enter") { clickNavItem("login"); } }}
                     onClick={ ()=>clickNavItem("login")}
                   >
-                    {authData.name}
+                    {displayName}
                   </div>
                   <Link to="/fileCentricCart" rel="noreferrer">
                            <div role="button" 
@@ -349,7 +349,7 @@ const Header = () => {
                 </div>
               )}
             <div className="navMobileContainer">
-              {navbarMobileList!="login"? (
+              {navbarMobileList !== "login"? (
                    <React.Fragment key={"menu"}>
                       <SubMenu />
                    </React.Fragment>
