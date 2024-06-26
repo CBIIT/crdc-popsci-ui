@@ -1,7 +1,7 @@
 import React from 'react';
 import {AboutBody } from '../../components/About';
 import AboutHeader from './aboutHeader';
-import { CircularProgress, withStyles } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 import Stats from '../../components/Stats/AllStatsController';
 
 

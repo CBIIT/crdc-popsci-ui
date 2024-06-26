@@ -99,7 +99,7 @@ const styles = () => ({
   statsText: {
     height: '42px',
     display: 'flex',
-    borderBottom: '3px solid #27DBFF',
+    borderBottom: '3px solid #4D8FB2',
   },
   statTitle: {
     display: 'inline-block',
