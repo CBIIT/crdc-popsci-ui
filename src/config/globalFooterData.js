@@ -19,11 +19,11 @@ export default {
       title: 'More Information',
       items: [
         {
-          text: 'CTDC Help Desk',
+          text: 'Population Sciences Help Desk',
           link: '/support',
         },
         {
-          text: 'About CTDC',
+          text: 'About Population Sciences',
           link: '/purpose',
         },
         {
