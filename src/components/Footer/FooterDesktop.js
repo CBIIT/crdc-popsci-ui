@@ -2,6 +2,8 @@ import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import FooterData from '../../config/globalFooterData';
 import { Link } from 'react-router-dom';
+import { useTheme } from '../ThemeContext'
+import themes from '../../themes/index';
 
 const FooterStyled = styled.footer`
   background-color: #1B496E;
@@ -14,7 +16,7 @@ const FooterStyled = styled.footer`
 
 const FooterContainer = styled.div`
   padding: 2rem 2rem 2rem 2rem;
-  max-width: 1800px;
+  max-width: ${({ theme }) => theme?.custom?.maxContentWidth || '1440px'};
   margin-left: auto;
   margin-right: auto;  
   display: flex;
@@ -138,7 +140,7 @@ const BottomFooter = styled.div`
     display: flex;
     flex-flow: wrap;
     justify-content: space-between;
-    max-width: 1800px;
+    max-width: ${({ theme }) => theme?.custom?.maxContentWidth || '1440px'};
     margin-left: auto;
     margin-right: auto;
     height: fit-content;
@@ -239,6 +241,9 @@ const BottomFooter = styled.div`
 `;
 
 const FooterDesktop = () => {
+  const { dark } = useTheme();
+  const theme = dark ? themes.dark : themes.light;
+
   const [errorClass, setErrorClass] = useState("");
   const [emailContent, setEmailContent] = useState("");
   const emailForm = useRef(null);
@@ -264,7 +269,7 @@ const FooterDesktop = () => {
   return (
     <>
       <FooterStyled role="contentinfo">
-        <FooterContainer>
+        <FooterContainer theme={theme}>
           <FooterLinksContainer>
             {
                     FooterData.link_sections.map((linkItem, linkidx) => {
@@ -313,7 +318,7 @@ const FooterDesktop = () => {
           </FooterEmailSignupContainer>
         </FooterContainer>
       </FooterStyled>
-      <BottomFooter>
+      <BottomFooter theme={theme}>
         <div className="bottom-footer-container">
           <div id="bottom-footer-header">
             <a className="logoText" href="https://www.cancer.gov" target="_blank" rel="noopener noreferrer">

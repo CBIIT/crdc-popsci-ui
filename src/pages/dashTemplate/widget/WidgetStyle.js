@@ -18,7 +18,7 @@ const styles = (theme) => ({
   },
   content: {
     display: 'flex',
-    maxWidth: '1800px',
+    maxWidth: `${theme?.custom?.maxContentWidth || '1440px'}`,
     margin: 'auto',
   },
   widgetsContainer: {

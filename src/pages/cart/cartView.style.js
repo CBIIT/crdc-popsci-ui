@@ -1,4 +1,4 @@
-export default () => ({
+export default (theme) => ({
   myFilesContainer: {
     padding: '0px 32px',
     marginRight: '0px !important',
@@ -19,7 +19,7 @@ export default () => ({
     background: 'white',
     paddingRight: '3%',
     paddingLeft: '3%',
-    maxWidth:'1440px',
+    maxWidth: `${theme?.custom?.maxContentWidth || '1440px'}`,
   },
   customTooltip: {
     border: '#03A383 1px solid',

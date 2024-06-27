@@ -1,10 +1,10 @@
-export default () => ({
+export default (theme) => ({
   dashboardContainer: {
     backgroundColor: '#FFFFFF',
   },
   content: {
     display: 'flex',
-    maxWidth: '1800px',
+    maxWidth: `${theme?.custom?.maxContentWidth || '1440px'}`,
     margin: 'auto',
     padding: '0 32px',
   },

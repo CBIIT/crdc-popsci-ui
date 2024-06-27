@@ -275,7 +275,7 @@ const AboutBody = ({ classes, data, externalIconImage }) => {
   );
 };
 
-const styles = () => ({
+const styles = (theme) => ({
   container: {
     
     margin: '16px auto 16px auto',
@@ -283,11 +283,11 @@ const styles = () => ({
     fontFamily: (props) => (props.data.fontFamily ? props.data.fontFamily : 'Nunito'),
     fontSize: '15px',
     lineHeight: '22px',
-    maxWidth: '1440px',
+    maxWidth: `${theme?.custom?.maxContentWidth || '1440px'}`,
   },
   maxWidthContainer: {
     margin: '0px auto 0px auto',
-    maxWidth: '1440px',
+    maxWidth: `${theme?.custom?.maxContentWidth || '1440px'}`,
   },
   secondayTitle: {
     display: 'block',

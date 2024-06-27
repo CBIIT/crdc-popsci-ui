@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { headerData } from '../../config/globalHeaderData';
-
+import { useTheme } from '../ThemeContext';
+import themes from '../../themes/index';
 const BannerArea = styled.div`
     flex-direction:row;
     width: 100%;
@@ -12,7 +13,7 @@ const BannerArea = styled.div`
 const BannerContainer = styled.div`
     display:flex;
     align-items:center;
-    max-width: 1800px;
+    max-width: ${({ theme }) => theme?.custom?.maxContentWidth || '1440px'};
     height:100%;
     margin-left: auto;
     margin-right: auto;
@@ -34,15 +35,18 @@ const BannerContainer = styled.div`
     }
 `;
 
-const USABanner = () => (
-  <BannerArea>
-    <BannerContainer>
-      <img src={headerData.usaFlagSmall} alt={headerData.usaFlagSmallAltText} />
-      <div className="text">
-        An official website of the United States government
-      </div>
-    </BannerContainer>
-  </BannerArea>
-  );
+const USABanner = () => {
+  const { dark } = useTheme();
+  const theme = dark ? themes.dark : themes.light;
 
+  return (
+    <BannerArea>
+      <BannerContainer theme={theme}>
+        <img src={headerData.usaFlagSmall} alt={headerData.usaFlagSmallAltText} />
+        <div className="text">
+          An official website of the United States government
+        </div>
+      </BannerContainer>
+    </BannerArea>
+)};
 export default USABanner;

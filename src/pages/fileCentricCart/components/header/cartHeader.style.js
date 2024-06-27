@@ -15,7 +15,7 @@ export default (theme) => ({
     marginRight: '3.05%',
   },
   headerTitle: {
-    maxWidth: theme.custom.maxContentWidth,
+    maxWidth: `${theme?.custom?.maxContentWidth || '1440px'}`,
     margin: 'auto',
     float: 'left',
     marginLeft: '85px',

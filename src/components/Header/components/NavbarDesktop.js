@@ -8,7 +8,8 @@ import { useGlobal } from '../../Global/GlobalProvider';
 import { useAuth } from '../../Authentication';
 import CartContainer from '../../Cart/CartContainer';
 import { navMobileList, navbarSublists } from '../../../config/globalHeaderData';
-
+import { useTheme } from '../../ThemeContext';
+import themes from '../../../themes/index';
 
 const Nav = styled.div`
     top: 0;
@@ -26,7 +27,7 @@ const Nav = styled.div`
       // opacity: 0;
       margin: 0 auto;
       position: relative;
-      width: 1800px;
+      width: ${({ theme }) => theme?.custom?.maxContentWidth || '1440px'};
     }
     .invisible {
       visibility: hidden;
@@ -37,7 +38,7 @@ const NavContainer = styled.div`
     max-height: 53px;
     height: 53px;
     margin: 0 auto;
-    max-width: 1800px;
+    max-width: ${({ theme }) => theme?.custom?.maxContentWidth || '1440px'};
     text-align: left;
     position: relative;
     display: flex;
@@ -205,7 +206,7 @@ const DropdownContainer = styled.div`
     margin: 0 auto;
     text-align: left;
     position: relative;
-    max-width: 1800px;
+    max-width: ${({ theme }) => theme?.custom?.maxContentWidth || '1440px'};
 
     .dropdownList {
       background: #1F4671;
@@ -296,7 +297,7 @@ const NameDropdownContainer = styled.div`
   margin: 0 auto;
   text-align: left;
   position: relative;
-  max-width: 1800px;
+  max-width: ${({ theme }) => theme?.custom?.maxContentWidth || '1440px'};
   .dropdownList {
       background: #1F4671;
       display: inline-flex;
@@ -420,10 +421,12 @@ const NavBar = () => {
   }, []);
 
   const EnhancedNav = withRouter(Nav);
+  const { dark } = useTheme();
+  const theme = dark ? themes.dark : themes.light
 
   return (
-    <EnhancedNav>
-      <NavContainer>
+    <EnhancedNav theme={theme}>
+      <NavContainer theme={theme}>
         <UlContainer>
           {
             navMobileList.map((navMobileItem, idx) => {
@@ -490,7 +493,7 @@ const NavBar = () => {
         )}
       </NavContainer>
       <Dropdown id="Dropdown" ref={dropdownSelection} className={clickedTitle === '' && clickedTitle !== displayName  ? "invisible" : ""}>
-        <DropdownContainer>
+        <DropdownContainer theme={theme}>
           <div className="dropdownList">
             {
               clickedTitle !== "" && clickedTitle !== displayName ? navbarSublists[clickedTitle].map((dropItem, idx) => {
@@ -516,7 +519,7 @@ const NavBar = () => {
         </DropdownContainer>
       </Dropdown>
        <NameDropdown id="NameDropdown"  ref={nameDropdownSelection} className={clickedTitle !== displayName ? "invisible" : ""}>
-        <NameDropdownContainer>
+        <NameDropdownContainer theme={theme}>
           <div className="dropdownList">
             <div
               id="navbar-dropdown-item-name-logout"

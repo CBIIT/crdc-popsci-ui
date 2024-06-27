@@ -4,6 +4,8 @@ import { useLocation } from 'react-router-dom';
 import Logo from './components/LogoDesktop';
 import SearchBar from './components/SearchBarDesktop';
 import NavBar from './components/NavbarDesktop';
+import { useTheme } from '../ThemeContext';
+import themes from '../../themes/index';
 
 const HeaderBanner = styled.div`
   width: 100%;
@@ -12,7 +14,7 @@ const HeaderBanner = styled.div`
 const HeaderContainer = styled.div`
     margin: 0 auto;
     padding-left: 32px;
-    max-width: 1800px;
+    max-width: ${({ theme }) => theme?.custom?.maxContentWidth || '1440px'};
     display: flex;
 
     .searchBarArea {
@@ -30,11 +32,13 @@ const HeaderContainer = styled.div`
 `;
 
 const Header = () => {
+  const { dark } = useTheme();
+  const theme = dark ? themes.dark : themes.light;
   const path = useLocation().pathname;
   
   return (
     <HeaderBanner role="banner">
-      <HeaderContainer>
+      <HeaderContainer theme={theme}>
         <Logo />
         <div className="headerLowerContainer">
           { path !== "/sitesearch" && <div className="searchBarArea"><SearchBar /></div> }

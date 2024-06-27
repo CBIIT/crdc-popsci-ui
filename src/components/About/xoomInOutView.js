@@ -72,7 +72,7 @@ const ModelPage = ({ classes, children }) => (
   </>
 );
 
-const styles = () => ({
+const styles = (theme) => ({
 
   linkIcon: {
     width: '20px',
@@ -105,7 +105,7 @@ const styles = () => ({
     },
   },
   container: {
-    maxWidth: '1440px',
+    maxWidth: `${theme?.custom?.maxContentWidth || '1440px'}`,
     margin: 'auto',
   },
   tool: {
@@ -134,7 +134,7 @@ const styles = () => ({
   },
   modelContainer: {
     display: 'flex',
-    maxWidth: '1440px',
+    maxWidth: `${theme?.custom?.maxContentWidth || '1440px'}`,
     margin: '-67px 40px 60px 40px',
     textAlign: 'center',
     '@media (min-width: 1400px)': {

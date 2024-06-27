@@ -59,7 +59,7 @@ export default (theme) => ({
     fontStyle: 'normal',
   },
   headerTitle: {
-    // maxWidth: theme.custom.maxContentWidth,
+    // maxWidth: `${theme?.custom?.maxContentWidth || '1440px'}`,
     // margin: 'auto',
     // float: 'left',
     // marginLeft: '110px',

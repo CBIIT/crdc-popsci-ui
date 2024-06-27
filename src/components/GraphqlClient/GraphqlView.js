@@ -112,9 +112,9 @@ const GraphqlView = ({ classes }) => (
     </div>
 
 </>);
-const styles = () => ({
+const styles = (theme) => ({
   aboutSection: {
-    maxWidth: "1440px",
+    maxWidth:`${theme?.custom?.maxContentWidth || '1440px'}`,
     padding: '70px 172px',
     margin:'0px auto 0px auto',
   },
@@ -161,14 +161,14 @@ const styles = () => ({
   grapqhQlEditorContainer: {
     height: '1600px',
     minHeight: '1700px',
-    maxWidth: '1800px',
+    maxWidth: `${theme?.custom?.maxContentWidth || '1440px'}`,
     margin: 'auto',
   },
   grapqhQlContainer: {
     display: 'flex',
     height: '100px',
     minHeight: '500px',
-    maxWidth: '1800px',
+    maxWidth: `${theme?.custom?.maxContentWidth || '1440px'}`,
     margin: 'auto',
     // Modified the default CSS for compliance with 508 color contrast standards
     '& .cm-comment': {
