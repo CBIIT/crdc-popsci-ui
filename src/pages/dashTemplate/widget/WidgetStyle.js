@@ -65,6 +65,7 @@ const styles = (theme) => ({
     marginTop: '-6px',
   },
   customButton: {
+    display: 'none',
     borderRadius: '0 0 18px 18px',
     minHeight: '20px',
     fontSize: 8,
@@ -80,6 +81,9 @@ const styles = (theme) => ({
   },
   backgroundWidgets: {
     background: theme.palette.widgetBackground.main,
+    margin: '30px 0px 10px 0',
+    border: '0.5px solid #B4B4B4',
+    padding: '10px 20px 50px 20px',
   },
   sideBar: {
     width: '250px',

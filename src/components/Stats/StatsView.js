@@ -1,6 +1,7 @@
 import React from 'react';
 import StatsBar from './StatsBarView';
 import { statsStyling, globalStatsData } from '../../bento/globalStatsData';
+import FileSize from './utils';
 
 // TODO - see if the variables `data` and `stats` can be merged to begin with
 const StatsView = ({ data }) => {

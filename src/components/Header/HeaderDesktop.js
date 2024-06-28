@@ -9,7 +9,13 @@ import themes from '../../themes/index';
 
 const HeaderBanner = styled.div`
   width: 100%;
-`;
+ .shadow{
+      position: absolute;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
+      width:100%;
+      height:10px;
+    }
+  `;
 
 const HeaderContainer = styled.div`
     margin: 0 auto;
@@ -44,7 +50,9 @@ const Header = () => {
           { path !== "/sitesearch" && <div className="searchBarArea"><SearchBar /></div> }
         </div>
       </HeaderContainer>
+   
       <div className="navbarContainer"><NavBar /></div>
+      <div className="shadow"> </div>
     </HeaderBanner>
   );
 };

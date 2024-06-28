@@ -125,8 +125,6 @@ const WidgetView = ({
           })}
         </Grid>
       </Collapse>
-      {collapse && <div className={classes.dashboardDividerTop} />}
-      {collapse && <div className={classes.dashboardDivider} />}
     </>
   );
 };

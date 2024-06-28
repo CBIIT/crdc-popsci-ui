@@ -109,14 +109,11 @@ const theme = {
       root: {
         height: '5px',
         '&.divider0': {
-          backgroundColor: '#0d8461',
+          backgroundColor: '#7A5015',
         },
         '&.divider1': {
-          backgroundColor: '#EF660B',
-        },
-        '&.divider2': {
-          backgroundColor: '#0696C9',
-        },
+          backgroundColor: '#3388A6',
+        }
       },
     },
     checkboxRoot: {
