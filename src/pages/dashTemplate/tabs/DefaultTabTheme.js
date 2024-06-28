@@ -2,7 +2,7 @@ export const customTheme = {
   MuiTabs: {
     root: {
        width:'100%',
-      borderBottom: '10px solid #41789D',
+      borderBottom: '3px solid #71767A',
     },
   },
   MuiTab: {
