@@ -114,7 +114,6 @@ const StatsBar = ({
 
   return (
     <>
-    <div id="top" className={classes.shadow}></div>
       <div className={classes.statsSection}>
         <div className={classes.box}>
           {truncatedListOfStats.map((stat, index) => (
