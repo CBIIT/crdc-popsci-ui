@@ -5,13 +5,22 @@ import gql from 'graphql-tag';
 // Tile1 Tile2 Tile3 images 293x349 px
 // Tile4 image optimum size 600x 436 px
 export const landingPageData = {
-  callToActionTitle: 'Explore, Analyze, Visualize Clinical Trial Data Sets',
-  callToActionDescription: 'Model, Store and Share your Data Sets using the Bento Framework for Data Sharing Platforms.',
-  callToActionButtonText: 'EXPLORE THE SITE',
+  callToActionTitle: 'POPULATION SCIENCE',
+  callToActionTitle2: 'DATA COMMONS',
+  callToActionDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+  callToActionButtonText: 'search cases',
+  callToActionButtonIcon: {
+    alt: 'Right Arrow',
+    img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/svgs/homeRightArrow.svg',
+  },
   callToActionLink: '/explore',
   landingPageHero: {
     alt: 'Alt tag1',
-    img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/png/landing_Hero_Graphic.png',
+    img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/landing_Hero_Graphic.png',
+  },
+  landingPagePeoplePieChart: {
+    alt: 'People Pie Chart ',
+    img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/svgs/homePagePopImage.svg',
   },
   landingPageStatsBar: [
     {
@@ -19,52 +28,48 @@ export const landingPageData = {
       statAPI: 'numberOfPrograms',
     },
     {
-      statTitle: 'Arms',
+      statTitle: 'Studies',
       statAPI: 'numberOfStudies',
     },
     {
       statTitle: 'Cases',
-      statAPI: 'numberOfSubjects',
+      statAPI: 'numberOfCases',
     },
     {
-      statTitle: 'samples',
-      statAPI: 'numberOfSamples',
-    },
-    {
-      statTitle: 'files',
+      statTitle: 'Files',
       statAPI: 'numberOfFiles',
     },
   ],
   tile1: {
     alt: '',
-    img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/png/landing_tileAbout.png',
-    titleText: 'The Bento Framework',
-    descriptionText: 'Effective data management is key to scientific discovery. Bento is an open source framework, developed by the Frederick National Laboratory for Cancer Research, to support the creation of data sharing platforms, that adhere to the FAIR principles of scientific data management.',
-    callToActionText: 'Read More',
-    callToActionLink: '/bento', // This links to the "About" static page.
+    img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/homeImageforAboutCard.png',
+    titleText: 'About Population Science Data Commons',
+    descriptionText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi.',
+    callToActionText: 'explore',
+    callToActionLink: '/explore', // This links to the "About" static page.
   },
   tile2: {
     alt: '',
-    img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/png/landing_tileProgam.png',
-    titleText: 'Programs',
-    descriptionText: 'Access data from the TAILORx clinical trial, on this data sharing platform, built on Bento.',
-    callToActionText: 'View',
-    callToActionLink: '/programs', // This links to the Programs Listing Page.
+    img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/TrialsImage.png',
+    titleText: 'Studies',
+    descriptionText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.',
+    callToActionText: 'Read More',
+    callToActionLink: '/studies', // This links to the Programs Listing Page.
   },
   tile3: {
     alt: '',
-    img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/png/landing_tileAnalytics.png',
-    titleText: 'Resources',
-    descriptionText: 'Use Bento to build your own data sharing platform.',
+    img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/requestAccessImage.png',
+    titleText: 'Request Access',
+    descriptionText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
     callToActionText: 'Read More',
-    callToActionLink: '/resources', // Link to the "Resources" Static Page
+    callToActionLink: '/request', // Link to the Request Access Page
   },
   tile4: {
     alt: '',
-    img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/png/landing_tileCases.png',
+    img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/CasesImage.png',
     titleText: 'Cases',
-    descriptionText: 'Analyze cases from the TAILORx clinical trial.',
-    callToActionText: 'Explore',
+    descriptionText: 'Lorem ipsum dolor sit amet, onsectetur adipiscing elit, sed do eiusmod tempor incididunt.',
+    callToActionText: 'Read More',
     callToActionLink: '/explore', // This links to the cases dashboard.
   },
 };
@@ -73,8 +78,7 @@ export const landingPageData = {
 export const GET_LANDING_PAGE_DATA_QUERY = gql`{
   numberOfPrograms
   numberOfStudies
-  numberOfSubjects
-  numberOfSamples
+  numberOfCases
   numberOfFiles
   }
   `;

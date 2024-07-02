@@ -10,7 +10,6 @@ const LandingStatsView = ({ classes, stats, statsData }) => (
       [classes.statsSection]: stats.length < 5,
       [classes.statsSectionCenter]: stats.length === 5,
     })}
-    tabIndex={0}
     >
       { stats.length > 0 && (
       <div
@@ -100,7 +99,7 @@ const styles = () => ({
   statsText: {
     height: '42px',
     display: 'flex',
-    borderBottom: '3px solid #27DBFF',
+    borderBottom: '3px solid #4D8FB2',
   },
   statTitle: {
     display: 'inline-block',

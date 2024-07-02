@@ -1,11 +1,12 @@
-export default () => ({
+export default (theme) => ({
   dashboardContainer: {
     backgroundColor: '#FFFFFF',
   },
   content: {
     display: 'flex',
-    maxWidth: '1800px',
+    maxWidth: `${theme?.custom?.maxContentWidth || '1440px'}`,
     margin: 'auto',
+    padding: '0 32px',
   },
   sideBar: {
     width: '250px',
@@ -17,9 +18,8 @@ export default () => ({
     zIndex: '99',
   },
   rightContent: {
-    width: 'calc(100% - 250px)',
+    width: 'calc(100% - 275px)',
     position: 'relative',
-    borderRight: 'thin solid #B1B1B1',
-    borderLeft: 'thin solid #B1B1B1',
+    marginLeft: '25px',
   },
 });

@@ -7,6 +7,7 @@ import AboutView from './aboutView';
 const About = ({ match }) => {
   const [data, setData] = useState([]);
 
+
   useEffect(() => {
     const fetchData = async () => {
       let resultData = [];

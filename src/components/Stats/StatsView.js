@@ -1,6 +1,7 @@
 import React from 'react';
-import StatsBar from '@bento-core/stats-bar';
+import StatsBar from './StatsBarView';
 import { statsStyling, globalStatsData } from '../../bento/globalStatsData';
+import FileSize from './utils';
 
 // TODO - see if the variables `data` and `stats` can be merged to begin with
 const StatsView = ({ data }) => {
@@ -9,6 +10,7 @@ const StatsView = ({ data }) => {
     name: e.statTitle,
     val: data[e.statAPI],
     statIconSrc: e.statIconSrc,
+    statIconAlt: e.statIconAlt,
   }));
 
   return (

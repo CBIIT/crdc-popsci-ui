@@ -1,17 +1,21 @@
 import React from 'react';
-import { useQuery } from '@apollo/client';
+// import { useQuery } from '@apollo/client';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import LandingView from './landingView';
 import { Typography } from '../../components/Wrappers/Wrappers';
-import { GET_LANDING_PAGE_DATA_QUERY } from '../../bento/landingPageData';
+// import { GET_LANDING_PAGE_DATA_QUERY } from '../../bento/landingPageData';
 
 const landingController = () => {
-  const isSignedIn = useSelector((state) => state.login.isSignedIn);
+  const { loading, error, data } = {loading: false, error: false, data: []}
+/*
+  // const isSignedIn = useSelector((state) => state.login.isSignedIn);
   const { loading, error, data } = useQuery(GET_LANDING_PAGE_DATA_QUERY, {
-    context: { clientName: isSignedIn ? '' : 'publicService' },
+    // context: { clientName: isSignedIn ? '' : 'publicService' },
+    context: { clientName: 'publicService' },
     fetchPolicy: 'no-cache',
   });
+  */
 
   if (loading) return <CircularProgress />;
   if (error) {

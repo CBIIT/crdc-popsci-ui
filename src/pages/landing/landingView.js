@@ -4,7 +4,7 @@ import {
   withStyles,
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import StatsView from './components/statsView';
+// import StatsView from './components/statsView';
 import { Button } from '../../components/Wrappers/Wrappers';
 import { landingPageData } from '../../bento/landingPageData';
 import icon from '../../assets/landing/LP_ReadMore.svg';
@@ -14,30 +14,36 @@ const LandingView = ({ classes, statsData }) => (
   <div className={classes.page}>
     <div className={classes.container}>
       <div className={classes.hero}>
-        <Grid container spacing={16} direction="row">
-          <div className={classes.heroImage} />
-          <div className={classes.heroTextContainer}>
+        <Grid container direction="row" justifyContent='center' alignItems='flex-start' className={classes.heroImage}>
+          <Grid item className={classes.popPieChartImage}>
+          </Grid>
+          <Grid item xs={4} className={classes.heroTextContainer}>
             <div className={classes.heroTextWrapper}>
               <div className={classes.headerTitle}>
-                { landingPageData.callToActionTitle }
+                { landingPageData.callToActionTitle } <br/> {landingPageData.callToActionTitle2}
               </div>
               <div className={classes.headerContent}>
                 { landingPageData.callToActionDescription}
               </div>
               <div className={classes.headerButtonSection}>
                 <Link to={landingPageData.callToActionLink} className={classes.headerLink}>
-                  <Button className={classes.buttonText} bgColor="neonBlue" color="white">
+                  <Button className={classes.buttonText}>
                     {landingPageData.callToActionButtonText}
+                    <img
+                      src={landingPageData.callToActionButtonIcon.img}
+                      alt={landingPageData.callToActionButtonIcon.alt}
+                      className={classes.searchCaseArrow}
+                    />
                   </Button>
                 </Link>
               </div>
             </div>
-          </div>
+          </Grid>
         </Grid>
       </div>
     </div>
-    <div className={classes.whiteSection} />
-    <StatsView stats={landingPageData.landingPageStatsBar} statsData={statsData} />
+    {/*<div className={classes.whiteSection} /> */}
+    {/*<StatsView stats={landingPageData.landingPageStatsBar} statsData={statsData} /> */}
     <div className={classes.container}>
       <div className={classes.texture}>
         <Grid container spacing={16} direction="row" className={classes.landingContainer}>
@@ -52,19 +58,23 @@ const LandingView = ({ classes, statsData }) => (
                 />
               </div>
               <div className={classes.DCWords} id="tile1_title">
-                {landingPageData.tile1.titleText.match(/\b(\w+)\b/g).map((word) => (
+                {/* // TODO:- Create new function
+                landingPageData.tile1.titleText.match(/\b(\w+)\b/g).map((word) => (
                   <>
                     {word}
                     <br />
                   </>
-                ))}
+                ))*/}
+                About <br/>
+                Population Science <br />
+                Data Common <br/>
               </div>
               <div className={classes.aboutContent} id="tile1_description">
                 {landingPageData.tile1.descriptionText}
               </div>
               <div className={classes.aboutButtonSection}>
                 <div className={classes.aboutButtonLeft}>
-                  <img src={iconAbout} className={classes.iconAbout} alt="CTDC about icon" />
+                  <img src={iconAbout} className={classes.iconAbout} alt="PopSci about icon" />
                 </div>
                 <div className={classes.aboutButtonRight} id="tile1_button">
                   <Link
@@ -117,7 +127,7 @@ const LandingView = ({ classes, statsData }) => (
                   <img
                     className={classes.image}
                     src={landingPageData.tile3.img}
-                    alt={landingPageData.tile3.alt}
+                    alt={landingPageData.tile3.src}
                     id="tile3_image"
                   />
                 </div>
@@ -179,25 +189,34 @@ const LandingView = ({ classes, statsData }) => (
   </div>
 );
 const styles = () => ({
+  popPieChartImage: {
+    width: '529px',
+    height: '668px',
+    maxHeight: '668px',
+    background: `url(${landingPageData.landingPagePeoplePieChart.img})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: '100% 100%',
+    overflow: 'hidden',
+  },
   page: {
-    marginTop: '-53px',
+    marginTop: '-47px',
   },
   heroImage: {
     width: '100%',
-    height: '420px',
+    maxHeight: '668px',
     backgroundRepeat: 'no-repeat',
     backgroundSize: '100% 100%',
     backgroundImage: `url(${landingPageData.landingPageHero.img})`,
+    margin: '0 auto',
   },
   texture: {
     backgroundSize: 'cover',
-    background: '#CAE6FC',
-    padding: '120px 0 80px 0',
+    background: '#804098',
+    padding: '81px 0 80px 0',
   },
   container: {
     fontFamily: 'Raleway, sans-serif',
     margin: '0 auto',
-
   },
 
   whiteSection: {
@@ -217,25 +236,25 @@ const styles = () => ({
     letterSpacing: '0.8px',
   },
   headerTitle: {
-    paddingTop: '94px',
-    fontFamily: 'Inter, Raleway, sans-serif',
-    fontSize: '38px',
+    paddingTop: '157px',
+    fontFamily: 'Poppins, Raleway, sans-serif',
+    fontSize: '45px',
     fontWeight: '600',
-    lineHeight: '35px',
-    color: '#0077E3',
-    letterSpacing: '-0px',
+    lineHeight: '115%',
+    color: '#24415C',
+    letterSpacing: '-0.02em',
   },
   paddingLeft50: {
     paddingLeft: '50px',
   },
   headerContent: {
-    color: '#000000',
-    fontFamily: 'Lato, Raleway',
+    color: '#F15A2A',
+    fontFamily: 'Open Sans, Raleway',
     fontSize: '16px',
-    fontWeight: '500',
-    lineHeight: '27px',
-    marginTop: '16px',
-    marginBottom: '26px',
+    fontWeight: '400',
+    lineHeight: '165%',
+    marginTop: '24px',
+    marginBottom: '20px',
   },
   headerLink: {
     textDecoration: 'none',
@@ -262,15 +281,16 @@ const styles = () => ({
     height: '249px',
   },
   DCWords: {
-    height: '200px',
-    background: '#274FA5',
+    height: '144px',
+    background: '#480B5E',
     color: '#FFFFFF',
-    fontSize: '28px',
-    fontWeight: 'bold',
+    fontSize: '26px',
+    fontWeight: 300,
     textTransform: 'capitalize',
-    lineHeight: '36px',
-    padding: '10px 75px 26px 26px',
-    fontFamily: 'Lato',
+    lineHeight: '27.7px',
+    letterSpacing: '-0.02em',
+    padding: '30px 23px 30px 30px',
+    fontFamily: 'Poppins',
   },
   landingContainer: {
     alignItems: 'center',
@@ -282,14 +302,14 @@ const styles = () => ({
   },
   about: {
     width: '300px',
-    backgroundColor: 'white',
+    backgroundColor: '#E0DBD3',
   },
   image: {
     width: '293px',
     height: '249px',
   },
   aboutContent: {
-    background: 'white',
+    background: '#E0DBD3',
     minHeight: '372px',
     width: '300px',
     padding: '30px 30px 32px 30px',
@@ -300,7 +320,7 @@ const styles = () => ({
     lineHeight: '22px',
   },
   aboutButtonSection: {
-    background: 'white',
+    background: '#E0DBD3',
     height: '71px',
   },
   imgIconAbout: {
@@ -308,12 +328,12 @@ const styles = () => ({
   },
   aboutButtonLeft: {
     float: 'left',
-    background: '#443CBB',
+    background: '#373332',
     height: '45px',
     width: '48px',
   },
   aboutButtonRight: {
-    background: '#7747FF',
+    background: '#6D5F5B',
     float: 'left',
     height: '45px',
     width: '132px',
@@ -332,7 +352,7 @@ const styles = () => ({
 
   content: {
     width: '100%',
-    height: '155px',
+    height: '165px',
     overflowY: 'auto',
     background: '#fff',
     paddingLeft: '30px',
@@ -363,7 +383,7 @@ const styles = () => ({
   },
   programImg: {
     background: '#fff',
-    height: '249px',
+    height: '246px',
   },
   studies: {
     float: 'left',
@@ -378,20 +398,20 @@ const styles = () => ({
     backgroundSize: 'cover',
   },
   cases: {
-    height: '436px',
+    height: '392px',
     paddingLeft: '340px',
     paddingTop: '70px',
   },
   mountainMeadowButtonSection: {
     height: '46px',
     width: '176px',
-    backgroundColor: '#0E8662',
+    backgroundColor: '#6D5F5B',
     marginTop: '20px',
 
   },
   blueButton: {
     height: '45px',
-    background: '#0074DB',
+    background: '#24415C',
     color: '#FFFFFF',
     fontFamily: 'Raleway',
     fontSize: '12px',
@@ -465,21 +485,35 @@ const styles = () => ({
     paddingLeft: '2px',
   },
   heroTextContainer: {
-    position: 'absolute',
+    // position: 'absolute',
     width: '400px',
-    margin: 'auto',
+    // margin: 'auto',
     left: '12px',
     right: 0,
     '@media (min-width: 900px)': {
       width: '906px',
     },
+    paddingLeft: '95px'
   },
   heroTextWrapper: {
-    width: '360px',
+    width: '394px',
   },
   buttonText: {
+    fontFamily: 'Raleway',
+    fontWeight: 700,
+    fontSize: '15px',
     padding: '12px 30px',
-    height: '40px',
+    height: '44px',
+    backgroundColor: '#24415C',
+    color: '#EDE5D0',
+    width: '266px',
+    borderRadius: '30px',
+    '&:hover': {
+      backgroundColor: 'grey'
+    },
+  },
+  searchCaseArrow: {
+    marginLeft: '45px'
   },
 });
 export default withStyles(styles, { withTheme: true })(LandingView);

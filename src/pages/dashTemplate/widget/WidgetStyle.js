@@ -18,7 +18,7 @@ const styles = (theme) => ({
   },
   content: {
     display: 'flex',
-    maxWidth: '1800px',
+    maxWidth: `${theme?.custom?.maxContentWidth || '1440px'}`,
     margin: 'auto',
   },
   widgetsContainer: {
@@ -56,6 +56,7 @@ const styles = (theme) => ({
   floatRight: {
     float: 'right',
     marginRight: '80px',
+    marginTop: '4px'
   },
   floatLeft: {
     float: 'left',
@@ -64,6 +65,7 @@ const styles = (theme) => ({
     marginTop: '-6px',
   },
   customButton: {
+    display: 'none',
     borderRadius: '0 0 18px 18px',
     minHeight: '20px',
     fontSize: 8,
@@ -79,6 +81,9 @@ const styles = (theme) => ({
   },
   backgroundWidgets: {
     background: theme.palette.widgetBackground.main,
+    margin: '30px 0px 10px 0',
+    border: '0.5px solid #B4B4B4',
+    padding: '10px 20px 50px 20px',
   },
   sideBar: {
     width: '250px',
@@ -92,6 +97,9 @@ const styles = (theme) => ({
   statsBar: {
     position: 'fixed',
   },
+  switchRoot:{
+    display: 'none',
+  },
   switchBase: {
     color: theme.palette.widgetBackground.contrastText,
     '&$checked': {
@@ -103,6 +111,11 @@ const styles = (theme) => ({
   },
   checked: {},
   track: {},
+  title: {
+    maxWidth: '200px',
+    textAlign: 'center',
+    margin: '0 auto',
+  }
 });
 
 export default styles;
