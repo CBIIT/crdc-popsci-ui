@@ -18,9 +18,8 @@ export default (theme) => ({
     zIndex: '99',
   },
   rightContent: {
-    width: 'calc(100% - 250px)',
+    width: 'calc(100% - 275px)',
     position: 'relative',
-    borderRight: 'thin solid #B1B1B1',
-    borderLeft: 'thin solid #B1B1B1',
+    marginLeft: '25px',
   },
 });
