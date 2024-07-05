@@ -341,10 +341,10 @@ const styles = (theme) => ({
     
   },
   container: {
-    fontFamily: 'Raleway, sans-serif',
-    padding: '0px 32px 40px 32px',
-    margin: '0 auto',
-    maxWidth:`${theme?.custom?.maxContentWidth || '1440px'}`,
+    // fontFamily: 'Raleway, sans-serif',
+    // padding: '0px 32px 40px 32px',
+    // margin: '0 auto',
+    // maxWidth:`${theme?.custom?.maxContentWidth || '1440px'}`,
   },
   additionalDataLink: {
     color: '#DC762F',

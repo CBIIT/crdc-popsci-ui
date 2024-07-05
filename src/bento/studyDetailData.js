@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-
+import studyHeaderIcon from '../assets/study/studyHeaderIcon.svg'
 // --------------- Tooltip configuration --------------
 export const tooltipContent = {
   src: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/icdc/images/svgs/Tooltip.SpeechBubble.svg',
@@ -13,7 +13,7 @@ export const title = {
 
 
 
-export const headerIcon = 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/ctdc/images/svg/Icon-TrialDetail.svg';
+export const headerIcon = studyHeaderIcon;
 export const externalIcon = 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/ctdc/images/svg/ExternalLinkIcon.svg';
 
 export const tab = {
@@ -22,6 +22,36 @@ export const tab = {
       index: 0,
       label: 'OVERVIEW',
       value: 'overview',
+    },
+    {
+      index: 1,
+      label: 'Neoplasms',
+      value: 'Neoplasms',
+    },
+    {
+      index: 2,
+      label: 'Demographics',
+      value: 'Demographics',
+    },
+    {
+      index: 3,
+      label: 'Data Collected',
+      value: 'Data Collected',
+    },
+    {
+      index: 4,
+      label: 'Countries and States',
+      value: 'Countries and States',
+    },
+    {
+      index: 5,
+      label: 'Publications',
+      value: 'Publications',
+    },
+    {
+      index: 6,
+      label: 'Study Files',
+      value: 'Study Files',
     },
   ],
 };

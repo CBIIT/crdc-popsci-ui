@@ -109,7 +109,7 @@ export default (theme) => ({
     borderTop: '1px solid #000000',
   },
   container: {
-    paddingTop: '42px',
+    paddingTop: '19px',
     fontFamily: 'Raleway, sans-serif',
     paddingLeft: '32px',
     paddingRight: '32px',
@@ -136,41 +136,53 @@ export default (theme) => ({
     background: '#f3f3f3',
   },
   header: {
-    paddingLeft: '35px',
-    paddingTop: '31px',
-    borderBottom: '#4B619A 12px solid',
-    height: '118px',
+    paddingLeft: '33px',
+    marginTop: '30px',
+    height: '80px',
     margin: 'auto',
     position: 'relative',
+    borderBottom: '2px solid #658190',
+    background: 'linear-gradient(270deg, #064667 20.89%, #225977 81.63%)',
   },
   headerTitle: {
     margin: 'auto',
     float: 'left',
-    marginLeft: '95px',
+    marginLeft: '100px',
+    display: 'flex',
+    marginTop: '19px',
   },
   headerMainTitle: {
-    fontFamily: 'Inter',
-    fontWeight: 600,
+    fontFamily: 'Poppins',
     fontSize: '26px',
-    color: '#274FA6',
-    paddingLeft: '3px',
-    lineHeight: '31px',
-    letterSpacing: '-2%',
+    fontWeight: 300,
+    lineHeight: '27.7px',
+    letterSpacing: '-0.02em',
+    borderRight: '1px solid #FFFFFF',
+
+    color: '#FFFFFF',
+    width: '260px',
+    
   },
   headerMainSubTitle: {
+    fontSize: '26px',
     fontWeight: 600,
-    paddingLeft: '8px',
+    lineHeight: '24.36px',
+    letterSpacing: '0.01em',
+
+    paddingLeft: '14px',
   },
   headerSubTitleCate: {
-    fontFamily: 'Inter',
-    fontWeight: 500,
-    fontSize: '18px',
-    color: '#274FA6',
-    paddingLeft: '3px',
-    lineHeight: '21.78px',
-    marginTop: '4px',
+  fontFamily: 'Open Sans',
+    fontSize: '15px',
+    fontWeight: 400,
+    lineHeight: '16.5px',
+    letterSpacing: '0.01em',
+    color: '#B8E0F6',
+
     minWidth: 'fit-content',
     whiteSpace: 'nowrap',
+    paddingLeft: '35px',
+    paddingTop: '6px',
   },
   lowLetterSpace: {
     color: '#606061',
@@ -185,9 +197,6 @@ export default (theme) => ({
     letterSpacing: '0.01em',
     marginBottom: '-9px',
   },
-  breadCrumb: {
-    marginLeft: '-3px',
-  },
   borderRight: {
     borderRight: '#81a6b9 1px solid',
   },
@@ -200,47 +209,33 @@ export default (theme) => ({
     fontSize: '14pt',
   },
 
-  headerButton: {
-    fontFamily: theme.custom.fontFamilySans,
-    // border: '3px solid #81a6b9',
-    marginTop: '10px',
+  numOfparticipants: { ////////////////////////////////// *******
+    fontFamily: 'Open Sans',
+    weight: 600,
+    fontSize: '16px',
+    lineHeight: '19.2px',
+    border: '1px solid #71C3C9',
+    borderRadius: '50px',
+
+    margin: '20px 37.22px 20px 0px',
+    padding: '8px 15px',
+    width: '275px',
+    height: '35px',
     float: 'right',
-    width: '254px',
-    height: '47px',
     textAlign: 'center',
-    background: '#E7E5E5',
-    paddingTop: '14px',
-    paddingBottom: '10px',
-    paddingLeft: '15px', 
-    paddingRight: '15px',
-    // padding: '12px, 15px, 10px, 15px',
   },
-  headerButtonLinkSpan: {
-    display: 'inherit',
-    height: '15px',
-    marginTop: '-2px',
+  numOfparticipantsText: { ////////////////////////////////// *******
+    color: '#AEFAFF',
   },
-  headerButtonLinkText: {
-    fontFamily: theme.custom.fontFamilyRaleway,
-    fontWeight: 600,
-    color: '#666666',
-    fontSize: '16px',
-  },
-  headerButtonLinkNumber: {
-    fontFamily: theme.custom.fontFamilyInter,
-    fontSize: '16px',
-    fontWeight: 600,
-    paddingBottom: '2px',
-    margin: '0',
-    display: 'inherit',
-    marginRight: '10px',
-    borderBottom: '3px solid #990099'
+  numOfparticipantsCount: { ////////////////////////////////// *******
+    color: '#FFFFFF',
+    lineHeight: '17.6px',
+    letterSpacing: '-0.02em',
   },
   logo: {
     float: 'left',
-    width: '94px',
-    marginTop:'-75px',
-    marginLeft: '-68px',
+    width: '81px',
+    marginTop:'-10px',
     position: 'absolute',
   },
   detailContainer: {
@@ -254,8 +249,9 @@ export default (theme) => ({
     size: '12px',
     lineHeight: '23px',
     maxWidth: `${theme?.custom?.maxContentWidth || '1440px'}`,
+    // borderBottom: '2px solid black',
   },
-  headerButtonLink: {
+  headerButtonLink: { ////////////////////////////////// *******
     textDecoration: 'none',
     lineHeight: '14px',
     fontSize: '12px',
@@ -290,6 +286,7 @@ export default (theme) => ({
     fontWeight: '600',
     textTransform: 'uppercase',
   },
+  // Smaller View
   '@media (max-width: 740px)': {
     headerTitle: {
       position: 'absolute',
