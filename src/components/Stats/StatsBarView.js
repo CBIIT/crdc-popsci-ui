@@ -139,6 +139,12 @@ const styles = () => ({
     display: 'flex',
     justifyContent: 'flex-end',
   }),
+  shadow: {
+    width: '100%',
+    height: '10px',
+    background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0))',
+    position: 'absolute',
+  },
   box: (props) => ({
     display: 'inline-flex',
     // height: props.styles.global.height ? props.styles.global.height : '47px',
@@ -164,7 +170,7 @@ const styles = () => ({
       ? props.styles.statTitle.fontWeight ? props.styles.statTitle.fontWeight : 500 : 500,
     margin: props.styles.statTitle ? typeof props.styles.statTitle.margin !== 'undefined' ? props.styles.statTitle.margin : '6px 0px 0px 15px' : '6px 0px 0px 15px',
     textTransform: props.styles.statTitle ? props.styles.statTitle.textTransform ? props.styles.statTitle.textTransform : 'uppercase' : 'uppercase',
-    width: props.styles.statTitle ? props.styles.statTitle.width ? props.styles.statTitle.width : '90px' : '90px',
+    width: props.styles.statTitle ? props.styles.statTitle.width ? props.styles.statTitle.width : '150px' : '150px',
     textAlign: 'left',
     ...props.styles.statTitle,
   }),
@@ -195,6 +201,9 @@ const styles = () => ({
     margin: props.styles.statsGroup ? props.styles.statsGroup.margin ? props.styles.statsGroup.margin : '4px 0px' : '4px 0px',
     padding: props.styles.statsGroup ? props.styles.statsGroup.padding ? props.styles.statsGroup.padding : '4px 40px 10px 60px' : '4px 40px 10px 60px',
     borderRight: props.styles.statsGroup ? props.styles.statsGroup.borderRight ? props.styles.statsGroup.borderRight : '4px solid #0B3556' : '4px solid #0B3556',
+    '&:last-child': {
+      borderRight: 'none'
+    },
     ...props.styles.statsGroup,
   }),
   statsIcon: (props) => ({

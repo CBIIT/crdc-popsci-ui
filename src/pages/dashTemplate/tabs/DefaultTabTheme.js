@@ -1,23 +1,25 @@
 export const customTheme = {
   MuiTabs: {
     root: {
-      borderBottom: '10px solid #41789D',
+       width:'100%',
+      borderBottom: '3px solid #71767A',
     },
   },
   MuiTab: {
     root: {
       marginTop: '15px',
-      color: '#6B6B6B',
+      color: '#000000',
       height: '45px',
       overflow: 'hidden',
-      background: '#EAEAEA',
-      borderTop: '1px solid black',
+      background: '#F4F4F4',
+      borderTop: '6px solid #8A7F7C',
       borderLeft: '1px solid black',
       borderRight: '1px solid black',
       fontWeight: '500',
       lineHeight: '24px',
       letterSpacing: '0.25px',
       marginRight: '10px',
+      marginLeft: '10px',
       fontSize: '20px',
       width: '250px',
       textTransform: 'none',

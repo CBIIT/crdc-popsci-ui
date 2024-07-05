@@ -1,9 +1,8 @@
 import { sortType, InputTypes } from '@bento-core/facet-filter';
 import { DEFAULT_VALUE } from './siteWideConfig';
 
-const CASES = 'Filter by Participants';
-const SAMPLES = 'Filter by Biospecimens';
-const FILES = 'Filter by Data Files';
+const Studies = 'Studies';
+const Participants = 'Participants';
 const GROUP = 'group';
 
 // --------------- Facet resetIcon link configuration --------------
@@ -16,22 +15,19 @@ export const resetIcon = {
 
 // --------------- Dashboard Sidebar Sections styling --------------
 export const facetSectionVariables = {
-  'Filter by Participants': {
+  'Studies': {
     isExpanded: true,
     hasSearch: false,
     hasArrowDropDownIcon: true,
   },
-  'Filter by Biospecimens': {
-    isExpanded: true,
-  },
-  'Filter by Data Files': {
+  'Participants': {
     isExpanded: true,
   },
 };
 
 export const facetsConfig = [
   {
-    section: CASES,
+    section: Studies,
     label: 'Diagnosis',
     apiPath: 'participantCountByCtepDiseaseTerm',
     apiForFiltering: 'filterParticipantCountByCtepDiseaseTerm',
@@ -46,7 +42,7 @@ export const facetsConfig = [
     defaultValue: DEFAULT_VALUE,
   },
   {
-    section: CASES,
+    section: Studies,
     label: 'Disease Stage',
     apiPath: 'participantCountByStageOfDisease',
     apiForFiltering: 'filterParticipantCountByStageOfDisease',
@@ -58,7 +54,7 @@ export const facetsConfig = [
     defaultValue: DEFAULT_VALUE,
   },
   {
-    section: CASES,
+    section: Studies,
     label: 'Tumor Grade',
     apiPath: 'participantCountByTumorGrade',
     apiForFiltering: 'filterParticipantCountByTumorGrade',
@@ -70,7 +66,7 @@ export const facetsConfig = [
     defaultValue: DEFAULT_VALUE,
   },
   {
-    section: CASES,
+    section: Studies,
     label: 'Sex',
     apiPath: 'participantCountBySex',
     apiForFiltering: 'filterParticipantCountBySex',
@@ -82,7 +78,7 @@ export const facetsConfig = [
     defaultValue: DEFAULT_VALUE,
   },
   {
-    section: CASES,
+    section: Studies,
     label: 'Gender',
     apiPath: 'participantCountByReportedGender',
     apiForFiltering: 'filterParticipantCountByReportedGender',
@@ -94,7 +90,7 @@ export const facetsConfig = [
     defaultValue: DEFAULT_VALUE,
   },
   {
-    section: CASES,
+    section: Studies,
     label: 'Race',
     apiPath: 'participantCountByRace',
     apiForFiltering: 'filterParticipantCountByRace',
@@ -106,7 +102,7 @@ export const facetsConfig = [
     defaultValue: DEFAULT_VALUE,
   },
   {
-    section: CASES,
+    section: Studies,
     label: 'Ethnicity',
     apiPath: 'participantCountByEthnicity',
     apiForFiltering: 'filterParticipantCountByEthnicity',
@@ -118,7 +114,7 @@ export const facetsConfig = [
     defaultValue: DEFAULT_VALUE,
   },
   {
-    section: CASES,
+    section: Studies,
     label: 'Carcinogen Exposure',
     apiPath: 'participantCountByCarcinogenExposure',
     apiForFiltering: 'filterParticipantCountByCarcinogenExposure',
@@ -130,7 +126,7 @@ export const facetsConfig = [
     defaultValue: DEFAULT_VALUE,
   },
   {
-    section: CASES,
+    section: Studies,
     label: 'Targeted Therapy',
     apiPath: 'participantCountByTargetedTherapy',
     apiForFiltering: 'filterParticipantCountByTargetedTherapy',
@@ -142,7 +138,7 @@ export const facetsConfig = [
     defaultValue: DEFAULT_VALUE,
   },
   {
-    section: SAMPLES,
+    section: Participants,
     label: 'Anatomical Collection Site',
     apiPath: 'specimenCountByAnatomicalCollectionSite',
     apiForFiltering: 'filterSpecimenCountByAnatomicalCollectionSite',
@@ -154,7 +150,7 @@ export const facetsConfig = [
     defaultValue: DEFAULT_VALUE,
   },
   {
-    section: SAMPLES,
+    section: Participants,
     label: 'Tissue Category',
     apiPath: 'specimenCountByTissueCategory',
     apiForFiltering: 'filterSpecimenCountByTissueCategory',
@@ -166,7 +162,7 @@ export const facetsConfig = [
     defaultValue: DEFAULT_VALUE,
   },
   {
-    section: SAMPLES,
+    section: Participants,
     label: 'Collection Timepoint',
     apiPath: 'participantCountByAssessmentTimepoint',
     apiForFiltering: 'filterParticipantCountByAssessmentTimepoint',
@@ -176,31 +172,7 @@ export const facetsConfig = [
     sort_type: sortType.ALPHABET,
     show: true,
     defaultValue: DEFAULT_VALUE,
-  },
-  {
-    section: FILES,
-    label: 'File Type',
-    apiPath: 'dataFileCountByDataFileType',
-    apiForFiltering: 'filterDataFileCountByDataFileType',
-    datafield: 'data_file_type',
-    field: GROUP,
-    type: InputTypes.CHECKBOX,
-    sort_type: sortType.ALPHABET,
-    show: true,
-    defaultValue: DEFAULT_VALUE,
-  },
-  {
-    section: FILES,
-    label: 'File Format',
-    apiPath: 'dataFileCountByDataFileFormat',
-    apiForFiltering: 'filterDataFileCountByDataFileFormat',
-    datafield: 'data_file_format',
-    field: GROUP,
-    type: InputTypes.CHECKBOX,
-    sort_type: sortType.ALPHABET,
-    show: true,
-    defaultValue: DEFAULT_VALUE,
-  },
+  }
 ];
 
 // --------------- Dashboard Widgets configuration --------------
@@ -238,47 +210,14 @@ export const SUNBURST_COLORS_LEVEL_2 = [
 // datatable_level2_colors: string[]
 // sliceTitle: string (optional)
 export const widgetConfig = [
-  {
-    type: 'sunburst',
-    title: 'Diagnosis and Stage of Disease',
-    sliceTitle: "Participants",
-    dataName: 'diagnosesAndStageOfDiseases', 
-    datatable_level1_field: 'program', // Inner Ring
-    datatable_level1_colors: SUNBURST_COLORS_LEVEL_1,
-    datatable_level2_field: 'arm', // Outer Ring
-    datatable_level2_colors: SUNBURST_COLORS_LEVEL_2,
-    resetSunburstOnMouseOut: true, // Reset emphasis on mouse out
-  },
+
   {
     type: 'donut',
     title: 'Sex',
     sliceTitle: "Participants",
     dataName: 'participantCountBySex',
   },
-  /* Covert "Sex and Gender" sunburst to Sex donut above, preserving this for future implementation.
-    {
-      type: 'sunburst',
-      title: 'Sex and Gender',
-      sliceTitle: "Participants",
-      dataName: 'sexesAndGenders',
-      datatable_level1_field: 'program', // Inner Ring
-      datatable_level1_colors: SUNBURST_COLORS_LEVEL_1,
-      datatable_level2_field: 'arm', // Outer Ring
-      datatable_level2_colors: SUNBURST_COLORS_LEVEL_2,
-      resetSunburstOnMouseOut: true, // Reset emphasis on mouse out
-    },
-  */
-  {
-    type: 'sunburst',
-    title: 'Race and Ethnicity',
-    sliceTitle: "Participants",
-    dataName: 'racesAndEthnicities',
-    datatable_level1_field: 'program',
-    datatable_level1_colors: SUNBURST_COLORS_LEVEL_1,
-    datatable_level2_field: 'arm',
-    datatable_level2_colors: SUNBURST_COLORS_LEVEL_2,
-    resetSunburstOnMouseOut: true, // Reset emphasis on mouse out
-  },
+ 
   {
     type: 'donut',
     title: 'Targeted Therapy',
@@ -286,20 +225,9 @@ export const widgetConfig = [
     dataName: 'participantCountByTargetedTherapy',
   },
   {
-    type: 'sunburst',
-    title: 'Biospecimens & Timepoints',
-    sliceTitle: "Biospecimens",
-    dataName: 'timepointsAndBiospecimensTypes',
-    datatable_level1_field: 'program',
-    datatable_level1_colors: SUNBURST_COLORS_LEVEL_1,
-    datatable_level2_field: 'arm',
-    datatable_level2_colors: SUNBURST_COLORS_LEVEL_2,
-    resetSunburstOnMouseOut: true, // Reset emphasis on mouse out
-  },
-  {
     type: 'donut',
     title: 'Files',
     sliceTitle: "Files",
     dataName: 'dataFileCountByDataFileType',
-  },
+  }
 ];
