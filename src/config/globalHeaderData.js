@@ -31,7 +31,7 @@ export const navMobileList = [
   },
   {
     name: 'Study',
-    link: '/study/NCT04314401',
+    link: '/study/NCT01696968',
     id: 'navbar-link-study',
     className: 'navMobileItem',
   },

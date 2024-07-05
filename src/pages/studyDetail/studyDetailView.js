@@ -149,20 +149,33 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
         {
           processedTabs.map((processedTab, index) => {
             switch (processedTab.label) {
-              case 'OVERVIEW': return (
-                <TabPanel value={currentTab} index={index}>
-                  <Overview data={data} />
-                </TabPanel>
-              );
+              // case 'OVERVIEW': return (
+              //   <TabPanel value={currentTab} index={index}>
+              //     <Overview data={data} />
+              //   </TabPanel>
+              // );
 
-              case 'ADDITIONAL DETAILS': return (
-                <TabPanel value={currentTab} index={index}>
-                  <p>ADDITIONAL DETAILS</p>
-                </TabPanel>
-              );
+              // case 'ADDITIONAL DETAILS': return (
+              //   <TabPanel value={currentTab} index={index}>
+              //     <p>ADDITIONAL DETAILS</p>
+              //   </TabPanel>
+              // );
             
               default:
-                return null;
+                return (
+                  <TabPanel value={currentTab} index={index}>
+                    
+                    <Grid
+                      container
+                      direction="row"
+                      justifyContent="center"
+                      alignItems="center"
+                      style={{height: '400px'}}
+                    >
+                    <p style={{margin: 'auto'}}>Under construction ... </p>
+                    </Grid>
+                  </TabPanel>
+                )
             }
           })
         }
