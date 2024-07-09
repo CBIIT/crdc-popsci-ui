@@ -249,7 +249,6 @@ export default (theme) => ({
     size: '12px',
     lineHeight: '23px',
     maxWidth: `${theme?.custom?.maxContentWidth || '1440px'}`,
-    // borderBottom: '2px solid black',
   },
   headerButtonLink: { ////////////////////////////////// *******
     textDecoration: 'none',
