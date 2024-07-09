@@ -7,8 +7,6 @@ import {
 import styles from './TabStyle';
 import { themeConfig } from './tableConfig/Theme';
 import { configColumn } from './tableConfig/Column';
-import { configWrapper, wrapperConfig } from './wrapperConfig/Wrapper';
-import { customTheme } from './wrapperConfig/Theme';
 
 const TabView = (props) => {
   /**
@@ -20,7 +18,6 @@ const TabView = (props) => {
     config,
     dashboardStats,
     activeFilters,
-    classes,
     activeTab,
   } = props;
   /*

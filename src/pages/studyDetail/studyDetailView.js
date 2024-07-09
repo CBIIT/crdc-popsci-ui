@@ -5,9 +5,6 @@ import {
   Typography,
   CircularProgress,
 } from '@material-ui/core';
-import { Link } from 'react-router-dom';
-import { clearAllFilters } from '@bento-core/facet-filter';
-
 import Snackbar from '../../components/Snackbar';
 import Stats from '../../components/Stats/AllStatsController';
 import {
@@ -18,8 +15,6 @@ import Tab from '../../components/Tab/Tab';
 import TabPanel from '../../components/Tab/TabPanel';
 import Styles from './studyDetailsStyle';
 import StudyThemeProvider from './studyDetailsThemeConfig';
-import Overview from './views/overview/overview';
-import store from '../../store';
 import CustomBreadcrumb from '../../components/Breadcrumb/BreadcrumbView';
 
 
@@ -74,10 +69,7 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
     );
   }
 
-  const linkToDashboard = () => {
-    // TODO: Once local-find is enabled; dispatch(resetAllData()) from bento-core/local-find to RESET_LOCALFIND_ALL_DATA
-    store.dispatch(clearAllFilters());
-  };
+
   const breadCrumbJson = [{
     name: 'Studies',
     to: '/explore',
