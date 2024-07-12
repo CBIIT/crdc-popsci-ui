@@ -1,25 +1,19 @@
 import React from 'react';
 import {
-  Grid,
   withStyles,
   Typography,
   CircularProgress,
 } from '@material-ui/core';
-import { Link } from 'react-router-dom';
-import { clearAllFilters } from '@bento-core/facet-filter';
 
 import Snackbar from '../../components/Snackbar';
 import Stats from '../../components/Stats/AllStatsController';
 import {
   headerIcon,
-  tab,
 } from '../../bento/studyDetailData';
 import Tab from '../../components/Tab/Tab';
-import TabPanel from '../../components/Tab/TabPanel';
 import Styles from './studyDetailsStyle';
 import StudyThemeProvider from './studyDetailsThemeConfig';
 import Overview from './views/overview';
-import store from '../../store';
 import CustomBreadcrumb from '../../components/Breadcrumb/BreadcrumbView';
 import TabContentWrapper from './TabContentWrapper';
 
@@ -39,26 +33,26 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
     biospecimens_collected, // was biospecimen_collection
     study_status,
     dbGap_id, // was dbgap_accession_id
-    associated_links,
     number_of_participants ,
-    max_age,
-    medium_age,
-    min_age,
-    study_race,
-    study_ethnicity,
-    study_sex,
-    study_gender,
-    country_list,
-    country_count,
-    state_list,
-    state_count,
-    primary_diagnosis_disease_term,
-    primary_diagnosis_disease_count,
+    // associated_links,
+    // max_age,
+    // medium_age,
+    // min_age,
+    // study_race,
+    // study_ethnicity,
+    // study_sex,
+    // study_gender,
+    // country_list,
+    // country_count,
+    // state_list,
+    // state_count,
+    // primary_diagnosis_disease_term,
+    // primary_diagnosis_disease_count,
 
-    study_personal, // [study_personal]
-    study_publication, // [study_publication]
-    study_files, // [study_files]
-    study_links, // [study_links]
+    // study_personal, // [study_personal]
+    // study_publication, // [study_publication]
+    // study_files, // [study_files]
+    // study_links, // [study_links]
     
   } = data?.studyGeneral[0]; 
 

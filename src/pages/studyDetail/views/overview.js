@@ -4,7 +4,7 @@ import {
   withStyles,
 } from '@material-ui/core';
 import OverviewThemeProvider from '../views/overview/overviewThemeConfig';
-import { externalIcon } from '../../../bento/studyDetailData';
+// import { externalIcon } from '../../../bento/studyDetailData';
 import { cn } from 'bento-components';
 
 
@@ -12,7 +12,7 @@ const Overview = ({
   classes,
   data,
 }) => {
-
+/*
   const ExternalLinkIcon = () => {
     return (
       <img 
@@ -30,7 +30,7 @@ const Overview = ({
     if(a > b) { val = 1; }
     return val;
   }
-
+*/
   return (
     <OverviewThemeProvider>
       <div className={classes.detailContainer}>
