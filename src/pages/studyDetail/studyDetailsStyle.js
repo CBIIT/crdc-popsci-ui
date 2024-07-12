@@ -72,7 +72,6 @@ export default (theme) => ({
 
     margin: '20px 37.22px 20px 0px',
     padding: '8px 15px',
-    width: '275px',
     height: '35px',
     float: 'right',
     textAlign: 'center',

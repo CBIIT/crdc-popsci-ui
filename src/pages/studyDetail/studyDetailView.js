@@ -12,7 +12,7 @@ import {
 import Tab from '../../components/Tab/Tab';
 import Styles from './studyDetailsStyle';
 import StudyThemeProvider from './studyDetailsThemeConfig';
-import Overview from './views/overview';
+import Overview from './views/overview/overview';
 import CustomBreadcrumb from '../../components/Breadcrumb/BreadcrumbView';
 import TabContentWrapper from './TabContentWrapper';
 

@@ -3,7 +3,7 @@ import {
   Grid,
   withStyles,
 } from '@material-ui/core';
-import OverviewThemeProvider from '../views/overview/overviewThemeConfig';
+import OverviewThemeProvider from './overviewThemeConfig';
 // import { externalIcon } from '../../../bento/studyDetailData';
 import { cn } from 'bento-components';
 
