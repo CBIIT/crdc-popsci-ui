@@ -4,7 +4,6 @@ import {
   Typography,
   CircularProgress,
 } from '@material-ui/core';
-
 import Snackbar from '../../components/Snackbar';
 import Stats from '../../components/Stats/AllStatsController';
 import {

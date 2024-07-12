@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { connect } from 'react-redux';
 import { useGoogleLogin } from 'react-use-googlelogin';
-import { useLazyQuery } from '@apollo/client';
 import { signInRed, signOutRed } from '../store/actions/Actions';
 import DEFAULT_CONFIG from './config';
 
@@ -65,10 +64,6 @@ export const AuthProviderGenerator = (uiConfig = DEFAULT_CONFIG) => {
     ? config.AUTH_URL
     : DEFAULT_CONFIG.config.AUTH_URL;
 
-  const GET_USER_DETAILS = config && typeof config.GET_USER_DETAILS === 'string'
-    ? config.GET_USER_DETAILS
-    : DEFAULT_CONFIG.config.GET_USER_DETAILS;
-
   const stateProps = () => ({
     // autocomplete: state.login.autocomplete,
   });
@@ -88,13 +83,10 @@ export const AuthProviderGenerator = (uiConfig = DEFAULT_CONFIG) => {
         googleUser,
         isInitialized,
         grantOfflineAccess,
-        googleSignOut: googleSignOut,
         isSignedIn,
       } = useGoogleLogin({
         clientId: GOOGLE_CLIENT_ID,
       });
-
-      const [getUserDetails] = useLazyQuery(GET_USER_DETAILS, { context: { clientName: 'userService' }, fetchPolicy: 'no-cache' });
 
       const originDomain = window.location.origin;
 

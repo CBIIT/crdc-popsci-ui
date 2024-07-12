@@ -64,23 +64,11 @@ export const multiStudyData = {
 // --------------- Tabs Header Style configuration --------------
 export const tabIndex = [
   {
-    title: 'Cases',
+    title: 'Studies',
     primaryColor: '#D6F2EA',
     secondaryColor: '#FFDFB8',
     selectedColor: '#10A075',
-  },
-  {
-    title: 'Samples',
-    primaryColor: '#CFEDF9',
-    secondaryColor: '#C9F1F1',
-    selectedColor: '#0DAFEC',
-  },
-  {
-    title: 'Files',
-    primaryColor: '#F7D7F7',
-    secondaryColor: '#86D6F0',
-    selectedColor: '#C92EC7',
-  },
+  }
 ];
 
 // Main Query used to populate Facet, Widget components
@@ -1648,7 +1636,7 @@ export const GET_FILE_IDS_FROM_FILE_NAME = gql`
 // --------------- Tabs Table configuration --------------
 export const tabContainers = [
   {
-    name: 'Participants',
+    name: 'Studies',
     dataField: 'participant_data_files',
     api: GET_PARTICIPANTS_OVERVIEW_QUERY,
     paginationAPIField: 'participantOverview',
@@ -1671,11 +1659,6 @@ export const tabContainers = [
       },
     },
     columns: [
-      {
-        cellType: cellTypes.CHECKBOX,
-        display: true,
-        role: cellTypes.CHECKBOX,
-      },
       {
         dataField: 'subject_id',
         header: 'Participant ID',
@@ -1777,300 +1760,7 @@ export const tabContainers = [
     addAllFilesResponseKeys: ['participant_data_files', 'data_file_uuid'],
     addAllFileQuery: GET_ALL_FILEIDS_FROM_PARTICIPANTS_TAB_FOR_ADD_ALL_CART,
     addSelectedFilesQuery: GET_ALL_FILEIDS_PARTICIPANTS_TAB_FOR_SELECT_ALL,
-  },
-  {
-    name: 'Biospecimens',
-    dataField: 'dataSample',
-    api: GET_BIOSPECIMENS_OVERVIEW_QUERY,
-    count: 'numberOfSpecimens',
-    paginationAPIField: 'biospecimenOverview',
-    dataKey: 'parent_specimen_id',
-    defaultSortField: 'parent_specimen_id',
-    defaultSortDirection: 'asc',
-    tableID: 'biospecimens_tab_table',
-    addAllButtonText: 'ADD FILES FOR ALL BIOSPECIMENS',
-    buttonText: 'ADD FILES FOR SELECTED BIOSPECIMENS',
-    extendedViewConfig: {
-      pagination: true,
-      manageViewColumns: {
-        title: "View Columns"
-      },
-      download: {
-        downloadCsv: "Download Table Contents As CSV",
-        downloadFileName: "CTDC_Biospecimens_download",
-      },
-    },
-    saveButtonDefaultStyle: {
-      color: '#fff',
-      backgroundColor: '#00AEEF',
-      opacity: '1',
-      border: '0px',
-      cursor: 'pointer',
-    },
-    DeactiveSaveButtonDefaultStyle: {
-      opacity: '0.3',
-      cursor: 'auto',
-    },
-    ActiveSaveButtonDefaultStyle: {
-      cursor: 'pointer',
-      opacity: 'unset',
-      border: 'unset',
-    },
-
-    columns: [
-      {
-        cellType: cellTypes.CHECKBOX,
-        display: true,
-        role: cellTypes.CHECKBOX,
-      },
-      {
-        dataField: 'subject_id',
-        header: 'Participant ID',
-        display: true,
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-        headerType: headerTypes.CUSTOM_ELEM,
-      },
-      {
-        dataField: 'ctep_disease_term',
-        header: 'Diagnosis',
-        display: true,
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'stage_of_disease',
-        header: 'Stage of Disease',
-        display: true,
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-        headerType: headerTypes.CUSTOM_ELEM,
-      },
-      {
-        dataField: 'primary_disease_site',
-        header: 'Primary Site',
-        display: true,
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-        headerType: headerTypes.CUSTOM_ELEM
-      },
-      // Hidden: Using parent_specimen_id instead
-      {
-        dataField: 'specimen_id',
-        header: 'Biospecimen ID',
-        display: false,
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-        headerType: headerTypes.CUSTOM_ELEM,
-      },
-      {
-        dataField: 'parent_specimen_id',
-        header: 'Parent Biospecimen ID',
-        display: true,
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-        headerType: headerTypes.CUSTOM_ELEM,
-      },
-      {
-        dataField: 'anatomical_collection_site',
-        header: 'Anatomical Collection Site',
-        display: true,
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-        headerType: headerTypes.CUSTOM_ELEM,
-      },
-      {
-        dataField: 'tissue_category',
-        header: 'Tissue Category',
-        display: true,
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-        headerType: headerTypes.CUSTOM_ELEM,
-      },
-      {
-        dataField: 'assessment_timepoint',
-        header: 'Collection Timepoint',
-        display: true,
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-        headerType: headerTypes.CUSTOM_ELEM,
-      },
-    ],
-    id: 'biospecimens_tab',
-    tableID: 'biospecimens_tab_table',
-    tabIndex: '1',
-    // tableDownloadCSV: customSamplesTabDownloadCSV,
-    // downloadFileName: 'Bento_Dashboard_cases_download',
-    tableMsg: {
-      noMatch: 'No Matching Records Found',
-    },
-    addFilesRequestVariableKey: 'parent_specimen_id',
-
-    addFilesResponseKeys: ['biospecimen_data_files', 'data_file_uuid'],
-    addSelectedFilesQuery: GET_ALL_FILEIDS_BIOSPECIMENS_TAB_FOR_SELECT_ALL,
-
-    addAllFilesResponseKeys: ['biospecimen_data_files', 'data_file_uuid'],
-    addAllFileQuery: GET_ALL_FILEIDS_FROM_BIOSPECIMENS_TAB_FOR_ADD_ALL_CART,
-  },
-  {
-    name: 'Files',
-    dataField: 'dataFile',
-    api: GET_FILES_OVERVIEW_QUERY,
-    paginationAPIField: 'fileOverview',
-    defaultSortField: 'data_file_name',
-    defaultSortDirection: 'asc',
-    count: 'numberOfFiles',
-    dataKey: 'data_file_uuid',
-    tableID: 'file_tab_table',
-    addAllButtonText: 'ADD ALL FILES',
-    buttonText: 'ADD SELECTED FILES',
-    extendedViewConfig: {
-      pagination: true,
-      manageViewColumns: {
-        title: "View Columns"
-      },
-      download: {
-        downloadCsv: "Download Table Contents As CSV",
-        downloadFileName: "CTDC_Data_Files_download",
-      },
-    },
-    columns: [
-      {
-        cellType: cellTypes.CHECKBOX,
-        display: true,
-        role: cellTypes.CHECKBOX,
-      },
-      {
-        dataField: 'data_file_name',
-        header: 'File Name',
-        display: true,
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-        headerType: headerTypes.CUSTOM_ELEM
-      },
-      {
-        dataField: 'data_file_format',
-        header: 'Format',
-        display: true,
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'data_file_type',
-        header: 'File Type',
-        display: true,
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-        headerType: headerTypes.CUSTOM_ELEM,
-      },
-      {
-        dataField: 'data_file_size',
-        header: 'Size',
-        display: true,
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-        dataFormatType: dataFormatTypes.FORMAT_BYTES,
-        cellType: cellTypes.FORMAT_DATA,
-      },
-      {
-        dataField: 'association',
-        header: 'Association',
-        display: true,
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'data_file_description',
-        header: 'Description',
-        display: true,
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'data_file_uuid', // This need to left empty if no data need to be displayed before file download icon
-        header: 'Access',
-        display: true,
-        cellType: cellTypes.CUSTOM_ELEM,
-        downloadDocument: true, // To indicate that column is document donwload
-        documentDownloadProps: {
-          // Max file size needs to bin Bytes to seperate two support file preview and download
-          maxFileSize: 80000000, // 10MB => 80,000,000 bits
-          // datafield where file file column exists in the table
-          fileSizeColumn: 'data_file_size',
-          // datafield where file file id exists in the table which is used to get file location
-          fileLocationColumn: 'data_file_uuid',
-          // datafield where file format exists in the table
-          fileFormatColumn: 'data_file_format',
-          // datafield where file case id exists in the table which is used to get file information
-          caseIdColumn: 'subject_id',
-          // datafield where file name exists
-          fileName: 'data_file_name',
-
-          // Case 1: Logged in and granted access, file size below {maxFileSize}
-          toolTipTextFileDownload: 'Click to download a copy of this file if you have been approved by dbGaP',
-          iconFileDownload: downloadSuccess,
-          
-          // Case 2: Not logged in or access not granted, file size below {maxFileSize}
-          iconUnauthenticated: downloadLock,
-          toolTipTextUnauthenticated: 'You must be logged in and must already have been granted access to download a copy of this file',
-
-          // Case 3: Regardless of login status, file size larger than {maxFileSize}
-          iconFilePreview: previewLarge,
-          toolTipTextFilePreview: 'Because of its size and/or format, this file must be accessed via the My Files workflow',
-        },
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      // Hidden: Using parent_specimen_id instead
-      {
-        dataField: 'specimen_id',
-        header: 'Biospecimen ID',
-        display: false,
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-        headerType: headerTypes.CUSTOM_ELEM,
-      },
-      {
-        dataField: 'parent_specimen_id',
-        header: 'Parent Biospecimen ID',
-        display: true,
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-        headerType: headerTypes.CUSTOM_ELEM,
-      },
-      {
-        dataField: 'subject_id',
-        header: 'Participant ID',
-        display: true,
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-        headerType: headerTypes.CUSTOM_ELEM,
-      },
-      {
-        dataField: 'ctep_disease_term',
-        header: 'Diagnosis',
-        display: true,
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-    ],
-    id: 'file_tab',
-    tableID: 'file_tab_table',
-    selectableRows: true,
-    // tableDownloadCSV: customFilesTabDownloadCSV,
-    // downloadFileName: 'Bento_Dashboard_cases_download',
-    tableMsg: {
-      noMatch: 'No Matching Records Found',
-    },
-
-    addFilesRequestVariableKey: 'data_file_uuid',
-    
-    addFilesResponseKeys: ['fileOverview','data_file_uuid'],
-    addSelectedFilesQuery: GET_ALL_FILEIDS_FILES_TAB_FOR_SELECT_ALL,
-
-    addAllFilesResponseKeys: ['fileOverview', 'data_file_uuid'],
-    addAllFileQuery: GET_ALL_FILEIDS_FROM_FILES_TAB_FOR_ADD_ALL_CART,
-  },
+  }
 ];
 
   

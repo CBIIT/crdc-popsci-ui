@@ -3,13 +3,10 @@ import { Grid, withStyles } from '@material-ui/core';
 import { 
   TableContextProvider,
   TableView,
-  Wrapper,
 } from '@bento-core/paginated-table';
 import styles from './TabStyle';
 import { themeConfig } from './tableConfig/Theme';
 import { configColumn } from './tableConfig/Column';
-import { configWrapper, wrapperConfig } from './wrapperConfig/Wrapper';
-import { customTheme } from './wrapperConfig/Theme';
 
 const TabView = (props) => {
   /**
@@ -21,7 +18,6 @@ const TabView = (props) => {
     config,
     dashboardStats,
     activeFilters,
-    classes,
     activeTab,
   } = props;
   /*
@@ -56,7 +52,6 @@ const TabView = (props) => {
     columns: configColumn(config.columns),
     count: dashboardStats[config.count],
     selectedRows: [],
-    enableRowSelection: config.enableRowSelection,
     tableMsg: config.tableMsg,
     sortBy: config.defaultSortField,
     sortOrder: config.defaultSortDirection,
@@ -67,13 +62,6 @@ const TabView = (props) => {
 
   return (
     <TableContextProvider>
-      <Wrapper
-        wrapConfig={configWrapper(config, wrapperConfig, "", dashboardStats[config.count])}
-        customTheme={customTheme}
-        classes={classes}
-        section={config.name}
-        activeFilters={activeFilters}
-      >
         <Grid container>
           <Grid item xs={12} id={config.tableID}>
             <TableView
@@ -85,7 +73,6 @@ const TabView = (props) => {
             />
           </Grid>
         </Grid>
-      </Wrapper>
     </TableContextProvider>
   );
 };

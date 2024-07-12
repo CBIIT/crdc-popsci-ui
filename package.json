@@ -104,8 +104,8 @@
     "workbox-webpack-plugin": "3.6.3"
   },
   "scripts": {
-    "start": "PORT=3010 node scripts/start.js",
-    "build": "node scripts/build.js",
+    "start": "CI=false  && PORT=3010 node scripts/start.js",
+    "build": "CI=false  && node scripts/build.js",
     "test": "node scripts/test.js",
     "lint": "eslint src",
     "lint-fix": "eslint src --fix"
@@ -160,8 +160,6 @@
       "node"
     ],
     "watchPlugins": [
-      "/Users/doddapanenis2/Desktop/Develop/icdc-frontend/node_modules/jest-watch-typeahead/filename.js",
-      "/Users/doddapanenis2/Desktop/Develop/icdc-frontend/node_modules/jest-watch-typeahead/testname.js"
     ]
   },
   "babel": {

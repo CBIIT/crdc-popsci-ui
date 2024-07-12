@@ -40,7 +40,6 @@ export default (theme) => ({
 
     color: '#FFFFFF',
     width: '260px',
-    
   },
   headerStudyShortName: {
     fontSize: '26px',
@@ -88,7 +87,7 @@ export default (theme) => ({
   },
 
   // Study Tabs
-    tabPrimaryColor: {
+  tabPrimaryColor: {
     fontFamily: 'Open Sans',
     fontSize: '17.5px',
     fontWeight: 400,
