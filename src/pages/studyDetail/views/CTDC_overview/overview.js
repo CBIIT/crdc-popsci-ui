@@ -103,7 +103,7 @@ const Overview = ({
       <div className={classes.container}>
         <div className={classes.detailContainer}>
           <Grid container>
-            <Grid item lg={5} md={4} sm={6} xs={12} className={classes.borderRight}>
+            <Grid item lg={6} md={6} sm={6} xs={12} className={classes.borderRight}>
               <Grid container direction="row" className={classes.detailContainerLeft}>
                 <Grid item xs={12} className={classes.title}>
                   Study Name               
@@ -193,7 +193,7 @@ const Overview = ({
             </Grid>
             
             {/* Right Container Detail */}
-            <Grid item lg={7} md={8} sm={6} xs={12}>
+            <Grid item lg={6} md={6} sm={6} xs={12}>
               <Grid
                 container
                 direction="row"
@@ -391,7 +391,7 @@ const styles = (theme) => ({
     marginLeft: '4px',
   },
   borderRight: {
-    borderRight: '#000000 1px solid',
+    borderRight: '1px solid #76C4E4',
   },
   detailContainerLeft: {
     display: 'block',

@@ -18,32 +18,77 @@ import Tab from '../../components/Tab/Tab';
 import TabPanel from '../../components/Tab/TabPanel';
 import Styles from './studyDetailsStyle';
 import StudyThemeProvider from './studyDetailsThemeConfig';
-import Overview from './views/overview/overview';
+import Overview from './views/overview';
 import store from '../../store';
 import CustomBreadcrumb from '../../components/Breadcrumb/BreadcrumbView';
+import TabContentWrapper from './TabContentWrapper';
 
 
 const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
-  // const studyData = data;
 
-  const studyData = {
-    studyByStudyShortName: [
-      {
-        study_short_name: 'PLCO',
-        study_id: 'NCT01696968',
-        study_name: 'The Prostate, Lung, Colorectal, and Ovarian Cancer Screening Trial',
-        participant_count: 5000,
-      }
-    ]
+  const {
+    study_name,
+    study_short_name,
+    study_description,
+    study_type,
+    study_design,
+    enrollment_period_start, // was enrollment_beginning_year
+    enrollment_period_end, // was enrollment_ending_year
+    study_period_start, // was study_beginning_year
+    study_period_end, // was study_ending_year
+    biospecimens_collected, // was biospecimen_collection
+    study_status,
+    dbGap_id, // was dbgap_accession_id
+    associated_links,
+    number_of_participants ,
+    max_age,
+    medium_age,
+    min_age,
+    study_race,
+    study_ethnicity,
+    study_sex,
+    study_gender,
+    country_list,
+    country_count,
+    state_list,
+    state_count,
+    primary_diagnosis_disease_term,
+    primary_diagnosis_disease_count,
+
+    study_personal, // [study_personal]
+    study_publication, // [study_publication]
+    study_files, // [study_files]
+    study_links, // [study_links]
+    
+  } = data?.studyGeneral[0]; 
+
+  const studyHeader = {
+    study_short_name,
+    study_name,
+    number_of_participants,
+  }
+  const overviewTabData = {
+    study_description,
+    study_type,
+    study_design,
+    enrollment_beginning_year: enrollment_period_start, 
+    enrollment_ending_year: enrollment_period_end, 
+    study_beginning_year: study_period_start, 
+    study_ending_year: study_period_end, 
+    biospecimen_collection: biospecimens_collected, 
+    study_status,
+    dbgap_accession_id: dbGap_id, 
+    study_id: "None" // TODO: What is study_id?
   };
   
-  const processedTabs = tab.items;
-
   const [snackbarState, setsnackbarState] = React.useState({
     open: false,
     value: 0,
   });
 
+  // function openSnack(value) {
+  //   setsnackbarState({ open: true, value, action: 'added' });
+  // }
   function closeSnack() {
     setsnackbarState({ open: false });
   }
@@ -62,6 +107,48 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
     />
   );
 
+  const breadCrumbJson = [{
+    name: 'Explore',
+    to: '/explore',
+    isALink: true,
+  }, {
+    name: studyHeader.study_short_name,
+    to: '',
+    isALink: false,
+  }];
+
+  const processedTabs = [
+    { 
+      index: 0,
+      label: 'Overview',
+      content: <Overview data={overviewTabData} /> 
+    },
+    { 
+      index: 1,
+      label: 'Neoplasms',
+    },
+    {
+      index: 2,
+      label: 'Demographics',
+    },
+    {
+      index: 3,
+      label: 'Data Collected',
+    },
+    {
+      index: 4,
+      label: 'Countries and States',
+    },
+    {
+      index: 5,
+      label: 'Publications',
+    },
+    {
+      index: 6,
+      label: 'Study Files',
+    },
+  ];
+
   if (isLoading) {
     return <CircularProgress />;
   }
@@ -73,20 +160,6 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
       </Typography>
     );
   }
-
-  const linkToDashboard = () => {
-    // TODO: Once local-find is enabled; dispatch(resetAllData()) from bento-core/local-find to RESET_LOCALFIND_ALL_DATA
-    store.dispatch(clearAllFilters());
-  };
-  const breadCrumbJson = [{
-    name: 'Studies',
-    to: '/explore',
-    isALink: true,
-  }, {
-    name: "NCT01696968",
-    to: '',
-    isALink: false,
-  }];
 
   return (
     <StudyThemeProvider>
@@ -112,73 +185,43 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
               <span>
                 
                 Study:
-                <span className={classes.headerMainSubTitle}>
-                   {studyData.studyByStudyShortName[0].study_short_name }
+                <span className={classes.headerStudyShortName}>
+                   {studyHeader.study_short_name }
                 </span>
               </span>
             </div>
-            <div className={classes.headerSubTitleCate}>
+            <div className={classes.headerStudyName}>
               <span style={{verticalAlign: 'bottom'}}>
-                {studyData.studyByStudyShortName[0].study_name}
+                {studyHeader.study_name}
               </span>
             </div>
           </div>
           <div className={classes.numOfparticipants}>
             <span className={classes.numOfparticipantsText}>Participants in this Study&nbsp;:&nbsp;&nbsp;</span>
               <span className={classes.numOfparticipantsCount}>
-                { studyData.studyByStudyShortName[0].participant_count || 0}
+                { studyHeader.number_of_participants || 0}
               </span>
           </div>
         </div>
 
      
-        <div className={classes.detailContainer}>
-          <Grid container>
-            <Grid item xs={12}>
-              <Tab
-                styleClasses={classes}
-                tabItems={processedTabs}
-                currentTab={currentTab}
-                handleTabChange={handleTabChange}
-                id="overview"
-              />
-            </Grid>
-          </Grid>
+        <div className={classes.tabContainer}>
+          <Tab
+            styleClasses={classes}
+            tabItems={processedTabs}
+            currentTab={currentTab}
+            handleTabChange={handleTabChange}
+            id="overview"
+          />
         </div>
+        <hr className={classes.hrLine} />
       
-        {
-          processedTabs.map((processedTab, index) => {
-            switch (processedTab.label) {
-              // case 'OVERVIEW': return (
-              //   <TabPanel value={currentTab} index={index}>
-              //     <Overview data={data} />
-              //   </TabPanel>
-              // );
-
-              // case 'ADDITIONAL DETAILS': return (
-              //   <TabPanel value={currentTab} index={index}>
-              //     <p>ADDITIONAL DETAILS</p>
-              //   </TabPanel>
-              // );
-            
-              default:
-                return (
-                  <TabPanel value={currentTab} index={index}>
-                    
-                    <Grid
-                      container
-                      direction="row"
-                      justifyContent="center"
-                      alignItems="center"
-                      style={{height: '400px'}}
-                    >
-                    <p style={{margin: 'auto'}}>Under construction ... </p>
-                    </Grid>
-                  </TabPanel>
-                )
-            }
-          })
-        }
+        {processedTabs.map((processedTab, index) => (
+          <TabContentWrapper value={currentTab} index={index} key={index}>
+            {processedTab.content}
+          </TabContentWrapper>
+        ))}
+ 
       </div>
     </StudyThemeProvider>
   );
