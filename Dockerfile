@@ -2,6 +2,9 @@ FROM node:20.11.1-alpine3.19  as build
 
 WORKDIR /usr/src/app
 
+# Copy package.json and package-lock.json first for better caching
+COPY package*.json ./
+
 COPY . .
 
 RUN apk upgrade --update && apk --no-cache add git
