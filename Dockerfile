@@ -2,8 +2,6 @@ FROM node:20.11.1-alpine3.19  as build
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
-
 COPY . .
 
 RUN apk upgrade --update && apk --no-cache add git
