@@ -1,113 +1,4 @@
 export default (theme) => ({
-  headerItems: {
-    width: '250px',
-    float: 'right',
-  },
-  headerItemAccessionId: {
-    paddingTop: '10px',
-    '& span': {
-      margin: '40px 20px',
-      color: '#5e8ca5',
-    },
-  },
-  embargoIcon: {
-    position: 'absolute',
-    color: 'white',
-    top: '-12px',
-    backgroundColor: '#de7328',
-  },
-  embargo: {
-    color: '#BB2040',
-    float: 'right',
-    background: '#F6F4F4',
-    width: '220px',
-    height: '33px',
-    marginTop: '25px',
-    fontWight: 'bolder',
-    paddingLeft: '15px',
-    paddingRight: '15px',
-    paddingTop: '4px',
-    textAlign: 'center',
-    border: '3px solid #BB2040',
-    '& p': {
-      display: 'inline ! important',
-      fontWeight: '600',
-      width: '122px',
-      fontSize: '13px',
-      marginTop: '3px',
-    },
-  },
-  pending: {
-    color: '#6D6E71',
-    float: 'right',
-    background: '#fff6f6',
-    width: '220px',
-    height: '33px',
-    marginTop: '25px',
-    fontWight: 'bolder',
-    paddingLeft: '15px',
-    paddingRight: '14px',
-    paddingTop: '3px',
-    textAlign: 'center',
-    fontFamily: 'Open Sans',
-    border: '3px solid #F3A933',
-    '& p': {
-      display: 'inline ! important',
-      fontWeight: '600',
-      width: '122px',
-      fontSize: '13px',
-      marginTop: '3px',
-    },
-  },
-  embargoFileIcon: {
-    width: '20px',
-    float: 'right',
-    marginLeft: '5px',
-  },
-  headerBar: {
-    fontWeight: '10',
-    color: '#5e8ca5',
-    margin: '0px 15px 0 15px',
-  },
-  headerAccessionItem: {
-    borderRadius: '100px',
-    border: '2px solid',
-    textAlign: 'center',
-    padding: '0 16px',
-    background: 'rgb(203 226 238 / 11%)',
-    fontSize: '15px',
-  },
-  accessionLabel: {
-    fontSize: '14px',
-    fontWeight: '900',
-    color: '#5e8ca5',
-  },
-  accessionValue: {
-    fontSize: '13px',
-    fontWeight: '800',
-  },
-  paddingLeft8: {
-    paddingLeft: '8px',
-  },
-  paddingBottm17: {
-    paddingBottm: '17px',
-  },
-  tabPrimaryColor: {
-    fontFamily: 'Nunito Sans',
-    color: '#507C91',
-    fontWeight: '600',
-  },
-  tabHighlightColor: {
-    fontFamily: 'Nunito Sans',
-    color: '#000000',
-    fontWeight: '600',
-    borderBottom: '5px solid #0296C9',
-  },
-  hrLine: {
-    marginTop: '-2px',
-    marginBottom: '0',
-    borderTop: '1px solid #000000',
-  },
   container: {
     paddingTop: '19px',
     fontFamily: 'Raleway, sans-serif',
@@ -116,24 +7,12 @@ export default (theme) => ({
     maxWidth: `${theme?.custom?.maxContentWidth || '1440px'}`,
     margin: "0 auto",
   },
-  content: {
-    fontSize: '12px',
-  },
-  warning: {
-    color: theme.palette.warning.main,
-  },
-  paper: {
-    textAlign: 'center',
-  },
-  fakeToolbar: {
-    ...theme.mixins.toolbar,
-  },
-  root: {
-    fontFamily: '"Open Sans", sans-serif',
-    fontSize: '9px',
-    letterSpacing: '0.025em',
-    color: '#000',
-    background: '#f3f3f3',
+  // Study Header
+  logo: {
+    float: 'left',
+    width: '81px',
+    marginTop:'-10px',
+    position: 'absolute',
   },
   header: {
     paddingLeft: '33px',
@@ -161,9 +40,8 @@ export default (theme) => ({
 
     color: '#FFFFFF',
     width: '260px',
-    
   },
-  headerMainSubTitle: {
+  headerStudyShortName: {
     fontSize: '26px',
     fontWeight: 600,
     lineHeight: '24.36px',
@@ -171,8 +49,8 @@ export default (theme) => ({
 
     paddingLeft: '14px',
   },
-  headerSubTitleCate: {
-  fontFamily: 'Open Sans',
+  headerStudyName: {
+    fontFamily: 'Open Sans',
     fontSize: '15px',
     fontWeight: 400,
     lineHeight: '16.5px',
@@ -184,32 +62,7 @@ export default (theme) => ({
     paddingLeft: '35px',
     paddingTop: '6px',
   },
-  lowLetterSpace: {
-    color: '#606061',
-    fontWeight: '400',
-    fontFamily: 'Sans-Serif',
-    textTransform: 'uppercase',
-    fontSize: '14px',
-    paddingLeft: '3px',
-    lineHeight: '17px',
-    textOverflow: 'ellipsis',
-    paddingRight: '200px',
-    letterSpacing: '0.01em',
-    marginBottom: '-9px',
-  },
-  borderRight: {
-    borderRight: '#81a6b9 1px solid',
-  },
-  headerSubTitleContent: {
-    color: '#000000',
-    fontWeight: 'bold',
-    fontFamily: theme.custom.fontFamilyRaleway,
-    textTransform: 'uppercase',
-    letterSpacing: '0.023em',
-    fontSize: '14pt',
-  },
-
-  numOfparticipants: { ////////////////////////////////// *******
+  numOfparticipants: {
     fontFamily: 'Open Sans',
     weight: 600,
     fontSize: '16px',
@@ -219,30 +72,48 @@ export default (theme) => ({
 
     margin: '20px 37.22px 20px 0px',
     padding: '8px 15px',
-    width: '275px',
     height: '35px',
     float: 'right',
     textAlign: 'center',
   },
-  numOfparticipantsText: { ////////////////////////////////// *******
+  numOfparticipantsText: {
     color: '#AEFAFF',
   },
-  numOfparticipantsCount: { ////////////////////////////////// *******
+  numOfparticipantsCount: {
     color: '#FFFFFF',
     lineHeight: '17.6px',
     letterSpacing: '-0.02em',
   },
-  logo: {
-    float: 'left',
-    width: '81px',
-    marginTop:'-10px',
-    position: 'absolute',
+
+  // Study Tabs
+  tabPrimaryColor: {
+    fontFamily: 'Open Sans',
+    fontSize: '17.5px',
+    fontWeight: 400,
+    lineHeight: '22.75px',
+    letterSpacing: '0.01em',
+    color: '#000000',
+    padding: '10px 12px',
   },
-  detailContainer: {
+  tabHighlightColor: {
+    fontFamily: 'Poppins',
+    fontSize: '17.5px',
+    fontWeight: '600',
+    lineHeight: '22.75px',
+    letterSpacing: '0.015em',
+    color: '#000000',
+    padding: '10px 12px',
+   
+    borderBottom: '4px solid #073155',
+  },
+  hrLine: {
+    marginTop: '-2px',
+    marginBottom: '0',
+    border: '1px solid #76C4E4',
+  },
+  tabContainer: {
     margin: 'auto',
-    paddingTop: '30px',
-    paddingLeft: '50px',
-    paddingRight: '50px',
+    padding: '28px 50px 0px 50px',
     fontFamily: theme.custom.fontFamilySans,
     letterSpacing: '0.014em',
     color: '#000000',
@@ -250,41 +121,7 @@ export default (theme) => ({
     lineHeight: '23px',
     maxWidth: `${theme?.custom?.maxContentWidth || '1440px'}`,
   },
-  headerButtonLink: { ////////////////////////////////// *******
-    textDecoration: 'none',
-    lineHeight: '14px',
-    fontSize: '12px',
-    fontWeight: 'bold',
-    position: 'relative',
-    top: '2px',
-    color: '#990099',
-    '&:hover': {
-      textDecoration: 'none',
-    },
-  },
-  button: {
-    borderRadius: '22px',
-    padding: '0 22px',
-    width: '150px',
-    height: '35px',
-    lineHeight: '14px',
-    fontSize: '10px',
-    color: '#ffffff',
-    textTransform: 'uppercase',
-    backgroundColor: '#ff8a00',
-    fontFamily: theme.custom.fontFamilySans,
-    '&:hover': {
-      backgroundColor: '#ff8a00',
-    },
-  },
-  title: {
-    color: '#0296c9',
-    fontFamily: theme.custom.fontFamilySans,
-    fontSize: '12px',
-    letterSpacing: '0.017em',
-    fontWeight: '600',
-    textTransform: 'uppercase',
-  },
+
   // Smaller View
   '@media (max-width: 740px)': {
     headerTitle: {
@@ -298,7 +135,7 @@ export default (theme) => ({
     },
   },
   '@media (max-width: 460px)': {
-    detailContainer: {
+    tabContainer: {
       paddingLeft: '10px',
       paddingRight: '10px',
     },

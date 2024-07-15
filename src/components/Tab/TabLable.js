@@ -6,7 +6,7 @@ const tabLabel = ({
   classes, title, primaryColorClass, icon,
 }) => (
   <div className={classNames(classes.defaultStyle, primaryColorClass)}>
-    {(icon && (<img src={icon} alt="icdc_carousel_tabs" />))}
+    {(icon && (<img src={icon} alt="Tab Icon" />))}
     <span>
       {title}
       {' '}
@@ -20,8 +20,8 @@ const styles = () => ({
     fontFamily: 'Open Sans',
     textTransform: 'none',
     fontSize: '17px',
-    height: '45px',
-    marginBottom: '-5px',
+    height: '46px',
+    // marginBottom: '-5px',
   },
 });
 
