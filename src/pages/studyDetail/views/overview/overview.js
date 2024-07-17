@@ -4,7 +4,7 @@ import {
   withStyles,
 } from '@material-ui/core';
 import OverviewThemeProvider from './overviewThemeConfig';
-// import { externalIcon } from '../../../bento/studyDetailData';
+import { externalIcon } from '../../../../bento/studyDetailData';
 import { cn } from 'bento-components';
 
 
@@ -12,7 +12,7 @@ const Overview = ({
   classes,
   data,
 }) => {
-/*
+
   const ExternalLinkIcon = () => {
     return (
       <img 
@@ -30,102 +30,87 @@ const Overview = ({
     if(a > b) { val = 1; }
     return val;
   }
-*/
+
+
+  const renderInfo = (label, value = '') => (
+    <div className={classes.keyAndValueRow}>
+      <span className={classes.label}>
+        {label}
+      </span>
+      <span className={classes.value}>
+        {value}
+      </span>
+    </div>
+  );
+
+  const sortedLinks = [...(data?.study_links || [])].sort((a, b) => customSorting(a.associated_link_id, b.associated_link_id));
+
   return (
     <OverviewThemeProvider>
       <div className={classes.detailContainer}>
         <Grid container>
           {/* Left Container Detail */}
           <Grid item xs={12} sm={6} className={cn(classes.borderRight, classes.detailContainerLeft)}>
-          <div className={classes.leftDiv}>
-            <Grid container direction="column" >
-              <Grid item xs={12} className={cn(classes.title, classes.firstTitle)}>
-                <span>Description</span>
+            <div className={classes.scrollDiv}>
+              <Grid container direction="column" className={classes.leftInnerContainer} >
+                <Grid item xs={12} className={classes.mainLabel}>
+                  <span>Description</span>
+                </Grid>
+                <Grid item xs={12} className={classes.mainValue}>
+                  {data.study_description || ''}
+                </Grid>
               </Grid>
-              <Grid item xs={12} className={cn(classes.content, classes.contentUnderTitle)}>
-                {data.study_description || ''}
-              </Grid>
-            </Grid>
-          </div>
-            
+            </div>
           </Grid>
 
           {/* Right Container Detail */}
-          <Grid item xs={12} sm={6} className={classes.detailContainerRight}>
-            <Grid container direction="column">
-              
-              <Grid item className={cn(classes.title, classes.firstTitle)} >
-                <span style={{ minWidth: '164px', width: '164px', marginRight: '55px' }}>Study Type</span>
-                <span className={classes.content}> {data?.study_type || ''} </span>
-              </Grid>
+          <Grid item xs={12} sm={6} className={cn(classes.detailContainerRight, classes.scrollDiv)}>
+            <Grid container direction="column" className={classes.rightInnerContainer}>
+            
+              {renderInfo('STUDY TYPE', data?.study_type)}
+              {renderInfo('STUDY DESIGN', data?.study_design)}
+              {renderInfo('ENROLLMENT PERIOD', `${data?.enrollment_beginning_year} - ${data?.enrollment_ending_year}`)}
+              {renderInfo('STUDY PERIOD', `${data?.study_beginning_year} - ${data?.study_ending_year}`)}
+              {renderInfo('BIOSPECIMEN COLLECTION', data.biospecimen_collection)} {/* TODO: check => Biospecimen or Biospecimens and Collected or Collection */}
+              {renderInfo('STATUS', data?.study_status)}
+              {renderInfo('dbGaP ID', data?.dbgap_accession_id)}
+              {renderInfo('EXTERNAL ID', data?.study_id)}
 
-              <Grid item className={classes.title} >
-                <span className={classes.titleSpan} >Study Design</span>
-                <span className={classes.content}> {data?.study_design || ''} </span>
-              </Grid>
-
-              <Grid item className={classes.title} >
-                <span className={classes.titleSpan}>ENROLLMENT PERIOD</span>
-                <span className={classes.content}>
-                  {`${data?.enrollment_beginning_year} - ${data?.enrollment_ending_year}`}
-                </span>
-              </Grid>
-
-              <Grid item className={classes.title} >
-                <span className={classes.titleSpan}> STUDY PERIOD </span>
-                <span className={classes.content}>
-                  {`${data?.study_beginning_year} - ${data?.study_ending_year}`}
-                </span>
-              </Grid>
-
-              <Grid item className={classes.title} >
-                <span className={classes.titleSpan}>Biospecimen Collection</span> {/* TODO: check => Biospecimen or Biospecimens and Collected or Collection */}
-                <span className={classes.content}> {data.biospecimen_collection || ''} </span>
-              </Grid>
-
-
-
-
-
-
-              <Grid item className={classes.title}>
-                <span className={classes.titleSpan}>Status</span>
-                <span className={classes.content}> {data?.study_status || ''} </span>
-              </Grid>
-
-              <Grid item className={classes.title} >
-                <span className={classes.titleSpan} style={{ textTransform: 'none' }}>dbGap ID</span>
-                <span className={classes.content}> {data?.study_design || ''} </span>
-              </Grid>
-
-              <Grid item className={classes.title} >
-                <span className={classes.titleSpan}>External ID</span>
-                <span className={classes.content}> {data?.study_id || ''} </span>
-              </Grid>
-
-               <Grid item className={classes.title} >
-                <span className={classes.titleSpan}>Associated Links</span>
-                <span className={classes.contentUnderTitle}> Under construction </span>
+              <Grid container direction="column" >
+                <Grid item xs={12} className={classes.mainLabel}>
+                  <span>Associated Links</span>
+                </Grid>
+                {sortedLinks.map((link, index) => (
+                  <Grid item xs={12} className={classes.mainValue} key={index}>
+                    <a
+                      href={link?.associated_link_url}
+                      className={classes.link}
+                      rel="noopener noreferrer"
+                      target="_blank">
+                      {link?.associated_link_name}
+                    </a>&nbsp;<ExternalLinkIcon/> <br/>
+                  </Grid>
+                ))}
               </Grid>
 
             </Grid>
           </Grid>
         </Grid>
       </div>
+      
+      {/* Study File Container */}
+
+      <div className={classes.studyFileContainer}>
+        Study Personnel
+      </div>
   </OverviewThemeProvider>
   );
 };
 
 const styles = (theme) => ({
-  titleSpan: {
-    minWidth: '225px',
-    width: '225px',
-    marginRight: '55px'
-  },
   detailContainer: {
     margin: 'auto',
-    paddingLeft: '50px',
-    paddingRight: '50px',
+    paddingLeft: '64px',
     fontFamily: theme.custom.fontFamilySans,
     letterSpacing: '0.014em',
     color: '#000000',
@@ -135,51 +120,55 @@ const styles = (theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'flex-start', // Align items to the top
-    // padding: theme.spacing(2),
+    minHeight: '730px',
+    maxHeight: '730px',
+    borderBottom: '1px solid #76C4E4',
+    // borderRight: '1px solid #76C4E4',
   },
   borderRight: {
     borderRight: '1px solid #76C4E4',
   },
+
   detailContainerLeft: {
     display: 'block',
     overflowY: 'auto',
-    overflowX: 'hidden',
-    width: 'calc(100% + 8px) !important',
-    marginLeft: '-8px',
-    paddingTop: '30px'
+    paddingTop: '30px',
+    minHeight: '700px'
   },
-  leftDiv: {
-    padding: '0px 61px 5px 8px',
-    minHeight: '730px',
-    maxHeight: '730px',
-    overflowY: 'auto',
-    overflowX: 'hidden',
-    width: 'calc(100% + 8px) !important',
-    marginLeft: '-8px',
+  leftInnerContainer: {
+    padding: '0px 65px 30px 0px'
   },
 
-  content: {
-    fontFamily: 'Open Sans',
-    fontSize: '16px',
-    fontWeight: 400,
-    lineHeight: '22px',
-
-    color: '#4B4B4B'
+  detailContainerRight: {
+    marginTop: '30px',
   },
-  contentUnderTitle: {
-    margin: '4px 0px 0px 10px',
-
-  },
-  contentBesideTitle: {
-
+  rightInnerContainer: {
+    padding: '0px 53px 30px 43px',
   },
 
-  firstTitle: {
-    marginTop: '0px !important'
-  },
-  title: {
-    marginTop: '20px',
+  scrollDiv: {
+    minHeight: '700px',
+    maxHeight: '700px',
+    overflowY: 'scroll',
 
+    '&::-webkit-scrollbar': {
+      width: '0.5em',
+      height: '0.4em',
+    },
+    '&::-webkit-scrollbar-track': {
+      '-webkit-box-shadow': 'inset 0 0 6px white',
+      borderRadius: '0px',
+      backgroundColor: '#ffffff',
+      borderBottom: '1px solid #76C4E4',
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: '#76C4E4',
+      outline: '1px solid slategrey',
+      borderRadius: '0px',
+    },
+  },
+
+  mainLabel: {
     '& > span:first-child': {
       fontFamily: 'Open Sans',
       fontSize: '16px',
@@ -188,56 +177,93 @@ const styles = (theme) => ({
       letterSpacing: '-0.01em',
 
       color: '#27424E',
-
       textTransform: 'uppercase',
-    }
+    },
   },
-  detailContainerRight: {
-    margin: '30px 0px 0px 0px',
-    padding: '0px 25px 5px 43px',
-    minHeight: '300px',
-    height: '900px',
-    // maxHeight: '500px',
-    overflowY: 'auto',
-    overflowX: 'hidden',
-    width: 'calc(100% + 8px)',
+  mainValue: {
+    fontFamily: 'Open Sans',
+    fontSize: '16px',
+    fontWeight: 400,
+    lineHeight: '22px',
+
+    color: '#4B4B4B',
+    margin: '4px 0px 0px 10px',
+  },
+
+  keyAndValueRow: {
+    display: 'flex',
+    margin: '0px',
+    padding: '0px',
+  },
+  label: {
+    fontFamily: 'Open Sans',
+    fontSize: '16px',
+    fontWeight: 700,
+    lineHeight: '16.8px',
+    letterSpacing: '-0.01em',
+
+    color: '#27424E',
+    textAlign: 'left',
+    width: '164px',
+    minWidth: '164px',
+    marginBottom: '20px',
+  },
+  value: {
+    fontFamily: 'Open Sans',
+    fontSize: '16px',
+    fontWeight: 400,
+    lineHeight: '22px',
+
+    color: '#4B4B4B',
+    textAlign: 'left',
+    paddingLeft: '55px',
   },
 
   link: {
-    color: '#990099',
-    textDecoration: 'none',
+    fontFamily: 'Open Sans',
     fontSize: '16px',
-    fontWeight: 400,
-    fontFamily: theme.custom.fontFamilyNunito
+    fontWeight: 600,
+    lineHeight: '18px',
+    textAlign: 'left',
+    color: '#005D85',
+    textDecoration: 'underline',
+    marginBottom: '5px',
   },
   externalLinkIcon: {
-    marginLeft: '5px'
+    marginLeft: '3px'
   },
 
-  '@media (max-width: 1099px)': {
-    detailContainerRightTopParticipant: {
-      marginTop: '40px',
+  /********           Smaller Screen Style              ********/
+  '@media (max-width: 950px)': {
+    detailContainer: {
+      paddingLeft: '24px',
     },
-    imageCollection: {
-      marginTop: '55px',
-      paddingLeft: '0px',
+    rightInnerContainer: {
+      paddingLeft: '24px',
     },
-    participantFileH: {
-      paddingLeft: '0px',
-    },
-    participantFileC: {
-      paddingLeft: '0px',
-    },
+    value: {
+      paddingLeft: '24px',
+    }
   },
-  '@media (max-width: 899px)': {
-    detailContainerLeft: {
-      padding: '0px 31px 5px 8px',
-    },
-    detailContainerRight: {
-      padding: '0px 0px 5px 25px',
-    },
-  },
+
+  /********           Switch from Two to one column based layout      ********/
   '@media (max-width: 799px)': {
+    detailContainer: {
+      minHeight: 'fit-content',
+      maxHeight: 'fit-content',
+      borderRight: 'none',
+    },
+    leftInnerContainer: {
+      padding: '0px 53px 0px 0px'
+    },
+    rightInnerContainer: {
+      padding: '0px 53px 0px 0px'
+    },
+    scrollDiv: {
+      maxHeight: 'fit-content',
+      minHeight: 'fit-content',
+      overflowY: 'auto',
+    },
     borderRight: {
       borderRight: 'none',
     },
@@ -245,35 +271,36 @@ const styles = (theme) => ({
       minHeight: 'fit-content'
     },
     detailContainerRight: {
-      padding: '0px 0px 5px 0px',
+      minHeight: 'fit-content',
+      paddingBottom: '30px',
     },
   },
-  '@media (max-width: 460px)': {
+
+  /********           Mobile sizing              ********/
+  '@media (max-width: 470px)': {
     detailContainer: {
       paddingLeft: '10px',
       paddingRight: '10px',
     },
+    value: {
+      paddingLeft: '10px'
+    },
   },
 
 
+  studyFileContainer: {
+    margin: '56px 70px 100px 64px',
+    minHeight: '350px',
 
-  // title: {
-  //   fontWeight: 'bold',
-  //   marginBottom: theme.spacing(1),
-  //   display: 'flex',
-  //   alignItems: 'center',
-  // },
-  // firstTitle: {
-  //   marginTop: 0,
-  // },
-  // content: {
-  //   marginBottom: theme.spacing(2),
-  // },
-  // contentUnderTitle: {
-  //   marginTop: theme.spacing(1),
-  // },
+    fontFamily: 'Open Sans',
+    fontSize: '16px',
+    fontWeight: 700,
+    lineHeight: '20.8px',
+    letterSpacing: '-0.01em',
+    textAlign: 'left',
 
-
+    textTransform: 'uppercase',
+  }
 });
 
 export default withStyles(styles, { withTheme: true })(Overview);
