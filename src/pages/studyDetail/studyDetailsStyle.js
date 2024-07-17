@@ -125,7 +125,7 @@ export default (theme) => ({
     size: '12px',
     lineHeight: '23px',
     maxWidth: `${theme?.custom?.maxContentWidth || '1440px'}`,
-    width: '1109px',
+    minWidth: '1109px',
   },
 
   /********           Smaller Screen Style              ********/
