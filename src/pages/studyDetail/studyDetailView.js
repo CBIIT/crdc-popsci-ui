@@ -51,7 +51,7 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
     // study_personal, // [study_personal]
     // study_publication, // [study_publication]
     // study_files, // [study_files]
-    // study_links, // [study_links]
+    study_links, // [study_links]
     
   } = data?.studyGeneral[0]; 
 
@@ -71,7 +71,9 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
     biospecimen_collection: biospecimens_collected, 
     study_status,
     dbgap_accession_id: dbGap_id, 
-    study_id: "None" // TODO: What is study_id?
+    study_id: "None", // TODO: What is study_id?
+
+    study_links,
   };
   
   const [snackbarState, setsnackbarState] = React.useState({
@@ -149,7 +151,7 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
   if (isError) {
     return (
       <Typography variant="h5" color="error" size="sm">
-        An error has occurred in interoperability api
+        An error has occurred in Pop Sci api
       </Typography>
     );
   }
@@ -176,7 +178,6 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
 
             <div className={classes.headerMainTitle}>
               <span>
-                
                 Study:
                 <span className={classes.headerStudyShortName}>
                    {studyHeader.study_short_name }
@@ -195,8 +196,7 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
                 { studyHeader.number_of_participants || 0}
               </span>
           </div>
-        </div>
-
+        </div> 
      
         <div className={classes.tabContainer}>
           <Tab

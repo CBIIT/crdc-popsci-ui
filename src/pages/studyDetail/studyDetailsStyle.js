@@ -22,6 +22,8 @@ export default (theme) => ({
     position: 'relative',
     borderBottom: '2px solid #658190',
     background: 'linear-gradient(270deg, #064667 20.89%, #225977 81.63%)',
+
+    display: 'flex',
   },
   headerTitle: {
     margin: 'auto',
@@ -57,7 +59,7 @@ export default (theme) => ({
     letterSpacing: '0.01em',
     color: '#B8E0F6',
 
-    minWidth: 'fit-content',
+    width: 'fit-content',
     whiteSpace: 'nowrap',
     paddingLeft: '35px',
     paddingTop: '6px',
@@ -75,6 +77,9 @@ export default (theme) => ({
     height: '35px',
     float: 'right',
     textAlign: 'center',
+    minWidth: 'fit-content',
+    width: 'fit-content',
+
   },
   numOfparticipantsText: {
     color: '#AEFAFF',
@@ -85,7 +90,7 @@ export default (theme) => ({
     letterSpacing: '-0.02em',
   },
 
-  // Study Tabs
+  // Tabs Component Style
   tabPrimaryColor: {
     fontFamily: 'Open Sans',
     fontSize: '17.5px',
@@ -113,28 +118,60 @@ export default (theme) => ({
   },
   tabContainer: {
     margin: 'auto',
-    padding: '28px 50px 0px 50px',
+    padding: '28px 59px 0px 59px',
     fontFamily: theme.custom.fontFamilySans,
     letterSpacing: '0.014em',
     color: '#000000',
     size: '12px',
     lineHeight: '23px',
     maxWidth: `${theme?.custom?.maxContentWidth || '1440px'}`,
+    minWidth: '1109px',
   },
 
-  // Smaller View
-  '@media (max-width: 740px)': {
-    headerTitle: {
-      position: 'absolute',
-      top: '0px',
+  /********           Smaller Screen Style              ********/
+
+  '@media (max-width: 1300px)': {
+    headerMainTitle: {
+      width: 'fit-content',
+      paddingRight: '10px',
+
     },
-    headerButton: {
-      marginLeft: '95px',
-      marginTop: '28px',
-      float: 'left',
+    headerStudyName: {
+      whiteSpace: 'wrap',
     },
   },
-  '@media (max-width: 460px)': {
+
+  '@media (max-width: 950px)': {
+    tabContainer: {
+      paddingLeft: '24px',
+      paddingRight: '24px',
+    },
+  },
+
+  '@media (max-width: 899px)': {
+    headerTitle: {
+      flexDirection: 'column',
+      marginTop: '5px',
+    },
+    headerMainTitle: {
+      flex: 1,
+      paddingRight: '10px',
+      borderRight: 'none',
+    },
+    headerStudyName: {
+      flex: 1,
+      paddingLeft: '0px',
+      paddingTop: '6px',
+    },
+  },
+
+  '@media (max-width: 790px)': {
+    numOfparticipants: {
+      margin: '20px 5px 20px 0px',
+    },
+  },
+
+  '@media (max-width: 470px)': {
     tabContainer: {
       paddingLeft: '10px',
       paddingRight: '10px',

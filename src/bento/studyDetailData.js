@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 import studyHeaderIcon from '../assets/study/studyHeaderIcon.svg'
+import externalLinkIcon from '../assets/externalLinkIcon.svg'
 // --------------- Tooltip configuration --------------
 export const tooltipContent = {
   src: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/icdc/images/svgs/Tooltip.SpeechBubble.svg',
@@ -11,50 +12,8 @@ export const title = {
   armsAndCohort: '',
 };
 
-
-
 export const headerIcon = studyHeaderIcon;
-export const externalIcon = 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/ctdc/images/svg/ExternalLinkIcon.svg';
-
-export const tab = {
-  items: [
-    {
-      index: 0,
-      label: 'OVERVIEW',
-      value: 'overview',
-    },
-    {
-      index: 1,
-      label: 'Neoplasms',
-      value: 'Neoplasms',
-    },
-    {
-      index: 2,
-      label: 'Demographics',
-      value: 'Demographics',
-    },
-    {
-      index: 3,
-      label: 'Data Collected',
-      value: 'Data Collected',
-    },
-    {
-      index: 4,
-      label: 'Countries and States',
-      value: 'Countries and States',
-    },
-    {
-      index: 5,
-      label: 'Publications',
-      value: 'Publications',
-    },
-    {
-      index: 6,
-      label: 'Study Files',
-      value: 'Study Files',
-    },
-  ],
-};
+export const externalIcon = externalLinkIcon;
 
 export const GET_STUDY_DETAIL_DATA_QUERY = gql`
   query study($study_short_name: [String]){
