@@ -117,8 +117,7 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
     { 
       index: 0,
       label: 'Overview',
-      content: <Publications data={study_publication} /> 
-      // content: <Overview data={overviewTabData} /> 
+      content: <Overview data={overviewTabData} /> 
     },
     { 
       index: 1,

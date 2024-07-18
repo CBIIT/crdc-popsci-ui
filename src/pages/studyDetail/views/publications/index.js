@@ -16,10 +16,10 @@ import { cn } from 'bento-components';
 const styles = {
   page:{
     width: '100%',
-    margin: '0 auto',
+    margin: '10px auto 50px auto',
   },
   container: {
-    padding: '20px',
+    padding: '20px 10px',
   },
   item: {
     border: '1.5px solid #AFCEDA',
@@ -155,7 +155,7 @@ const CustomCard = ({ classes, title, author, year, journal, doi, pumID }) => (
       </Grid>
        <Grid item sm={7} md={7} >
          <Typography className={classes.content} variant="body2">
-          {pubmedId ? (
+          {pumID ? (
         <Link className={classes.link} href={`https://pubmed.ncbi.nlm.nih.gov/${pumID}`} target="_blank" rel="noopener noreferrer">{pumID}<StyledExternalLinkIcon/> </Link>
         ) : (
           ''
