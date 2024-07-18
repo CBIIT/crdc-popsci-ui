@@ -13,6 +13,7 @@ import Tab from '../../components/Tab/Tab';
 import Styles from './studyDetailsStyle';
 import StudyThemeProvider from './studyDetailsThemeConfig';
 import Overview from './views/overview/overview';
+import Publications from './views/publications';
 import CustomBreadcrumb from '../../components/Breadcrumb/BreadcrumbView';
 import TabContentWrapper from './TabContentWrapper';
 
@@ -33,6 +34,7 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
     study_status,
     dbGap_id, // was dbgap_accession_id
     number_of_participants ,
+    study_publication,
     // associated_links,
     // max_age,
     // medium_age,
@@ -72,7 +74,6 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
     study_status,
     dbgap_accession_id: dbGap_id, 
     study_id: "None", // TODO: What is study_id?
-
     study_links,
   };
   
@@ -137,6 +138,8 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
     {
       index: 5,
       label: 'Publications',
+      content: <Publications data={study_publication} /> 
+
     },
     {
       index: 6,
