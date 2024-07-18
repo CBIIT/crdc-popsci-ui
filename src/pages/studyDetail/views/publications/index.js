@@ -99,7 +99,7 @@ const CustomCard = ({ classes, title, author, year, journal, doi, pumID }) => (
       </Grid>
       <Grid item sm={7} md={7} >
          <Typography className={classes.content} variant="body2">
-        {author}
+        {author || ''}
       </Typography>
       </Grid>
     </Grid>
@@ -112,7 +112,7 @@ const CustomCard = ({ classes, title, author, year, journal, doi, pumID }) => (
       </Grid>
        <Grid item sm={7} md={7} >
          <Typography className={classes.content} variant="body2">
-        {year}
+        {year || ''}
       </Typography>
       </Grid>
     </Grid>
@@ -125,7 +125,7 @@ const CustomCard = ({ classes, title, author, year, journal, doi, pumID }) => (
       </Grid>
        <Grid item sm={7} md={7} >
          <Typography className={classes.content} variant="body2">
-        {journal}
+        {journal || ''}
       </Typography>
       </Grid>
     </Grid>
@@ -138,7 +138,11 @@ const CustomCard = ({ classes, title, author, year, journal, doi, pumID }) => (
       </Grid>
        <Grid item sm={7} md={7} >
          <Typography className={classes.content} variant="body2">
+         {doi ? (
         <Link className={classes.link} href={`https://doi.org/${doi}`} target="_blank" rel="noopener noreferrer">{doi}<StyledExternalLinkIcon/> </Link>
+        ) : (
+          ''
+        )}
       </Typography>
       </Grid>
     </Grid>
@@ -151,7 +155,11 @@ const CustomCard = ({ classes, title, author, year, journal, doi, pumID }) => (
       </Grid>
        <Grid item sm={7} md={7} >
          <Typography className={classes.content} variant="body2">
+          {pubmedId ? (
         <Link className={classes.link} href={`https://pubmed.ncbi.nlm.nih.gov/${pumID}`} target="_blank" rel="noopener noreferrer">{pumID}<StyledExternalLinkIcon/> </Link>
+        ) : (
+          ''
+        )}
       </Typography>
       </Grid>
     </Grid>
