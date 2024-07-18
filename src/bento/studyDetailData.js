@@ -1,6 +1,7 @@
 import gql from 'graphql-tag';
 import studyHeaderIcon from '../assets/study/studyHeaderIcon.svg'
 import externalLinkIcon from '../assets/externalLinkIcon.svg'
+import publication_external  from '../assets/icons/publication_external.png'
 // --------------- Tooltip configuration --------------
 export const tooltipContent = {
   src: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/icdc/images/svgs/Tooltip.SpeechBubble.svg',
@@ -14,6 +15,7 @@ export const title = {
 
 export const headerIcon = studyHeaderIcon;
 export const externalIcon = externalLinkIcon;
+export const publicationExternalLinkIcon = publication_external;
 
 export const GET_STUDY_DETAIL_DATA_QUERY = gql`
   query study($study_short_name: [String]){
