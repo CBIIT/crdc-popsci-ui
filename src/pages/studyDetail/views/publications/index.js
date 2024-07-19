@@ -2,14 +2,10 @@ import React from 'react';
 import {
   Grid,
   withStyles,
-  Card, 
-  CardContent, 
   Typography,
    Link
 } from '@material-ui/core';
-import themeProvider from './themeConfig';
-import { publicationExternalLinkIcon } from '../../../../bento/studyDetailData';
-import { cn } from 'bento-components';
+import { externalIcon } from '../../../../bento/studyDetailData';
 
 
 
@@ -74,7 +70,7 @@ const styles = {
 const ExternalLinkIcon = ({ classes }) => {
     return (
       <img 
-        src={publicationExternalLinkIcon}
+        src={externalIcon}
         width={14}
         height={14}
         className={classes.externalLinkIcon}
