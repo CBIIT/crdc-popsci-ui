@@ -13,6 +13,7 @@ import Tab from '../../components/Tab/Tab';
 import Styles from './studyDetailsStyle';
 import StudyThemeProvider from './studyDetailsThemeConfig';
 import Overview from './views/overview/overview';
+import Demographics from  './views/demographics';
 import Publications from './views/publications';
 import CustomBreadcrumb from '../../components/Breadcrumb/BreadcrumbView';
 import TabContentWrapper from './TabContentWrapper';
@@ -117,7 +118,7 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
     { 
       index: 0,
       label: 'Overview',
-      content: <Overview data={overviewTabData} /> 
+      content: <Overview data={overviewTabData} />  
     },
     { 
       index: 1,
@@ -126,6 +127,7 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
     {
       index: 2,
       label: 'Demographics',
+      content: <Demographics data={data} /> 
     },
     {
       index: 3,
