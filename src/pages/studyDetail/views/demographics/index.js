@@ -120,7 +120,7 @@ const styles = (theme) => ({
     padding: '0 68px',
   },
   item: {
-    paddingBottom: '55px',
+    paddingBottom: '33px',
   },
   section: {
     margin: '40px 0 120px 0',
