@@ -58,10 +58,7 @@ const StudyPersonnel = (props) => {
     page: 0,
   });
 
-  console.log("||| Data Length: ", data.length*10)
-
   return (
-    
     <TableContextProvider>
       <Grid container>
         <Grid item xs={12} id={config.tableID}>

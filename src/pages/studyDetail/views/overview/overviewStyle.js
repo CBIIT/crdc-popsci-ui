@@ -123,6 +123,14 @@ const styles = (theme) => ({
     externalLinkIcon: {
       marginLeft: '3px'
     },
+
+    noData: {
+      fontFamily: 'Open Sans',
+      fontSize: '18px',
+      fontWeight: 700,
+      lineHeight: '23.4px',
+      color: '#000',
+    },
   
     /********           Smaller Screen Style              ********/
     '@media (max-width: 950px)': {
@@ -186,7 +194,6 @@ const styles = (theme) => ({
 
     },
   
-  
     studyFileContainer: {
       margin: '56px 70px 100px 64px',
     },
@@ -206,11 +213,6 @@ const styles = (theme) => ({
       paddingLeft: '10px',
     },
     noStudyRecords: {
-      fontFamily: 'Open Sans',
-      fontSize: '16px',
-      fontWeight: 400,
-      lineHeight: '22px',
-      
       paddingLeft: '10px',
       display: 'flex',
       justifyContent: 'center',

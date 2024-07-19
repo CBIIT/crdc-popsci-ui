@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Grid,
+  Typography,
   withStyles,
 } from '@material-ui/core';
 import OverviewThemeProvider from './overviewThemeConfig';
@@ -11,17 +12,6 @@ import styles from './overviewStyle';
 
 const Overview = ({ classes, data, }) => {
   const { study_personal } = data;
-
-  const ExternalLinkIcon = () => {
-    return (
-      <img 
-        src={externalIcon}
-        width={14}
-        height={14}
-        className={classes.externalLinkIcon}
-        alt='outbounnd web site icon'/>
-    )
-  }
 
   const customSorting = (a, b) => {
     let val = 0
@@ -42,6 +32,9 @@ const Overview = ({ classes, data, }) => {
   );
 
   const sortedLinks = [...(data?.study_links || [])].sort((a, b) => customSorting(a.associated_link_id, b.associated_link_id));
+
+  const enrollmenPeriod = data?.enrollment_beginning_year + ' - ' + data?.enrollment_ending_year;
+  const studyPeriod = data?.study_beginning_year + ' - ' + data?.study_ending_year;
 
   return (
     <OverviewThemeProvider>
@@ -67,8 +60,8 @@ const Overview = ({ classes, data, }) => {
             
               {renderInfo('STUDY TYPE', data?.study_type)}
               {renderInfo('STUDY DESIGN', data?.study_design)}
-              {renderInfo('ENROLLMENT PERIOD', `${data?.enrollment_beginning_year} - ${data?.enrollment_ending_year}`)}
-              {renderInfo('STUDY PERIOD', `${data?.study_beginning_year} - ${data?.study_ending_year}`)}
+              {renderInfo('ENROLLMENT PERIOD', enrollmenPeriod)}
+              {renderInfo('STUDY PERIOD', studyPeriod)}
               {renderInfo('BIOSPECIMEN COLLECTION', data.biospecimen_collection)} {/* TODO: check => Biospecimen or Biospecimens and Collected or Collection */}
               {renderInfo('STATUS', data?.study_status)}
               {renderInfo('dbGaP ID', data?.dbgap_accession_id)}
@@ -78,18 +71,8 @@ const Overview = ({ classes, data, }) => {
                 <Grid item xs={12} className={classes.mainLabel}>
                   <span>Associated Links</span>
                 </Grid>
-                {sortedLinks.map((link, index) => (
-                  <Grid item xs={12} className={classes.mainValue} key={index}>
-                    <a
-                      href={link?.associated_link_url}
-                      className={classes.link}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
-                      {link?.associated_link_name}
-                    </a>&nbsp;<ExternalLinkIcon/> <br/>
-                  </Grid>
-                ))}
+
+                <AssociatedLinks classes={classes} sortedLinks={sortedLinks} />
               </Grid>
 
             </Grid>
@@ -97,25 +80,59 @@ const Overview = ({ classes, data, }) => {
         </Grid>
       </div>
       
-      {/* Study File Container */}
-
+      {/* Study Personnel Section */}
       <div className={classes.studyFileContainer}>
-        <p className={classes.studyPersonnelTitle}>Study Personnel</p>
-        {
-          study_personal 
-          ? 
-            <div className={classes.studyPersonnelTable}>
-              <StudyPersonnel data={study_personal} />
-            </div>
-          : 
-            <div className={classes.noStudyRecords}>
+        <Typography variant="h6" className={classes.studyPersonnelTitle}>Study Personnel</Typography>
+        {study_personal.length > 0 ? (
+          <div className={classes.studyPersonnelTable}>
+            <StudyPersonnel data={study_personal} />
+          </div>
+        ): (
+          <div className={classes.noStudyRecords}>
+            <Typography className={classes.noData} variant="h6">
               This Study currently has no Study Personnel records associated with it
-            </div> 
-        }
+            </Typography>
+          </div> 
+        )}
       </div>
-
-  </OverviewThemeProvider>
+    </OverviewThemeProvider>
   );
+};
+
+const ExternalLinkIcon = ({ classes }) => (
+  <img
+    src={externalIcon}
+    width={14}
+    height={14}
+    className={classes.externalLinkIcon}
+    alt="outbound website icon"
+  />
+);
+
+const AssociatedLinks = ({ sortedLinks, classes }) => {
+  if (sortedLinks.length === 0) {
+    return (
+      <Grid item xs={12} className={classes.mainValue}>
+        <Typography className={classes.noData} variant="h6">
+          This Study currently has no additional links associated with it
+        </Typography>
+      </Grid>
+    );
+  }
+
+  return sortedLinks.map((link, index) => (
+    <Grid item xs={12} className={classes.mainValue} key={index}>
+      <a
+        href={link?.associated_link_url}
+        className={classes.link}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        {link?.associated_link_name}
+      </a>
+      &nbsp;<ExternalLinkIcon classes={classes} /> <br />
+    </Grid>
+  ));
 };
 
 export default withStyles(styles, { withTheme: true })(Overview);
