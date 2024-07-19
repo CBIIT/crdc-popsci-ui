@@ -34,8 +34,12 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
     biospecimens_collected, // was biospecimen_collection
     study_status,
     dbGap_id, // was dbgap_accession_id
-    number_of_participants ,
+    number_of_participants,
+
+    study_links, // [study_links]
+    study_personal, // [study_personal] was study_personnel
     study_publication,
+    
     // associated_links,
     // max_age,
     // medium_age,
@@ -51,11 +55,8 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
     // primary_diagnosis_disease_term,
     // primary_diagnosis_disease_count,
 
-    // study_personal, // [study_personal]
     // study_publication, // [study_publication]
     // study_files, // [study_files]
-    study_links, // [study_links]
-    
   } = data?.studyGeneral[0]; 
 
   const studyHeader = {
@@ -76,6 +77,7 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
     dbgap_accession_id: dbGap_id, 
     study_id: "None", // TODO: What is study_id?
     study_links,
+    study_personal,
   };
   
   const [snackbarState, setsnackbarState] = React.useState({
@@ -83,17 +85,15 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
     value: 0,
   });
 
-  // function openSnack(value) {
-  //   setsnackbarState({ open: true, value, action: 'added' });
-  // }
-  function closeSnack() {
-    setsnackbarState({ open: false });
-  }
+  /*
+    Notification i.e. XXX files are added to cart. Might be used for Study Files tab
+   * const openSnack = (value) => setsnackbarState({ open: true, value, action: 'added' });
+  */
+  const closeSnack = () => setsnackbarState({ open: false });
 
   const [currentTab, setCurrentTab] = React.useState(0);
-  const handleTabChange = (event, value) => {
-    setCurrentTab(value);
-  };
+
+  const handleTabChange = (event, value) => setCurrentTab(value);
 
   const getHeaderIcon = () => (
     <img
@@ -104,15 +104,18 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
     />
   );
 
-  const breadCrumbJson = [{
-    name: 'Explore',
-    to: '/explore',
-    isALink: true,
-  }, {
-    name: studyHeader.study_short_name,
-    to: '',
-    isALink: false,
-  }];
+  const breadCrumbJson = [
+    {
+      name: 'Explore',
+      to: '/explore',
+      isALink: true,
+    },
+    {
+      name: studyHeader.study_short_name,
+      to: '',
+      isALink: false,
+    },
+  ];
 
   const processedTabs = [
     { 
@@ -149,14 +152,12 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
     },
   ];
 
-  if (isLoading) {
-    return <CircularProgress />;
-  }
+  if (isLoading) return <CircularProgress />;
 
   if (isError) {
     return (
       <Typography variant="h5" color="error" size="sm">
-        An error has occurred in Pop Sci api
+        An error has occurred in Population Sciences API
       </Typography>
     );
   }
@@ -171,16 +172,18 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
       />
 
       <Stats />
+
       <div className={classes.container}>
         <div className={classes.breadCrumb}>
           <CustomBreadcrumb separator=">" data={breadCrumbJson} />
         </div>
+
         <div className={classes.header}>
           <div className={classes.logo}>
             { getHeaderIcon() }
           </div>
-          <div className={classes.headerTitle}>
 
+          <div className={classes.headerTitle}>
             <div className={classes.headerMainTitle}>
               <span>
                 Study:
@@ -189,17 +192,21 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
                 </span>
               </span>
             </div>
+
             <div className={classes.headerStudyName}>
               <span style={{verticalAlign: 'bottom'}}>
                 {studyHeader.study_name}
               </span>
             </div>
           </div>
+
           <div className={classes.numOfparticipants}>
-            <span className={classes.numOfparticipantsText}>Participants in this Study&nbsp;:&nbsp;&nbsp;</span>
-              <span className={classes.numOfparticipantsCount}>
-                { studyHeader.number_of_participants || 0}
-              </span>
+            <span className={classes.numOfparticipantsText}>
+              Participants in this Study&nbsp;:&nbsp;&nbsp;
+            </span>
+            <span className={classes.numOfparticipantsCount}>
+              { studyHeader.number_of_participants || 0}
+            </span>
           </div>
         </div> 
      
@@ -212,14 +219,14 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
             id="overview"
           />
         </div>
+
         <hr className={classes.hrLine} />
-      
+
         {processedTabs.map((processedTab, index) => (
           <TabContentWrapper value={currentTab} index={index} key={index}>
             {processedTab.content}
           </TabContentWrapper>
         ))}
- 
       </div>
     </StudyThemeProvider>
   );
