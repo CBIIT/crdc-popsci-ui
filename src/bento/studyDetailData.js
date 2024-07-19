@@ -32,6 +32,7 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
       study_period_end
       biospecimens_collected
       study_status
+      study_gender
       dbGap_id
       associated_links
       number_of_participants
@@ -63,6 +64,7 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
         year
         journal
         doi
+        pumID
       }
 
       study_files {

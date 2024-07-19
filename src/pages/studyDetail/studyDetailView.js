@@ -13,6 +13,8 @@ import Tab from '../../components/Tab/Tab';
 import Styles from './studyDetailsStyle';
 import StudyThemeProvider from './studyDetailsThemeConfig';
 import Overview from './views/overview/overview';
+import Demographics from  './views/demographics';
+import Publications from './views/publications';
 import CustomBreadcrumb from '../../components/Breadcrumb/BreadcrumbView';
 import TabContentWrapper from './TabContentWrapper';
 
@@ -36,7 +38,8 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
 
     study_links, // [study_links]
     study_personal, // [study_personal] was study_personnel
-
+    study_publication,
+    
     // associated_links,
     // max_age,
     // medium_age,
@@ -73,7 +76,6 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
     study_status,
     dbgap_accession_id: dbGap_id, 
     study_id: "None", // TODO: What is study_id?
-
     study_links,
     study_personal,
   };
@@ -118,7 +120,7 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
     { 
       index: 0,
       label: 'Overview',
-      content: <Overview data={overviewTabData} /> 
+      content: <Overview data={overviewTabData} />  
     },
     { 
       index: 1,
@@ -127,6 +129,7 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
     {
       index: 2,
       label: 'Demographics',
+      content: <Demographics data={data} /> 
     },
     {
       index: 3,
@@ -139,6 +142,8 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
     {
       index: 5,
       label: 'Publications',
+      content: <Publications data={study_publication} /> 
+
     },
     {
       index: 6,
