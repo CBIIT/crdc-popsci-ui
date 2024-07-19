@@ -1,6 +1,8 @@
 import gql from 'graphql-tag';
 import studyHeaderIcon from '../assets/study/studyHeaderIcon.svg'
 import externalLinkIcon from '../assets/externalLinkIcon.svg'
+import previousIcon from '../assets/study/previousIcon.svg';
+import { cellTypes, headerTypes } from '@bento-core/table';
 // --------------- Tooltip configuration --------------
 export const tooltipContent = {
   src: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/icdc/images/svgs/Tooltip.SpeechBubble.svg',
@@ -14,6 +16,7 @@ export const title = {
 
 export const headerIcon = studyHeaderIcon;
 export const externalIcon = externalLinkIcon;
+export const previousPageIcon = previousIcon;
 
 export const GET_STUDY_DETAIL_DATA_QUERY = gql`
   query study($study_short_name: [String]){
@@ -47,7 +50,9 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
 
       study_personal {
         first_name
+        middle_name
         last_name
+        institution
         email
         person_role
       }
@@ -78,3 +83,55 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
 `;
 
 
+// --------------- Tabs Table configuration --------------
+export const studyPersonnelTableConfig = {
+  name: 'StudyPersonnel',
+  dataField: 'participant_data_files',
+  
+  dataKey: 'email',
+  defaultSortField: 'email',
+  defaultSortDirection: 'asc',
+  tableID: 'studyPersonnel_table',
+  id: 'studyPersonnel_table',
+
+  extendedViewConfig: {
+    pagination: false, // Top pagination: true || false
+    manageViewColumns: false, //{ title: "View Columns" },
+    download: false // { downloadCsv: "Download Table Contents As CSV", downloadFileName: "CTDC_Participants_download",},
+  },
+  columns: [
+    {
+      dataField: 'first_name',
+      header: 'Full Name',
+      display: true,
+      tooltipText: 'sort',
+      role: cellTypes.DISPLAY,
+      cellType: cellTypes.CUSTOM_ELEM,
+      customFullName: true, // Used to concatenate 'first_name', 'middle_name', 'last_name'
+      headerType: headerTypes.CUSTOM_ELEM,
+    },
+    {
+      dataField: 'institution',
+      header: 'Institution',
+      display: true,
+      tooltipText: 'sort',
+      role: cellTypes.DISPLAY,
+    },
+    {
+      dataField: 'email',
+      header: 'Email Address',
+      display: true,
+      tooltipText: 'sort',
+      role: cellTypes.DISPLAY,
+      headerType: headerTypes.CUSTOM_ELEM,
+    },
+    {
+      dataField: 'person_role',
+      header: 'Position or Role',
+      display: true,
+      tooltipText: 'sort',
+      role: cellTypes.DISPLAY,
+      headerType: headerTypes.CUSTOM_ELEM,
+    },
+  ],
+};

@@ -32,7 +32,11 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
     biospecimens_collected, // was biospecimen_collection
     study_status,
     dbGap_id, // was dbgap_accession_id
-    number_of_participants ,
+    number_of_participants,
+
+    study_links, // [study_links]
+    study_personal, // [study_personal] was study_personnel
+
     // associated_links,
     // max_age,
     // medium_age,
@@ -48,11 +52,8 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
     // primary_diagnosis_disease_term,
     // primary_diagnosis_disease_count,
 
-    // study_personal, // [study_personal]
     // study_publication, // [study_publication]
     // study_files, // [study_files]
-    study_links, // [study_links]
-    
   } = data?.studyGeneral[0]; 
 
   const studyHeader = {
@@ -74,6 +75,7 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
     study_id: "None", // TODO: What is study_id?
 
     study_links,
+    study_personal,
   };
   
   const [snackbarState, setsnackbarState] = React.useState({
