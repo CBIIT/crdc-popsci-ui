@@ -59,6 +59,7 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
         year
         journal
         doi
+        pumID
       }
 
       study_files {
