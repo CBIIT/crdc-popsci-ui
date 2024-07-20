@@ -9,16 +9,10 @@ import { externalIcon } from '../../../../bento/studyDetailData';
 import { cn } from 'bento-components';
 import StudyPersonnel from './StudyPersonnel';
 import styles from './overviewStyle';
+import { customSorting } from '../../../../utils/utils';
 
 const Overview = ({ classes, data, }) => {
   const { study_personal } = data;
-
-  const customSorting = (a, b) => {
-    let val = 0
-    if(a < b) { val = -1; }
-    if(a > b) { val = 1; }
-    return val;
-  }
 
   const renderInfo = (label, value = '') => (
     <div className={classes.keyAndValueRow}>

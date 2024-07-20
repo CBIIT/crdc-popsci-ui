@@ -6,8 +6,8 @@ import {
    Link
 } from '@material-ui/core';
 import { externalIcon } from '../../../../bento/studyDetailData';
-
-
+import { customSorting } from '../../../../utils/utils';
+import ThemeProvider from './themeConfig'; 
 
 const styles = {
   page:{
@@ -162,31 +162,31 @@ const CustomCard = ({ classes, title, author, year, journal, doi, pumID }) => (
   </Grid>
 );
 
-
 const StyledCard = withStyles(styles)(CustomCard);
-
 
 const Publications = ({
   classes,
   data,
 }) => {
 
+  const sortedData = [...(data || [])].sort((a, b) => customSorting(a.pumID, b.pumID));
+  
   return (
-    <themeProvider>
+    <ThemeProvider>
       <div className={classes.page}>
-    <Grid container className={classes.container} spacing={0} justifyContent="left">
-       {data.length > 0 ? (
-        data.map((card, index) => (
-            <StyledCard {...card}  key={index}/>
-        ))
-      ) : (
-        <Typography className={classes.noData} variant="h6">
-          This Study currently has no Publication records associated with it
-        </Typography>
-      )}
-    </Grid>
-        </div>
-  </themeProvider>
+        <Grid container className={classes.container} spacing={0} justifyContent="left">
+          {sortedData.length > 0 ? (
+            sortedData.map((card, index) => (
+              <StyledCard {...card}  key={index}/>
+            ))
+          ) : (
+            <Typography className={classes.noData} variant="h6">
+              This Study currently has no Publication records associated with it
+            </Typography>
+          )}
+        </Grid>
+      </div>
+    </ThemeProvider>
   );
 };
 
