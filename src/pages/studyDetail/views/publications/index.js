@@ -82,7 +82,7 @@ const StyledExternalLinkIcon = withStyles(styles)(ExternalLinkIcon);
 
 
 const CustomCard = ({ classes, title, author, year, journal, doi, pumID }) => (
-  <Grid item xs={12} sm={6} md={6} className={classes.item} spacing={3} >
+  <Grid item xs={12} sm={6} md={6} className={classes.item}>
    
     <Typography className={classes.title} variant="h5" component="div">
       {title}
@@ -174,7 +174,7 @@ const Publications = ({
   return (
     <ThemeProvider>
       <div className={classes.page}>
-        <Grid container className={classes.container} spacing={0} justifyContent="left">
+        <Grid container className={classes.container} spacing={0} justifyContent="flex-start">
           {sortedData.length > 0 ? (
             sortedData.map((card, index) => (
               <StyledCard {...card}  key={index}/>
