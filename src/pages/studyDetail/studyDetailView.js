@@ -17,6 +17,7 @@ import Demographics from  './views/demographics';
 import Publications from './views/publications';
 import CustomBreadcrumb from '../../components/Breadcrumb/BreadcrumbView';
 import TabContentWrapper from './TabContentWrapper';
+import Neoplasms from './views/neoplasms';
 
 
 const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
@@ -35,6 +36,9 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
     study_status,
     dbGap_id, // was dbgap_accession_id
     number_of_participants,
+
+    primary_diagnosis_disease_term,
+    primary_diagnosis_disease_count,
 
     study_links, // [study_links]
     study_personal, // [study_personal] was study_personnel
@@ -79,6 +83,11 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
     study_links,
     study_personal,
   };
+
+  const neoplasmsTabData = {
+    primary_diagnosis_disease_term,
+    primary_diagnosis_disease_count,
+  }
   
   const [snackbarState, setsnackbarState] = React.useState({
     open: false,
@@ -126,6 +135,7 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
     { 
       index: 1,
       label: 'Neoplasms',
+      content: <Neoplasms data={neoplasmsTabData} />
     },
     {
       index: 2,
@@ -168,7 +178,7 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
         snackbarState={snackbarState}
         closeSnack={closeSnack}
         autoHideDuration={3000}
-        classes={classes}
+        // classes={classes}
       />
 
       <Stats />
