@@ -4,12 +4,12 @@ import { cellTypes, headerTypes } from '@bento-core/table';
 
 // Helper component for custom cell rendering
 export const CustomCellView = (props) => {
-  const { customFullName, displayEmpty, dataField, first_name, middle_name, last_name } = props;
+  const { customFullName, displayEmpty, dataField, person_first_name, person_middle_name, person_last_name } = props;
   
   if (customFullName) {
     return (
       <Typography>
-        {first_name}{' '}{middle_name}{' '}{last_name}
+        {person_first_name}{' '}{person_middle_name}{' '}{person_last_name}
       </Typography>
     );
   } else if (typeof displayEmpty === "boolean") {

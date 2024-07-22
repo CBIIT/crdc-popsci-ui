@@ -31,19 +31,10 @@ const NeoplasmGrid = ({ classes, diseaseTerms }) => (
 const NeoplasmGridStyled = withStyles(gridStyles)(NeoplasmGrid);
 
 const Neoplasms = ({ classes, data, }) => {
-  const { primary_diagnosis_disease_term,
-    primary_diagnosis_disease_count, } = data;
-  
-  // Function to split terms correctly
-  const splitTerms = (str) => {
-    const regex = /, (?=[A-Z])/;
-    return str.replace(/^\[|\]$/g, '').split(regex).map(term => term.trim());
-  };
-
-  const formattedString = splitTerms(primary_diagnosis_disease_term);
+  const { primary_diagnosis_disease_term, primary_diagnosis_disease_count, } = data;
 
   // Create a Set from the list to remove duplicates, convert it back to an array then sort the unique list in place
-  const uniqueDiseaseTermsList = Array.from(new Set(formattedString)).sort();
+  const uniqueDiseaseTermsList = Array.from(new Set(primary_diagnosis_disease_term)).sort();
 
   const renderInfo = (label, value = '') => (
     <div className={classes.keyAndValueRow}>

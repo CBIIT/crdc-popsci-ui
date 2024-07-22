@@ -81,11 +81,11 @@ const ExternalLinkIcon = ({ classes }) => {
 const StyledExternalLinkIcon = withStyles(styles)(ExternalLinkIcon);
 
 
-const CustomCard = ({ classes, title, author, year, journal, doi, pumID }) => (
+const CustomCard = ({ classes, publication_title, authorship, year_of_publication, journal_citation, digital_object_id, pubmed_id }) => (
   <Grid item xs={12} sm={6} md={6} className={classes.item}>
    
     <Typography className={classes.title} variant="h5" component="div">
-      {title}
+      {publication_title}
     </Typography>
     <Grid container>
        <Grid item sm={4} md={4} >
@@ -95,7 +95,7 @@ const CustomCard = ({ classes, title, author, year, journal, doi, pumID }) => (
       </Grid>
       <Grid item sm={7} md={7} >
          <Typography className={classes.content} variant="body2">
-        {author || ''}
+        {authorship || ''}
       </Typography>
       </Grid>
     </Grid>
@@ -108,7 +108,7 @@ const CustomCard = ({ classes, title, author, year, journal, doi, pumID }) => (
       </Grid>
        <Grid item sm={7} md={7} >
          <Typography className={classes.content} variant="body2">
-        {year || ''}
+        {year_of_publication || ''}
       </Typography>
       </Grid>
     </Grid>
@@ -121,7 +121,7 @@ const CustomCard = ({ classes, title, author, year, journal, doi, pumID }) => (
       </Grid>
        <Grid item sm={7} md={7} >
          <Typography className={classes.content} variant="body2">
-        {journal || ''}
+        {journal_citation || ''}
       </Typography>
       </Grid>
     </Grid>
@@ -129,13 +129,13 @@ const CustomCard = ({ classes, title, author, year, journal, doi, pumID }) => (
        <Grid container>
        <Grid item sm={4} md={4} >
            <Typography className={classes.content} variant="body2">
-        <span className={classes.label}>DOI</span>: 
+        <span className={classes.label}>digital_object_id</span>: 
       </Typography>
       </Grid>
        <Grid item sm={7} md={7} >
          <Typography className={classes.content} variant="body2">
-         {doi ? (
-        <Link className={classes.link} href={`https://doi.org/${doi}`} target="_blank" rel="noopener noreferrer">{doi}<StyledExternalLinkIcon/> </Link>
+         {digital_object_id ? (
+        <Link className={classes.link} href={`https://digital_object_id.org/${digital_object_id}`} target="_blank" rel="noopener noreferrer">{digital_object_id}<StyledExternalLinkIcon/> </Link>
         ) : (
           ''
         )}
@@ -151,8 +151,8 @@ const CustomCard = ({ classes, title, author, year, journal, doi, pumID }) => (
       </Grid>
        <Grid item sm={7} md={7} >
          <Typography className={classes.content} variant="body2">
-          {pumID ? (
-        <Link className={classes.link} href={`https://pubmed.ncbi.nlm.nih.gov/${pumID}`} target="_blank" rel="noopener noreferrer">{pumID}<StyledExternalLinkIcon/> </Link>
+          {pubmed_id ? (
+        <Link className={classes.link} href={`https://pubmed.ncbi.nlm.nih.gov/${pubmed_id}`} target="_blank" rel="noopener noreferrer">{pubmed_id}<StyledExternalLinkIcon/> </Link>
         ) : (
           ''
         )}
@@ -169,7 +169,7 @@ const Publications = ({
   data,
 }) => {
 
-  const sortedData = [...(data || [])].sort((a, b) => customSorting(a.pumID, b.pumID));
+  const sortedData = [...(data || [])].sort((a, b) => customSorting(a.publication_record_id, b.publication_record_id));
   
   return (
     <ThemeProvider>

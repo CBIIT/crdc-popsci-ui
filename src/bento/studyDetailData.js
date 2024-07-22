@@ -23,59 +23,60 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
     studyGeneral(study_short_name:$study_short_name) {
       study_name
       study_short_name
+      study_id
       study_description
       study_type
       study_design
-      enrollment_period_start
-      enrollment_period_end
-      study_period_start
-      study_period_end
-      biospecimens_collected
+      enrollment_beginning_year
+      enrollment_ending_year
+      study_beginning_year
+      study_ending_year
+      biospecimen_collection
       study_status
-      study_gender
-      dbGap_id
-      associated_links
+      dbgap_accession_id
       number_of_participants
-      max_age
-      medium_age
-      min_age
-      study_race
-      study_ethnicity
-      study_sex
-      country_list
-      country_count
-      state_list
-      state_count
+      study_participant_maximum_age
+      study_participant_median_age
+      study_participant_minimum_age
+      race
+      ethnicity
+      sex
+      gender
+      study_country
+      number_of_countries
+      study_state_province_territory
+      number_of_states_provinces_territories
       primary_diagnosis_disease_term
       primary_diagnosis_disease_count
 
-      study_personal {
-        first_name
-        middle_name
-        last_name
+      study_personnel {
+        person_first_name
+        person_middle_name
+        person_last_name
         institution
-        email
+        email_address
         person_role
       }
 
       study_publication {
-        author
-        title
-        year
-        journal
-        doi
-        pumID
+        authorship
+        publication_title
+        year_of_publication
+        journal_citation
+        digital_object_id
+        pubmed_id
+        publication_record_id
       }
 
-      study_files {
-        file_name
-        file_type
-        description
-        format
-        size
+      data_file {
+        data_file_name
+        data_file_type
+        data_file_description
+        data_file_format
+        data_file_size
       }
 
-      study_links {
+      associated_links {
         associated_link_name
         associated_link_id
         associated_link_url
@@ -90,8 +91,8 @@ export const studyPersonnelTableConfig = {
   name: 'StudyPersonnel',
   dataField: 'participant_data_files',
   
-  dataKey: 'email',
-  defaultSortField: 'email',
+  dataKey: 'email_address',
+  defaultSortField: 'email_address',
   defaultSortDirection: 'asc',
   tableID: 'studyPersonnel_table',
   id: 'studyPersonnel_table',
@@ -103,13 +104,13 @@ export const studyPersonnelTableConfig = {
   },
   columns: [
     {
-      dataField: 'first_name',
+      dataField: 'person_first_name',
       header: 'Full Name',
       display: true,
       tooltipText: 'sort',
       role: cellTypes.DISPLAY,
       cellType: cellTypes.CUSTOM_ELEM,
-      customFullName: true, // Used to concatenate 'first_name', 'middle_name', 'last_name'
+      customFullName: true, // Used to concatenate 'person_first_name', 'person_middle_name', 'person_last_name'
       headerType: headerTypes.CUSTOM_ELEM,
     },
     {
@@ -120,7 +121,7 @@ export const studyPersonnelTableConfig = {
       role: cellTypes.DISPLAY,
     },
     {
-      dataField: 'email',
+      dataField: 'email_address',
       header: 'Email Address',
       display: true,
       tooltipText: 'sort',

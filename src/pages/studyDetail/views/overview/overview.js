@@ -12,7 +12,7 @@ import styles from './overviewStyle';
 import { customSorting } from '../../../../utils/utils';
 
 const Overview = ({ classes, data, }) => {
-  const { study_personal } = data;
+  const { study_personnel } = data;
 
   const renderInfo = (label, value = '') => (
     <div className={classes.keyAndValueRow}>
@@ -25,7 +25,7 @@ const Overview = ({ classes, data, }) => {
     </div>
   );
 
-  const sortedLinks = [...(data?.study_links || [])].sort((a, b) => customSorting(a.associated_link_id, b.associated_link_id));
+  const sortedLinks = [...(data?.associated_links || [])].sort((a, b) => customSorting(a.associated_link_id, b.associated_link_id));
 
   const enrollmenPeriod = data?.enrollment_beginning_year + ' - ' + data?.enrollment_ending_year;
   const studyPeriod = data?.study_beginning_year + ' - ' + data?.study_ending_year;
@@ -77,9 +77,9 @@ const Overview = ({ classes, data, }) => {
       {/* Study Personnel Section */}
       <div className={classes.studyFileContainer}>
         <Typography variant="h6" className={classes.studyPersonnelTitle}>Study Personnel</Typography>
-        {study_personal.length > 0 ? (
+        {study_personnel.length > 0 ? (
           <div className={classes.studyPersonnelTable}>
-            <StudyPersonnel data={study_personal} />
+            <StudyPersonnel data={study_personnel} />
           </div>
         ): (
           <div className={classes.noStudyRecords}>
