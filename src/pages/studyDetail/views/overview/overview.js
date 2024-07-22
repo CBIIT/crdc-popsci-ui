@@ -12,7 +12,21 @@ import styles from './overviewStyle';
 import { customSorting } from '../../../../utils/utils';
 
 const Overview = ({ classes, data, }) => {
-  const { study_personnel } = data;
+  const {
+    study_description,
+    study_type,
+    study_design,
+    enrollment_beginning_year,
+    enrollment_ending_year,
+    study_beginning_year,
+    study_ending_year,
+    biospecimen_collection,
+    study_status,
+    dbgap_accession_id,
+    study_id,
+    study_personnel = [],
+    associated_links = []
+  } = data;
 
   const renderInfo = (label, value = '') => (
     <div className={classes.keyAndValueRow}>
@@ -25,10 +39,10 @@ const Overview = ({ classes, data, }) => {
     </div>
   );
 
-  const sortedLinks = [...(data?.associated_links || [])].sort((a, b) => customSorting(a.associated_link_id, b.associated_link_id));
+  const sortedLinks = [...associated_links].sort((a, b) => customSorting(a.associated_link_id, b.associated_link_id));
 
-  const enrollmenPeriod = data?.enrollment_beginning_year + ' - ' + data?.enrollment_ending_year;
-  const studyPeriod = data?.study_beginning_year + ' - ' + data?.study_ending_year;
+  const enrollmenPeriod = `${enrollment_beginning_year} - ${enrollment_ending_year}`;
+  const studyPeriod = `${study_beginning_year} - ${study_ending_year}`;
 
   return (
     <OverviewThemeProvider>
@@ -42,7 +56,7 @@ const Overview = ({ classes, data, }) => {
                   <span>Description</span>
                 </Grid>
                 <Grid item xs={12} className={classes.mainValue}>
-                  {data.study_description || ''}
+                  {study_description || ''}
                 </Grid>
               </Grid>
             </div>
@@ -52,20 +66,19 @@ const Overview = ({ classes, data, }) => {
           <Grid item xs={12} sm={6} className={cn(classes.detailContainerRight, classes.scrollDiv)}>
             <Grid container direction="column" className={classes.rightInnerContainer}>
             
-              {renderInfo('STUDY TYPE', data?.study_type)}
-              {renderInfo('STUDY DESIGN', data?.study_design)}
+              {renderInfo('STUDY TYPE', study_type)}
+              {renderInfo('STUDY DESIGN', study_design)}
               {renderInfo('ENROLLMENT PERIOD', enrollmenPeriod)}
               {renderInfo('STUDY PERIOD', studyPeriod)}
-              {renderInfo('BIOSPECIMEN COLLECTION', data.biospecimen_collection)} {/* TODO: check => Biospecimen or Biospecimens and Collected or Collection */}
-              {renderInfo('STATUS', data?.study_status)}
-              {renderInfo('dbGaP ID', data?.dbgap_accession_id)}
-              {renderInfo('EXTERNAL ID', data?.study_id)}
+              {renderInfo('BIOSPECIMEN COLLECTION', biospecimen_collection)} {/* TODO: check => Biospecimen or Biospecimens and Collected or Collection */}
+              {renderInfo('STATUS', study_status)}
+              {renderInfo('dbGaP ID', dbgap_accession_id)}
+              {renderInfo('EXTERNAL ID', study_id)}
 
               <Grid container direction="column" >
                 <Grid item xs={12} className={classes.mainLabel}>
                   <span>Associated Links</span>
                 </Grid>
-
                 <AssociatedLinks classes={classes} sortedLinks={sortedLinks} />
               </Grid>
 
@@ -115,7 +128,7 @@ const AssociatedLinks = ({ sortedLinks, classes }) => {
   }
 
   return sortedLinks.map((link, index) => (
-    <Grid item xs={12} className={classes.mainValue} key={index}>
+    <Grid item xs={12} className={classes.mainValue} key={`${link.associated_link_name}-${index}`}>
       <a
         href={link?.associated_link_url}
         className={classes.link}

@@ -10,7 +10,6 @@ const Demographics = ({
   classes,
   data,
 }) => {
-  data = data?.studyGeneral[0];
   const races = data?.race?.split('|') || [];
   const ethnicities = data?.ethnicity?.split('|') || [];
   const sexes = data?.sex?.split('|') || [];

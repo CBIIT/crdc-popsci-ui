@@ -21,75 +21,6 @@ import Neoplasms from './views/neoplasms';
 
 
 const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
-
-  const {
-    study_name,
-    study_short_name,
-    study_description,
-    study_type,
-    study_design,
-    enrollment_beginning_year,
-    enrollment_ending_year,
-    study_beginning_year,
-    study_ending_year,
-    biospecimen_collection,
-    study_status,
-    dbgap_accession_id,
-    study_id,
-    number_of_participants,
-
-    primary_diagnosis_disease_term,
-    primary_diagnosis_disease_count,
-
-    associated_links,
-    study_personnel,
-    study_publication,
-    
-    // study_participant_maximum_age,
-    // study_participant_median_age,
-    // study_participant_minimum_age,
-    // race,
-    // ethnicity,
-    // sex,
-    // gender,
-
-    // study_country,
-    // number_of_countries,
-    // study_state_province_territory,
-    // number_of_states_provinces_territories,
-    // primary_diagnosis_disease_term,
-    // primary_diagnosis_disease_count,
-
-    // study_publication, // [study_publication]
-    // data_file, // [data_file]
-  } = data?.studyGeneral[0]; 
-
-  const studyHeader = {
-    study_short_name,
-    study_name,
-    number_of_participants,
-  }
-  const overviewTabData = {
-    study_description,
-    study_type,
-    study_design,
-    enrollment_beginning_year, 
-    enrollment_ending_year, 
-    study_beginning_year, 
-    study_ending_year, 
-    biospecimen_collection, 
-    study_status,
-    dbgap_accession_id, 
-    study_id,
-    associated_links,
-    study_personnel,
-  };
-
-  const neoplasmsTabData = {
-    primary_diagnosis_disease_term,
-    primary_diagnosis_disease_count,
-  }
-  
   const [snackbarState, setsnackbarState] = React.useState({ open: false, value: 0 });
   const [currentTab, setCurrentTab] = React.useState(0);
 
@@ -106,16 +37,16 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
 
   const breadCrumbJson = [
     { name: 'Explore', to: '/explore', isALink: true },
-    { name: studyHeader.study_short_name, to: '', isALink: false },
+    { name: data.study_short_name, to: '', isALink: false },
   ];
 
   const processedTabs = [
-    { index: 0, label: 'Overview', content: <Overview data={overviewTabData} /> },
-    { index: 1, label: 'Neoplasms', content: <Neoplasms data={neoplasmsTabData} /> },
+    { index: 0, label: 'Overview', content: <Overview data={data} /> },
+    { index: 1, label: 'Neoplasms', content: <Neoplasms data={data} /> },
     { index: 2, label: 'Demographics', content: <Demographics data={data} /> },
     { index: 3, label: 'Data Collected' },
     { index: 4, label: 'Countries and States' },
-    { index: 5, label: 'Publications', content: <Publications data={study_publication} /> },
+    { index: 5, label: 'Publications', content: <Publications data={data} /> },
     { index: 6, label: 'Study Files' },
   ];
 
@@ -155,14 +86,14 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
               <span>
                 Study:
                 <span className={classes.headerStudyShortName}>
-                   {studyHeader.study_short_name }
+                   {data.study_short_name }
                 </span>
               </span>
             </div>
 
             <div className={classes.headerStudyName}>
               <span style={{verticalAlign: 'bottom'}}>
-                {studyHeader.study_name}
+                {data.study_name}
               </span>
             </div>
           </div>
@@ -172,7 +103,7 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
               Participants in this Study&nbsp;:&nbsp;&nbsp;
             </span>
             <span className={classes.numOfparticipantsCount}>
-              { studyHeader.number_of_participants || 0}
+              { data.number_of_participants || 0}
             </span>
           </div>
         </div> 
