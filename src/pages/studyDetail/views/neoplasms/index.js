@@ -7,17 +7,48 @@ import OverviewThemeProvider from './theme';
 import { cn } from 'bento-components';
 import styles from './style';
 
+const gridStyles = theme => ({
+  container: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(270px, 1fr))',
+    columnGap: '41px',
+    justifyContent: 'center',
+  },
+  neoplasmText: {
+    wordBreak: 'break-word',
+    textWrap: 'wrap',
+  },
+});
+
+const NeoplasmGrid = ({ classes, diseaseTerms }) => (
+  <div className={classes.container}>
+    {diseaseTerms.map((term, index) => (
+      <span key={term + '_' + index} className={classes.neoplasmText}>{term}</span>
+    ))}
+  </div>
+);
+
+const NeoplasmGridStyled = withStyles(gridStyles)(NeoplasmGrid);
+
 const Neoplasms = ({ classes, data, }) => {
-  const { primary_diagnosis_disease_term, primary_diagnosis_disease_count, } = data;
+  const { primary_diagnosis_disease_term,
+    primary_diagnosis_disease_count, } = data;
+  
+  // Function to split terms correctly
+  const splitTerms = (str) => {
+    const regex = /, (?=[A-Z])/;
+    return str.replace(/^\[|\]$/g, '').split(regex).map(term => term.trim());
+  };
+
+  const formattedString = splitTerms(primary_diagnosis_disease_term);
+
+  // Create a Set from the list to remove duplicates, convert it back to an array then sort the unique list in place
+  const uniqueDiseaseTermsList = Array.from(new Set(formattedString)).sort();
 
   const renderInfo = (label, value = '') => (
     <div className={classes.keyAndValueRow}>
-      <span className={classes.label}>
-        {label}
-      </span>
-      <span className={classes.value}>
-        {value}
-      </span>
+      <span className={classes.label}>{label}</span>
+      <span className={classes.value}>{value}</span>
     </div>
   );
 
@@ -26,50 +57,24 @@ const Neoplasms = ({ classes, data, }) => {
       <div className={classes.detailContainer}>
         <Grid container>
           {/* Left Container Detail */}
-          <Grid item xs={12} sm={6} className={cn(classes.borderRight, classes.detailContainerLeft)}>
+          <Grid item xs={12} sm={12} className={cn(classes.borderRight, classes.detailContainerLeft)}>
             <div className={classes.scrollDiv}>
-              <Grid container direction="column" className={classes.leftInnerContainer} >
+              <Grid container direction="row" className={classes.leftInnerContainer} >
                 {renderInfo('NUMBER OF NEOPLASMS', primary_diagnosis_disease_count)}
                 
                 <Grid item xs={12} className={classes.mainLabel}>
                   <span>NEOPLASMS</span>
                 </Grid>
                 <Grid item xs={12} className={classes.mainValue}>
-                  { primary_diagnosis_disease_term || ''}
+                  <NeoplasmGridStyled diseaseTerms={uniqueDiseaseTermsList} />
                 </Grid>
               </Grid>
             </div>
           </Grid>
-
-          {/* Right Container Detail 
-          <Grid item xs={12} sm={6} className={cn(classes.detailContainerRight, classes.scrollDiv)}>
-            <Grid container direction="column" className={classes.rightInnerContainer}>
-            
-              {renderInfo('STUDY TYPE', data?.study_type)}
-              {renderInfo('STUDY DESIGN', data?.study_design)}
-              {renderInfo('ENROLLMENT PERIOD', enrollmenPeriod)}
-              {renderInfo('STUDY PERIOD', studyPeriod)}
-              {renderInfo('BIOSPECIMEN COLLECTION', data.biospecimen_collection)} {/* TODO: check => Biospecimen or Biospecimens and Collected or Collection 
-              {renderInfo('STATUS', data?.study_status)}
-              {renderInfo('dbGaP ID', data?.dbgap_accession_id)}
-              {renderInfo('EXTERNAL ID', data?.study_id)}
-
-              <Grid container direction="column" >
-                <Grid item xs={12} className={classes.mainLabel}>
-                  <span>Associated Links</span>
-                </Grid>
-
-              </Grid>
-
-            </Grid>
-          </Grid>
-          */}
         </Grid>
       </div>
-      
     </OverviewThemeProvider>
   );
 };
-
 
 export default withStyles(styles, { withTheme: true })(Neoplasms);
