@@ -49,7 +49,7 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
       primary_diagnosis_disease_term
       primary_diagnosis_disease_count
 
-      study_personnel {
+      personnel {
         person_first_name
         person_middle_name
         person_last_name
@@ -58,7 +58,7 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
         person_role
       }
 
-      study_publication {
+      publication {
         authorship
         publication_title
         year_of_publication
@@ -69,6 +69,8 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
       }
 
       data_file {
+        data_file_uuid
+        association
         data_file_name
         data_file_type
         data_file_description

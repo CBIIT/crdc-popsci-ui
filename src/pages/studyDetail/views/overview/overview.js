@@ -24,7 +24,7 @@ const Overview = ({ classes, data, }) => {
     study_status,
     dbgap_accession_id,
     study_id,
-    study_personnel = [],
+    personnel = [],
     associated_links = []
   } = data;
 
@@ -90,9 +90,9 @@ const Overview = ({ classes, data, }) => {
       {/* Study Personnel Section */}
       <div className={classes.studyFileContainer}>
         <Typography variant="h6" className={classes.studyPersonnelTitle}>Study Personnel</Typography>
-        {study_personnel.length > 0 ? (
+        {personnel.length > 0 ? (
           <div className={classes.studyPersonnelTable}>
-            <StudyPersonnel data={study_personnel} />
+            <StudyPersonnel data={personnel} />
           </div>
         ): (
           <div className={classes.noStudyRecords}>

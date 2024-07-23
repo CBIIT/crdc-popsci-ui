@@ -165,9 +165,9 @@ const CustomCard = ({ classes, publication_title, authorship, year_of_publicatio
 const StyledCard = withStyles(styles)(CustomCard);
 
 const Publications = ({ classes, data }) => {
-  const { study_publication } = data;
+  const { publication } = data;
 
-  const sortedData = [...(study_publication || [])].sort((a, b) => customSorting(a.publication_record_id, b.publication_record_id));
+  const sortedData = [...(publication || [])].sort((a, b) => customSorting(a.publication_record_id, b.publication_record_id));
   
   return (
     <ThemeProvider>
