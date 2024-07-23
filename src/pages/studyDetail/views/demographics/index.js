@@ -10,11 +10,10 @@ const Demographics = ({
   classes,
   data,
 }) => {
-  data = data?.studyGeneral[0];
-  const races = data?.study_race?.split('|') || [];
-  const ethnicities = data?.study_ethnicity?.split('|') || [];
-  const sexes = data?.study_sex?.split('|') || [];
-  const genders = data?.study_gender?.split('|') || [];
+  const races = data?.race?.split('|') || [];
+  const ethnicities = data?.ethnicity?.split('|') || [];
+  const sexes = data?.sex?.split('|') || [];
+  const genders = data?.gender?.split('|') || [];
   
   return (
     <ThemeProvider>
@@ -37,7 +36,7 @@ const Demographics = ({
                   <Typography className={classes.label}>PARTICIPANT AGE RANGE</Typography>
                 </Grid>
                 <Grid item xs={12} sm={8} md={8}>
-                  <Typography className={classes.value}>{data?.min_age || ""} - {data?.max_age || ""}</Typography>
+                  <Typography className={classes.value}>{data?.study_participant_minimum_age || ""} - {data?.study_participant_maximum_age || ""}</Typography>
                 </Grid>
               </Grid>
             </div>
@@ -47,7 +46,7 @@ const Demographics = ({
                   <Typography className={classes.label}>MEDIAN PARTICIPANT AGE</Typography>
                 </Grid>
                 <Grid item xs={12} sm={8} md={8}>
-                  <Typography className={classes.value}>{data?.medium_age || ""}</Typography>
+                  <Typography className={classes.value}>{data?.study_participant_median_age || ""}</Typography>
                 </Grid>
               </Grid>
             </div>

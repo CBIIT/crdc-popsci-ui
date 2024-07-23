@@ -15,8 +15,6 @@ export const tblHeader = {
       '&:hover': {
         color: '#13344A',
       },
-      '&:hover $svg': {
-      },
     },
   },
   MuiTableRow: {
@@ -78,13 +76,13 @@ const tblBody = {
 
       color: '#4B4B4B',
 
-      '&.first_name': {
+      '&.person_first_name': {
         width: '209px',
       },
       '&.institution': {
         width: '240px',
       },
-      '&.email': {
+      '&.email_address': {
         width: '373px',
       },
       '&.person_role': {

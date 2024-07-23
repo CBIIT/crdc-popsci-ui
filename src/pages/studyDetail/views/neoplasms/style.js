@@ -13,8 +13,8 @@ const styles = (theme) => ({
       alignItems: 'flex-start', // Align items to the top
       minHeight: '730px',
       maxHeight: '730px',
-      borderBottom: '1px solid #76C4E4',
-      // borderRight: '1px solid #76C4E4',
+
+      marginBottom: '40px',
     },
     borderRight: {
       borderRight: '1px solid #76C4E4',
@@ -24,10 +24,10 @@ const styles = (theme) => ({
       display: 'block',
       overflowY: 'auto',
       paddingTop: '30px',
-      minHeight: '700px'
+      minHeight: '700px',
     },
     leftInnerContainer: {
-      padding: '0px 65px 30px 0px'
+      padding: '0px 65px 0px 0px'
     },
   
     detailContainerRight: {
@@ -50,7 +50,6 @@ const styles = (theme) => ({
         '-webkit-box-shadow': 'inset 0 0 6px white',
         borderRadius: '0px',
         backgroundColor: '#ffffff',
-        borderBottom: '1px solid #76C4E4',
       },
       '&::-webkit-scrollbar-thumb': {
         backgroundColor: '#76C4E4',

@@ -6,8 +6,8 @@ import {
    Link
 } from '@material-ui/core';
 import { externalIcon } from '../../../../bento/studyDetailData';
-
-
+import { customSorting } from '../../../../utils/utils';
+import ThemeProvider from './themeConfig'; 
 
 const styles = {
   page:{
@@ -81,11 +81,11 @@ const ExternalLinkIcon = ({ classes }) => {
 const StyledExternalLinkIcon = withStyles(styles)(ExternalLinkIcon);
 
 
-const CustomCard = ({ classes, title, author, year, journal, doi, pumID }) => (
-  <Grid item xs={12} sm={6} md={6} className={classes.item} spacing={3} >
+const CustomCard = ({ classes, publication_title, authorship, year_of_publication, journal_citation, digital_object_id, pubmed_id }) => (
+  <Grid item xs={12} sm={6} md={6} className={classes.item}>
    
     <Typography className={classes.title} variant="h5" component="div">
-      {title}
+      {publication_title}
     </Typography>
     <Grid container>
        <Grid item sm={4} md={4} >
@@ -95,7 +95,7 @@ const CustomCard = ({ classes, title, author, year, journal, doi, pumID }) => (
       </Grid>
       <Grid item sm={7} md={7} >
          <Typography className={classes.content} variant="body2">
-        {author || ''}
+        {authorship || ''}
       </Typography>
       </Grid>
     </Grid>
@@ -108,7 +108,7 @@ const CustomCard = ({ classes, title, author, year, journal, doi, pumID }) => (
       </Grid>
        <Grid item sm={7} md={7} >
          <Typography className={classes.content} variant="body2">
-        {year || ''}
+        {year_of_publication || ''}
       </Typography>
       </Grid>
     </Grid>
@@ -121,7 +121,7 @@ const CustomCard = ({ classes, title, author, year, journal, doi, pumID }) => (
       </Grid>
        <Grid item sm={7} md={7} >
          <Typography className={classes.content} variant="body2">
-        {journal || ''}
+        {journal_citation || ''}
       </Typography>
       </Grid>
     </Grid>
@@ -129,13 +129,13 @@ const CustomCard = ({ classes, title, author, year, journal, doi, pumID }) => (
        <Grid container>
        <Grid item sm={4} md={4} >
            <Typography className={classes.content} variant="body2">
-        <span className={classes.label}>DOI</span>: 
+        <span className={classes.label}>digital_object_id</span>: 
       </Typography>
       </Grid>
        <Grid item sm={7} md={7} >
          <Typography className={classes.content} variant="body2">
-         {doi ? (
-        <Link className={classes.link} href={`https://doi.org/${doi}`} target="_blank" rel="noopener noreferrer">{doi}<StyledExternalLinkIcon/> </Link>
+         {digital_object_id ? (
+        <Link className={classes.link} href={`https://digital_object_id.org/${digital_object_id}`} target="_blank" rel="noopener noreferrer">{digital_object_id}<StyledExternalLinkIcon/> </Link>
         ) : (
           ''
         )}
@@ -151,8 +151,8 @@ const CustomCard = ({ classes, title, author, year, journal, doi, pumID }) => (
       </Grid>
        <Grid item sm={7} md={7} >
          <Typography className={classes.content} variant="body2">
-          {pumID ? (
-        <Link className={classes.link} href={`https://pubmed.ncbi.nlm.nih.gov/${pumID}`} target="_blank" rel="noopener noreferrer">{pumID}<StyledExternalLinkIcon/> </Link>
+          {pubmed_id ? (
+        <Link className={classes.link} href={`https://pubmed.ncbi.nlm.nih.gov/${pubmed_id}`} target="_blank" rel="noopener noreferrer">{pubmed_id}<StyledExternalLinkIcon/> </Link>
         ) : (
           ''
         )}
@@ -162,31 +162,29 @@ const CustomCard = ({ classes, title, author, year, journal, doi, pumID }) => (
   </Grid>
 );
 
-
 const StyledCard = withStyles(styles)(CustomCard);
 
+const Publications = ({ classes, data }) => {
+  const { publication } = data;
 
-const Publications = ({
-  classes,
-  data,
-}) => {
-
+  const sortedData = [...(publication || [])].sort((a, b) => customSorting(a.publication_record_id, b.publication_record_id));
+  
   return (
-    <themeProvider>
+    <ThemeProvider>
       <div className={classes.page}>
-    <Grid container className={classes.container} spacing={0} justifyContent="left">
-       {data.length > 0 ? (
-        data.map((card, index) => (
-            <StyledCard {...card}  key={index}/>
-        ))
-      ) : (
-        <Typography className={classes.noData} variant="h6">
-          This Study currently has no Publication records associated with it
-        </Typography>
-      )}
-    </Grid>
-        </div>
-  </themeProvider>
+        <Grid container className={classes.container} spacing={0} justifyContent="flex-start">
+          {sortedData.length > 0 ? (
+            sortedData.map((card, index) => (
+              <StyledCard {...card}  key={index}/>
+            ))
+          ) : (
+            <Typography className={classes.noData} variant="h6">
+              This Study currently has no Publication records associated with it
+            </Typography>
+          )}
+        </Grid>
+      </div>
+    </ThemeProvider>
   );
 };
 

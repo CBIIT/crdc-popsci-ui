@@ -16,10 +16,10 @@ import {
   timePointArgumentConfiguration,
   argumentConfiguration,
   seriesSetting,
-} from '../../../bento/studyDetailData';
-import TabPanel from '../../../components/Tab/TabPanel';
+} from '../../../../bento/studyDetailData';
+import TabPanel from '../../../../components/Tab/TabPanel';
 // import { navigatedToDashboard } from '../../../utils/utils';
-import store from '../../../store';
+import store from '../../../../store';
 
 const tooltipContent = ({ argument, originalValue }) => (
   <div>
