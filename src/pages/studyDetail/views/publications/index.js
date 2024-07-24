@@ -178,9 +178,9 @@ const Publications = ({ classes, data }) => {
               <StyledCard {...card}  key={index}/>
             ))
           ) : (
-            <Typography className={classes.noData} variant="h6">
+            <p className={classes.noData}>
               This Study currently has no Publication records associated with it
-            </Typography>
+            </p>
           )}
         </Grid>
       </div>
