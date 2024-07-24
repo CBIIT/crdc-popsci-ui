@@ -4,25 +4,27 @@ import {
   Typography,
   CircularProgress,
 } from '@material-ui/core';
+
 import Snackbar from '../../components/Snackbar';
 import Stats from '../../components/Stats/AllStatsController';
-import {
-  headerIcon,
-} from '../../bento/studyDetailData';
 import Tab from '../../components/Tab/Tab';
+import CustomBreadcrumb from '../../components/Breadcrumb/BreadcrumbView';
+import { headerIcon } from '../../bento/studyDetailData';
 import Styles from './studyDetailsStyle';
 import StudyThemeProvider from './studyDetailsThemeConfig';
-import Overview from './views/overview/overview';
-import Demographics from  './views/demographics';
-import Publications from './views/publications';
-import CustomBreadcrumb from '../../components/Breadcrumb/BreadcrumbView';
+import {
+  Overview,
+  Demographics,
+  Publications,
+  Neoplasms,
+  StudyFiles,
+} from './views';
 import TabContentWrapper from './TabContentWrapper';
-import Neoplasms from './views/neoplasms';
 
 
 const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
   const [snackbarState, setsnackbarState] = React.useState({ open: false, value: 0 });
-  const [currentTab, setCurrentTab] = React.useState(0);
+  const [currentTab, setCurrentTab] = React.useState(6);
 
   /*
     Notification i.e. XXX files are added to cart. Might be used for Study Files tab
@@ -47,7 +49,7 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
     { index: 3, label: 'Data Collected' },
     { index: 4, label: 'Countries and States' },
     { index: 5, label: 'Publications', content: <Publications data={data} /> },
-    { index: 6, label: 'Study Files' },
+    { index: 6, label: 'Study Files', content: <StudyFiles data={data} /> },
   ];
 
   if (isLoading) return <CircularProgress />;
