@@ -4,18 +4,21 @@ import {
   Typography,
   CircularProgress,
 } from '@material-ui/core';
+
 import Snackbar from '../../components/Snackbar';
 import Stats from '../../components/Stats/AllStatsController';
-import {
-  headerIcon,
-} from '../../bento/studyDetailData';
 import Tab from '../../components/Tab/Tab';
+import CustomBreadcrumb from '../../components/Breadcrumb/BreadcrumbView';
+import { headerIcon } from '../../bento/studyDetailData';
 import Styles from './studyDetailsStyle';
 import StudyThemeProvider from './studyDetailsThemeConfig';
-import Overview from './views/overview/overview';
-import Demographics from  './views/demographics';
-import Publications from './views/publications';
-import CustomBreadcrumb from '../../components/Breadcrumb/BreadcrumbView';
+import {
+  Overview,
+  Demographics,
+  Publications,
+  Neoplasms,
+  StudyFiles,
+} from './views';
 import TabContentWrapper from './TabContentWrapper';
 import Neoplasms from './views/neoplasms';
 import Country from './views/country_state';
@@ -43,9 +46,6 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
     { name: 'Explore', to: '/explore', isALink: true },
     { name: studyGeneral.study_short_name, to: '', isALink: false },
   ];
-
-  // <Overview data={data} /> },
-
 
   const processedTabs = [
     { index: 0, label: 'Overview', content: <Overview data={studyGeneral || {}}  />},

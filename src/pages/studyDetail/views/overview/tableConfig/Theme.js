@@ -3,12 +3,13 @@
 export const tblHeader = {
   MuiTableSortLabel: {
     root: {
-      color: '#13344A',
+      color: '#0F253A',
       position: 'relative',
-      fontSize: '11pt',
-      fontFamily: 'Lato Regular,Raleway, sans-serif',
-      fontWeight: 'bold',
-      letterSpacing: '0.06em',
+      fontSize: '15px',
+      fontFamily: 'Open Sans',
+      fontWeight: 700,
+      letterSpacing: '-0.02em',
+      lineHeight: '20.43px',
       textDecoration: 'none',
       whiteSpace: 'nowrap',
 
@@ -25,7 +26,6 @@ export const tblHeader = {
   },
   MuiTableCell: {
     root: {
-      minHeight: '450px',
       padding: '0px 5px 0px 42px',
     },
   },
@@ -58,9 +58,7 @@ const tblBody = {
 
   MuiTableCell: {
     root: {
-      minHeight: '450px',
       padding: '0px 5px 0px 42px',
-      color: 'red',
       borderBottom: 'none',
     },
     paddingCheckbox: {

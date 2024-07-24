@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 import studyHeaderIcon from '../assets/study/studyHeaderIcon.svg'
 import externalLinkIcon from '../assets/externalLinkIcon.svg'
 import previousIcon from '../assets/study/previousIcon.svg';
-import { cellTypes, headerTypes } from '@bento-core/table';
+import { cellTypes, dataFormatTypes } from '@bento-core/table';
 // --------------- Tooltip configuration --------------
 export const tooltipContent = {
   src: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/icdc/images/svgs/Tooltip.SpeechBubble.svg',
@@ -112,7 +112,7 @@ export const studyPersonnelTableConfig = {
   extendedViewConfig: {
     pagination: false, // Top pagination: true || false
     manageViewColumns: false, //{ title: "View Columns" },
-    download: false // { downloadCsv: "Download Table Contents As CSV", downloadFileName: "CTDC_Participants_download",},
+    download: false // { downloadCsv: "Download Table Contents As CSV", downloadFileName: "Study_Personnel_download",},
   },
   columns: [
     {
@@ -123,7 +123,6 @@ export const studyPersonnelTableConfig = {
       role: cellTypes.DISPLAY,
       cellType: cellTypes.CUSTOM_ELEM,
       customFullName: true, // Used to concatenate 'person_first_name', 'person_middle_name', 'person_last_name'
-      headerType: headerTypes.CUSTOM_ELEM,
     },
     {
       dataField: 'institution',
@@ -138,7 +137,6 @@ export const studyPersonnelTableConfig = {
       display: true,
       tooltipText: 'sort',
       role: cellTypes.DISPLAY,
-      headerType: headerTypes.CUSTOM_ELEM,
     },
     {
       dataField: 'person_role',
@@ -146,7 +144,76 @@ export const studyPersonnelTableConfig = {
       display: true,
       tooltipText: 'sort',
       role: cellTypes.DISPLAY,
-      headerType: headerTypes.CUSTOM_ELEM,
+    },
+  ],
+};
+
+// --------------- Tabs Table configuration --------------
+export const studyDataFileTableConfig = {
+  name: 'DataFiles',
+  dataField: 'participant_data_files',
+  
+  dataKey: 'data_file_uuid',
+  defaultSortField: 'data_file_uuid',
+  defaultSortDirection: 'asc',
+  tableID: 'dataFile_table',
+  id: 'dataFile_table',
+
+  extendedViewConfig: {
+    pagination: true, // Top pagination: true || false
+    manageViewColumns: { title: "View Columns" },
+    download: { downloadCsv: "Download Table Contents As CSV", downloadFileName: "Study_Files_download",},
+  },
+  columns: [
+    {
+      cellType: cellTypes.CHECKBOX,
+      display: true,
+      role: cellTypes.CHECKBOX,
+    },
+    {
+      dataField: 'data_file_name',
+      header: 'File Name',
+      display: true,
+      tooltipText: 'sort',
+      role: cellTypes.DISPLAY,
+    },
+    {
+      dataField: 'data_file_type',
+      header: 'File Type',
+      display: true,
+      tooltipText: 'sort',
+      role: cellTypes.DISPLAY,
+    },
+    {
+      dataField: 'association',
+      header: 'Association',
+      display: true,
+      tooltipText: 'sort',
+      role: cellTypes.DISPLAY,
+    },
+    {
+      dataField: 'data_file_description',
+      header: 'Description',
+      display: true,
+      tooltipText: 'sort',
+      role: cellTypes.DISPLAY,
+    },
+    {
+      dataField: 'data_file_format',
+      header: 'Format',
+      display: true,
+      tooltipText: 'sort',
+      role: cellTypes.DISPLAY,
+    },
+    {
+      dataField: 'data_file_size',
+      header: 'Size',
+      display: true,
+      tooltipText: 'sort',
+      role: cellTypes.DISPLAY,
+
+      dataFormatType: dataFormatTypes.FORMAT_BYTES,
+      cellType: cellTypes.FORMAT_DATA,
     },
   ],
 };
