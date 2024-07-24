@@ -77,7 +77,6 @@ const Demographics = ({
           </Grid>
 
           <Grid item xs={1}>
-            <div className={classes.divider}></div>
             <div className={classes.divider2}></div>
           </Grid>
 
@@ -147,7 +146,7 @@ const styles = (theme) => ({
   divider: {
     height: '277px',
     borderLeft: '7px solid #76C4E4',
-    marginLeft: '13px',
+    marginLeft: '14px',
     marginRight: '20px',
     marginTop: '100px',
     float: 'left',

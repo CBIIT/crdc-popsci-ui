@@ -20,6 +20,15 @@ export const previousPageIcon = previousIcon;
 
 export const GET_STUDY_DETAIL_DATA_QUERY = gql`
   query study($study_short_name: [String]){
+    
+    dataCollectionPage(study_short_name:$study_short_name){
+          study_short_name
+          data_collection{
+            data_collection_category
+            data_collection_category_annotation_count
+          }
+      }
+
     studyGeneral(study_short_name:$study_short_name) {
       study_name
       study_short_name
@@ -48,6 +57,7 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
       number_of_states_provinces_territories
       primary_diagnosis_disease_term
       primary_diagnosis_disease_count
+
 
       personnel {
         person_first_name

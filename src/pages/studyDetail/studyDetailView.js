@@ -18,6 +18,8 @@ import Publications from './views/publications';
 import CustomBreadcrumb from '../../components/Breadcrumb/BreadcrumbView';
 import TabContentWrapper from './TabContentWrapper';
 import Neoplasms from './views/neoplasms';
+import Country from './views/country_state';
+import DataCollection from './views/data_collection';
 
 
 const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
@@ -35,18 +37,23 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
     <img src={headerIcon} alt="Study detail header icon" width={81} height={81} />
   );
 
+  const studyGeneral = data?.studyGeneral[0];
+
   const breadCrumbJson = [
     { name: 'Explore', to: '/explore', isALink: true },
-    { name: data.study_short_name, to: '', isALink: false },
+    { name: studyGeneral.study_short_name, to: '', isALink: false },
   ];
 
+  // <Overview data={data} /> },
+
+
   const processedTabs = [
-    { index: 0, label: 'Overview', content: <Overview data={data} /> },
-    { index: 1, label: 'Neoplasms', content: <Neoplasms data={data} /> },
-    { index: 2, label: 'Demographics', content: <Demographics data={data} /> },
-    { index: 3, label: 'Data Collected' },
-    { index: 4, label: 'Countries and States' },
-    { index: 5, label: 'Publications', content: <Publications data={data} /> },
+    { index: 0, label: 'Overview', content: <Overview data={studyGeneral || {}}  />},
+    { index: 1, label: 'Neoplasms', content: <Neoplasms data={studyGeneral || {}} /> },
+    { index: 2, label: 'Demographics', content: <Demographics data={studyGeneral || {}} /> },
+    { index: 3, label: 'Data Collected' ,content: <DataCollection data={data?.dataCollectionPage[0].data_collection || {}} /> },
+    { index: 4, label: 'Countries and States',content: <Country data={studyGeneral || {}} /> },
+    { index: 5, label: 'Publications', content: <Publications data={studyGeneral || {}} /> },
     { index: 6, label: 'Study Files' },
   ];
 
@@ -86,14 +93,14 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
               <span>
                 Study:
                 <span className={classes.headerStudyShortName}>
-                   {data.study_short_name }
+                   {studyGeneral.study_short_name }
                 </span>
               </span>
             </div>
 
             <div className={classes.headerStudyName}>
               <span style={{verticalAlign: 'bottom'}}>
-                {data.study_name}
+                {studyGeneral.study_name}
               </span>
             </div>
           </div>
@@ -103,7 +110,7 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
               Participants in this Study&nbsp;:&nbsp;&nbsp;
             </span>
             <span className={classes.numOfparticipantsCount}>
-              { data.number_of_participants || 0}
+              { studyGeneral.number_of_participants || 0}
             </span>
           </div>
         </div> 
