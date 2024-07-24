@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Grid,
-  Typography,
   withStyles,
 } from '@material-ui/core';
 import OverviewThemeProvider from './overviewThemeConfig';
@@ -89,16 +88,16 @@ const Overview = ({ classes, data, }) => {
       
       {/* Study Personnel Section */}
       <div className={classes.studyFileContainer}>
-        <Typography variant="h6" className={classes.studyPersonnelTitle}>Study Personnel</Typography>
+        <p className={classes.studyPersonnelTitle}>Study Personnel</p>
         {personnel.length > 0 ? (
           <div className={classes.studyPersonnelTable}>
             <StudyPersonnel data={personnel} />
           </div>
         ): (
           <div className={classes.noStudyRecords}>
-            <Typography className={classes.noData} variant="h6">
+            <p className={classes.noData}>
               This Study currently has no Study Personnel records associated with it
-            </Typography>
+            </p>
           </div> 
         )}
       </div>
@@ -120,9 +119,9 @@ const AssociatedLinks = ({ sortedLinks, classes }) => {
   if (sortedLinks.length === 0) {
     return (
       <Grid item xs={12} className={classes.mainValue}>
-        <Typography className={classes.noData} variant="h6">
+        <p className={classes.noData}>
           This Study currently has no additional links associated with it
-        </Typography>
+        </p>
       </Grid>
     );
   }

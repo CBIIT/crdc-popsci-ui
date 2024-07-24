@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Typography,
   withStyles,
 } from '@material-ui/core';
 import OverviewThemeProvider from './ThemeConfig';
@@ -20,9 +19,9 @@ const StudyFiles = ({ classes, data, }) => {
           </div>
         ): (
           <div className={classes.noStudyRecords}>
-            <Typography className={classes.noData} variant="h6">
+            <p className={classes.noData}>
               This Study currently has no Files associated with it
-            </Typography>
+            </p>
           </div> 
         )}
       </div>

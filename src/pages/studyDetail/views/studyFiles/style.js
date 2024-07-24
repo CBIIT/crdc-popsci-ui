@@ -213,6 +213,7 @@ const styles = (theme) => ({
       paddingLeft: '10px',
     },
     noStudyRecords: {
+      marginTop: '55px',
       paddingLeft: '10px',
       display: 'flex',
       justifyContent: 'center',
