@@ -1,5 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core';
+import { cn } from 'bento-components';
 
 const MAX_STATS_ALLOWED = 7; // Maximum number of stats allowed
 
@@ -29,9 +30,9 @@ const StatsBar = ({
    * @returns {object} A React subcomponent
    */
   const StatsBarIcon = ({
-    alt, src,
+    alt, src, specificIconclass
   }) => (
-    <div className={iconClasses}>
+    <div className={cn(iconClasses, specificIconclass)}>
       <img src={src} alt={alt} />
     </div>
   );
@@ -69,7 +70,7 @@ const StatsBar = ({
     }
 
     return (
-      <div>
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
         <div className={countClasses} id={countId}>
           {val}
         </div>
@@ -94,12 +95,14 @@ const StatsBar = ({
     const countId = `statsbar_count_${index + 1}`;
     const isTitleFirst = styles.global.statTitleFirst;
     const titleId = `statsbar_title_${index + 1}`;
+    const specificIconclass = classes[`statsbar_icon_${index+1}`]
 
     return (
-      <div className={classes.statsGroup}>
+      <div className={classes.statsGroup} >
         <StatsBarIcon
           alt={stat.statIconAlt}
           src={stat.statIconSrc}
+          specificIconclass={specificIconclass}
         />
         <StatsBarTitleAndCount
           countId={countId}
@@ -118,6 +121,7 @@ const StatsBar = ({
         <div className={classes.box}>
           {truncatedListOfStats.map((stat, index) => (
             <StatsBarGroup
+              key={stat.statTitle}
               index={index}
               stat={stat}
             />
@@ -155,7 +159,7 @@ const styles = () => ({
     float: props.styles.statTitle ? props.styles.statTitle.float ? props.styles.statTitle.float : 'left' : 'left',
     color: props.styles.statTitle ? props.styles.statTitle.color ? props.styles.statTitle.color : '#062D4F' : '#062D4F',
     fontFamily: props.styles.statTitle ? props.styles.statTitle.fontFamily ? props.styles.statTitle.fontFamily : 'Nunito' : 'Nunito',
-    fontWeight: 600,
+    fontWeight: props.styles.statTitle ? props.styles.statTitle.fontWeight ? props.styles.statTitle.fontWeight : 600 : 600,
     fontSize: props.styles.statTitle ? props.styles.statTitle.fontSize ? props.styles.statTitle.fontSize : '11px' : '11px',
     letterSpacing: '1px',
     margin: '14px 8px 0px 0px',
@@ -205,15 +209,25 @@ const styles = () => ({
       borderRight: 'none'
     },
     ...props.styles.statsGroup,
+    display: 'flex',
+    flexDirection: 'row'
   }),
   statsIcon: (props) => ({
-    position: 'absolute',
-    float: 'left',
-    width: props.styles.statsIcon ? props.styles.statsIcon.width ? props.styles.statsIcon.width : '28px' : '28px',
-    height: props.styles.statsIcon ? props.styles.statsIcon.height ? props.styles.statsIcon.height : '28px' : '28px',
-    margin: props.styles.statsIcon ? props.styles.statsIcon.margin ? props.styles.statsIcon.margin : '8px 0px 0px -35px' : '8px 0px 0px -35px',
+    width: props.styles.statsIcon ? props.styles.statsIcon.width ? props.styles.statsIcon.width : 'auto' : 'auto',
+    height: props.styles.statsIcon ? props.styles.statsIcon.height ? props.styles.statsIcon.height : 'auto' : 'auto',
     ...props.styles.statsIcon,
   }),
+
+  statsbar_icon_2: (props) => ({
+    margin: '0px 0px 5px 0px'
+  }),
+  statsbar_icon_3: (props) => ({
+    margin: '0px 0px 5px 0px'
+  }),
+  statsbar_icon_4: (props) => ({
+    margin: '0px 0px 5px 0px'
+  }),
+  
 });
 
 StatsBar.defaultProps = {
