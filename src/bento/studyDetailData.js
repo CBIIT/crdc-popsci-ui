@@ -19,7 +19,8 @@ export const externalIcon = externalLinkIcon;
 export const previousPageIcon = previousIcon;
 
 export const GET_STUDY_DETAIL_DATA_QUERY = gql`
-  query study($study_short_name: [String]){
+  query study(
+  $study_short_name: [String]){
     
     dataCollectionPage(study_short_name:$study_short_name){
           study_short_name
@@ -29,7 +30,9 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
           }
       }
 
-    studyGeneral(study_short_name:$study_short_name) {
+    studyGeneral(
+    study_short_name:$study_short_name
+    ) {
       study_name
       study_short_name
       study_id
