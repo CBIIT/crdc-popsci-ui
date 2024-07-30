@@ -53,7 +53,7 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
     { index: 3, label: 'Data Collected' ,content: <DataCollection data={data?.dataCollectionPage[0].data_collection || {}} /> },
     { index: 4, label: 'Countries and States',content: <Country data={studyGeneral || {}} /> },
     { index: 5, label: 'Publications', content: <Publications data={studyGeneral || {}} /> },
-    { index: 6, label: 'Study Files' },
+    { index: 6, label: 'Study Files', content: <StudyFiles data={studyGeneral || {}} />},
   ];
 
   if (isLoading) return <CircularProgress />;
