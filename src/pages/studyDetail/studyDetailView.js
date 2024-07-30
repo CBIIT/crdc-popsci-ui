@@ -18,22 +18,15 @@ import {
   Publications,
   Neoplasms,
   StudyFiles,
+  Country,
+  DataCollection,
 } from './views';
 import TabContentWrapper from './TabContentWrapper';
 import StatsView from '../../components/Stats/StatsView';
 
-
-const StudyDetailView = ({ classes, data: dataCopy, isLoading=false, isError=false}) => {
-  const data = dataCopy.studyGeneral[0];
-  const statsbarData = {
-    ...dataCopy.searchSubjects,
-    number_of_participants: data.number_of_participants,
-    data_file_total_size: data.data_file_total_size
-  }
-
+const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
   const [snackbarState, setsnackbarState] = React.useState({ open: false, value: 0 });
   const [currentTab, setCurrentTab] = React.useState(0);
-  console.log("||| dataCopy: ", dataCopy)
 
   /*
     Notification i.e. XXX files are added to cart. Might be used for Study Files tab
@@ -46,19 +39,27 @@ const StudyDetailView = ({ classes, data: dataCopy, isLoading=false, isError=fal
     <img src={headerIcon} alt="Study detail header icon" width={81} height={81} />
   );
 
+  const studyGeneral = data?.studyGeneral[0];
+  
+  const statsbarData = {
+    ...data.searchSubjects,
+    number_of_participants: studyGeneral.number_of_participants,
+    data_file_total_size: studyGeneral.data_file_total_size
+  }
+
   const breadCrumbJson = [
     { name: 'Explore', to: '/explore', isALink: true },
-    { name: data.study_short_name, to: '', isALink: false },
+    { name: studyGeneral.study_short_name, to: '', isALink: false },
   ];
 
   const processedTabs = [
-    { index: 0, label: 'Overview', content: <Overview data={data} /> },
-    { index: 1, label: 'Neoplasms', content: <Neoplasms data={data} /> },
-    { index: 2, label: 'Demographics', content: <Demographics data={data} /> },
-    { index: 3, label: 'Data Collected' },
-    { index: 4, label: 'Countries and States' },
-    { index: 5, label: 'Publications', content: <Publications data={data} /> },
-    { index: 6, label: 'Study Files', content: <StudyFiles data={data} /> },
+    { index: 0, label: 'Overview', content: <Overview data={studyGeneral || {}}  />},
+    { index: 1, label: 'Neoplasms', content: <Neoplasms data={studyGeneral || {}} /> },
+    { index: 2, label: 'Demographics', content: <Demographics data={studyGeneral || {}} /> },
+    { index: 3, label: 'Data Collected' ,content: <DataCollection data={data?.dataCollectionPage[0].data_collection || {}} /> },
+    { index: 4, label: 'Countries and States',content: <Country data={studyGeneral || {}} /> },
+    { index: 5, label: 'Publications', content: <Publications data={studyGeneral || {}} /> },
+    { index: 6, label: 'Study Files', content: <StudyFiles data={studyGeneral || {}} />},
   ];
 
   if (isLoading) return <CircularProgress />;
@@ -98,14 +99,14 @@ const StudyDetailView = ({ classes, data: dataCopy, isLoading=false, isError=fal
               <span>
                 Study:
                 <span className={classes.headerStudyShortName}>
-                   {data.study_short_name }
+                   {studyGeneral.study_short_name }
                 </span>
               </span>
             </div>
 
             <div className={classes.headerStudyName}>
               <span style={{verticalAlign: 'bottom'}}>
-                {data.study_name}
+                {studyGeneral.study_name}
               </span>
             </div>
           </div>
@@ -115,7 +116,7 @@ const StudyDetailView = ({ classes, data: dataCopy, isLoading=false, isError=fal
               Participants in this Study&nbsp;:&nbsp;&nbsp;
             </span>
             <span className={classes.numOfparticipantsCount}>
-              { data.number_of_participants || 0}
+              { studyGeneral.number_of_participants || 0}
             </span>
           </div>
         </div> 
