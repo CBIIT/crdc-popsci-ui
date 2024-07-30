@@ -6,7 +6,7 @@ import {
 } from '@material-ui/core';
 
 import Snackbar from '../../components/Snackbar';
-import Stats from '../../components/Stats/AllStatsController';
+// import Stats from '../../components/Stats/AllStatsController';
 import Tab from '../../components/Tab/Tab';
 import CustomBreadcrumb from '../../components/Breadcrumb/BreadcrumbView';
 import { headerIcon } from '../../bento/studyDetailData';

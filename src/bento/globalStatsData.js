@@ -76,8 +76,7 @@ export const globalStatsData = [
   {
     statTitle: 'Neoplasms',
     type: 'field',
-    statAPI: 'numberOfStudies',
-    // statAPI: 'numberOfStudies', // TODO: Ask Adam to create stats for Neoplasms
+    statAPI: 'numberOfDiagnosis',
     statIconSrc: neoplasmsIcon,
     statIconAlt: 'Neoplasms Stats Bar Icon',
   },
