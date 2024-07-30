@@ -1,0 +1,108 @@
+{
+    "data_collected": [
+        {
+            "Demographics / Lifestyle / Life events / Quality of life": [
+                "Age",
+                "Biological Sex",
+                "Sexual Orientation and Gender Identity",
+                "Ethnicity and Race",
+                "Education Level",
+                "Employment Status",
+                "Residential Information",
+                "Language/Country of Origin",
+                "Life events, beliefs, values",
+                "Marital Status",
+                "Quality of Life",
+                "Social Support",
+                "Socio-Economic Status"
+            ]
+        },
+        {
+            "Alcohol / Tobacco / Drug Use": [
+                "Alcohol Consumption",
+                "Cigarette Smoking",
+                "Other Tobacco Products",
+                "Drug use"
+            ]
+        },
+        {
+            "Diet / Nutrition": [
+                "Dietary Intake",
+                "Dietary Supplement Use"
+            ]
+        },
+        {
+            "Physical Activity / Energy Balance": [
+                "Physical Activity",
+                "Physical Function Measures"
+            ]
+        },
+        {
+            "Anthropometry": [
+                "Self-Reported Anthropometry",
+                "Measured Anthropometry"
+            ]
+        },
+        {
+            "Reproductive Health History": [
+                "Puberty, Menstration, and Menopause",
+                "Pregnancy and Parity",
+                "Breastfeeding",
+                "Contraception",
+                "Hormone Replacement",
+                "Sexual Behavior and Health"
+            ]
+        },
+        {
+            "Environmental or Occupational Exposures": [
+                "Housing Exposures",
+                "Workplace Exposures",
+                "Radiation Exposure",
+                "Chemical Exposure"
+            ]
+        },
+        {
+            "Medical / Health Status / Health History": [
+                "Health Insurance Status",
+                "Screening",
+                "Immunization",
+                "Sleep Habits",
+                "Fatigue",
+                "Cognitive Function",
+                "Depression",
+                "Family History of Cancer",
+                "Family History of Heart Disease",
+                "Family History of Diabetes",
+                "Other Family History",
+                "Prescription Medication Use",
+                "Complementary and Alternative Medicine",
+                "Non-prescription Medication",
+                "Other Medical Conditions",
+                "Other Psychosocial Variables",
+                "Psychological Measures",
+                "Cancer Treatment",
+                "Other Medical Treatments",
+                "Infectious and Parasitic Diseases(ICD Category A & B)",
+                "Neoplasms (ICD Category C)",
+                "Neoplasms, Blood, Blood-forming Organs (ICD Category D)",
+                "Endocrine, Nutritional, Metabolic (ICD Category E)",
+                "Mental and Behavioral Disorders (ICD Category F)",
+                "Nervous System (ICD Category G)",
+                "Eye and Adnexa, Ear and Mastoid Process (ICD Category H)",
+                "Circulatory System (ICD Category I)",
+                "Respiratory System (ICD Category J)",
+                "Digestive System (ICD Category K)",
+                "Skin and Subcutaneous Tissue (ICD Category L)",
+                "Musculoskeletal and Connective Tissue (ICD Category M)",
+                "Genitourinary System (ICD Category N)",
+                "Pregnancy, Childbirth and the Puerperium (ICD Category O)",
+                "Certain Conditions Originating in the Perinatal Period (ICD Category P)",
+                "Congenital Malformations, Deformations and Chromosomal Abnormalities (ICD Category Q)",
+                "Symptoms, Signs and Abnormal Clinical and Lab Findings (ICD Category R)",
+                "Injury, Poisoning, Certain Other Consequences of External Causes (ICD Category S)",
+                "Injury, Poisoning, Certain Other Consequences of External Causes (ICD Category T)",
+                "Vital Status"
+            ]
+        }
+    ]
+}

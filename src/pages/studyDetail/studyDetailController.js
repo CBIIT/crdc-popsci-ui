@@ -31,7 +31,7 @@ const StudyDetailController =  ({ match }) => {
       </Typography>
     );
   }
-  return <StudyDetailView data={data?.studyGeneral[0] || {}} />;
+  return <StudyDetailView data={data || {}} />;
 };
 
 export default StudyDetailController;
