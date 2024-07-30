@@ -20,11 +20,20 @@ import {
   StudyFiles,
 } from './views';
 import TabContentWrapper from './TabContentWrapper';
+import StatsView from '../../components/Stats/StatsView';
 
 
-const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
+const StudyDetailView = ({ classes, data: dataCopy, isLoading=false, isError=false}) => {
+  const data = dataCopy.studyGeneral[0];
+  const statsbarData = {
+    ...dataCopy.searchSubjects,
+    number_of_participants: data.number_of_participants,
+    data_file_total_size: data.data_file_total_size
+  }
+
   const [snackbarState, setsnackbarState] = React.useState({ open: false, value: 0 });
   const [currentTab, setCurrentTab] = React.useState(0);
+  console.log("||| dataCopy: ", dataCopy)
 
   /*
     Notification i.e. XXX files are added to cart. Might be used for Study Files tab
@@ -71,7 +80,8 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
         // classes={classes}
       />
 
-      <Stats />
+      {/* <Stats /> */ }
+      <StatsView data={statsbarData} />
 
       <div className={classes.container}>
         <div className={classes.breadCrumb}>

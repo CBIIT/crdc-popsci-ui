@@ -1,6 +1,6 @@
 // Utility functions to load and save Redux state to local storage
 
-const LOCAL_STORAGE_KEY = "ctdcReduxState";
+const LOCAL_STORAGE_KEY = "popSciReduxState";
 
 export const loadState = () => {
   try {

@@ -83,7 +83,17 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
         associated_link_id
         associated_link_url
       }
+      # Stats Bar property
+      data_file_total_size
+      # number_of_participants Added above already
     }
+    searchSubjects(study_short_name: $study_short_name) {
+      numberOfStudies
+      numberOfDataCollectionCatagory
+      numberOfDiagnosis
+      numberOfDataFiles
+    }
+    # end
   }
 `;
 
