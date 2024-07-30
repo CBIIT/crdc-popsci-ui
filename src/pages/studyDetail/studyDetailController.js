@@ -8,7 +8,12 @@ import { GET_STUDY_DETAIL_DATA_QUERY } from '../../bento/studyDetailData';
 const StudyDetailController =  ({ match }) => {
   
   const { loading, error, data } = useQuery(GET_STUDY_DETAIL_DATA_QUERY, {
-    variables: { study_short_name: [match.params.id] },
+    variables: { 
+    study_short_name: [match.params.id],
+    first: 0,
+    offset: 10,
+    order_by: 'study_short_name',
+    sort_direction: 'ASC'},
   });
 
   if (data && data.studyGeneral) {

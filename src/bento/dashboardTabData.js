@@ -37,8 +37,8 @@ export const externalLinkIcon = {
 // --------------- Tabs Header Data configuration --------------
 export const tabs = [
   {
-    id: 'participants_tab',
-    title: 'Participants',
+    id: 'study_tab',
+    title: 'Studies',
     dataField: 'dataCase',
     count: 'numberOfParticipants',
   },
@@ -320,6 +320,128 @@ query search(
   }
 }
 `;
+
+export const GET_STUDY_OVERVIEW_QUERY = gql`
+query study($study_name: [String],
+$study_short_name: [String],
+$study_id: [String],
+$study_description: [String],
+$study_type: [String],
+$study_design: [String],
+$enrollment_beginning_year: [Int],
+$enrollment_ending_year: [Int],
+$study_beginning_year: [Int],
+$study_ending_year: [Int],
+$biospecimen_collection: [String],
+$study_status: [String],
+$dbgap_accession_id: [String],
+$associated_links: [String],
+$number_of_participants: [Int],
+$study_participant_maximum_age: [Float],
+$study_participant_median_age: [Float],
+$study_participant_minimum_age: [Float],
+$race: [String],
+$ethnicity: [String],
+$sex: [String],
+$gender: [String],
+$race_array: [String],
+$ethnicity_array: [String],
+$sex_array: [String],
+$gender_array: [String],
+$study_country: [String],
+$number_of_countries: [Int],
+$study_state_province_territory: [String],
+$number_of_states_provinces_territories: [Int],
+$primary_diagnosis_disease_term: [String],
+$primary_diagnosis_disease_count: [Int],
+$first: Int,
+$offset: Int,
+$order_by: String,
+$sort_direction: String) {
+ 
+  tabStudy(
+    study_name: $study_name,
+study_short_name: $study_short_name,
+study_id: $study_id,
+study_description: $study_description,
+study_type: $study_type,
+study_design: $study_design,
+enrollment_beginning_year: $enrollment_beginning_year,
+enrollment_ending_year: $enrollment_ending_year,
+study_beginning_year: $study_beginning_year,
+study_ending_year: $study_ending_year,
+biospecimen_collection: $biospecimen_collection,
+study_status: $study_status,
+dbgap_accession_id: $dbgap_accession_id,
+associated_links: $associated_links,
+number_of_participants: $number_of_participants,
+study_participant_maximum_age: $study_participant_maximum_age,
+study_participant_median_age: $study_participant_median_age,
+study_participant_minimum_age: $study_participant_minimum_age,
+race: $race,
+ethnicity: $ethnicity,
+sex: $sex,
+gender: $gender,
+race_array: $race_array,
+ethnicity_array: $ethnicity_array,
+sex_array: $sex_array,
+gender_array: $gender_array,
+study_country: $study_country,
+number_of_countries: $number_of_countries,
+study_state_province_territory: $study_state_province_territory,
+number_of_states_provinces_territories: $number_of_states_provinces_territories,
+primary_diagnosis_disease_term: $primary_diagnosis_disease_term,
+primary_diagnosis_disease_count: $primary_diagnosis_disease_count,
+first: $first,
+offset: $offset,
+order_by: $order_by,
+sort_direction: $sort_direction
+  ) {
+    study_name
+    study_short_name
+    study_id
+    study_description
+    study_type
+    study_design
+    enrollment_beginning_year
+    enrollment_ending_year
+    study_beginning_year
+    study_ending_year
+    biospecimen_collection
+    study_status
+    dbgap_accession_id
+    number_of_participants
+    study_participant_maximum_age
+    study_participant_median_age
+    study_participant_minimum_age
+    race
+    ethnicity
+    sex
+    gender
+    race_array
+    ethnicity_array
+    sex_array
+    gender_array
+    study_country
+    number_of_countries
+    study_state_province_territory
+    number_of_states_provinces_territories
+    primary_diagnosis_disease_term
+    primary_diagnosis_disease_count
+    enrollment_period
+    study_period
+    enrollment_age
+    data_collection{
+        data_collection_category
+        data_collection_category_annotation_count
+    }
+    __typename
+  }
+  
+}
+
+`;
+
 
 export const GET_PARTICIPANTS_OVERVIEW_QUERY = gql`
   query participantOverview(
@@ -1637,130 +1759,118 @@ export const GET_FILE_IDS_FROM_FILE_NAME = gql`
 export const tabContainers = [
   {
     name: 'Studies',
-    dataField: 'participant_data_files',
-    api: GET_PARTICIPANTS_OVERVIEW_QUERY,
-    paginationAPIField: 'participantOverview',
+    api: GET_STUDY_OVERVIEW_QUERY,
+    paginationAPIField: 'tabStudy',
     count: 'numberOfParticipants',
-    dataKey: 'subject_id',
-    defaultSortField: 'subject_id',
+    dataKey: 'study_short_name',
+    defaultSortField: 'study_short_name',
     defaultSortDirection: 'asc',
-    tableID: 'participants_tab_table',
-    addAllButtonText: 'ADD FILES FOR ALL PARTICIPANTS',
-    buttonText: 'ADD FILES FOR SELECTED PARTICIPANTS',
-    cartWillFull: true,
+    tableID: 'study_tab_table',
     extendedViewConfig: {
-      pagination: true,
+      pagination: false,
       manageViewColumns: {
         title: "View Columns"
       },
       download: {
         downloadCsv: "Download Table Contents As CSV",
-        downloadFileName: "CTDC_Participants_download",
+        downloadFileName: "popsci_download",
       },
     },
     columns: [
       {
-        dataField: 'subject_id',
-        header: 'Participant ID',
+        dataField: 'study_short_name',
+        header: 'Study Acronym',
         display: true,
         tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
+        link: '/study/{study_short_name}',
+        cellType: cellTypes.LINK,
+        linkAttr : {
+          rootPath: '/study',
+          pathParams: ['study_short_name'],
+        },
         headerType: headerTypes.CUSTOM_ELEM,
       },
       {
-        dataField: 'ctep_disease_term',
-        header: 'Diagnosis',
+        dataField: 'study_name',
+        header: 'Study Name',
         display: true,
         tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
       },
       {
-        dataField: 'stage_of_disease',
-        header: 'Stage of Disease',
+        dataField: 'enrollment_period',
+        header: 'Enrollment Period',
         display: true,
         tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-        headerType: headerTypes.CUSTOM_ELEM,
       },
       {
-        dataField: 'tumor_grade',
-        header: 'Tumor Grade',
+        dataField: 'study_period',
+        header: 'Study Period',
         display: true,
         tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-        headerType: headerTypes.CUSTOM_ELEM,
       },
       {
-        dataField: 'age_at_enrollment',
-        header: 'Age',
+        dataField: 'study_type',
+        header: 'Study Type',
         display: true,
         tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
       },
       {
-        dataField: 'sex',
-        header: 'Sex',
+        dataField: 'study_design',
+        header: 'Study Design',
         display: true,
         tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
       },
       {
-        dataField: 'reported_gender',
-        header: 'Gender',
+        dataField: 'study_status',
+        header: 'Study Status',
         display: true,
         tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-        headerType: headerTypes.CUSTOM_ELEM,
       },
       {
-        dataField: 'race',
-        header: 'Race',
+        dataField: 'primary_diagnosis_disease_term',
+        header: 'Neoplasms',
         display: true,
         tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
       },
       {
-        dataField: 'ethnicity',
-        header: 'Ethnicity',
+        dataField: 'data_collection',
+        header: 'Data Categories',
         display: true,
         tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-      },
-      {
-        dataField: 'carcinogen_exposure',
-        header: 'Carcinogen Exposure',
-        display: true,
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
+        isDataCateColumn: true,
         cellType: cellTypes.CUSTOM_ELEM,
-        removeSquareBrackets: true, // Flag to indicate if square brackets should be removed
-        headerType: headerTypes.CUSTOM_ELEM,
+        dataCateColumnProps:{
+          dataField: 'data_collection'
+        }
       },
       {
-        dataField: 'targeted_therapy',
-        header: 'Targeted Therapy',
+        dataField: 'biospecimen_collection',
+        header: 'Biospecimens',
         display: true,
         tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-        cellType: cellTypes.CUSTOM_ELEM,
-        removeSquareBrackets: true, // Flag to indicate if square brackets should be removed
-        headerType: headerTypes.CUSTOM_ELEM,
+      },
+      {
+        dataField: 'enrollment_age',
+        header: 'Enrollment Age',
+        display: true,
+        tooltipText: 'sort',
+      },
+      {
+        dataField: 'number_of_participants',
+        header: 'Participants',
+        display: true,
+        tooltipText: 'sort',
       },
     ],
-    id: 'participants_tab',
-    tableID: 'participants_tab_table',
+    id: 'study_tab',
+    tableID: 'study_tab_table',
     // tableDownloadCSV: customCasesTabDownloadCSV,
     tabIndex: '0',
     // downloadFileName: 'Bento_Dashboard_cases_download',
     tableMsg: {
       noMatch: 'No Matching Records Found',
-    },
-    addFilesRequestVariableKey: 'subject_id',
-    addFilesResponseKeys: ['participant_data_files', 'data_file_uuid'],
-    addAllFilesResponseKeys: ['participant_data_files', 'data_file_uuid'],
-    addAllFileQuery: GET_ALL_FILEIDS_FROM_PARTICIPANTS_TAB_FOR_ADD_ALL_CART,
-    addSelectedFilesQuery: GET_ALL_FILEIDS_PARTICIPANTS_TAB_FOR_SELECT_ALL,
-  }
+    }
+      }
 ];
 
   

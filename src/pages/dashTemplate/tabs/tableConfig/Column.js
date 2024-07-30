@@ -3,11 +3,12 @@ import { Typography } from '@material-ui/core';
 import { cellTypes, headerTypes } from '@bento-core/table';
 import DocumentDownloadView from '../../../../components/DocumentDownload/DocumentDownloadView';
 import { removeSquareBracketsFromString } from '../../../../utils/utils';
+import DataCollected from '../../../studyDetail/views/data_collection/data_collection.json';
 
 export const CustomCellView = (props) => {
   const {
     downloadDocument, documentDownloadProps,
-    displayEmpty, dataField, removeSquareBrackets
+    displayEmpty, dataField, removeSquareBrackets ,isDataCateColumn, dataCateColumnProps
   } = props;
   if (downloadDocument) {
     return (
@@ -33,6 +34,17 @@ export const CustomCellView = (props) => {
     );
   } else if (typeof displayEmpty === "boolean") {
     return (<Typography>{displayEmpty || props[dataField] ? props[dataField] : ""}</Typography>);
+  } else if (isDataCateColumn){
+
+    const data =props[dataCateColumnProps['dataField']];
+    const nonZeroCategories = DataCollected.data_collected.filter(category => {
+        const categoryName = Object.keys(category)[0];
+        return category[categoryName].some(item => {
+          const matchingData = data.find(d => d.data_collection_category === item);
+          return matchingData && matchingData.data_collection_category_annotation_count > 0;
+        });
+      });
+     return <>{nonZeroCategories.length}</>
   }
 
   // other custom elem
