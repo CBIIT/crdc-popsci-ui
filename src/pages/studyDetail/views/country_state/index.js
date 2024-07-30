@@ -86,7 +86,7 @@ const styles = (theme) => ({
     margin: '40px 0 120px 0',
   },
   label: {
-    color: '#27424E',
+    color: '#245F7B',
     fontSize: '16px !important',
     fontWeight: '700',
     fontFamily: 'Open Sans',
@@ -100,6 +100,7 @@ const styles = (theme) => ({
     lineHeight: '22px',
     textAlign: 'left',
     paddingLeft: '40px',
+    color: '#4B4B4B',
   },
   link: {
     color: '#007bff',

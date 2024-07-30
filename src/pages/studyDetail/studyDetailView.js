@@ -18,11 +18,10 @@ import {
   Publications,
   Neoplasms,
   StudyFiles,
+  Country,
+  DataCollection,
 } from './views';
 import TabContentWrapper from './TabContentWrapper';
-import Neoplasms from './views/neoplasms';
-import Country from './views/country_state';
-import DataCollection from './views/data_collection';
 
 
 const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
