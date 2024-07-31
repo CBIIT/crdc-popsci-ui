@@ -27,10 +27,7 @@ const getDashData = (states) => {
     const result = await client.query({
       query: DASHBOARD_QUERY_NEW,
       variables: activeFilters,
-       context: {
-      clientName: 'ctdcOldService'
-        },
-      
+      // context: { clientName: 'ctdcOldService' },
     })
       .then((response) => response.data);
     return result;
@@ -44,13 +41,14 @@ const getDashData = (states) => {
       ...(localFindUpload || []).map((obj) => obj.subject_id),
       ...(localFindAutocomplete || []).map((obj) => obj.title),
     ],
+    study_short_name:["PLCO"], // TODO: Leave adding default filter
   };
 
   useEffect(() => {
     const controller = new AbortController();
     getData(activeFilters).then((result) => {
-      if (result.searchParticipants) {
-        setDashData(result.searchParticipants);
+      if (result.searchSubjects) {
+        setDashData({...result.searchSubjects, ...result.studyGeneral?.at(0)});
       }
     });
     return () => controller.abort();
