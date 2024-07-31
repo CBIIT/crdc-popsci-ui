@@ -18,10 +18,11 @@ export const facetSectionVariables = {
   'Studies': {
     isExpanded: true,
     hasSearch: false,
-    hasArrowDropDownIcon: true,
+    hasArrowDropDownIcon: false,
   },
   'Participants': {
     isExpanded: true,
+    hasArrowDropDownIcon: false,
   },
 };
 
@@ -92,7 +93,7 @@ export const facetsConfig = [
     sort_type: 'none',
     minLowerBound: 0,
     maxUpperBound: 100,
-    quantifier: 'Years',
+    // quantifier: 'Years',
   },
 
   // TODO: Slider
@@ -118,7 +119,7 @@ export const facetsConfig = [
     sort_type: 'none',
     minLowerBound: 0,
     maxUpperBound: 100,
-    quantifier: 'Years',
+    // quantifier: 'Years',
   },
     // TODO: Slider
   {
@@ -135,7 +136,7 @@ export const facetsConfig = [
     sort_type: 'none',
     minLowerBound: 0,
     maxUpperBound: 100,
-    quantifier: 'Years',
+    // quantifier: 'Years',
   },
   {
     section: Studies,
@@ -196,7 +197,7 @@ export const facetsConfig = [
     sort_type: 'none',
     minLowerBound: 0,
     maxUpperBound: 100,
-    quantifier: 'Years',
+    // quantifier: 'Years',
   },
 
   {

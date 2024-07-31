@@ -48,7 +48,14 @@ const getDashData = (states) => {
     const controller = new AbortController();
     getData(activeFilters).then((result) => {
       if (result.searchSubjects) {
-        setDashData({...result.searchSubjects, ...result.studyGeneral?.at(0)});
+        setDashData({...result.searchSubjects, ...result.studyGeneral?.at(0), 
+          // TODO: Remove the following Hardcoded Value
+          studyCountByNumberOfParticipants: {
+            lowerBound: 0,
+            subjects: result?.searchSubjects?.studyCountByNumberOfParticipants?.subjects || 1,
+            upperBound: result?.searchSubjects?.studyCountByNumberOfParticipants?.upperBound || 154887
+          }
+        });
       }
     });
     return () => controller.abort();
