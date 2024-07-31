@@ -73,9 +73,17 @@ export const facetsConfig = [
   {
     section: Studies,
     label: 'Enrollment Period',
+
+    // ************ lowerBound
     apiPath: 'enrollmentPeriodMin',
-    apiForFiltering: 'enrollmentPeriodMin', // change to filterStudyCountByEnrollmentPeriodMin
+    apiForFiltering: 'enrollmentPeriodMin',
     datafield: 'enrollment_beginning_year',
+
+    // ************ upperBound
+    // apiPath: 'enrollmentPeriodMax',
+    // apiForFiltering: 'enrollmentPeriodMax',
+    // datafield: 'enrollment_ending_year',
+
     ApiLowerBoundName: 'lowerBound',
     ApiUpperBoundName: 'upperBound',
     show: true,
@@ -91,9 +99,17 @@ export const facetsConfig = [
   {
     section: Studies,
     label: 'Study Period',
+
+    // ************ lowerBound
     apiPath: 'studyPeriodMin',
-    apiForFiltering: 'studyPeriodMin', // change to filterStudyCountByStudyPeriodMin
+    apiForFiltering: 'studyPeriodMin',
     datafield: 'study_beginning_year',
+
+    // ************ upperBound
+    // apiPath: 'studyPeriodMax',
+    // apiForFiltering: 'studyPeriodMax', 
+    // datafield: 'study_ending_year',
+
     ApiLowerBoundName: 'lowerBound',
     ApiUpperBoundName: 'upperBound',
     show: true,
@@ -108,8 +124,8 @@ export const facetsConfig = [
   {
     section: Studies,
     label: 'Number of Participants',
-    apiPath: 'studyParticipantsMin',
-    apiForFiltering: 'studyParticipantsMin', // change to filterStudyCountByStudyParticipantsMin
+    apiPath: 'studyCountByNumberOfParticipants',
+    apiForFiltering: 'studyCountByNumberOfParticipants', 
     datafield: 'number_of_participants',
     ApiLowerBoundName: 'lowerBound',
     ApiUpperBoundName: 'upperBound',
@@ -161,9 +177,17 @@ export const facetsConfig = [
   {
     section: Participants,
     label: 'Age at Enrollment',
-    apiPath: 'studyAgeAtEnrollmentMin',
-    apiForFiltering: 'studyAgeAtEnrollmentMin', // change to filterStudyCountByAgeAtEnrollmentMin
+
+    // ************ lowerBound
+    apiPath: 'participantAgeAtEnrollmentMin',
+    apiForFiltering: 'participantAgeAtEnrollmentMin', 
     datafield: 'study_participant_minimum_age',
+
+    // ************ upperBound
+    // apiPath: 'participantAgeAtEnrollmentMax',
+    // apiForFiltering: 'participantAgeAtEnrollmentMax',
+    // datafield: 'study_participant_maximum_age',
+
     ApiLowerBoundName: 'lowerBound',
     ApiUpperBoundName: 'upperBound',
     show: true,

@@ -189,14 +189,7 @@ export const DASHBOARD_QUERY_NEW = gql`
       }
 
       # Number of Participants (number_of_participants)
-      # This could be merged into one property
-      studyParticipantsMin{
-          lowerBound
-          upperBound
-          subjects
-          __typename
-      }
-      studyParticipantsMax{
+      studyCountByNumberOfParticipants{
           lowerBound
           upperBound
           subjects
@@ -241,13 +234,13 @@ export const DASHBOARD_QUERY_NEW = gql`
 
 
       # Age at Enrollment (study_participant_minimum_age, study_participant_maximum_age)
-      studyAgeAtEnrollmentMin{
+      participantAgeAtEnrollmentMin{
           lowerBound
           upperBound
           subjects
           __typename
       }
-      studyAgeAtEnrollmentMax{
+      participantAgeAtEnrollmentMax{
           lowerBound
           upperBound
           subjects
