@@ -30,12 +30,6 @@ export const navMobileList = [
     className: 'navMobileItem',
   },
   {
-    name: 'Study',
-    link: '/study/PLCO',
-    id: 'navbar-link-study',
-    className: 'navMobileItem',
-  },
-  {
     name: 'About',
     link: '',
     id: 'navbar-dropdown-about',
@@ -51,12 +45,6 @@ export const navbarSublists = {
       link: '/purpose',
       id: 'navbar-dropdown-item-purpose',
       className: 'navMobileSubItem',
-    },
-    {
-      name: 'Contact Us',
-      link: '/support',
-      id: 'navbar-dropdown-item-contact-us',
-      className: 'navMobileSubItem',
-    },
+    }
   ],
 };
