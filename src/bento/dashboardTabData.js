@@ -1827,7 +1827,7 @@ export const tabContainers = [
         tooltipText: 'sort',
       },
       {
-        dataField: 'primary_diagnosis_disease_term',
+        dataField: 'primary_diagnosis_disease_count',
         header: 'Neoplasms',
         display: true,
         tooltipText: 'sort',
