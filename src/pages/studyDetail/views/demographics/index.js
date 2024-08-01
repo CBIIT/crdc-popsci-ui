@@ -33,7 +33,7 @@ const Demographics = ({
             <div className={classes.item}>
               <Grid container>
                 <Grid item xs={12} sm={4} md={4}>
-                  <Typography className={classes.label}>PARTICIPANT AGE RANGE</Typography>
+                  <span className={classes.label}>PARTICIPANT AGE RANGE </span><span className={classes.unboldLabel}>(years)</span>
                 </Grid>
                 <Grid item xs={12} sm={8} md={8}>
                   <Typography className={classes.value}>{data?.study_participant_minimum_age || ""} - {data?.study_participant_maximum_age || ""}</Typography>
@@ -43,7 +43,7 @@ const Demographics = ({
             <div className={classes.item}>
               <Grid container>
                 <Grid item xs={12} sm={4} md={4}>
-                  <Typography className={classes.label}>MEDIAN PARTICIPANT AGE</Typography>
+                  <span className={classes.label}>MEDIAN PARTICIPANT AGE</span><span className={classes.unboldLabel}>(years)</span>
                 </Grid>
                 <Grid item xs={12} sm={8} md={8}>
                   <Typography className={classes.value}>{data?.study_participant_median_age || ""}</Typography>
@@ -127,6 +127,13 @@ const styles = (theme) => ({
     color: '#27424E',
     fontSize: '16px !important',
     fontWeight: '700',
+    fontFamily: 'Open Sans',
+    lineHeight: '22px',
+    textAlign: 'left',
+  },
+  unboldLabel: {
+    color: '#27424E',
+    fontSize: '16px !important',
     fontFamily: 'Open Sans',
     lineHeight: '22px',
     textAlign: 'left',
