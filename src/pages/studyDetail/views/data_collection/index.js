@@ -82,6 +82,7 @@ const DataCollection = ({ data }) => {
   const [leftCategories, setLeftCategories] = useState([]);
   const [rightCategories, setRightCategories] = useState([]);
   const [nonZeroAnnotationCount, setNonZeroAnnotationCount] = useState(0);
+  const [totalItemsCount, setTotalItemsCount] = useState(0);
 
   useEffect(() => {
     const distributeCategories = () => {
@@ -117,17 +118,25 @@ const DataCollection = ({ data }) => {
     distributeCategories();
 
     const countNonZeroAnnotations = () => {
-      const nonZeroCategories = DataCollected.data_collected.filter(category => {
+      let nonZeroCount = 0;
+      let totalCount = 0;
+
+      DataCollected.data_collected.forEach(category => {
         const categoryName = Object.keys(category)[0];
-        return category[categoryName].some(item => {
+        category[categoryName].forEach(item => {
+          totalCount++;
           const matchingData = data.find(d => d.data_collection_category === item);
-          return matchingData && matchingData.data_collection_category_annotation_count > 0;
+          if (matchingData && matchingData.data_collection_category_annotation_count > 0) {
+            nonZeroCount++;
+          }
         });
       });
-      setNonZeroAnnotationCount(nonZeroCategories.length);
-    };
 
+      setNonZeroAnnotationCount(nonZeroCount);
+      setTotalItemsCount(totalCount);
+    };
     countNonZeroAnnotations();
+
   }, [data]);
 
   const renderCategoryItems = (items, data) =>
@@ -172,7 +181,7 @@ const DataCollection = ({ data }) => {
                 </Grid>
                 <Grid item xs={12} sm={8} md={8}>
                   <Typography className={classes.value}>
-                    <span style={{ color: '#27424E', fontWeight: '600' }}>{nonZeroAnnotationCount} </span>(out of {DataCollected.data_collected.length} possible)
+                    <span style={{ color: '#27424E', fontWeight: '600' }}>{nonZeroAnnotationCount} </span>(out of {totalItemsCount} possible)
                   </Typography>
                 </Grid>
               </Grid>

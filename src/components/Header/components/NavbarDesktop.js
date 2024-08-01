@@ -258,6 +258,7 @@ const StyledLoginLink = styled(Link)`
   padding: 10px 0 10px 0;
   margin-bottom: 4.5px;
   margin-right: 8px;
+  display: none;
 `;
 
 const CartSpan = styled.span`

@@ -1994,7 +1994,7 @@ export const tabContainers = [
     name: 'Studies',
     api: GET_STUDY_OVERVIEW_QUERY,
     paginationAPIField: 'tabStudy',
-    count: 'numberOfParticipants',
+    count: 'numberOfStudies',
     dataKey: 'study_short_name',
     defaultSortField: 'study_short_name',
     defaultSortDirection: 'asc',
@@ -2060,7 +2060,7 @@ export const tabContainers = [
         tooltipText: 'sort',
       },
       {
-        dataField: 'primary_diagnosis_disease_term',
+        dataField: 'primary_diagnosis_disease_count',
         header: 'Neoplasms',
         display: true,
         tooltipText: 'sort',
