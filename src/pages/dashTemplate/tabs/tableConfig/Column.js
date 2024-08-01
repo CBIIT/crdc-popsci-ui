@@ -15,7 +15,6 @@ export const CustomCellView = (props) => {
       <DocumentDownloadView
         // fileSize={props.file_size}
         fileSize={props[documentDownloadProps.fileSizeColumn]}
-
         caseId={props[documentDownloadProps.caseIdColumn]}
         fileFormat={props[documentDownloadProps.fileFormatColumn]}
         fileLocation={props[documentDownloadProps.fileLocationColumn]}
@@ -37,18 +36,22 @@ export const CustomCellView = (props) => {
   } else if (isDataCateColumn){
 
     const data =props[dataCateColumnProps['dataField']];
-    let nonZeroCount = 0;
 
-    DataCollected.data_collected.forEach(category => {
+    let nonZeroCount = 0;
+      let totalCount = 0;
+
+      DataCollected.data_collected.forEach(category => {
         const categoryName = Object.keys(category)[0];
         category[categoryName].forEach(item => {
+          totalCount++;
           const matchingData = data.find(d => d.data_collection_category === item);
           if (matchingData && matchingData.data_collection_category_annotation_count > 0) {
             nonZeroCount++;
           }
         });
       });
-    return <>{nonZeroCount}</>
+
+    return <>{nonZeroCount} of {totalCount}</>
   }
 
   // other custom elem
@@ -56,132 +59,13 @@ export const CustomCellView = (props) => {
 };
 
 export const CustomHeaderCellView = (props) => {
- 
-  if (props.dataField === "reported_gender") {
+
+
+  if (props.dataField === "study_name") {
     return (
       <>
-      <span style={{fontSize: '14px',width: '130px',textAlign: 'center'}}>
-       Gender <p style={{fontSize: '10px', lineHeight: '0px', margin: 0, textAlign: 'center',fontWeight: '700'}}>(if different than sex)</p>
-      </span>
-      </>
-    )
-  }
-  else if (props.dataField === "stage_of_disease") {
-    return (
-      <>
-      <span style={{fontSize: '14px',width: '130px',textAlign: 'center'}}>
-      Disease Stage
-      </span>
-      </>
-    )
-  }
-  else if (props.dataField === "subject_id") {
-    return (
-      <>
-      <span style={{fontSize: '14px',width: '170px',textAlign: 'left'}}>
-      Participant ID
-      </span>
-      </>
-    )
-  }
-  else if (props.dataField === "carcinogen_exposure") {
-    return (
-      <>
-      <span style={{fontSize: '14px',width: '200px',textAlign: 'center'}}>
-      Carcinogen Exposure
-      </span>
-      </>
-    )
-  
-  }
-  else if (props.dataField === "targeted_therapy") {
-    return (
-      <>
-      <span style={{fontSize: '14px',width: '170px',textAlign: 'left'}}>
-      Targeted Therapy
-      </span>
-      </>
-    )
-  
-  }
-  else if (props.dataField === "tumor_grade") {
-    return (
-      <>
-      <span style={{fontSize: '14px',width: '100px',textAlign: 'center'}}>
-      Tumor Grade
-      </span>
-      </>
-    )
-  }
-  else if (props.dataField === "specimen_id") {
-    return (
-      <>
-      <span style={{fontSize: '14px',width: '150px',textAlign: 'left'}}>
-      Biospecimen ID
-      </span>
-      </>
-    )
-  }
-  else if (props.dataField === "parent_specimen_id") {
-    return (
-      <>
-      <span style={{fontSize: '14px',width: '200px',textAlign: 'left'}}>
-      Parent Biospecimen ID
-      </span>
-      </>
-    )
-  }
-  else if (props.dataField === "anatomical_collection_site") {
-    return (
-      <>
-      <span style={{fontSize: '14px',width: '225px',textAlign: 'left'}}>
-      Anatomical Collection Site
-      </span>
-      </>
-    )
-  }
-  
-  else if (props.dataField === "tissue_category") {
-    return (
-      <>
-      <span style={{fontSize: '14px',width: '150px',textAlign: 'left'}}>
-      Tissue Category
-      </span>
-      </>
-    )
-  }
-  else if (props.dataField === "assessment_timepoint") {
-    return (
-      <>
-      <span style={{fontSize: '14px',width: '200px',textAlign: 'left'}}>
-      Collection Timepoint
-      </span>
-      </>
-    )
-  }
-  else if (props.dataField === "data_file_type") {
-    return (
-      <>
-      <span style={{fontSize: '14px',width: '150px',textAlign: 'left'}}>
-      File Type
-      </span>
-      </>
-    )
-  }
-  else if (props.dataField === "data_file_name") {
-    return (
-      <>
-      <span style={{fontSize: '14px',width: '150px',textAlign: 'left'}}>
-      File Name
-      </span>
-      </>
-    )
-  }
-  else if (props.dataField === "primary_disease_site") {
-    return (
-      <>
-      <span style={{fontSize: '14px',width: '150px',textAlign: 'left'}}>
-      Primary Site
+      <span style={{fontSize: '11pt',width: '240px',textAlign: 'center'}}>
+       Study Name 
       </span>
       </>
     )
