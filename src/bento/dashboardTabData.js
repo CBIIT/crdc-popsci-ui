@@ -1809,12 +1809,6 @@ export const tabContainers = [
         tooltipText: 'sort',
       },
       {
-        dataField: 'study_type',
-        header: 'Study Type',
-        display: true,
-        tooltipText: 'sort',
-      },
-      {
         dataField: 'study_design',
         header: 'Study Design',
         display: true,
