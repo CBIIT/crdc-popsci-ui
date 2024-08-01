@@ -36,18 +36,22 @@ export const CustomCellView = (props) => {
   } else if (isDataCateColumn){
 
     const data =props[dataCateColumnProps['dataField']];
-    let nonZeroCount = 0;
 
-    DataCollected.data_collected.forEach(category => {
+    let nonZeroCount = 0;
+      let totalCount = 0;
+
+      DataCollected.data_collected.forEach(category => {
         const categoryName = Object.keys(category)[0];
         category[categoryName].forEach(item => {
+          totalCount++;
           const matchingData = data.find(d => d.data_collection_category === item);
           if (matchingData && matchingData.data_collection_category_annotation_count > 0) {
             nonZeroCount++;
           }
         });
       });
-    return <>{nonZeroCount}</>
+
+    return <>{nonZeroCount} of {totalCount}</>
   }
 
   // other custom elem
