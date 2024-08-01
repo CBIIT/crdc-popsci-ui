@@ -1795,6 +1795,8 @@ export const tabContainers = [
         header: 'Study Name',
         display: true,
         tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+        headerType: headerTypes.CUSTOM_ELEM,
       },
       {
         dataField: 'enrollment_period',
