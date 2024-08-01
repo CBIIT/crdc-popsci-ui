@@ -47,7 +47,7 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
   ];
 
   const processedTabs = [
-    { index: 0, label: 'Overview', content: <Overview data={studyGeneral || {}}  />},
+    { index: 0, label: 'Overview', content: <Neoplasms data={studyGeneral || {}} /> },
     { index: 1, label: 'Neoplasms', content: <Neoplasms data={studyGeneral || {}} /> },
     { index: 2, label: 'Demographics', content: <Demographics data={studyGeneral || {}} /> },
     { index: 3, label: 'Data Collected' ,content: <DataCollection data={data?.dataCollectionPage[0].data_collection || {}} /> },

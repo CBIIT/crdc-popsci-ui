@@ -16,9 +16,6 @@ const styles = (theme) => ({
 
       marginBottom: '40px',
     },
-    borderRight: {
-      borderRight: '1px solid #76C4E4',
-    },
   
     detailContainerLeft: {
       display: 'block',
