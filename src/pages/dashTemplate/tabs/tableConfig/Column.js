@@ -36,7 +36,7 @@ export const CustomCellView = (props) => {
   }else if(isNumber){
 
      const number =props[dataCateColumnProps['dataField']];
-     return <>{parseInt(number,10).toLocaleString()}</>
+     return  <Typography>{parseInt(number,10).toLocaleString()} </Typography>
 
   } else if (isDataCateColumn){
 
@@ -56,7 +56,7 @@ export const CustomCellView = (props) => {
         });
       });
 
-    return <>{nonZeroCount} of {totalCount}</>
+    return  <Typography>{nonZeroCount} of {totalCount} </Typography>
   }
 
   // other custom elem
