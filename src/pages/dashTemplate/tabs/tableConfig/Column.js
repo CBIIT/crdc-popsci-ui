@@ -8,7 +8,7 @@ import DataCollected from '../../../studyDetail/views/data_collection/data_colle
 export const CustomCellView = (props) => {
   const {
     downloadDocument, documentDownloadProps,
-    displayEmpty, dataField, removeSquareBrackets ,isDataCateColumn, dataCateColumnProps
+    displayEmpty, dataField, removeSquareBrackets ,isDataCateColumn, dataCateColumnProps, isNumber
   } = props;
   if (downloadDocument) {
     return (
@@ -33,6 +33,11 @@ export const CustomCellView = (props) => {
     );
   } else if (typeof displayEmpty === "boolean") {
     return (<Typography>{displayEmpty || props[dataField] ? props[dataField] : ""}</Typography>);
+  }else if(isNumber){
+
+     const number =props[dataCateColumnProps['dataField']];
+     return <>{parseInt(number,10).toLocaleString()}</>
+
   } else if (isDataCateColumn){
 
     const data =props[dataCateColumnProps['dataField']];

@@ -1855,7 +1855,12 @@ export const tabContainers = [
         dataField: 'number_of_participants',
         header: 'Participants',
         display: true,
+        isNumber: true,
         tooltipText: 'sort',
+        cellType: cellTypes.CUSTOM_ELEM,
+        dataCateColumnProps:{
+          dataField: 'number_of_participants'
+        }
       },
     ],
     id: 'study_tab',
