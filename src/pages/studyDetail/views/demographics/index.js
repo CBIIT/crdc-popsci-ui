@@ -14,6 +14,16 @@ const Demographics = ({
   const ethnicities = data?.ethnicity?.split('|') || [];
   const sexes = data?.sex?.split('|') || [];
   const genders = data?.gender?.split('|') || [];
+
+let number_of_participants = 0;
+
+if (data && data.number_of_participants) {
+  const parsedNumber = parseInt(data.number_of_participants, 10);
+  if (!isNaN(parsedNumber)) {
+    number_of_participants = parsedNumber.toLocaleString();
+  }
+}
+
   
   return (
     <ThemeProvider>
@@ -26,7 +36,7 @@ const Demographics = ({
                   <Typography className={classes.label}>NUMBER OF PARTICIPANTS</Typography>
                 </Grid>
                 <Grid item xs={12} sm={8} md={8}>
-                  <Typography className={classes.value}>{data?.number_of_participants || ""}</Typography>
+                  <Typography className={classes.value}>{number_of_participants}</Typography>
                 </Grid>
               </Grid>
             </div>

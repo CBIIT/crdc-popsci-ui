@@ -67,12 +67,14 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
   }
 
 
-let number_of_participants = 0;
+  let number_of_participants = 0;
 
-if (studyGeneral.number_of_participants){
-  number_of_participants= parseInt(studyGeneral.number_of_participants ,10).toLocaleString();
-}
-
+  if (studyGeneral && studyGeneral.number_of_participants) {
+    const parsedNumber = parseInt(studyGeneral.number_of_participants, 10);
+    if (!isNaN(parsedNumber)) {
+      number_of_participants = parsedNumber.toLocaleString();
+    }
+  }
 
   return (
     <StudyThemeProvider>
