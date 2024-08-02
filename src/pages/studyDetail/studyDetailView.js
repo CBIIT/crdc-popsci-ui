@@ -66,6 +66,14 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
     );
   }
 
+
+let number_of_participants = 0;
+
+if (studyGeneral.number_of_participants){
+  number_of_participants= parseInt(studyGeneral.number_of_participants ,10).toLocaleString();
+}
+
+
   return (
     <StudyThemeProvider>
       <Snackbar
@@ -109,7 +117,7 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
               Participants in this Study&nbsp;:&nbsp;&nbsp;
             </span>
             <span className={classes.numOfparticipantsCount}>
-              { studyGeneral.number_of_participants || 0}
+              { number_of_participants }
             </span>
           </div>
         </div> 
