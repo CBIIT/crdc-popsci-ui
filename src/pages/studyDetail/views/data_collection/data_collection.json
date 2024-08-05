@@ -2,17 +2,17 @@
     "data_collected": [
         {
             "Demographics / Lifestyle / Life events / Quality of life": [
-                "Age",
+               " Age",
                 "Biological Sex",
-                "Sexual Orientation and Gender Identity",
-                "Ethnicity and Race",
                 "Education Level",
                 "Employment Status",
-                "Residential Information",
+                "Ethnicity and Race",
                 "Language/Country of Origin",
                 "Life events, beliefs, values",
                 "Marital Status",
                 "Quality of Life",
+                "Residential Information",
+                "Sexual Orientation and Gender Identity",
                 "Social Support",
                 "Socio-Economic Status"
             ]
@@ -21,8 +21,8 @@
             "Alcohol / Tobacco / Drug Use": [
                 "Alcohol Consumption",
                 "Cigarette Smoking",
-                "Other Tobacco Products",
-                "Drug use"
+                "Drug use",
+                "Other Tobacco Products"
             ]
         },
         {
@@ -39,68 +39,68 @@
         },
         {
             "Anthropometry": [
-                "Self-Reported Anthropometry",
-                "Measured Anthropometry"
+                "Measured Anthropometry",
+                "Self-Reported Anthropometry"
+                
             ]
         },
         {
             "Reproductive Health History": [
-                "Puberty, Menstration, and Menopause",
-                "Pregnancy and Parity",
                 "Breastfeeding",
                 "Contraception",
                 "Hormone Replacement",
+                "Pregnancy and Parity",
+                "Puberty, Menstration, and Menopause",
                 "Sexual Behavior and Health"
             ]
         },
         {
             "Environmental or Occupational Exposures": [
+                "Chemical Exposure",
                 "Housing Exposures",
-                "Workplace Exposures",
                 "Radiation Exposure",
-                "Chemical Exposure"
+                "Workplace Exposures"
             ]
         },
         {
             "Medical / Health Status / Health History": [
-                "Health Insurance Status",
-                "Screening",
-                "Immunization",
-                "Sleep Habits",
-                "Fatigue",
-                "Cognitive Function",
-                "Depression",
-                "Family History of Cancer",
-                "Family History of Heart Disease",
-                "Family History of Diabetes",
-                "Other Family History",
-                "Prescription Medication Use",
-                "Complementary and Alternative Medicine",
-                "Non-prescription Medication",
-                "Other Medical Conditions",
-                "Other Psychosocial Variables",
-                "Psychological Measures",
                 "Cancer Treatment",
-                "Other Medical Treatments",
-                "Infectious and Parasitic Diseases(ICD Category A & B)",
-                "Neoplasms (ICD Category C)",
-                "Neoplasms, Blood, Blood-forming Organs (ICD Category D)",
-                "Endocrine, Nutritional, Metabolic (ICD Category E)",
-                "Mental and Behavioral Disorders (ICD Category F)",
-                "Nervous System (ICD Category G)",
-                "Eye and Adnexa, Ear and Mastoid Process (ICD Category H)",
                 "Circulatory System (ICD Category I)",
-                "Respiratory System (ICD Category J)",
-                "Digestive System (ICD Category K)",
-                "Skin and Subcutaneous Tissue (ICD Category L)",
-                "Musculoskeletal and Connective Tissue (ICD Category M)",
-                "Genitourinary System (ICD Category N)",
-                "Pregnancy, Childbirth and the Puerperium (ICD Category O)",
-                "Certain Conditions Originating in the Perinatal Period (ICD Category P)",
+                "Cognitive Function",
+                "Complementary and Alternative Medicine",
                 "Congenital Malformations, Deformations and Chromosomal Abnormalities (ICD Category Q)",
-                "Symptoms, Signs and Abnormal Clinical and Lab Findings (ICD Category R)",
+                "Depression",
+                "Digestive System (ICD Category K)",
+                "Endocrine, Nutritional, Metabolic (ICD Category E)",
+                "Eye and Adnexa, Ear and Mastoid Process (ICD Category H)",
+                "Family History of Cancer",
+                "Family History of Diabetes",
+                "Family History of Heart Disease",
+                "Fatigue",
+                "Genitourinary System (ICD Category N)",
+                "Health Insurance Status",
+                "Immunization",
+                "Infectious and Parasitic Diseases (ICD Category A & B)",
                 "Injury, Poisoning, Certain Other Consequences of External Causes (ICD Category S)",
                 "Injury, Poisoning, Certain Other Consequences of External Causes (ICD Category T)",
+                "Mental and Behavioral Disorders (ICD Category F)",
+                "Musculoskeletal and Connective Tissue (ICD Category M)",
+                "Neoplasms (ICD Category C)",
+                "Neoplasms, Blood, Blood-forming Organs (ICD Category D)",
+                "Nervous System (ICD Category G)",
+                "Non-prescription Medication",
+                "Other Family History",
+                "Other Medical Conditions",
+                "Other Medical Treatments",
+                "Other Psychosocial Variables",
+                "Pregnancy, Childbirth and the Puerperium (ICD Category O)",
+                "Prescription Medication Use",
+                "Psychological Measures",
+                "Respiratory System (ICD Category J)",
+                "Screening",
+                "Skin and Subcutaneous Tissue (ICD Category L)",
+                "Sleep Habits",
+                "Symptoms, Signs and Abnormal Clinical and Lab Findings (ICD Category R)",
                 "Vital Status"
             ]
         }

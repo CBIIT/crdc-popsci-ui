@@ -14,6 +14,16 @@ const Demographics = ({
   const ethnicities = data?.ethnicity?.split('|') || [];
   const sexes = data?.sex?.split('|') || [];
   const genders = data?.gender?.split('|') || [];
+
+let number_of_participants = 0;
+
+if (data && data.number_of_participants) {
+  const parsedNumber = parseInt(data.number_of_participants, 10);
+  if (!isNaN(parsedNumber)) {
+    number_of_participants = parsedNumber.toLocaleString();
+  }
+}
+
   
   return (
     <ThemeProvider>
@@ -26,14 +36,14 @@ const Demographics = ({
                   <Typography className={classes.label}>NUMBER OF PARTICIPANTS</Typography>
                 </Grid>
                 <Grid item xs={12} sm={8} md={8}>
-                  <Typography className={classes.value}>{data?.number_of_participants || ""}</Typography>
+                  <Typography className={classes.value}>{number_of_participants}</Typography>
                 </Grid>
               </Grid>
             </div>
             <div className={classes.item}>
               <Grid container>
                 <Grid item xs={12} sm={4} md={4}>
-                  <span className={classes.label}>PARTICIPANT AGE RANGE </span><span className={classes.unboldLabel}>(years)</span>
+                  <span className={classes.label}>PARTICIPANT AGE RANGE </span><span className={classes.unboldLabel}>  (years)</span>
                 </Grid>
                 <Grid item xs={12} sm={8} md={8}>
                   <Typography className={classes.value}>{data?.study_participant_minimum_age || ""} - {data?.study_participant_maximum_age || ""}</Typography>
@@ -43,7 +53,7 @@ const Demographics = ({
             <div className={classes.item}>
               <Grid container>
                 <Grid item xs={12} sm={4} md={4}>
-                  <span className={classes.label}>MEDIAN PARTICIPANT AGE</span><span className={classes.unboldLabel}>(years)</span>
+                  <span className={classes.label}>MEDIAN PARTICIPANT AGE</span><span className={classes.unboldLabel}>  (years)</span>
                 </Grid>
                 <Grid item xs={12} sm={8} md={8}>
                   <Typography className={classes.value}>{data?.study_participant_median_age || ""}</Typography>

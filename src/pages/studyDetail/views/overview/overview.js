@@ -72,8 +72,9 @@ const Overview = ({ classes, data, }) => {
               {renderInfo('dbGaP ID', dbgap_accession_id)}
               {renderInfo('EXTERNAL ID', study_id)}
 
+
               <Grid container direction="column" >
-                <Grid item xs={12} className={classes.mainLabel}>
+                <Grid item xs={12} className={`${classes.mainLabel} ${classes.paddingTop}`}>
                   <span>Associated Links</span>
                 </Grid>
                 <AssociatedLinks classes={classes} sortedLinks={sortedLinks} />
