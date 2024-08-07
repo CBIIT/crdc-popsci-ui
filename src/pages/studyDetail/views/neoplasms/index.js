@@ -10,23 +10,40 @@ import styles from './style';
 const gridStyles = theme => ({
   container: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(270px, 1fr))',
-    columnGap: '41px',
+    gridTemplateColumns: 'repeat(4, 1fr)',
+    columnGap: '20px', // Adjust gap between columns
+    rowGap: '20px', // Adjust gap between rows
     justifyContent: 'center',
   },
   neoplasmText: {
     wordBreak: 'break-word',
     textWrap: 'wrap',
+    margin: '5px 0',
   },
 });
 
-const NeoplasmGrid = ({ classes, diseaseTerms }) => (
-  <div className={classes.container}>
-    {diseaseTerms.map((term, index) => (
-      <span key={term + '_' + index} className={classes.neoplasmText}>{term}</span>
-    ))}
-  </div>
-);
+const NeoplasmGrid = ({ classes, diseaseTerms }) => {
+  const columns = [[], [], [], []];
+  const columnCount = 4;
+  const termsPerColumn = Math.ceil(diseaseTerms.length / columnCount);
+
+  diseaseTerms.forEach((term, index) => {
+    const columnIndex = Math.floor(index / termsPerColumn);
+    columns[columnIndex].push(term);
+  });
+
+  return (
+    <div className={classes.container}>
+      {columns.map((column, colIndex) => (
+        <div key={colIndex}>
+          {column.map((term, index) => (
+            <div key={term + '_' + index} className={classes.neoplasmText}>{term}</div>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+};
 
 const NeoplasmGridStyled = withStyles(gridStyles)(NeoplasmGrid);
 

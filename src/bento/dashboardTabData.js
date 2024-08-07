@@ -2028,6 +2028,8 @@ export const tabContainers = [
         header: 'Study Name',
         display: true,
         tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+        headerType: headerTypes.CUSTOM_ELEM,
       },
       {
         dataField: 'enrollment_period',
@@ -2038,12 +2040,6 @@ export const tabContainers = [
       {
         dataField: 'study_period',
         header: 'Study Period',
-        display: true,
-        tooltipText: 'sort',
-      },
-      {
-        dataField: 'study_type',
-        header: 'Study Type',
         display: true,
         tooltipText: 'sort',
       },
@@ -2092,7 +2088,12 @@ export const tabContainers = [
         dataField: 'number_of_participants',
         header: 'Participants',
         display: true,
+        isNumber: true,
         tooltipText: 'sort',
+        cellType: cellTypes.CUSTOM_ELEM,
+        dataCateColumnProps:{
+          dataField: 'number_of_participants'
+        }
       },
     ],
     id: 'study_tab',

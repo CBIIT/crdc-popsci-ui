@@ -13,7 +13,6 @@ import { customSorting } from '../../../../utils/utils';
 const Overview = ({ classes, data, }) => {
   const {
     study_description,
-    study_type,
     study_design,
     enrollment_beginning_year,
     enrollment_ending_year,
@@ -65,7 +64,6 @@ const Overview = ({ classes, data, }) => {
           <Grid item xs={12} sm={6} className={cn(classes.detailContainerRight, classes.scrollDiv)}>
             <Grid container direction="column" className={classes.rightInnerContainer}>
             
-              {renderInfo('STUDY TYPE', study_type)}
               {renderInfo('STUDY DESIGN', study_design)}
               {renderInfo('ENROLLMENT PERIOD', enrollmenPeriod)}
               {renderInfo('STUDY PERIOD', studyPeriod)}
@@ -74,8 +72,9 @@ const Overview = ({ classes, data, }) => {
               {renderInfo('dbGaP ID', dbgap_accession_id)}
               {renderInfo('EXTERNAL ID', study_id)}
 
+
               <Grid container direction="column" >
-                <Grid item xs={12} className={classes.mainLabel}>
+                <Grid item xs={12} className={`${classes.mainLabel} ${classes.paddingTop}`}>
                   <span>Associated Links</span>
                 </Grid>
                 <AssociatedLinks classes={classes} sortedLinks={sortedLinks} />

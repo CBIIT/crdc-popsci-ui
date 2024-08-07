@@ -209,15 +209,15 @@ const styles = (theme) => ({
       paddingBottom: '18px',
       margin: '0px'
     },
-    studyPersonnelTable: {
-      paddingLeft: '10px',
-    },
     noStudyRecords: {
       paddingLeft: '10px',
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center', 
     },
+    paddingTop: {
+      paddingTop: '50px',
+    }
   });
 
   export default styles;

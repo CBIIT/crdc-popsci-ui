@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: 'Open Sans',
     lineHeight: '22px',
     textAlign: 'left',
-    textTransform: 'capitalize',
+    textTransform: 'uppercase',
   },
   value: {
     fontSize: '16px',
