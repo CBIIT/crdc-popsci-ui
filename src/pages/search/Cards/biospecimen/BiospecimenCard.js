@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Grid, Typography,
 } from '@material-ui/core';
-import { cn } from 'bento-components';
+import {cn } from '@bento-core/util';
 import useStyles from './style';
 
 const BiospecimenCard = ({ data = {}, index }) => {

@@ -4,7 +4,7 @@ import {
   withStyles,
 } from '@material-ui/core';
 import OverviewThemeProvider from './theme';
-import { cn } from 'bento-components';
+import {cn } from '@bento-core/util';
 import styles from './style';
 
 const gridStyles = theme => ({
