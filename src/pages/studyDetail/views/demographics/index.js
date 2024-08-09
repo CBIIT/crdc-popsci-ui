@@ -10,21 +10,21 @@ const Demographics = ({
   classes,
   data,
 }) => {
-  const races = data?.race?.split('|') || [];
-  const ethnicities = data?.ethnicity?.split('|') || [];
-  const sexes = data?.sex?.split('|') || [];
-  const genders = data?.gender?.split('|') || [];
+  // Split and sort the arrays in ascending order
+  const races = data?.race?.split('|').sort((a, b) => a.localeCompare(b)) || [];
+  const ethnicities = data?.ethnicity?.split('|').sort((a, b) => a.localeCompare(b)) || [];
+  const sexes = data?.sex?.split('|').sort((a, b) => a.localeCompare(b)) || [];
+  const genders = data?.gender?.split('|').sort((a, b) => a.localeCompare(b)) || [];
 
-let number_of_participants = 0;
+  let number_of_participants = 0;
 
-if (data && data.number_of_participants) {
-  const parsedNumber = parseInt(data.number_of_participants, 10);
-  if (!isNaN(parsedNumber)) {
-    number_of_participants = parsedNumber.toLocaleString();
+  if (data && data.number_of_participants) {
+    const parsedNumber = parseInt(data.number_of_participants, 10);
+    if (!isNaN(parsedNumber)) {
+      number_of_participants = parsedNumber.toLocaleString();
+    }
   }
-}
 
-  
   return (
     <ThemeProvider>
       <div className={classes.page}>
