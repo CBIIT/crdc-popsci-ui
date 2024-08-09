@@ -47,8 +47,19 @@ const NeoplasmGridStyled = withStyles(gridStyles)(NeoplasmGrid);
 const Neoplasms = ({ classes, data }) => {
   const { primary_diagnosis_disease_term = [], primary_diagnosis_disease_count } = data;
 
-  // Remove duplicates, sort the list alphabetically
-  const uniqueDiseaseTermsList = Array.from(new Set(primary_diagnosis_disease_term)).sort();
+
+  // Function to remove non-alphabetic characters for sorting purposes
+  function removeNonAlphabeticForSort(str) {
+      return str.replace(/[^a-zA-Z\s]/g, '').trim();
+  }
+
+  // Sort the list without altering the original terms
+  const uniqueDiseaseTermsList = Array.from(new Set(primary_diagnosis_disease_term)).sort((a, b) => {
+      const cleanA = removeNonAlphabeticForSort(a);
+      const cleanB = removeNonAlphabeticForSort(b);
+
+      return cleanA.localeCompare(cleanB);
+  });
 
   const renderInfo = (label, value = '') => (
     <div className={classes.keyAndValueRow}>
