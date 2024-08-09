@@ -12,7 +12,11 @@ const Country = ({
 }) => {
 
   // Sort study_country and study_state_province_territory in ascending order
-  const sortedCountries = data?.study_country?.slice().sort((a, b) => a.localeCompare(b)) || [];
+  const sortedCountries = data?.study_country?.slice().sort((a, b) => {
+        const nameA = a.replace(/[^a-zA-Z ]/g, '').trim();
+        const nameB = b.replace(/[^a-zA-Z ]/g, '').trim();
+    return nameA.localeCompare(nameB);
+  }) || [];
   const sortedStatesProvincesTerritories = data?.study_state_province_territory?.slice().sort((a, b) => a.localeCompare(b)) || [];
 
   return (
