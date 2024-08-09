@@ -125,7 +125,7 @@ export const studyPersonnelTableConfig = {
   dataField: 'participant_data_files',
   
   dataKey: 'email_address',
-  defaultSortField: 'email_address',
+  defaultSortField: 'person_first_name',
   defaultSortDirection: 'asc',
   tableID: 'studyPersonnel_table',
   id: 'studyPersonnel_table',
