@@ -4,7 +4,6 @@ import {
   withStyles,
 } from '@material-ui/core';
 import OverviewThemeProvider from './theme';
-import {cn } from '@bento-core/util';
 import styles from './style';
 
 const gridStyles = theme => ({
@@ -14,18 +13,17 @@ const gridStyles = theme => ({
     columnGap: '20px', // Adjust gap between columns
     rowGap: '20px', // Adjust gap between rows
     justifyContent: 'center',
+    marginTop:'20px'
   },
   neoplasmText: {
     wordBreak: 'break-word',
-    textWrap: 'wrap',
     margin: '5px 0',
   },
 });
 
 const NeoplasmGrid = ({ classes, diseaseTerms }) => {
-  const columns = [[], [], [], []];
-  const columnCount = 4;
-  const termsPerColumn = Math.ceil(diseaseTerms.length / columnCount);
+  const columns = Array.from({ length: 4 }, () => []); // Initialize 4 empty arrays for columns
+  const termsPerColumn = Math.ceil(diseaseTerms.length / 4);
 
   diseaseTerms.forEach((term, index) => {
     const columnIndex = Math.floor(index / termsPerColumn);
@@ -37,7 +35,7 @@ const NeoplasmGrid = ({ classes, diseaseTerms }) => {
       {columns.map((column, colIndex) => (
         <div key={colIndex}>
           {column.map((term, index) => (
-            <div key={term + '_' + index} className={classes.neoplasmText}>{term}</div>
+            <div key={`${term}_${index}`} className={classes.neoplasmText}>{term}</div>
           ))}
         </div>
       ))}
@@ -47,11 +45,22 @@ const NeoplasmGrid = ({ classes, diseaseTerms }) => {
 
 const NeoplasmGridStyled = withStyles(gridStyles)(NeoplasmGrid);
 
-const Neoplasms = ({ classes, data, }) => {
-  const { primary_diagnosis_disease_term, primary_diagnosis_disease_count } = data;
+const Neoplasms = ({ classes, data }) => {
+  const { primary_diagnosis_disease_term = [], primary_diagnosis_disease_count } = data;
 
-  // Create a Set from the list to remove duplicates, convert it back to an array then sort the unique list in place
-  const uniqueDiseaseTermsList = Array.from(new Set(primary_diagnosis_disease_term)).sort();
+
+  // Function to remove non-alphabetic characters for sorting purposes
+  function removeNonAlphabeticForSort(str) {
+      return str.replace(/[^a-zA-Z\s]/g, '').trim();
+  }
+
+  // Sort the list without altering the original terms
+  const uniqueDiseaseTermsList = Array.from(new Set(primary_diagnosis_disease_term)).sort((a, b) => {
+      const cleanA = removeNonAlphabeticForSort(a);
+      const cleanB = removeNonAlphabeticForSort(b);
+
+      return cleanA.localeCompare(cleanB);
+  });
 
   const renderInfo = (label, value = '') => (
     <div className={classes.keyAndValueRow}>
@@ -65,9 +74,9 @@ const Neoplasms = ({ classes, data, }) => {
       <div className={classes.detailContainer}>
         <Grid container>
           {/* Left Container Detail */}
-          <Grid item xs={12} sm={12} className={cn(classes.borderRight, classes.detailContainerLeft)}>
+          <Grid item xs={12} sm={12} className={classes.borderRight}>
             <div className={classes.scrollDiv}>
-              <Grid container direction="row" className={classes.leftInnerContainer} >
+              <Grid container direction="row" className={classes.leftInnerContainer}>
                 {renderInfo('NUMBER OF NEOPLASMS', primary_diagnosis_disease_count)}
                 
                 <Grid item xs={12} className={classes.mainLabel}>

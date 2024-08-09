@@ -1,6 +1,6 @@
 const styles = (theme) => ({
     detailContainer: {
-      margin: 'auto',
+      margin: '30px auto',
       paddingLeft: '64px',
       fontFamily: theme.custom.fontFamilySans,
       letterSpacing: '0.014em',
