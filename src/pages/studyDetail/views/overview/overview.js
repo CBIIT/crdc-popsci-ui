@@ -5,7 +5,7 @@ import {
 } from '@material-ui/core';
 import OverviewThemeProvider from './overviewThemeConfig';
 import { externalIcon } from '../../../../bento/studyDetailData';
-import { cn } from 'bento-components';
+import {cn } from '@bento-core/util';
 import StudyPersonnel from './StudyPersonnel';
 import styles from './overviewStyle';
 import { customSorting } from '../../../../utils/utils';

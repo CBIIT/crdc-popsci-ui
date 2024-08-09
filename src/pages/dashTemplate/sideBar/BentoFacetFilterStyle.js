@@ -24,13 +24,13 @@ export default () => ({
   resetText: {
     marginTop: '0px',
     marginLeft: '8px',
-    color: '#0E6292',
+    color: '#415153',
     fontSize: 14,
   },
   resetTextDisabled: {
     marginTop: '0px',
     marginLeft: '8px',
-    color: '#4E575F',
+    color: '#AEBDBE',
     fontSize: 14,
   },
   cases: {

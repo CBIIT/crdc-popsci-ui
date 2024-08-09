@@ -1,4 +1,10 @@
 import gql from 'graphql-tag';
+import dataVolumeIcon from '../assets/stats/data_volume_icon.svg';
+import studiesIcon from '../assets/stats/studies_icon.svg';
+import participantsIcon from '../assets/stats/participants_icon.svg';
+import neoplasmsIcon from '../assets/stats/neoplasms_icon.svg';
+import dataCategoriesIcon from '../assets/stats/data_categories_icon.svg';
+import studyFilesIcon from '../assets/stats/study_files_icon.svg';
 
 export const statsStyling = {
   global: {
@@ -7,32 +13,40 @@ export const statsStyling = {
     background: '#9DD8F6',
   },
   statsGroup: {
-    margin: '10px 0px',
-    padding: '0.5% 6% 2% 6%',
-    maxWidth: '250px',
-    minWidth: '220px',
+    margin: '9.5px 27px 5.5px 0px',
+    padding: '0px 27px 0px 0px',
+
+    maxWidth: 'fit-content',
+    minWidth: 'fit-content',
     borderRight: '1px solid #0B3556',
-    height: '55px',
+    maxHeight: '38px',
   },
   statsIcon: {
-    width: '40px',
-    height: '45px',
-    margin: '2px 0px 0px -45px',
+    display: 'flex',
+    alignItems: 'center',
   },
   statCount: {
     color: '#0B3556',
-    fontFamily: 'sans-serif',
-    fontSize: '18px',
-    margin: '0px 0px -4px 8px',
+    fontFamily: 'Inter',
+    fontSize: '17px',
+    fontWeight: 600,
+    lineHeight: '17px',
+
+    width: 'fit-content',
+    margin: '0px 0px 0px 8px',
     float: 'left',
   },
   statTitle: {
     color: '#0B3556',
-    fontFamily: 'sans-serif',
+    fontFamily: 'Poppins',
     fontSize: '14px',
+    fontWeight: 300,
+    lineHeight: '21px',
+
     textTransform: 'none',
     margin: '0px 0px 0px 8px',
     float: 'left',
+    width: 'fit-content',
   },
 };
 
@@ -41,90 +55,65 @@ export const globalStatsData = [
   {
     statTitle: 'Data Volume',
     type: 'field',
-    statAPI: 'numberOfStudies',
-    statIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/master/icdc/images/svgs/Data_Vol_.svg',
+    statAPI: 'data_volume', // globalStatsBar
+    statIconSrc: dataVolumeIcon,
     statIconAlt: 'Data Volume Stats Bar Icon',
   },
   {
     statTitle: 'Studies',
     type: 'field',
     statAPI: 'numberOfStudies',
-    statIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/master/icdc/images/svgs/Programs_.svg',
-    // statIconSrc: '../assets/glo-icons/Programs.svg',
-    statIconAlt: 'Study Files Stats Bar Icon',
+    statIconSrc: studiesIcon,
+    statIconAlt: 'Studies Stats Bar Icon',
   },
   {
-    statTitle: 'PARTICIPANTS',
+    statTitle: 'Participants',
     type: 'field',
-    statAPI: 'numberOfParticipants',
-    statIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/master/icdc/images/svgs/Studies_.svg',
-    statIconAlt: 'Studies Stats Bar Icon',
+    statAPI: 'number_of_participants', // globalStatsBar
+    statIconSrc: participantsIcon,
+    statIconAlt: 'Participants Stats Bar Icon',
   },
   {
     statTitle: 'Neoplasms',
     type: 'field',
-    statAPI: 'numberOfDiagnoses',
-    statIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/master/icdc/images/svgs/Cases_.svg',
-    statIconAlt: 'Studies Stats Bar Icon',
+    statAPI: 'numberOfDiagnosis',
+    statIconSrc: neoplasmsIcon,
+    statIconAlt: 'Neoplasms Stats Bar Icon',
   },
   {
     statTitle: 'Data Categories',
     type: 'field',
-    statAPI: 'numberOfDiagnoses',
-    statIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/master/icdc/images/svgs/Samples_.svg',
-    statIconAlt: 'Samples Stats Bar Icon',
+    statAPI: 'numberOfDataCollectionCatagory',
+    statIconSrc: dataCategoriesIcon,
+    statIconAlt: 'Data Categories Stats Bar Icon',
   },
   {
     statTitle: 'Study Files',
     type: 'field',
-    statAPI: 'numberOfFiles',
-    statIconSrc: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/master/icdc/images/svgs/CaseFiles_.svg',
-    statIconAlt: 'Files Stats Bar Icon',
+    statAPI: 'numberOfDataFiles',
+    statIconSrc: studyFilesIcon,
+    statIconAlt: 'Study Files Stats Bar Icon',
   }
 ];
 
-
-
-// --------------- GraphQL query - Retrieve stats details --------------
 export const GET_GLOBAL_STATS_DATA_QUERY = gql`
-  query search(
-    $subject_id: [String],
-    $ctep_disease_term: [String],
-    $stage_of_disease: [String],
-    $tumor_grade: [String], 
-    $sex: [String], 
-    $reported_gender: [String], 
-    $race: [String], $ethnicity: [String],
-    $carcinogen_exposure: [String], 
-    $targeted_therapy: [String],
-    $anatomical_collection_site: [String],
-    $tissue_category: [String],
-    $assessment_timepoint: [String],
-    $data_file_type: [String],
-    $data_file_format: [String]) {
-    searchParticipants(
-      subject_id: $subject_id
-      ctep_disease_term: $ctep_disease_term
-      stage_of_disease: $stage_of_disease
-      tumor_grade: $tumor_grade
-      sex: $sex
-      reported_gender: $reported_gender
-      race: $race
-      ethnicity: $ethnicity
-      carcinogen_exposure: $carcinogen_exposure
-      targeted_therapy: $targeted_therapy
-      anatomical_collection_site: $anatomical_collection_site
-      tissue_category: $tissue_category
-      assessment_timepoint: $assessment_timepoint
-      data_file_type: $data_file_type
-      data_file_format: $data_file_format
-    ) {
+
+  query search($study_short_name: [String]) {
+    searchStudies(
+      study_short_name: $study_short_name
+      # TODO: Add more argument to be used for Explore
+    ) {  
         numberOfStudies
-        numberOfParticipants
-        numberOfDiagnoses
-        numberOfTargetedTherapies
-        numberOfSpecimens
-        numberOfFiles
+        numberOfDataCollectionCatagory
+        numberOfDiagnosis
+        numberOfDataFiles
+      }
+    globalStatsBar(
+      study_short_name: $study_short_name
+    ) {
+        study_short_name
+        data_volume
+        number_of_participants
       }
     }
 `;
