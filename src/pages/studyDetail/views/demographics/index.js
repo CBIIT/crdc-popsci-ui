@@ -10,21 +10,31 @@ const Demographics = ({
   classes,
   data,
 }) => {
-  const races = data?.race?.split('|') || [];
-  const ethnicities = data?.ethnicity?.split('|') || [];
-  const sexes = data?.sex?.split('|') || [];
-  const genders = data?.gender?.split('|') || [];
+  // Split and sort the arrays in ascending order
+  // Define a sorting function that removes non-alphabetic characters
+const cleanAndSort = (array) => {
+    return array?.split('|').sort((a, b) => {
+        const nameA = a.replace(/[^a-zA-Z ]/g, '').trim();
+        const nameB = b.replace(/[^a-zA-Z ]/g, '').trim();
+        return nameA.localeCompare(nameB);
+    }) || [];
+};
 
-let number_of_participants = 0;
+// Apply the sorting function to all arrays
+const races = cleanAndSort(data?.race);
+const ethnicities = cleanAndSort(data?.ethnicity);
+const sexes = cleanAndSort(data?.sex);
+const genders = cleanAndSort(data?.gender);
 
-if (data && data.number_of_participants) {
-  const parsedNumber = parseInt(data.number_of_participants, 10);
-  if (!isNaN(parsedNumber)) {
-    number_of_participants = parsedNumber.toLocaleString();
+  let number_of_participants = 0;
+
+  if (data && data.number_of_participants) {
+    const parsedNumber = parseInt(data.number_of_participants, 10);
+    if (!isNaN(parsedNumber)) {
+      number_of_participants = parsedNumber.toLocaleString();
+    }
   }
-}
 
-  
   return (
     <ThemeProvider>
       <div className={classes.page}>
