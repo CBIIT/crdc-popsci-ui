@@ -32,7 +32,7 @@ const Country = ({
                   <Typography className={classes.label}>COUNTRIES</Typography>
                 </Grid>
                 <Grid item xs={12} sm={8} md={8}>
-                 {data?.study_country .length > 0 && data.study_country.map((contry, index) => (
+                 {data?.study_country.length > 0 && data.study_country.map((contry, index) => (
                     <Typography key={index} className={classes.value}>{contry}</Typography>
                   ))}
                 </Grid>

@@ -84,7 +84,6 @@ const DataCollection = ({ data }) => {
   const [nonZeroAnnotationCount, setNonZeroAnnotationCount] = useState(0);
   const [totalItemsCount, setTotalItemsCount] = useState(0);
 
-
   useEffect(() => {
     const distributeCategories = () => {
       const categoryItemsCount = DataCollected.data_collected.map(category => {

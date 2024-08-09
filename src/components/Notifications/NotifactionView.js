@@ -3,8 +3,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { useGlobal } from '../Global/GlobalProvider';
-import { cn } from 'bento-components';
-
+import {cn } from '@bento-core/util';
 
 const Alert = withStyles(() => ({
   message: {},

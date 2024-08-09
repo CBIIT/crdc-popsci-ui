@@ -3,7 +3,7 @@ import {
   Grid, Typography,
 } from '@material-ui/core';
 import useStyles from './style';
-import { cn } from 'bento-components';
+import {cn } from '@bento-core/util';
 import { removeSquareBracketsFromString } from '../../../../utils/utils';
 
 const ParticipantCard = ({ data = {}, index })=> {

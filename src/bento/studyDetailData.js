@@ -19,48 +19,18 @@ export const externalIcon = externalLinkIcon;
 export const previousPageIcon = previousIcon;
 
 export const GET_STUDY_DETAIL_DATA_QUERY = gql`
-  query study(
-  $study_short_name: [String]){
-    
-    dataCollectionPage(study_short_name:$study_short_name){
-          study_short_name
-          data_collection{
-            data_collection_category
-            data_collection_category_annotation_count
-          }
-      }
+  query study($study_short_name: [String]) {
 
-    studyGeneral(
-    study_short_name:$study_short_name
-    ) {
-      study_name
+    dataCollectionPage(study_short_name:$study_short_name) {
       study_short_name
-      study_id
-      study_description
-      study_type
-      study_design
-      enrollment_beginning_year
-      enrollment_ending_year
-      study_beginning_year
-      study_ending_year
-      biospecimen_collection
-      study_status
-      dbgap_accession_id
-      number_of_participants
-      study_participant_maximum_age
-      study_participant_median_age
-      study_participant_minimum_age
-      race
-      ethnicity
-      sex
-      gender
-      study_country
-      number_of_countries
-      study_state_province_territory
-      number_of_states_provinces_territories
-      primary_diagnosis_disease_term
-      primary_diagnosis_disease_count
+      data_collection {
+        data_collection_category
+        data_collection_category_annotation_count
+      }
+    }
 
+    studyGeneral(study_short_name:$study_short_name) {
+      study_short_name
 
       personnel {
         person_first_name
@@ -97,6 +67,54 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
         associated_link_url
       }
     }
+
+    tabStudy(study_short_name: $study_short_name) {
+      study_name
+      study_short_name
+      study_id
+      study_description
+      study_type
+      study_design
+      enrollment_beginning_year
+      enrollment_ending_year
+      study_beginning_year
+      study_ending_year
+      biospecimen_collection
+      study_status
+      dbgap_accession_id
+      number_of_participants
+      study_participant_maximum_age
+      study_participant_median_age
+      study_participant_minimum_age
+      race
+      ethnicity
+      sex
+      gender
+      races
+      ethnicities
+      sexes
+      genders
+      study_country
+      number_of_countries
+      study_state_province_territory
+      number_of_states_provinces_territories
+      primary_diagnosis_disease_term
+      primary_diagnosis_disease_count
+    }
+
+    # Stats Bar property
+    globalStatsBar(study_short_name: $study_short_name) {
+      study_short_name
+      data_volume
+      number_of_participants
+    }
+    searchStudies(study_short_name: $study_short_name) {
+      numberOfStudies
+      numberOfDataCollectionCatagory
+      numberOfDiagnosis
+      numberOfDataFiles
+    }
+    # end
   }
 `;
 

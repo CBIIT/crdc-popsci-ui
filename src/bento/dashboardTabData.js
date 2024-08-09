@@ -42,18 +42,18 @@ export const tabs = [
     dataField: 'dataCase',
     count: 'numberOfParticipants',
   },
-  {
-    id: 'biospecimens_tab',
-    title: 'Biospecimens',
-    dataField: 'dataSample',
-    count: 'numberOfSamples',
-  },
-  {
-    id: 'file_tab',
-    title: 'Files',
-    dataField: 'dataFile',
-    count: 'numberOfFiles',
-  },
+  // {
+  //   id: 'biospecimens_tab',
+  //   title: 'Biospecimens',
+  //   dataField: 'dataSample',
+  //   count: 'numberOfSamples',
+  // },
+  // {
+  //   id: 'file_tab',
+  //   title: 'Files',
+  //   dataField: 'dataFile',
+  //   count: 'numberOfFiles',
+  // },
 ];
 
 export const multiStudyData = {
@@ -73,6 +73,258 @@ export const tabIndex = [
 
 // Main Query used to populate Facet, Widget components
 export const DASHBOARD_QUERY_NEW = gql`
+  query search(
+    $study_short_name: [String]
+    $study_name: [String]
+    $study_id: [String]
+    $study_description: [String]
+    $study_type: [String]
+    $study_design: [String]
+    $enrollment_beginning_year: [Int]
+    $enrollment_ending_year: [Int]
+    $study_beginning_year: [Int]
+    $study_ending_year: [Int]
+    $biospecimen_collection: [String]
+    $study_status: [String]
+    $dbgap_accession_id: [String]
+    $associated_links: [String]
+    $number_of_participants: [Int]
+    $study_participant_maximum_age: [Float]
+    $study_participant_median_age: [Float]
+    $study_participant_minimum_age: [Float]
+    $races: [String]
+    $ethnicities: [String]
+    $sexes: [String]
+    $genders: [String]
+    $study_country: [String]
+    $number_of_countries: [Int]
+    $study_state_province_territory: [String]
+    $number_of_states_provinces_territories: [Int]
+    $primary_diagnosis_disease_term: [String]
+  ){
+    searchStudies(
+      study_short_name: $study_short_name
+      study_name: $study_name
+      study_id: $study_id
+      study_description: $study_description
+      study_type: $study_type
+      study_design: $study_design
+      enrollment_beginning_year: $enrollment_beginning_year
+      enrollment_ending_year: $enrollment_ending_year
+      study_beginning_year: $study_beginning_year
+      study_ending_year: $study_ending_year
+      biospecimen_collection: $biospecimen_collection
+      study_status: $study_status
+      dbgap_accession_id: $dbgap_accession_id
+      associated_links: $associated_links
+      number_of_participants: $number_of_participants
+      study_participant_maximum_age: $study_participant_maximum_age
+      study_participant_median_age: $study_participant_median_age
+      study_participant_minimum_age: $study_participant_minimum_age
+      races: $races
+      ethnicities: $ethnicities
+      sexes: $sexes
+      genders: $genders
+      study_country: $study_country
+      number_of_countries: $number_of_countries
+      study_state_province_territory: $study_state_province_territory
+      number_of_states_provinces_territories: $number_of_states_provinces_territories
+      primary_diagnosis_disease_term: $primary_diagnosis_disease_term
+    ){  
+      numberOfStudies
+      numberOfDataCollectionCatagory
+      numberOfDiagnosis
+      numberOfDataFiles
+
+      # Study Type(study_type)
+      studyCountByStudyType{
+          group
+          subjects
+          __typename
+      }
+      filterStudyCountByStudyType{
+          group
+          subjects
+          __typename
+      }
+
+      # Study Design (study_design)
+      studyCountByStudyDesign{
+          group
+          subjects
+          __typename
+      }
+      filterStudyCountByStudyDesign{
+          group
+          subjects
+          __typename
+      }
+
+      # Enrollment Period(enrollment_beginning_year, enrollment_ending_year)
+      enrollmentPeriodMin{
+          lowerBound
+          upperBound
+          subjects
+          __typename
+      }
+      enrollmentPeriodMax{
+          lowerBound
+          upperBound
+          subjects
+          __typename
+      }
+
+      # Study Period (study_beginning_year, study_ending_year)
+      studyPeriodMin{
+          lowerBound
+          upperBound
+          subjects
+          __typename
+      }
+      studyPeriodMax{
+          lowerBound
+          upperBound
+          subjects
+          __typename
+      }
+
+      # Number of Participants (number_of_participants)
+      studyCountByNumberOfParticipants{
+          lowerBound
+          upperBound
+          subjects
+          __typename
+      }
+
+      # Neoplasms (primary_diagnosis_disease_term)
+      studyCountByNeoplasm{
+          group
+          subjects
+          __typename
+      }
+      filterStudyCountByNeoplasm{
+          group
+          subjects
+          __typename
+      }
+
+      # Countries (study_country)
+      studyCountByCountries{
+          group
+          subjects
+          __typename
+      }
+      filterStudyCountByCountries{
+          group
+          subjects
+          __typename
+      }
+
+      # Biospecimen Collection (biospecimen_collection)
+      studyCountByBiospecimenCollection{
+          group
+          subjects
+          __typename
+      }
+      filterStudyCountByBiospecimenCollection{
+          group
+          subjects
+          __typename
+      }
+
+
+      # Age at Enrollment (study_participant_minimum_age, study_participant_maximum_age)
+      participantAgeAtEnrollmentMin{
+          lowerBound
+          upperBound
+          subjects
+          __typename
+      }
+      participantAgeAtEnrollmentMax{
+          lowerBound
+          upperBound
+          subjects
+          __typename
+      }
+
+      # Race Representation (race)
+      studyCountByRace{
+          group
+          subjects
+          __typename
+      }
+      filterStudyCountByRace{
+          group
+          subjects
+          __typename
+      }
+
+      # Ethnic Representation (ethnicity)
+      studyCountByEthnicity{
+          group
+          subjects
+          __typename
+      }
+      filterStudyCountByEthnicity{
+          group
+          subjects
+          __typename
+      }
+
+      # Sex Representation (sex)
+      studyCountBySex{
+          group
+          subjects
+          __typename
+      }
+      filterStudyCountBySex{
+          group
+          subjects
+          __typename
+      }
+      
+      # Gender Representation (gender)
+      studyCountByGender{
+          group
+          subjects
+          __typename
+      }
+      filterStudyCountByGender{
+          group
+          subjects
+          __typename
+      }
+    }
+    
+    # Global Stats
+    globalStatsBar(
+      study_short_name: $study_short_name
+      study_type: $study_type
+      study_design: $study_design
+      enrollment_beginning_year: $enrollment_beginning_year
+      enrollment_ending_year: $enrollment_ending_year
+      study_beginning_year: $study_beginning_year
+      study_ending_year: $study_ending_year
+      number_of_participants: $number_of_participants
+      primary_diagnosis_disease_term: $primary_diagnosis_disease_term
+      study_country: $study_country
+      biospecimen_collection: $biospecimen_collection
+      study_participant_maximum_age: $study_participant_maximum_age
+      study_participant_minimum_age: $study_participant_minimum_age
+      races: $races
+      ethnicities: $ethnicities
+      sexes: $sexes
+      genders: $genders
+    ){
+      study_short_name
+      data_volume
+      number_of_participants
+    }
+  }
+`;
+
+// Main Query used to populate Facet, Widget components
+export const CTDC_DASHBOARD_QUERY_NEW = gql`
 query search(
   $subject_id: [String],
   $ctep_disease_term: [String],
@@ -344,10 +596,10 @@ $race: [String],
 $ethnicity: [String],
 $sex: [String],
 $gender: [String],
-$race_array: [String],
-$ethnicity_array: [String],
-$sex_array: [String],
-$gender_array: [String],
+$races: [String],
+$ethnicities: [String],
+$sexes: [String],
+$genders: [String],
 $study_country: [String],
 $number_of_countries: [Int],
 $study_state_province_territory: [String],
@@ -382,10 +634,10 @@ race: $race,
 ethnicity: $ethnicity,
 sex: $sex,
 gender: $gender,
-race_array: $race_array,
-ethnicity_array: $ethnicity_array,
-sex_array: $sex_array,
-gender_array: $gender_array,
+races: $races,
+ethnicities: $ethnicities,
+sexes: $sexes,
+genders: $genders,
 study_country: $study_country,
 number_of_countries: $number_of_countries,
 study_state_province_territory: $study_state_province_territory,
@@ -418,10 +670,10 @@ sort_direction: $sort_direction
     ethnicity
     sex
     gender
-    race_array
-    ethnicity_array
-    sex_array
-    gender_array
+    races
+    ethnicities
+    sexes
+    genders
     study_country
     number_of_countries
     study_state_province_territory
@@ -1761,7 +2013,7 @@ export const tabContainers = [
     name: 'Studies',
     api: GET_STUDY_OVERVIEW_QUERY,
     paginationAPIField: 'tabStudy',
-    count: 'numberOfParticipants',
+    count: 'numberOfStudies',
     dataKey: 'study_short_name',
     defaultSortField: 'study_short_name',
     defaultSortDirection: 'asc',

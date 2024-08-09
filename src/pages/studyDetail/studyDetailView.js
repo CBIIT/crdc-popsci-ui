@@ -6,7 +6,7 @@ import {
 } from '@material-ui/core';
 
 import Snackbar from '../../components/Snackbar';
-import Stats from '../../components/Stats/AllStatsController';
+// import Stats from '../../components/Stats/AllStatsController';
 import Tab from '../../components/Tab/Tab';
 import CustomBreadcrumb from '../../components/Breadcrumb/BreadcrumbView';
 import { headerIcon } from '../../bento/studyDetailData';
@@ -22,7 +22,7 @@ import {
   DataCollection,
 } from './views';
 import TabContentWrapper from './TabContentWrapper';
-
+import StatsView from '../../components/Stats/StatsView';
 
 const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
   const [snackbarState, setsnackbarState] = React.useState({ open: false, value: 0 });
@@ -39,7 +39,13 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
     <img src={headerIcon} alt="Study detail header icon" width={81} height={81} />
   );
 
-  const studyGeneral = data?.studyGeneral[0];
+  const studyGeneral = {...data?.studyGeneral?.at(0), ...data?.tabStudy?.at(0), ...data?.globalStatsBar?.at(0)};
+
+  const statsbarData = {
+    ...data.searchStudies,
+    number_of_participants: studyGeneral.number_of_participants,
+    data_volume: studyGeneral.data_volume
+  }
 
   const breadCrumbJson = [
     { name: 'Explore', to: '/explore', isALink: true },
@@ -85,7 +91,8 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
         // classes={classes}
       />
 
-      <Stats />
+      {/* <Stats /> */ }
+      <StatsView data={statsbarData} />
 
       <div className={classes.container}>
         <div className={classes.breadCrumb}>
