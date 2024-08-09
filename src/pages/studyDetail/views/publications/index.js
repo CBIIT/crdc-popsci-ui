@@ -129,13 +129,13 @@ const CustomCard = ({ classes, publication_title, authorship, year_of_publicatio
        <Grid container>
        <Grid item sm={4} md={4} >
            <Typography className={classes.content} variant="body2">
-        <span className={classes.label}>digital_object_id</span>: 
+        <span className={classes.label}>DOI</span>: 
       </Typography>
       </Grid>
        <Grid item sm={7} md={7} >
          <Typography className={classes.content} variant="body2">
          {digital_object_id ? (
-        <Link className={classes.link} href={`https://digital_object_id.org/${digital_object_id}`} target="_blank" rel="noopener noreferrer">{digital_object_id}<StyledExternalLinkIcon/> </Link>
+        <Link className={classes.link} href={`https://doi.org/${digital_object_id}`} target="_blank" rel="noopener noreferrer">{digital_object_id}<StyledExternalLinkIcon/> </Link>
         ) : (
           ''
         )}
