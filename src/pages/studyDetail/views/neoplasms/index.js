@@ -13,6 +13,7 @@ const gridStyles = theme => ({
     columnGap: '20px', // Adjust gap between columns
     rowGap: '20px', // Adjust gap between rows
     justifyContent: 'center',
+     marginTop:'25px'
   },
   neoplasmText: {
     wordBreak: 'break-word',
