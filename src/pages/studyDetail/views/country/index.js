@@ -11,6 +11,10 @@ const Country = ({
   data,
 }) => {
 
+  // Sort study_country and study_state_province_territory in ascending order
+  const sortedCountries = data?.study_country?.slice().sort((a, b) => a.localeCompare(b)) || [];
+  const sortedStatesProvincesTerritories = data?.study_state_province_territory?.slice().sort((a, b) => a.localeCompare(b)) || [];
+
   return (
     <ThemeProvider>
       <div className={classes.page}>
@@ -32,8 +36,8 @@ const Country = ({
                   <Typography className={classes.label}>COUNTRIES</Typography>
                 </Grid>
                 <Grid item xs={12} sm={8} md={8}>
-                 {data?.study_country.length > 0 && data.study_country.map((contry, index) => (
-                    <Typography key={index} className={classes.value}>{contry}</Typography>
+                 {sortedCountries.length > 0 && sortedCountries.map((country, index) => (
+                    <Typography key={index} className={classes.value}>{country}</Typography>
                   ))}
                 </Grid>
               </Grid>
@@ -61,7 +65,7 @@ const Country = ({
                   <Typography className={classes.label}>STATES, PROVINCES AND TERRITORIES</Typography>
                 </Grid>
                 <Grid item xs={12} sm={8} md={8}>
-                  {data?.study_state_province_territory.length > 0 && data.study_state_province_territory.map((item, index) => (
+                  {sortedStatesProvincesTerritories.length > 0 && sortedStatesProvincesTerritories.map((item, index) => (
                     <Typography key={index} className={classes.value}>{item}</Typography>
                   ))}
                 </Grid>
