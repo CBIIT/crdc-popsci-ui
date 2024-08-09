@@ -12,7 +12,7 @@ const Stats = () => {
     }
     return state.stats.data;
   });
-  // TODO: Stats Bar If explore page is using this <StatsView data={{...data?.searchSubjects, ...data?.studyGeneral}} />);
+  // TODO: Stats Bar If explore page is using this <StatsView data={{...data?.searchSubjects, ...data?.globalStatsBar}} />);
   return (!data || data.length === 0 ? (<CircularProgress />) : <StatsView data={data} />);
 };
 

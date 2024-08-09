@@ -14,7 +14,7 @@ export default (theme) => ({
     overflowX: 'hidden',
     backgroundColor: 'transparent',
     borderLeft: 'thin solid #B1B1B1',
-    overflow: 'auto',
+    overflow: 'scroll',
     zIndex: '99',
   },
   rightContent: {

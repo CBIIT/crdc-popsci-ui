@@ -1,8 +1,8 @@
 import { sortType, InputTypes } from '@bento-core/facet-filter';
 import { DEFAULT_VALUE } from './siteWideConfig';
 
-const Studies = 'Studies';
-const Participants = 'Participants';
+const Studies = 'Filter by Studies';
+const Participants = 'Filter by Participants';
 const GROUP = 'group';
 
 // --------------- Facet resetIcon link configuration --------------
@@ -15,12 +15,12 @@ export const resetIcon = {
 
 // --------------- Dashboard Sidebar Sections styling --------------
 export const facetSectionVariables = {
-  'Studies': {
+  'Filter by Studies': {
     isExpanded: true,
     hasSearch: false,
     hasArrowDropDownIcon: false,
   },
-  'Participants': {
+  'Filter by Participants': {
     isExpanded: true,
     hasArrowDropDownIcon: false,
   },
@@ -33,7 +33,7 @@ export const facetsConfig = [
 
     apiPath: 'participantCountByTumorGrade',
     apiForFiltering: 'filterParticipantCountByTumorGrade',
-    datafield: 'tumor_grade',
+    datafield: 'study_short_name',
     
     field: GROUP,
     type: InputTypes.CHECKBOX,
@@ -52,7 +52,7 @@ export const facetsConfig = [
     field: GROUP,
     type: InputTypes.CHECKBOX,
     sort_type: sortType.ALPHABET,
-    show: true,
+    show: false,
     facetClasses: {
       border: '10px solid red'
     },
@@ -76,9 +76,9 @@ export const facetsConfig = [
     label: 'Enrollment Period',
 
     // ************ lowerBound
-    apiPath: 'enrollmentPeriodMin',
+    /* apiPath: 'enrollmentPeriodMin',
     apiForFiltering: 'enrollmentPeriodMin',
-    datafield: 'enrollment_beginning_year',
+    datafield: 'enrollment_beginning_year', */
 
     // ************ upperBound
     // apiPath: 'enrollmentPeriodMax',
@@ -88,13 +88,14 @@ export const facetsConfig = [
     ApiLowerBoundName: 'lowerBound',
     ApiUpperBoundName: 'upperBound',
     show: true,
-    slider: true,
-    type: InputTypes.SLIDER,
+    // slider: true,
+    // type: InputTypes.SLIDER,
+    type: InputTypes.CHECKBOX,
     sort_type: 'none',
     minLowerBound: 0,
     maxUpperBound: 100,
     // quantifier: 'Years',
-  },
+  }, 
 
   // TODO: Slider
   {
@@ -102,9 +103,9 @@ export const facetsConfig = [
     label: 'Study Period',
 
     // ************ lowerBound
-    apiPath: 'studyPeriodMin',
+    /* apiPath: 'studyPeriodMin',
     apiForFiltering: 'studyPeriodMin',
-    datafield: 'study_beginning_year',
+    datafield: 'study_beginning_year', */
 
     // ************ upperBound
     // apiPath: 'studyPeriodMax',
@@ -114,8 +115,9 @@ export const facetsConfig = [
     ApiLowerBoundName: 'lowerBound',
     ApiUpperBoundName: 'upperBound',
     show: true,
-    slider: true,
-    type: InputTypes.SLIDER,
+    // slider: true,
+    // type: InputTypes.SLIDER,
+    type: InputTypes.CHECKBOX,
     sort_type: 'none',
     minLowerBound: 0,
     maxUpperBound: 100,
@@ -134,8 +136,9 @@ export const facetsConfig = [
     slider: true,
     type: InputTypes.SLIDER,
     sort_type: 'none',
-    minLowerBound: 0,
-    maxUpperBound: 100,
+
+    // minLowerBound: 0,
+    // maxUpperBound: 100,
     // quantifier: 'Years',
   },
   {
@@ -154,7 +157,7 @@ export const facetsConfig = [
   {
     section: Studies,
     label: 'Countries',
-    apiPath: 'studyCountByPrimaryCountries',
+    apiPath: 'studyCountByCountries',
     apiForFiltering: 'filterStudyCountByCountries',
     datafield: 'study_country',
     field: GROUP,
@@ -180,9 +183,9 @@ export const facetsConfig = [
     label: 'Age at Enrollment',
 
     // ************ lowerBound
-    apiPath: 'participantAgeAtEnrollmentMin',
+    /* apiPath: 'participantAgeAtEnrollmentMin',
     apiForFiltering: 'participantAgeAtEnrollmentMin', 
-    datafield: 'study_participant_minimum_age',
+    datafield: 'study_participant_minimum_age', */
 
     // ************ upperBound
     // apiPath: 'participantAgeAtEnrollmentMax',
@@ -191,9 +194,13 @@ export const facetsConfig = [
 
     ApiLowerBoundName: 'lowerBound',
     ApiUpperBoundName: 'upperBound',
+
     show: true,
-    slider: true,
-    type: InputTypes.SLIDER,
+
+    // slider: true,
+    // type: InputTypes.SLIDER,
+    type: InputTypes.CHECKBOX,
+
     sort_type: 'none',
     minLowerBound: 0,
     maxUpperBound: 100,
@@ -205,7 +212,7 @@ export const facetsConfig = [
     label: 'Race Representation',
     apiPath: 'studyCountByRace',
     apiForFiltering: 'filterStudyCountByRace',
-    datafield: 'race',
+    datafield: 'races',
     field: GROUP,
     type: InputTypes.CHECKBOX,
     sort_type: sortType.ALPHABET,
@@ -217,7 +224,7 @@ export const facetsConfig = [
     label: 'Ethnic Representation',
     apiPath: 'studyCountByEthnicity',
     apiForFiltering: 'filterStudyCountByEthnicity',
-    datafield: 'ethnicity',
+    datafield: 'ethnicities',
     field: GROUP,
     type: InputTypes.CHECKBOX,
     sort_type: sortType.ALPHABET,
@@ -229,7 +236,7 @@ export const facetsConfig = [
     label: 'Sex Representation',
     apiPath: 'studyCountBySex',
     apiForFiltering: 'filterStudyCountBySex',
-    datafield: 'sex',
+    datafield: 'sexes',
     field: GROUP,
     type: InputTypes.CHECKBOX,
     sort_type: sortType.ALPHABET,
@@ -241,7 +248,7 @@ export const facetsConfig = [
     label: 'Gender Representation',
     apiPath: 'studyCountByGender',
     apiForFiltering: 'filterStudyCountByGender',
-    datafield: 'gender',
+    datafield: 'genders',
     field: GROUP,
     type: InputTypes.CHECKBOX,
     sort_type: sortType.ALPHABET,

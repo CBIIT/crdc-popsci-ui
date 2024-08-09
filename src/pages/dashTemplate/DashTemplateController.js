@@ -7,6 +7,14 @@ import { getFilters } from '@bento-core/facet-filter';
 import DashTemplateView from './DashTemplateView';
 import { DASHBOARD_QUERY_NEW } from '../../bento/dashboardTabData';
 
+function calculateStatsTotals(data) {
+  return data.reduce((acc, item) => {
+    acc.data_volume += item.data_volume;
+    acc.number_of_participants += item.number_of_participants;
+    return acc;
+  }, { data_volume: 0, number_of_participants: 0 });
+}
+
 const getDashData = (states) => {
   const {
     filterState,
@@ -41,21 +49,18 @@ const getDashData = (states) => {
       ...(localFindUpload || []).map((obj) => obj.subject_id),
       ...(localFindAutocomplete || []).map((obj) => obj.title),
     ],
-    study_short_name:["PLCO"], // TODO: Leave adding default filter
+    // study_short_name:["PLCO"], // TODO: Leave adding default filter
   };
 
   useEffect(() => {
     const controller = new AbortController();
     getData(activeFilters).then((result) => {
-      if (result.searchSubjects) {
-        setDashData({...result.searchSubjects, ...result.studyGeneral?.at(0), 
-          // TODO: Remove the following Hardcoded Value
-          studyCountByNumberOfParticipants: {
-            lowerBound: 0,
-            subjects: result?.searchSubjects?.studyCountByNumberOfParticipants?.subjects || 1,
-            upperBound: result?.searchSubjects?.studyCountByNumberOfParticipants?.upperBound || 154887
-          }
-        });
+      if (result.searchStudies) {
+
+        // Calculate totals using the copy
+        const globalStatsBar = calculateStatsTotals(result.globalStatsBar);
+
+        setDashData({ ...result.searchStudies, ...globalStatsBar });
       }
     });
     return () => controller.abort();

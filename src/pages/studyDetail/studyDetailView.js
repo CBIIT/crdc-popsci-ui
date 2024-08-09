@@ -39,12 +39,12 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
     <img src={headerIcon} alt="Study detail header icon" width={81} height={81} />
   );
 
-  const studyGeneral = data?.studyGeneral[0];
-  
+  const studyGeneral = {...data?.studyGeneral?.at(0), ...data?.tabStudy?.at(0), ...data?.globalStatsBar?.at(0)};
+
   const statsbarData = {
-    ...data.searchSubjects,
+    ...data.searchStudies,
     number_of_participants: studyGeneral.number_of_participants,
-    data_file_total_size: studyGeneral.data_file_total_size
+    data_volume: studyGeneral.data_volume
   }
 
   const breadCrumbJson = [

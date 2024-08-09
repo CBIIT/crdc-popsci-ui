@@ -89,20 +89,20 @@ export const DASHBOARD_QUERY_NEW = gql`
     $dbgap_accession_id: [String]
     $associated_links: [String]
     $number_of_participants: [Int]
-    $study_participant_maximum_age: [Int]
-    $study_participant_median_age: [Int]
-    $study_participant_minimum_age: [Int]
-    $race: [String]
-    $ethnicity: [String]
-    $sex: [String]
-    $gender: [String]
+    $study_participant_maximum_age: [Float]
+    $study_participant_median_age: [Float]
+    $study_participant_minimum_age: [Float]
+    $races: [String]
+    $ethnicities: [String]
+    $sexes: [String]
+    $genders: [String]
     $study_country: [String]
     $number_of_countries: [Int]
     $study_state_province_territory: [String]
     $number_of_states_provinces_territories: [Int]
     $primary_diagnosis_disease_term: [String]
   ){
-    searchSubjects(
+    searchStudies(
       study_short_name: $study_short_name
       study_name: $study_name
       study_id: $study_id
@@ -121,10 +121,10 @@ export const DASHBOARD_QUERY_NEW = gql`
       study_participant_maximum_age: $study_participant_maximum_age
       study_participant_median_age: $study_participant_median_age
       study_participant_minimum_age: $study_participant_minimum_age
-      race: $race
-      ethnicity: $ethnicity
-      sex: $sex
-      gender: $gender
+      races: $races
+      ethnicities: $ethnicities
+      sexes: $sexes
+      genders: $genders
       study_country: $study_country
       number_of_countries: $number_of_countries
       study_state_province_territory: $study_state_province_territory
@@ -209,7 +209,7 @@ export const DASHBOARD_QUERY_NEW = gql`
       }
 
       # Countries (study_country)
-      studyCountByPrimaryCountries{
+      studyCountByCountries{
           group
           subjects
           __typename
@@ -297,8 +297,27 @@ export const DASHBOARD_QUERY_NEW = gql`
     }
     
     # Global Stats
-    studyGeneral( study_short_name: $study_short_name ){
-      data_file_total_size
+    globalStatsBar(
+      study_short_name: $study_short_name
+      # study_type: $study_type
+      # study_design: $study_design
+      enrollment_beginning_year: $enrollment_beginning_year
+      enrollment_ending_year: $enrollment_ending_year
+      study_beginning_year: $study_beginning_year
+      study_ending_year: $study_ending_year
+      number_of_participants: $number_of_participants
+      primary_diagnosis_disease_term: $primary_diagnosis_disease_term
+      study_country: $study_country
+      biospecimen_collection: $biospecimen_collection
+      study_participant_maximum_age: $study_participant_maximum_age
+      study_participant_minimum_age: $study_participant_minimum_age
+      races: $races
+      ethnicities: $ethnicities
+      sexes: $sexes
+      genders: $genders
+    ){
+      study_short_name
+      data_volume
       number_of_participants
     }
   }
@@ -577,10 +596,10 @@ $race: [String],
 $ethnicity: [String],
 $sex: [String],
 $gender: [String],
-$race_array: [String],
-$ethnicity_array: [String],
-$sex_array: [String],
-$gender_array: [String],
+$races: [String],
+$ethnicities: [String],
+$sexes: [String],
+$genders: [String],
 $study_country: [String],
 $number_of_countries: [Int],
 $study_state_province_territory: [String],
@@ -615,10 +634,10 @@ race: $race,
 ethnicity: $ethnicity,
 sex: $sex,
 gender: $gender,
-race_array: $race_array,
-ethnicity_array: $ethnicity_array,
-sex_array: $sex_array,
-gender_array: $gender_array,
+races: $races,
+ethnicities: $ethnicities,
+sexes: $sexes,
+genders: $genders,
 study_country: $study_country,
 number_of_countries: $number_of_countries,
 study_state_province_territory: $study_state_province_territory,
@@ -651,10 +670,10 @@ sort_direction: $sort_direction
     ethnicity
     sex
     gender
-    race_array
-    ethnicity_array
-    sex_array
-    gender_array
+    races
+    ethnicities
+    sexes
+    genders
     study_country
     number_of_countries
     study_state_province_territory

@@ -55,7 +55,7 @@ export const globalStatsData = [
   {
     statTitle: 'Data Volume',
     type: 'field',
-    statAPI: 'data_file_total_size', // studyGeneral
+    statAPI: 'data_volume', // globalStatsBar
     statIconSrc: dataVolumeIcon,
     statIconAlt: 'Data Volume Stats Bar Icon',
   },
@@ -69,7 +69,7 @@ export const globalStatsData = [
   {
     statTitle: 'Participants',
     type: 'field',
-    statAPI: 'number_of_participants', // studyGeneral
+    statAPI: 'number_of_participants', // globalStatsBar
     statIconSrc: participantsIcon,
     statIconAlt: 'Participants Stats Bar Icon',
   },
@@ -99,7 +99,7 @@ export const globalStatsData = [
 export const GET_GLOBAL_STATS_DATA_QUERY = gql`
 
   query search($study_short_name: [String]) {
-    searchSubjects(
+    searchStudies(
       study_short_name: $study_short_name
       # TODO: Add more argument to be used for Explore
     ) {  
@@ -108,10 +108,11 @@ export const GET_GLOBAL_STATS_DATA_QUERY = gql`
         numberOfDiagnosis
         numberOfDataFiles
       }
-    studyGeneral(
+    globalStatsBar(
       study_short_name: $study_short_name
     ) {
-        data_file_total_size
+        study_short_name
+        data_volume
         number_of_participants
       }
     }
