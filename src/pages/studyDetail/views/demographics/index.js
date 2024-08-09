@@ -11,10 +11,20 @@ const Demographics = ({
   data,
 }) => {
   // Split and sort the arrays in ascending order
-  const races = data?.race?.split('|').sort((a, b) => a.localeCompare(b)) || [];
-  const ethnicities = data?.ethnicity?.split('|').sort((a, b) => a.localeCompare(b)) || [];
-  const sexes = data?.sex?.split('|').sort((a, b) => a.localeCompare(b)) || [];
-  const genders = data?.gender?.split('|').sort((a, b) => a.localeCompare(b)) || [];
+  // Define a sorting function that removes non-alphabetic characters
+const cleanAndSort = (array) => {
+    return array?.split('|').sort((a, b) => {
+        const nameA = a.replace(/[^a-zA-Z ]/g, '').trim();
+        const nameB = b.replace(/[^a-zA-Z ]/g, '').trim();
+        return nameA.localeCompare(nameB);
+    }) || [];
+};
+
+// Apply the sorting function to all arrays
+const races = cleanAndSort(data?.race);
+const ethnicities = cleanAndSort(data?.ethnicity);
+const sexes = cleanAndSort(data?.sex);
+const genders = cleanAndSort(data?.gender);
 
   let number_of_participants = 0;
 
