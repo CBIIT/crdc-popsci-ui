@@ -299,8 +299,8 @@ export const DASHBOARD_QUERY_NEW = gql`
     # Global Stats
     globalStatsBar(
       study_short_name: $study_short_name
-      # study_type: $study_type
-      # study_design: $study_design
+      study_type: $study_type
+      study_design: $study_design
       enrollment_beginning_year: $enrollment_beginning_year
       enrollment_ending_year: $enrollment_ending_year
       study_beginning_year: $study_beginning_year

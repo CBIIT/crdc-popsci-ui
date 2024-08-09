@@ -49,7 +49,7 @@ const getDashData = (states) => {
       ...(localFindUpload || []).map((obj) => obj.subject_id),
       ...(localFindAutocomplete || []).map((obj) => obj.title),
     ],
-    // study_short_name:["PLCO"], // TODO: Leave adding default filter
+    // study_short_name:["HLBB"], // TODO: Leave adding default filter
   };
 
   useEffect(() => {
@@ -60,7 +60,11 @@ const getDashData = (states) => {
         // Calculate totals using the copy
         const globalStatsBar = calculateStatsTotals(result.globalStatsBar);
 
-        setDashData({ ...result.searchStudies, ...globalStatsBar });
+        setDashData(prevData => {
+          const updatedData = { ...result.searchStudies, ...globalStatsBar };
+          console.log('Updated Dash Data:', updatedData);
+          return updatedData;
+        });
       }
     });
     return () => controller.abort();
