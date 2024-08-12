@@ -4,12 +4,26 @@ import {
   withStyles,
   Typography,
 } from '@material-ui/core';
-import ThemeProvider from './themeConfig'; 
+import ThemeProvider from './themeConfig';
+import PropTypes from 'prop-types';
+
+// Reusable sort function
+const sortArrayAlphabetically = (array) => {
+  return array.slice().sort((a, b) => {
+    const nameA = a.replace(/[^a-zA-Z ]/g, '').trim();
+    const nameB = b.replace(/[^a-zA-Z ]/g, '').trim();
+    return nameA.localeCompare(nameB);
+  });
+};
 
 const Country = ({
   classes,
   data,
 }) => {
+
+  // Apply the reusable sort function
+  const sortedCountries = sortArrayAlphabetically(data?.study_country || []);
+  const sortedStatesProvincesTerritories = sortArrayAlphabetically(data?.study_state_province_territory || []);
 
   return (
     <ThemeProvider>
@@ -22,7 +36,7 @@ const Country = ({
                   <Typography className={classes.label}>NUMBER OF COUNTRIES</Typography>
                 </Grid>
                 <Grid item xs={12} sm={8} md={8}>
-                  <Typography className={classes.value}>{data?.number_of_countries || ""}</Typography>
+                  <Typography className={classes.value}>{data?.number_of_countries || "N/A"}</Typography>
                 </Grid>
               </Grid>
             </div>
@@ -32,8 +46,8 @@ const Country = ({
                   <Typography className={classes.label}>COUNTRIES</Typography>
                 </Grid>
                 <Grid item xs={12} sm={8} md={8}>
-                 {data?.study_country.length > 0 && data.study_country.map((contry, index) => (
-                    <Typography key={index} className={classes.value}>{contry}</Typography>
+                  {sortedCountries.map((country, index) => (
+                    <Typography key={index} className={classes.value}>{country}</Typography>
                   ))}
                 </Grid>
               </Grid>
@@ -51,7 +65,7 @@ const Country = ({
                   <Typography className={classes.label}>NUMBER OF STATES, PROVINCES AND TERRITORIES</Typography>
                 </Grid>
                 <Grid item xs={12} sm={8} md={8}>
-                    <Typography className={classes.value}>{data?.number_of_states_provinces_territories || ""}</Typography>
+                  <Typography className={classes.value}>{data?.number_of_states_provinces_territories || "N/A"}</Typography>
                 </Grid>
               </Grid>
             </div>
@@ -61,7 +75,7 @@ const Country = ({
                   <Typography className={classes.label}>STATES, PROVINCES AND TERRITORIES</Typography>
                 </Grid>
                 <Grid item xs={12} sm={8} md={8}>
-                  {data?.study_state_province_territory.length > 0 && data.study_state_province_territory.map((item, index) => (
+                  {sortedStatesProvincesTerritories.map((item, index) => (
                     <Typography key={index} className={classes.value}>{item}</Typography>
                   ))}
                 </Grid>
@@ -113,5 +127,15 @@ const styles = (theme) => ({
     marginRight: '20px',
   },
 });
+
+Country.propTypes = {
+  classes: PropTypes.object.isRequired,
+  data: PropTypes.shape({
+    study_country: PropTypes.arrayOf(PropTypes.string),
+    study_state_province_territory: PropTypes.arrayOf(PropTypes.string),
+    number_of_countries: PropTypes.number,
+    number_of_states_provinces_territories: PropTypes.number,
+  }),
+};
 
 export default withStyles(styles, { withTheme: true })(Country);
