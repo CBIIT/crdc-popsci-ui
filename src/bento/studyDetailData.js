@@ -175,7 +175,7 @@ export const studyDataFileTableConfig = {
   dataField: 'participant_data_files',
   
   dataKey: 'data_file_uuid',
-  defaultSortField: 'data_file_uuid',
+  defaultSortField: 'data_file_name',
   defaultSortDirection: 'asc',
   tableID: 'dataFile_table',
   id: 'dataFile_table',
