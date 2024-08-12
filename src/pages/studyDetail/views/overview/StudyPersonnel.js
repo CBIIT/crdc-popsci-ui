@@ -11,8 +11,13 @@ import { configColumn } from './tableConfig/Column';
 
 const StudyPersonnel = (props) => {
   const config = studyPersonnelTableConfig;
-  const { data } = props;
+  let { data } = props;
 
+    // Modify data to replace "|" with "," in person_role if it's not null
+  data = data.map(item => ({
+    ...item,
+    person_role: item.person_role ? item.person_role.replace(/\|/g, ', ') : item.person_role
+  }));
   /**
     * initialize state for useReducer
     * @param {*} initailState
