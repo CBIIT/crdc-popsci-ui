@@ -136,163 +136,147 @@ export const DASHBOARD_QUERY_NEW = gql`
       numberOfDiagnosis
       numberOfDataFiles
 
+      # Study Acronym(study_short_name)
+      studyCountByStudy{
+        group
+        subjects
+      }
+      filterStudyCountByStudy{
+        group
+        subjects
+      }
+
       # Study Type(study_type)
       studyCountByStudyType{
-          group
-          subjects
-          __typename
+        group
+        subjects
       }
       filterStudyCountByStudyType{
-          group
-          subjects
-          __typename
+        group
+        subjects
       }
 
       # Study Design (study_design)
       studyCountByStudyDesign{
-          group
-          subjects
-          __typename
+        group
+        subjects
       }
       filterStudyCountByStudyDesign{
-          group
-          subjects
-          __typename
+        group
+        subjects
       }
 
       # Enrollment Period(enrollment_beginning_year, enrollment_ending_year)
       enrollmentPeriodMin{
-          lowerBound
-          upperBound
-          subjects
-          __typename
+        lowerBound
+        upperBound
+        subjects
       }
       enrollmentPeriodMax{
-          lowerBound
-          upperBound
-          subjects
-          __typename
+        lowerBound
+        upperBound
+        subjects
       }
 
       # Study Period (study_beginning_year, study_ending_year)
       studyPeriodMin{
-          lowerBound
-          upperBound
-          subjects
-          __typename
+        lowerBound
+        upperBound
+        subjects
       }
       studyPeriodMax{
-          lowerBound
-          upperBound
-          subjects
-          __typename
+        lowerBound
+        upperBound
+        subjects
       }
 
       # Number of Participants (number_of_participants)
       studyCountByNumberOfParticipants{
-          lowerBound
-          upperBound
-          subjects
-          __typename
+        lowerBound
+        upperBound
+        subjects
       }
 
       # Neoplasms (primary_diagnosis_disease_term)
       studyCountByNeoplasm{
-          group
-          subjects
-          __typename
+        group
+        subjects
       }
       filterStudyCountByNeoplasm{
-          group
-          subjects
-          __typename
+        group
+        subjects
       }
 
       # Countries (study_country)
       studyCountByCountries{
-          group
-          subjects
-          __typename
+        group
+        subjects
       }
       filterStudyCountByCountries{
-          group
-          subjects
-          __typename
+        group
+        subjects
       }
 
       # Biospecimen Collection (biospecimen_collection)
       studyCountByBiospecimenCollection{
-          group
-          subjects
-          __typename
+        group
+        subjects
       }
       filterStudyCountByBiospecimenCollection{
-          group
-          subjects
-          __typename
+        group
+        subjects
       }
-
 
       # Age at Enrollment (study_participant_minimum_age, study_participant_maximum_age)
       participantAgeAtEnrollmentMin{
-          lowerBound
-          upperBound
-          subjects
-          __typename
+        lowerBound
+        upperBound
+        subjects
       }
       participantAgeAtEnrollmentMax{
-          lowerBound
-          upperBound
-          subjects
-          __typename
+        lowerBound
+        upperBound
+        subjects
       }
 
       # Race Representation (race)
       studyCountByRace{
-          group
-          subjects
-          __typename
+        group
+        subjects
       }
       filterStudyCountByRace{
-          group
-          subjects
-          __typename
+        group
+        subjects
       }
 
       # Ethnic Representation (ethnicity)
       studyCountByEthnicity{
-          group
-          subjects
-          __typename
+        group
+        subjects
       }
       filterStudyCountByEthnicity{
-          group
-          subjects
-          __typename
+        group
+        subjects
       }
 
       # Sex Representation (sex)
       studyCountBySex{
-          group
-          subjects
-          __typename
+        group
+        subjects
       }
       filterStudyCountBySex{
-          group
-          subjects
-          __typename
+        group
+        subjects
       }
       
       # Gender Representation (gender)
       studyCountByGender{
-          group
-          subjects
-          __typename
+        group
+        subjects
       }
       filterStudyCountByGender{
-          group
-          subjects
-          __typename
+        group
+        subjects
       }
     }
     

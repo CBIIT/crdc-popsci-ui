@@ -21,6 +21,9 @@ const theme = {
         '&$expanded': {
           margin: 'auto',
         },
+        '&#Filter\\ by\\ Studies': {
+          // Target Each facet under the Filter By Studies
+        },
       },
     },
     MuiAccordionSummary: {
@@ -43,41 +46,35 @@ const theme = {
     },
     MuiListItem: {
       root: {
+        '&.filter_by_studiesCheckedEven': {
+          backgroundColor: '#FFF6EA',
+        },
+        '&.filter_by_studiesCheckedOdd': {
+          backgroundColor: '#F4EEE5',
+        },
         '&.filter_by_participantsCheckedEven': {
-          backgroundColor: '#E8F7DC',
+          backgroundColor: '#E2F1F5',
         },
         '&.filter_by_participantsCheckedOdd': {
-          backgroundColor: '#F5FCEF',
-        },
-        '&.filter_by_biospecimensCheckedEven': {
-          backgroundColor: '#FFF2EA',
-        },
-        '&.filter_by_biospecimensCheckedOdd': {
-          backgroundColor: '#FFF9F5',
-        },
-        '&.filter_by_data_filesCheckedEven': {
-          backgroundColor: '#EDF8FD',
-        },
-        '&.filter_by_data_filesCheckedOdd': {
-          backgroundColor: '#F8FBFC',
+          backgroundColor: '#DBE7E9',
         },
       },
     },
     MuiSvgIcon: {
       root: {
+        '&.filter_by_studiesCheckedIcon': {
+          color: '#6D5F5B',
+        },
         '&.filter_by_participantsCheckedIcon': {
-          color: '#4F4F4F',
-        },
-        '&.filter_by_biospecimensCheckedIcon': {
-          color: '#4F4F4F',
-        },
-        '&.filter_by_data_filesCheckedIcon': {
-          color: '#4F4F4F',
+          color: '#6D5F5B',
         },
       },
     },
     MuiTypography: {
       root: {
+        '&.filter_by_studiesSubjects': {
+          // Tagret Count (XX)
+        },
         '&.filter_by_participantsSubjects': {
           color: '#065B43',
           fontSize: '12px',
@@ -120,6 +117,13 @@ const theme = {
       color: 'inherit',
       '&$checked': {
         color: '#8DCAFF',
+      },
+    },
+    MuiListItemText: {
+      root: {
+        '&.filter_by_studies_md_space': {
+          // Target the space between group and subjects - display: 'none !important'
+        }
       },
     },
   },

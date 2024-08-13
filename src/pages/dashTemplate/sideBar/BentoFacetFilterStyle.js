@@ -79,11 +79,14 @@ export default () => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     zIndex: 2,
-    fontFamily: 'Open Sans, Lato',
-    fontSize: 16, // 20
-    fontWeight: 300,
+    fontFamily: 'Poppins Open Sans, Lato',
+    fontSize: '18.5px', // 20
+    fontWeight: 500,
     marginLeft: 3,
     color: '#000000',
+
+    lineHeight: '19.71px',
+    letterSpacing: '-0.02em',
   },
   CasesCheckbox: {
     color: '#10A075',
@@ -107,14 +110,11 @@ export default () => ({
     fontSize: '14px',
     marginRight: '0px',
   },
+  "activeFacetFilter_by_Studies": {
+    color: '#7A5015',
+  },
   "activeFacetFilter_by_Participants": {
-    color: '#076448',
-  },
-  "activeFacetFilter_by_Biospecimens": {
-    color: '#843806',
-  },
-  "activeFacetFilter_by_Data_Files": {
-    color: '#005A7A',
+    color: '#245F75',
   },
   searchContainer: {
     paddingTop: '15px',

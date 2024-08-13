@@ -31,8 +31,8 @@ export const facetsConfig = [
     section: Studies,
     label: 'Study Acronym',
 
-    apiPath: 'participantCountByTumorGrade',
-    apiForFiltering: 'filterParticipantCountByTumorGrade',
+    apiPath: 'studyCountByStudy',
+    apiForFiltering: 'filterStudyCountByStudy',
     datafield: 'study_short_name',
     
     field: GROUP,
