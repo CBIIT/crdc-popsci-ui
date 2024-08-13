@@ -16,6 +16,7 @@ export default (theme) => ({
     borderLeft: 'thin solid #B1B1B1',
     overflow: 'scroll',
     zIndex: '99',
+    paddingBottom: '150px',
   },
   rightContent: {
     width: 'calc(100% - 275px)',
