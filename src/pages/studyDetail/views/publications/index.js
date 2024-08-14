@@ -90,7 +90,7 @@ const CustomCard = ({ classes, publication_title, authorship, year_of_publicatio
     <Grid container>
        <Grid item sm={4} md={4} >
            <Typography className={classes.content} variant="body2">
-        <span className={classes.label}>AUTHORS</span>: 
+        <span className={classes.label}>AUTHORSHIP</span>: 
       </Typography>
       </Grid>
       <Grid item sm={7} md={7} >
