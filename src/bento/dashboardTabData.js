@@ -226,6 +226,15 @@ export const DASHBOARD_QUERY_NEW = gql`
         group
         subjects
       }
+      # Data Collection Categories (data_collection_category): Will only be used for Widget for now
+      studyCountByDataCollection{
+        group
+        subjects
+      }
+      filterStudyCountByDataCollection{
+        group
+        subjects
+      }
 
       # Age at Enrollment (study_participant_minimum_age, study_participant_maximum_age)
       participantAgeAtEnrollmentMin{
