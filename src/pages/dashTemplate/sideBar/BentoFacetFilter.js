@@ -31,10 +31,10 @@ import {
 
 const CustomExpansionPanelSummary = withStyles({
   root: {
-    marginBottom: -1,
-    paddingTop: 6,
-    paddingLeft: 14,
-    paddingRight: 14,
+    // marginBottom: -1,
+    // paddingTop: 6,
+    // paddingLeft: 14,
+    // paddingRight: 14,
     minHeight: 48,
     '&$expanded': {
       minHeight: 48,
@@ -43,7 +43,7 @@ const CustomExpansionPanelSummary = withStyles({
   content: {
     display: 'block',
     '&$expanded': {
-      margin: '4px 0px 15px 0px',
+      // margin: '4px 0px 15px 0px',
     },
   },
   expanded: {},
@@ -175,7 +175,7 @@ const BentoFacetFilter = ({
           )}
           onClick={collapseHandler}
           id={section}
-          className={hasArrowDropDownIcon ? classes.customExpansionPanelSummaryRoot : {}}
+          className={hasArrowDropDownIcon ? classes.customExpansionPanelSummaryRoot : classes.customExpansionPanelSummaryRoot2}
         >
           <div className={classes.sectionSummaryTextContainer}>
             {name}

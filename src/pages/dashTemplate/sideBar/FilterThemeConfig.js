@@ -1,5 +1,6 @@
 import React from 'react';
 import { ThemeProvider, createTheme } from '@material-ui/core/styles';
+import { Height } from '@material-ui/icons';
 
 const theme = {
   overrides: {
@@ -24,12 +25,26 @@ const theme = {
         '&#Filter\\ by\\ Studies': {
           // Target Each facet under the Filter By Studies
         },
+        '&#Filter\\ by\\ Participants': {
+          // Target Each facet under the Filter By Studies
+        },
       },
     },
+    // Both Facet section and individual facet
     MuiAccordionSummary: {
       content: {
-        margin: '0',
+        // border: '2px solid green !important',
+        margin: '0px !important',
+        padding: '0px !important'
       },
+      root: {
+        margin: '0px !important', 
+        padding: '0px !important',
+
+        // individual facet item
+        '&#Study\\ Design': {
+        }
+      }
     },
     MuiList: {
       padding: {
@@ -46,6 +61,17 @@ const theme = {
     },
     MuiListItem: {
       root: {
+        fontFamily: 'Open Sans !important',
+          fontSize: '16px !important',
+          fontWeight: 400,
+          lineHeight: '21.79px !important',
+        // Facet Item
+        '&.filter_by_studiesNameUnChecked, &.filter_by_studiesNameChecked, &.filter_by_participantsNameUnChecked, &.filter_by_participantsNameChecked': {
+          fontFamily: 'Open Sans !important',
+          fontSize: '16px !important',
+          fontWeight: 400,
+          lineHeight: '21.79px !important',
+        },
         '&.filter_by_studiesCheckedEven': {
           backgroundColor: '#FFF6EA',
         },
@@ -72,29 +98,15 @@ const theme = {
     },
     MuiTypography: {
       root: {
-        '&.filter_by_studiesSubjects': {
-          // Tagret Count (XX)
-        },
-        '&.filter_by_participantsSubjects': {
-          color: '#065B43',
-          fontSize: '12px',
-          fontFamily: 'Nunito',
-          fontWeight: 400,
-          marginRight: '0px',
-        },
-        '&.filter_by_biospecimensSubjects': {
-          color: '#843806',
-          fontSize: '12px',
-          fontFamily: 'Nunito',
-          fontWeight: 400,
-          marginRight: '0px',
-        },
-        '&.filter_by_data_filesSubjects': {
-          color: '#005A7A',
-          fontSize: '12px',
-          fontFamily: 'Nunito',
-          fontWeight: 400,
-          marginRight: '0px',
+        // Tagret Facet Count (XX)
+        '&.filter_by_studiesSubjects, &.filter_by_participantsSubjects': {
+          color: '#000000',
+          fontFamily: 'Open Sans',
+          fontSize: '14px',
+          fontWeight: 300,
+          lineHeight: '21.79px',
+          marginLeft: '5px',
+          marginTop: '-2px',
         },
       },
     },
@@ -107,10 +119,12 @@ const theme = {
         height: '5px',
         '&.divider0': {
           backgroundColor: '#7A5015',
+          height: '8px',
         },
         '&.divider1': {
           backgroundColor: '#3388A6',
-        }
+          height: '8px',
+        },
       },
     },
     checkboxRoot: {
@@ -121,9 +135,10 @@ const theme = {
     },
     MuiListItemText: {
       root: {
-        '&.filter_by_studies_md_space': {
-          // Target the space between group and subjects - display: 'none !important'
-        }
+        // Target the space between group and subjects
+        '&.filter_by_studies_md_space, &.filter_by_participants_md_space': {
+          display: 'none !important',
+        },
       },
     },
   },

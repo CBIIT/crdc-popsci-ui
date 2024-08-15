@@ -52,15 +52,18 @@ export default () => ({
     backgroundColor: '#e636e4',
   },
   sectionSummaryText: {
-    fontSize: '14px',
     flexShrink: '0',
-    fontFamily: 'Open Sans',
-    fontWeight: '600',
-    lineHeight: '1',
     marginLeft: '5px',
-    letterSpacing: '0',
     overflowWrap: 'break-word',
-    // textTransform: 'uppercase',
+
+    fontFamily: 'Open Sans',
+    fontSize: '16px',
+    fontWeight: 400,
+    lineHeight: '21.79px',
+    letterSpacing: '-0.02em',
+    textAlign: 'left',
+
+    color: '#000000',
   },
   dropDownIconSubSection: {
     marginLeft: '0px',
@@ -68,18 +71,29 @@ export default () => ({
   },
   customExpansionPanelSummaryRoot: {
     flexDirection: 'row-reverse',
-    paddingLeft: 4,
+    padding: '19px !important',
+    border: '1px solid red !important'
+  },
+  customExpansionPanelSummaryRoot2: {
+    // border: '1px solid red !important',
+    padding: '18px 8px 16px 19px !important',
+
   },
   customExpansionPanelSummaryRootView: {
     flexDirection: 'row-reverse',
     paddingLeft: 8,
+    // border: '1px solid black !important',
+    minHeight: '42px',
+    maxHeight: '42px',
+    height: '42px'
+
   },
   sectionSummaryTextContainer: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
     zIndex: 2,
-    fontFamily: 'Poppins Open Sans, Lato',
+    fontFamily: 'Poppins, Open Sans',
     fontSize: '18.5px', // 20
     fontWeight: 500,
     marginLeft: 3,
@@ -101,7 +115,7 @@ export default () => ({
   panelDetailText: {
     color: '#323232',
     fontFamily: 'Nunito',
-    fontSize: '14px',
+    fontSize: '16px',
     fontWeight: '200',
   },
   panelSubjectText: {
@@ -112,9 +126,17 @@ export default () => ({
   },
   "activeFacetFilter_by_Studies": {
     color: '#7A5015',
+
+    fontWeight: 700,
+    lineHeight: '20.8px',
+    letterSpacing: '-0.01em',
   },
   "activeFacetFilter_by_Participants": {
     color: '#245F75',
+
+    fontWeight: 700,
+    lineHeight: '20.8px',
+    letterSpacing: '-0.01em',
   },
   searchContainer: {
     paddingTop: '15px',

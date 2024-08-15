@@ -40,6 +40,7 @@ export const facetsConfig = [
     sort_type: sortType.ALPHABET,
     show: true,
     defaultValue: DEFAULT_VALUE,
+    customCount: () => '', // Hide Study Acronym facet count
   },
   {
     section: Studies,
@@ -136,7 +137,6 @@ export const facetsConfig = [
     slider: true,
     type: InputTypes.SLIDER,
     sort_type: 'none',
-
     // minLowerBound: 0,
     // maxUpperBound: 100,
     // quantifier: 'Years',
@@ -310,6 +310,6 @@ export const widgetConfig = [
     type: 'donut',
     title: 'Data Collection Categories',
     sliceTitle: "Studies",
-    dataName: 'studyCountByBiospecimenCollection',
+    dataName: 'studyCountByDataCollection',
   }
 ];

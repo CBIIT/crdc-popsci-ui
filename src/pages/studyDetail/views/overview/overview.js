@@ -37,7 +37,7 @@ const Overview = ({ classes, data, }) => {
     </div>
   );
 
-  const sortedLinks = [...associated_links].sort((a, b) => customSorting(a.associated_link_id, b.associated_link_id));
+  const sortedLinks = [...associated_links].sort((a, b) => customSorting(a.associated_link_record_id, b.associated_link_record_id));
 
   const enrollmenPeriod = `${enrollment_beginning_year} - ${enrollment_ending_year}`;
   const studyPeriod = `${study_beginning_year} - ${study_ending_year}`;
