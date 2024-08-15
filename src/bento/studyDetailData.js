@@ -63,7 +63,7 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
 
       associated_links {
         associated_link_name
-        associated_link_id
+        associated_link_record_id
         associated_link_url
       }
     }
