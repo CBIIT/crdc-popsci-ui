@@ -65,6 +65,9 @@ const QueryBarView = ({ data, statusReducer, localFind }) => {
         }));
       },
     },
+    customStyles: {
+      // custom Styles for Query Bar. Refer to bento-frontend/packages/query-bar/src/generators/styles.js
+    }
   });
 
   return (

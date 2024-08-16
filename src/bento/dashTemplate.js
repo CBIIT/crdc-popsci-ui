@@ -1,5 +1,6 @@
 import { sortType, InputTypes } from '@bento-core/facet-filter';
 import { DEFAULT_VALUE } from './siteWideConfig';
+import reset_icon from '../assets/dash/resetIcon.svg'
 
 const Studies = 'Filter by Studies';
 const Participants = 'Filter by Participants';
@@ -8,7 +9,7 @@ const GROUP = 'group';
 // --------------- Facet resetIcon link configuration --------------
 // Ideal size for resetIcon is 16x16 px
 export const resetIcon = {
-  src: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/Clear-icon.svg',
+  src: reset_icon,
   alt: 'Reset icon',
   size: '12 px',
 };

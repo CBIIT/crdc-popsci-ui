@@ -1,38 +1,55 @@
 export default () => ({
+  // Clear Facet
   clearAllButtonRoot: {
     margin: 'auto',
   },
   customButton: {
+    padding: '0px !important',
     borderRadius: '9px',
-    maxWidth: '30px',
+
+    maxWidth: '32px',
+    minWidth: '32px',
+
     maxHeight: '30px',
-    minWidth: '30px',
     minHeight: '30px',
+
     marginTop: '0px',
     fontSize: 9,
     textTransform: 'none',
     color: '#3d4241',
     marginLeft: '0px',
     '&:hover': {
-      backgroundColor: '#566672',
+      backgroundColor: '#415153',
       color: 'white',
+      border: '1px solid #435C60 !important',
+      '& $resetIcon': {
+        fill: '#FFFFFF !important',  // Change SVG color on hover
+      },
     },
   },
   floatRight: {
-    margin: '7px 0px 7px 6px',
+    margin: '17px 0px 14px 20px',
   },
   resetText: {
     marginTop: '0px',
     marginLeft: '8px',
     color: '#415153',
-    fontSize: 14,
+    fontSize: '14px',
+    fontWeight: 600,
   },
   resetTextDisabled: {
     marginTop: '0px',
-    marginLeft: '8px',
+    marginLeft: '10px',
     color: '#AEBDBE',
-    fontSize: 14,
+    fontSize: '14px',
+    fontWeight: 600,
   },
+  resetIcon: {
+    '&:hover': {
+      fill: '#FFFFFF',
+    },
+  },
+  // Clear Facet style end
   cases: {
     height: '5px',
   },
