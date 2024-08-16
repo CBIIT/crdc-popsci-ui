@@ -23,7 +23,7 @@ import {
 import store from '../../../store';
 import styles from './BentoFacetFilterStyle';
 import { FacetFilter, ClearAllFiltersBtn } from '@bento-core/facet-filter';
-import { facetsConfig, facetSectionVariables, resetIcon } from '../../../bento/dashTemplate';
+import { facetsConfig, facetSectionVariables } from '../../../bento/dashTemplate';
 import FacetFilterThemeProvider from './FilterThemeConfig';
 import {
   getAllSubjectIds, getAllIds,
@@ -114,29 +114,42 @@ const BentoFacetFilter = ({
   * 2. disable - true/ false
   */
   const CustomClearAllFiltersBtn = ({ onClearAllFilters, disable }) => {
+    const iconColor = disable ? '#AEBDBE' : '#415153';
+    const borderColor = disable ? '#ADADAD' : '#435C60';
+    
+    const handleClearAll = () => {
+      onClearAllFilters();
+      store.dispatch(resetAllData());
+    };
+  
     return (
       <div className={classes.floatRight}>
         <Button
           id="button_sidebar_clear_all_filters"
           variant="outlined"
           disabled={disable}
-          onClick={() => {
-            onClearAllFilters();
-            store.dispatch(resetAllData());
-          }}
+          onClick={handleClearAll}
           className={classes.customButton}
           classes={{ root: classes.clearAllButtonRoot }}
+          style={{ border: `1px solid ${borderColor}` }}
         >
-          <img
-            src={resetIcon.src}
-            height={resetIcon.size}
-            width={resetIcon.size}
-            alt={resetIcon.alt}
-          />
+          <svg 
+            className={classes.resetIcon}
+            width="12"
+            height="12"
+            viewBox="0 0 12 12"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            style={{ fill: iconColor }}
+          >
+            <path 
+              fillRule="evenodd"
+              clipRule="evenodd"
+              d="M11.74 5.97999C11.74 2.80999 9.18001 0.24999 6.01001 0.23999C4.41001 0.23999 2.88001 0.90999 1.80001 2.07999V1.00999C1.80001 0.58999 1.46001 0.23999 1.03001 0.23999C0.60001 0.23999 0.26001 0.58999 0.26001 1.00999V4.06999C0.26001 4.48999 0.60001 4.83999 1.03001 4.83999H4.09001C4.51001 4.83999 4.86001 4.49999 4.86001 4.06999C4.86001 3.63999 4.52001 3.29999 4.09001 3.29999H2.76001C4.24001 1.50999 6.89001 1.25999 8.68001 2.73999C10.47 4.21999 10.72 6.86999 9.24001 8.65999C8.45001 9.62999 7.26001 10.19 6.00001 10.19C5.58001 10.19 5.23001 10.53 5.23001 10.96C5.23001 11.38 5.57001 11.73 6.00001 11.73H6.02001C9.18001 11.72 11.74 9.14999 11.74 5.97999Z"
+            />
+          </svg>
         </Button>
-        <span className={disable
-          ? classes.resetTextDisabled : classes.resetText}
-        >
+        <span className={disable ? classes.resetTextDisabled : classes.resetText}>
           Clear all filtered selections
         </span>
       </div>
@@ -236,6 +249,7 @@ const BentoFacetFilter = ({
       <FacetFilterThemeProvider>
         <ClearAllFiltersBtn
           Component={CustomClearAllFiltersBtn}
+          // Component={CustomClearAllFiltersBtn}
           activeFilters={activeFilters}
         />
         <FacetFilter

@@ -13,7 +13,7 @@ export default (theme) => ({
     maxHeight: '1300px',
     overflowX: 'hidden',
     backgroundColor: 'transparent',
-    borderLeft: 'thin solid #B1B1B1',
+    // borderLeft: 'thin solid #B1B1B1',
     overflow: 'auto',
     zIndex: '99',
     paddingBottom: '150px',
