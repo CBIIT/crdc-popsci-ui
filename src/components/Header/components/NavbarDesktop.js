@@ -488,8 +488,6 @@ const NavBar = () => {
               </CartSpan> 
               ):(
          <CartSpan>
-         <StyledLoginLink  id="header-navbar-login-button" to="/user/login">Login</StyledLoginLink>
-          <CartContainer />
         </CartSpan> 
         )}
       </NavContainer>

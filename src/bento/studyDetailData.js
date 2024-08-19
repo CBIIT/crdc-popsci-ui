@@ -188,7 +188,7 @@ export const studyDataFileTableConfig = {
   columns: [
     {
       cellType: cellTypes.CHECKBOX,
-      display: true,
+      display: false,
       role: cellTypes.CHECKBOX,
     },
     {
@@ -208,7 +208,7 @@ export const studyDataFileTableConfig = {
     {
       dataField: 'association',
       header: 'Association',
-      display: true,
+      display: false,
       tooltipText: 'sort',
       role: cellTypes.DISPLAY,
     },
