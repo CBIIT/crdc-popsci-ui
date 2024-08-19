@@ -208,7 +208,7 @@ export const studyDataFileTableConfig = {
     {
       dataField: 'association',
       header: 'Association',
-      display: true,
+      display: false,
       tooltipText: 'sort',
       role: cellTypes.DISPLAY,
     },
