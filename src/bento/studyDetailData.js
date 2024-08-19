@@ -188,7 +188,7 @@ export const studyDataFileTableConfig = {
   columns: [
     {
       cellType: cellTypes.CHECKBOX,
-      display: true,
+      display: false,
       role: cellTypes.CHECKBOX,
     },
     {
