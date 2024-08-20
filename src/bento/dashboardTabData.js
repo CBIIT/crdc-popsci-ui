@@ -131,6 +131,7 @@ export const DASHBOARD_QUERY_NEW = gql`
       number_of_states_provinces_territories: $number_of_states_provinces_territories
       primary_diagnosis_disease_term: $primary_diagnosis_disease_term
     ){  
+      dataVolume
       numberOfStudies
       numberOfDataCollectionCatagory
       numberOfDiagnosis
@@ -310,7 +311,6 @@ export const DASHBOARD_QUERY_NEW = gql`
       genders: $genders
     ){
       study_short_name
-      data_volume
       number_of_participants
     }
   }

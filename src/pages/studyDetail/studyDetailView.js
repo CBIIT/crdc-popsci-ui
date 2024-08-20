@@ -44,7 +44,6 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
   const statsbarData = {
     ...data.searchStudies,
     number_of_participants: studyGeneral.number_of_participants,
-    data_volume: studyGeneral.data_volume
   }
 
   const breadCrumbJson = [

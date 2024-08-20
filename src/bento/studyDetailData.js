@@ -105,10 +105,10 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
     # Stats Bar property
     globalStatsBar(study_short_name: $study_short_name) {
       study_short_name
-      data_volume
       number_of_participants
     }
     searchStudies(study_short_name: $study_short_name) {
+      dataVolume
       numberOfStudies
       numberOfDataCollectionCatagory
       numberOfDiagnosis
