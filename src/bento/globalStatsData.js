@@ -55,7 +55,7 @@ export const globalStatsData = [
   {
     statTitle: 'Data Volume',
     type: 'field',
-    statAPI: 'data_volume', // globalStatsBar
+    statAPI: 'dataVolume', // searchStudies
     statIconSrc: dataVolumeIcon,
     statIconAlt: 'Data Volume Stats Bar Icon',
   },
@@ -102,7 +102,8 @@ export const GET_GLOBAL_STATS_DATA_QUERY = gql`
     searchStudies(
       study_short_name: $study_short_name
       # TODO: Add more argument to be used for Explore
-    ) {  
+    ) {
+        dataVolume
         numberOfStudies
         numberOfDataCollectionCatagory
         numberOfDiagnosis
@@ -112,7 +113,6 @@ export const GET_GLOBAL_STATS_DATA_QUERY = gql`
       study_short_name: $study_short_name
     ) {
         study_short_name
-        data_volume
         number_of_participants
       }
     }

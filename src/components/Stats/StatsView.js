@@ -7,7 +7,7 @@ const StatsView = ({ data }) => {
   /* Update the data to convert the file size to a human-readable format */
   const updatedData = {
     ...data,
-    data_volume: humanFileSize(data.data_volume),
+    dataVolume: humanFileSize(data.dataVolume),
   };
 
   // Incorporate data into the stats array

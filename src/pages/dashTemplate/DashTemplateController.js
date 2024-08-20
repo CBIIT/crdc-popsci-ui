@@ -7,13 +7,14 @@ import { getFilters } from '@bento-core/facet-filter';
 import DashTemplateView from './DashTemplateView';
 import { DASHBOARD_QUERY_NEW } from '../../bento/dashboardTabData';
 
+/*
 function calculateStatsTotals(data) {
   return data.reduce((acc, item) => {
-    acc.data_volume += item.data_volume;
+    acc.data_volume += item.dataolume;
     acc.number_of_participants += item.number_of_participants;
     return acc;
   }, { data_volume: 0, number_of_participants: 0 });
-}
+}*/
 
 const getDashData = (states) => {
   const {
@@ -38,6 +39,7 @@ const getDashData = (states) => {
       // context: { clientName: 'ctdcOldService' },
     })
       .then((response) => response.data);
+      // Change data from two property to one
     return result;
   }
 
@@ -49,6 +51,7 @@ const getDashData = (states) => {
       ...(localFindUpload || []).map((obj) => obj.subject_id),
       ...(localFindAutocomplete || []).map((obj) => obj.title),
     ],
+    // take out lower and upper bound one tinto two
     // study_short_name:["HLBB"], // TODO: Leave adding default filter
   };
 
@@ -57,11 +60,8 @@ const getDashData = (states) => {
     getData(activeFilters).then((result) => {
       if (result.searchStudies) {
 
-        // Calculate totals using the copy
-        const globalStatsBar = calculateStatsTotals(result.globalStatsBar);
-
         setDashData(prevData => {
-          const updatedData = { ...result.searchStudies, ...globalStatsBar };
+          const updatedData = { ...result.searchStudies, ...result.globalStatsBar };
           console.log('Updated Dash Data:', updatedData);
           return updatedData;
         });
