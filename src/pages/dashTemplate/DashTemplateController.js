@@ -6,13 +6,7 @@ import { CircularProgress } from '@material-ui/core';
 import { getFilters } from '@bento-core/facet-filter';
 import DashTemplateView from './DashTemplateView';
 import { DASHBOARD_QUERY_NEW } from '../../bento/dashboardTabData';
-
-function calculateStatsTotals(data) {
-  return data.reduce((acc, item) => {
-    acc.number_of_participants += item.number_of_participants;
-    return acc;
-  }, { number_of_participants: 0 });
-}
+import { calculateStatsTotals } from '../../components/Stats/utils';
 
 const getDashData = (states) => {
   const {
