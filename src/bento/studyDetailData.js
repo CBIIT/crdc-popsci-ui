@@ -3,7 +3,11 @@ import studyHeaderIcon from '../assets/study/studyHeaderIcon.svg'
 import externalLinkIcon from '../assets/externalLinkIcon.svg'
 import previousIcon from '../assets/study/previousIcon.svg';
 import { cellTypes, dataFormatTypes } from '@bento-core/table';
+import downloadSuccess from '../assets/dash/downloadSuccess.svg'
+import downloadLock from '../assets/dash/downloadLock.svg'
+import previewLarge from '../assets/dash/previewLarge.svg'
 // --------------- Tooltip configuration --------------
+
 export const tooltipContent = {
   src: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/icdc/images/svgs/Tooltip.SpeechBubble.svg',
   alt: 'tooltipIcon',
@@ -59,6 +63,7 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
         data_file_description
         data_file_format
         data_file_size
+        signed_url
       }
 
       associated_links {
@@ -236,5 +241,19 @@ export const studyDataFileTableConfig = {
       dataFormatType: dataFormatTypes.FORMAT_BYTES,
       cellType: cellTypes.FORMAT_DATA,
     },
+    {
+        dataField: 'signed_url', // This need to left empty if no data need to be displayed before file download icon
+        header: 'Access',
+        display: true,
+        cellType: cellTypes.CUSTOM_ELEM,
+        downloadDocument: true, // To indicate that column is document donwload
+        documentDownloadProps: {
+          dataField: 'signed_url',
+          toolTipTextFileDownload: 'Download a copy of this file',
+          iconFileDownload: downloadSuccess,
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+      },
   ],
 };
