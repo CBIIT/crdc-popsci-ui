@@ -1,11 +1,25 @@
 import React from 'react';
 import { Typography } from '@material-ui/core';
 import { cellTypes, headerTypes } from '@bento-core/table';
+import DocumentDownloadView from '../../../../../components/DocumentDownload/DocumentDownloadView';
+
 
 // Helper component for custom cell rendering
 export const CustomCellView = (props) => {
-  const { displayEmpty, dataField } = props;
+  const {
+    downloadDocument, documentDownloadProps,
+    displayEmpty, dataField
+  } = props;
   
+  if (downloadDocument) {
+    return (
+      <DocumentDownloadView
+        signedUrl={props[dataField]}
+        {...documentDownloadProps}
+        {...props}
+      />
+    );
+  }
   if (typeof displayEmpty === "boolean") {
     return (
       <Typography>
