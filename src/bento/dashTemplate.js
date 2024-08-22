@@ -78,24 +78,19 @@ export const facetsConfig = [
     label: 'Enrollment Period',
 
     // ************ lowerBound
-    /* apiPath: 'enrollmentPeriodMin',
-    apiForFiltering: 'enrollmentPeriodMin',
-    datafield: 'enrollment_beginning_year', */
-
-    // ************ upperBound
-    // apiPath: 'enrollmentPeriodMax',
-    // apiForFiltering: 'enrollmentPeriodMax',
-    // datafield: 'enrollment_ending_year',
+    apiPath: 'enrollmentPeriod',
+    apiForFiltering: 'enrollmentPeriod',
+    datafield: 'enrollment_beginning_year',
 
     ApiLowerBoundName: 'lowerBound',
     ApiUpperBoundName: 'upperBound',
     show: true,
-    // slider: true,
-    // type: InputTypes.SLIDER,
-    type: InputTypes.CHECKBOX,
+    slider: true,
+    type: InputTypes.SLIDER,
     sort_type: 'none',
-    minLowerBound: 0,
-    maxUpperBound: 100,
+    // minLowerBound: 0,
+    // maxUpperBound: 100,
+
     // quantifier: 'Years',
   }, 
 

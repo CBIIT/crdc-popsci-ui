@@ -14,6 +14,15 @@ function calculateStatsTotals(data) {
   }, { number_of_participants: 0 });
 }
 
+function updateSliderDataForEnrollmentPeriod(searchStudiesData) {
+  const { lowerBound: absoluteMinimum , upperBound: relativeMinimum, subjects: minSubjects} = searchStudiesData.enrollmentPeriodMin
+  const { lowerBound: relativeMaximum, upperBound: absoluteMaximum, subjects: maxSubjects} = searchStudiesData.enrollmentPeriodMax
+
+  
+  // result.searchStudies.enrollmentPeriodMax)
+  return { enrollmentPeriod: searchStudiesData.enrollmentPeriodMin}
+}
+
 const getDashData = (states) => {
   const {
     filterState,
@@ -42,6 +51,7 @@ const getDashData = (states) => {
   }
 
   const [dashData, setDashData] = useState(null);
+  const [enrollmentPeriodData, setEnrollmentPeriodData] = useState(null);
 
   const activeFilters = {
     ...getFilters(filterState),
@@ -60,9 +70,17 @@ const getDashData = (states) => {
 
         // Calculate totals using the copy
         const globalStatsBar = calculateStatsTotals(result.globalStatsBar);
+        
+        const enrollmentPeriod = updateSliderDataForEnrollmentPeriod(result.searchStudies)
 
         setDashData(prevData => {
-          const updatedData = { ...result.searchStudies, ...globalStatsBar };
+          const updatedData = {
+            ...result.searchStudies, 
+            ...globalStatsBar,
+            ...enrollmentPeriod
+          };
+
+
           console.log('Updated Dash Data:', updatedData);
           return updatedData;
         });
