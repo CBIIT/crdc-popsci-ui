@@ -116,7 +116,7 @@ const tblBody = {
       '&.data_file_format': {
         width: '100px',
       },
-      '&.signed_url': {
+      '&.data_file_location': {
         width: '70px',
       },
       '&.data_file_size': {
