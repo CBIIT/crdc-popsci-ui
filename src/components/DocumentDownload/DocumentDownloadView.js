@@ -17,17 +17,23 @@ const downloadFile = async (signedUrl) => {
 // NOTE: This component is getting more complex, will need to refactor at some point.
 const DocumentDownload = ({
   classes,
-  signedUrl = "https://d2fztblijod0e6.cloudfront.net/popsci-dev.tfvars?Expires=1724371200&Signature=kW5bWeRHdH1gNQRYOavzkMyvcDPTaQ8lb8MSCa10wSBAgDIfwv2ZF7t2dGMCZixdRpOIJGAykMBnf2evqT-RRybUw2fa0X4Ca1s4nxBPPjIjQMwNBRRC~rJUtpVenksXgPTjvh7dXFUfWxPuki35OjO7IvfhcvD9TBBeYCN330AV7RV2owG3iMxSayDBM8ryzVSWY1CxiaqR-80c~6Cz1VK9D74fnoQsz2Tsb9C3YHI-TVdWyxnZexsNInpj7QmwdcDJxf290f3~OcS1QNWA8DAxXzcxRNILqZWgE7CtYzwQqK6O8ekziUHzBa80z~AwElxAofb12NwuJPL1eRNTxQ__&Key-Pair-Id=K2VYEP14AN5MX4",
+  signedUrl,
   toolTipTextFileDownload = 'Download a copy of this file',
   iconFileDownload = '',
   iconFilePreview = '',
   iconUnauthenticated = '',
 }) => {
 
+    // If signedUrl is null, return an empty div
+  if (!signedUrl || signedUrl==='' || signedUrl==='na') {
+    return <div></div>;
+  }
+
   return (
     <>
       <div>
               <ToolTip classes={{ tooltip: classes.customTooltip, arrow: classes.customArrow }} title={toolTipTextFileDownload} placement="bottom">
+                
                 <div
                   onClick={() => downloadFile(signedUrl)}
                   style={{ textAlign: 'center' }}

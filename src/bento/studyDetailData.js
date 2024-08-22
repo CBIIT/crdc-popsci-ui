@@ -63,6 +63,7 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
         data_file_description
         data_file_format
         data_file_size
+        data_file_location
       }
 
       associated_links {
