@@ -20,7 +20,13 @@ function updateSliderDataForEnrollmentPeriod(searchStudiesData) {
 
   
   // result.searchStudies.enrollmentPeriodMax)
-  return { enrollmentPeriod: searchStudiesData.enrollmentPeriodMin}
+  return { 
+    enrollmentPeriod: {
+      lowerBound: absoluteMinimum,
+      upperBound: absoluteMaximum,
+      subjects: Math.max(minSubjects, maxSubjects) // This can be relace by the numberOfStudies
+    }
+  }
 }
 
 const getDashData = (states) => {
@@ -52,16 +58,21 @@ const getDashData = (states) => {
 
   const [dashData, setDashData] = useState(null);
   const [enrollmentPeriodData, setEnrollmentPeriodData] = useState(null);
+  
+  // const { enrollment_year } = getFilters(filterState)
 
-  const activeFilters = {
+  let activeFilters = {
     ...getFilters(filterState),
     subject_ids: [
       ...(localFindUpload || []).map((obj) => obj.subject_id),
       ...(localFindAutocomplete || []).map((obj) => obj.title),
+      
     ],
-    // take out lower and upper bound one tinto two
-    // study_short_name:["HLBB"], // TODO: Leave adding default filter
+    
   };
+  console.log("|| activeFilters: ", activeFilters)
+  activeFilters.enrollment_beginning_year = activeFilters?.enrollment_year || []
+  activeFilters.enrollment_ending_year = activeFilters?.enrollment_year || []
 
   useEffect(() => {
     const controller = new AbortController();

@@ -80,7 +80,7 @@ export const facetsConfig = [
     // ************ lowerBound
     apiPath: 'enrollmentPeriod',
     apiForFiltering: 'enrollmentPeriod',
-    datafield: 'enrollment_beginning_year',
+    datafield: 'enrollment_year',
 
     ApiLowerBoundName: 'lowerBound',
     ApiUpperBoundName: 'upperBound',
