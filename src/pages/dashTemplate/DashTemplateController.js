@@ -7,6 +7,8 @@ import { getFilters } from '@bento-core/facet-filter';
 import DashTemplateView from './DashTemplateView';
 import { DASHBOARD_QUERY_NEW } from '../../bento/dashboardTabData';
 
+let abs_min = 0;
+let abs_max = 0;
 function calculateStatsTotals(data) {
   return data.reduce((acc, item) => {
     acc.number_of_participants += item.number_of_participants;
@@ -18,13 +20,15 @@ function updateSliderDataForEnrollmentPeriod(searchStudiesData) {
   const { lowerBound: absoluteMinimum , upperBound: relativeMinimum, subjects: minSubjects} = searchStudiesData.enrollmentPeriodMin
   const { lowerBound: relativeMaximum, upperBound: absoluteMaximum, subjects: maxSubjects} = searchStudiesData.enrollmentPeriodMax
 
-  
+  abs_min = absoluteMinimum
+  abs_max = absoluteMaximum
+
   // result.searchStudies.enrollmentPeriodMax)
 
   return { 
     enrollmentPeriod: {
-      lowerBound: absoluteMinimum,
-      upperBound: absoluteMaximum,
+      lowerBound: 1970 || absoluteMinimum,
+      upperBound: 2021 || absoluteMaximum,
       subjects: Math.max(minSubjects, maxSubjects) // This can be relace by the numberOfStudies
     }
   }
@@ -104,9 +108,9 @@ const getDashData = (states) => {
   console.log("|| activeFilters: ", activeFilters)
 
   // Enrollment Period (enrollmentPeriodMin)
-  activeFilters.enrollment_beginning_year = activeFilters?.enrollment_year || []
+  activeFilters.enrollment_beginning_year = activeFilters?.enrollment_year ? [1969, activeFilters?.enrollment_year?.at(0) || 2022] : [] // [abs_min,activeFilters?.enrollment_year?.at(0)] // activeFilters?.enrollment_year || []
   // Enrollment Period (enrollmentPeriodMax)
-  activeFilters.enrollment_ending_year = activeFilters?.enrollment_year || []
+  activeFilters.enrollment_ending_year = activeFilters?.enrollment_year ? [activeFilters?.enrollment_year?.at(1) || 1969, 2022] : [] // [activeFilters?.enrollment_year?.at(0), abs_max] // activeFilters?.enrollment_year || []
 
   // Study Period (studyPeriodMin)
   activeFilters.study_beginning_year = activeFilters?.study_year || []
