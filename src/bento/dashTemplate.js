@@ -298,18 +298,17 @@ export const widgetConfig = [
     type: 'donut',
     title: 'Studies',
     sliceTitle: "Participants",
-    dataName: 'studyCountByNeoplasm', // TODO: Need API to count based on  version study_short_name or other
+    dataName: 'studyCountByStudy', // TODO: Need API to count based on  version study_short_name or other
   },
- 
   {
     type: 'donut',
-    title: 'Primary Diagnoses',
+    title: 'Study Design',
     sliceTitle: "Studies",
-    dataName: 'studyCountByNeoplasm',
+    dataName: 'studyCountByStudyDesign',
   },
   {
     type: 'donut',
-    title: 'Data Collection Categories',
+    title: 'Data Collected',
     sliceTitle: "Studies",
     dataName: 'studyCountByDataCollection',
   }
