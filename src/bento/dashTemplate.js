@@ -92,6 +92,8 @@ export const facetsConfig = [
     // maxUpperBound: 100,
 
     // quantifier: 'Years',
+    printConsole: true,
+    
   }, 
 
   // TODO: Slider
@@ -100,24 +102,18 @@ export const facetsConfig = [
     label: 'Study Period',
 
     // ************ lowerBound
-    /* apiPath: 'studyPeriodMin',
-    apiForFiltering: 'studyPeriodMin',
-    datafield: 'study_beginning_year', */
-
-    // ************ upperBound
-    // apiPath: 'studyPeriodMax',
-    // apiForFiltering: 'studyPeriodMax', 
-    // datafield: 'study_ending_year',
+    apiPath: 'studyPeriod',
+    apiForFiltering: 'studyPeriod',
+    datafield: 'study_year',
 
     ApiLowerBoundName: 'lowerBound',
     ApiUpperBoundName: 'upperBound',
     show: true,
-    // slider: true,
-    // type: InputTypes.SLIDER,
-    type: InputTypes.CHECKBOX,
+    slider: true,
+    type: InputTypes.SLIDER,
     sort_type: 'none',
-    minLowerBound: 0,
-    maxUpperBound: 100,
+    // minLowerBound: 0,
+    // maxUpperBound: 4000,
     // quantifier: 'Years',
   },
     // TODO: Slider
@@ -134,8 +130,10 @@ export const facetsConfig = [
     type: InputTypes.SLIDER,
     sort_type: 'none',
     // minLowerBound: 0,
-    // maxUpperBound: 100,
+    // maxUpperBound: 4000,
     // quantifier: 'Years',
+
+    // printConsole: true,
   },
   {
     section: Studies,
@@ -179,27 +177,23 @@ export const facetsConfig = [
     label: 'Age at Enrollment',
 
     // ************ lowerBound
-    /* apiPath: 'participantAgeAtEnrollmentMin',
-    apiForFiltering: 'participantAgeAtEnrollmentMin', 
-    datafield: 'study_participant_minimum_age', */
+    apiPath: 'ageAtEnrollment',
+    apiForFiltering: 'ageAtEnrollment', 
+    datafield: 'study_participant_age',
 
-    // ************ upperBound
-    // apiPath: 'participantAgeAtEnrollmentMax',
-    // apiForFiltering: 'participantAgeAtEnrollmentMax',
-    // datafield: 'study_participant_maximum_age',
 
     ApiLowerBoundName: 'lowerBound',
     ApiUpperBoundName: 'upperBound',
 
     show: true,
 
-    // slider: true,
-    // type: InputTypes.SLIDER,
-    type: InputTypes.CHECKBOX,
+    slider: true,
+    type: InputTypes.SLIDER,
+    // type: InputTypes.CHECKBOX,
 
     sort_type: 'none',
-    minLowerBound: 0,
-    maxUpperBound: 100,
+    // minLowerBound: 0,
+    // maxUpperBound: 100,
     // quantifier: 'Years',
   },
 
@@ -293,14 +287,14 @@ export const widgetConfig = [
     type: 'donut',
     title: 'Studies',
     sliceTitle: "Participants",
-    dataName: 'studyCountByNeoplasm', // TODO: Need API to count based on  version study_short_name or other
+    dataName: 'studyCountByStudy', // TODO: Need API to count based on  version study_short_name or other
   },
  
   {
     type: 'donut',
     title: 'Primary Diagnoses',
     sliceTitle: "Studies",
-    dataName: 'studyCountByNeoplasm',
+    dataName: 'studyCountByStudyDesign',
   },
   {
     type: 'donut',

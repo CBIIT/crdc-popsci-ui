@@ -20,6 +20,7 @@ function updateSliderDataForEnrollmentPeriod(searchStudiesData) {
 
   
   // result.searchStudies.enrollmentPeriodMax)
+
   return { 
     enrollmentPeriod: {
       lowerBound: absoluteMinimum,
@@ -28,6 +29,37 @@ function updateSliderDataForEnrollmentPeriod(searchStudiesData) {
     }
   }
 }
+
+function updateSliderDataForStudyPeriod(searchStudiesData) {
+  const { lowerBound: absoluteMinimum , upperBound: relativeMinimum, subjects: minSubjects} = searchStudiesData.studyPeriodMin
+  const { lowerBound: relativeMaximum, upperBound: absoluteMaximum, subjects: maxSubjects} = searchStudiesData.studyPeriodMax
+
+  
+  // result.searchStudies.enrollmentPeriodMax)
+  return { 
+    studyPeriod: {
+      lowerBound: absoluteMinimum,
+      upperBound: absoluteMaximum,
+      subjects: Math.max(minSubjects, maxSubjects) // This can be relace by the numberOfStudies
+    }
+  }
+}
+
+function updateSliderDataForAgeAtEnrollment(searchStudiesData) {
+  const { lowerBound: absoluteMinimum , upperBound: relativeMinimum, subjects: minSubjects} = searchStudiesData.participantAgeAtEnrollmentMin
+  const { lowerBound: relativeMaximum, upperBound: absoluteMaximum, subjects: maxSubjects} = searchStudiesData.participantAgeAtEnrollmentMax
+
+  
+  // result.searchStudies.enrollmentPeriodMax)
+  return { 
+    ageAtEnrollment: {
+      lowerBound: absoluteMinimum,
+      upperBound: absoluteMaximum,
+      subjects: Math.max(minSubjects, maxSubjects) // This can be relace by the numberOfStudies
+    }
+  }
+}
+
 
 const getDashData = (states) => {
   const {
@@ -57,7 +89,7 @@ const getDashData = (states) => {
   }
 
   const [dashData, setDashData] = useState(null);
-  const [enrollmentPeriodData, setEnrollmentPeriodData] = useState(null);
+  // const [enrollmentPeriodData, setEnrollmentPeriodData] = useState(null);
   
   // const { enrollment_year } = getFilters(filterState)
 
@@ -66,13 +98,27 @@ const getDashData = (states) => {
     subject_ids: [
       ...(localFindUpload || []).map((obj) => obj.subject_id),
       ...(localFindAutocomplete || []).map((obj) => obj.title),
-      
     ],
-    
   };
+
   console.log("|| activeFilters: ", activeFilters)
+
+  // Enrollment Period (enrollmentPeriodMin)
   activeFilters.enrollment_beginning_year = activeFilters?.enrollment_year || []
+  // Enrollment Period (enrollmentPeriodMax)
   activeFilters.enrollment_ending_year = activeFilters?.enrollment_year || []
+
+  // Study Period (studyPeriodMin)
+  activeFilters.study_beginning_year = activeFilters?.study_year || []
+  // Study Period (studyPeriodMax)
+  activeFilters.study_ending_year = activeFilters?.study_year || []
+
+  // Age at Enrollment (participantAgeAtEnrollmentMin)
+  activeFilters.study_participant_minimum_age = activeFilters?.study_participant_age || []
+  // Age at Enrollment (participantAgeAtEnrollmentMax)
+  activeFilters.study_participant_maximum_age = activeFilters?.study_participant_age || []
+
+
 
   useEffect(() => {
     const controller = new AbortController();
@@ -83,12 +129,20 @@ const getDashData = (states) => {
         const globalStatsBar = calculateStatsTotals(result.globalStatsBar);
         
         const enrollmentPeriod = updateSliderDataForEnrollmentPeriod(result.searchStudies)
+        console.log("|| enrollmentPeriod: ", enrollmentPeriod)
+        const studyPeriod = updateSliderDataForStudyPeriod(result.searchStudies)
+        const ageAtEnrollment = updateSliderDataForAgeAtEnrollment(result.searchStudies)
+
+
+        
 
         setDashData(prevData => {
           const updatedData = {
             ...result.searchStudies, 
             ...globalStatsBar,
-            ...enrollmentPeriod
+            ...enrollmentPeriod,
+            ...studyPeriod,
+            ...ageAtEnrollment
           };
 
 
@@ -103,6 +157,7 @@ const getDashData = (states) => {
 };
 
 const DashTemplateController = ((props) => {
+  console.log("|| \t\t--------------------------------------")
   const { dashData, activeFilters, tabIndex } = getDashData(props);
   if (!dashData) {
     return (<CircularProgress />);
