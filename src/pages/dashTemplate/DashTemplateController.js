@@ -108,9 +108,9 @@ const getDashData = (states) => {
   console.log("|| activeFilters: ", activeFilters)
 
   // Enrollment Period (enrollmentPeriodMin)
-  activeFilters.enrollment_beginning_year = activeFilters?.enrollment_year ? [1969, activeFilters?.enrollment_year?.at(0) || 2022] : [] // [abs_min,activeFilters?.enrollment_year?.at(0)] // activeFilters?.enrollment_year || []
+  activeFilters.enrollment_beginning_year = activeFilters?.enrollment_year || [] // activeFilters?.enrollment_year ? [1969, activeFilters?.enrollment_year?.at(0) || 2022] : [] // [abs_min,activeFilters?.enrollment_year?.at(0)] // activeFilters?.enrollment_year || []
   // Enrollment Period (enrollmentPeriodMax)
-  activeFilters.enrollment_ending_year = activeFilters?.enrollment_year ? [activeFilters?.enrollment_year?.at(1) || 1969, 2022] : [] // [activeFilters?.enrollment_year?.at(0), abs_max] // activeFilters?.enrollment_year || []
+  activeFilters.enrollment_ending_year = activeFilters?.enrollment_year || [] // activeFilters?.enrollment_year ? [activeFilters?.enrollment_year?.at(1) || 1969, 2022] : [] // [activeFilters?.enrollment_year?.at(0), abs_max] // activeFilters?.enrollment_year || []
 
   // Study Period (studyPeriodMin)
   activeFilters.study_beginning_year = activeFilters?.study_year || []
@@ -144,13 +144,14 @@ const getDashData = (states) => {
           const updatedData = {
             ...result.searchStudies, 
             ...globalStatsBar,
+            globalStatsBar: result.globalStatsBar,
             ...enrollmentPeriod,
             ...studyPeriod,
             ...ageAtEnrollment
           };
 
 
-          console.log('Updated Dash Data:', updatedData);
+          console.log('||| Updated Dash Data:', updatedData);
           return updatedData;
         });
       }
