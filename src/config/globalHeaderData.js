@@ -29,12 +29,12 @@ export const navMobileList = [
     id: 'navbar-link-explore',
     className: 'navMobileItem',
   },
-  {
-    name: 'About',
-    link: '',
-    id: 'navbar-dropdown-about',
-    className: 'navMobileItem clickable',
-  },
+  // {
+  //   name: 'About',
+  //   link: '',
+  //   id: 'navbar-dropdown-about',
+  //   className: 'navMobileItem clickable',
+  // },
 ];
 
 export const navbarSublists = {

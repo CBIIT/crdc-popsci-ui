@@ -7,7 +7,7 @@ import gql from 'graphql-tag';
 export const landingPageData = {
   callToActionTitle: 'Unleashing the power of data for global health',
   callToActionTitle2: 'Welcome to the Population Science Data Commons',
-  callToActionDescription: 'Dive into the Population Science Data Commons, where vast datasets converge to illuminate patterns and help drive innovation in global health.',
+  callToActionDescription: 'Coming Soon',
   callToActionButtonText: 'EXPLORE STUDIES',
   callToActionButtonIcon: {
     alt: 'Right Arrow',
@@ -22,33 +22,33 @@ export const landingPageData = {
     alt: '',
     img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/homeImageforAboutCard.png',
     titleText: 'About Population Science Data Commons',
-    descriptionText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi.',
+    descriptionText: 'Coming Soon',
     callToActionText: 'explore',
     callToActionLink: '/explore', // This links to the "About" static page.
   },
   tile2: {
     alt: '',
     img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/TrialsImage.png',
-    titleText: 'Studies',
-    descriptionText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.',
+    titleText: '',
+    descriptionText: 'Coming Soon',
     callToActionText: 'Read More',
-    callToActionLink: '/studies', // This links to the Programs Listing Page.
+    callToActionLink: '/', // This links to the Programs Listing Page.
   },
   tile3: {
     alt: '',
     img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/requestAccessImage.png',
-    titleText: 'Request Access',
-    descriptionText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
+    titleText: '',
+    descriptionText: 'Coming Soon',
     callToActionText: 'Read More',
-    callToActionLink: '/request', // Link to the Request Access Page
+    callToActionLink: '/', // Link to the Request Access Page
   },
   tile4: {
     alt: '',
     img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/CasesImage.png',
-    titleText: 'Cases',
-    descriptionText: 'Lorem ipsum dolor sit amet, onsectetur adipiscing elit, sed do eiusmod tempor incididunt.',
+    titleText: '',
+    descriptionText: 'Coming Soon',
     callToActionText: 'Read More',
-    callToActionLink: '/explore', // This links to the cases dashboard.
+    callToActionLink: '/', // This links to the cases dashboard.
   },
 };
 
