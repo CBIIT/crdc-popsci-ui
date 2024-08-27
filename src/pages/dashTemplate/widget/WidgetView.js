@@ -35,6 +35,16 @@ const WidgetView = ({
         textOverflowLength: 20,
         textColor: theme.palette.widgetBackground.contrastText,
       },
+      functions: {
+        mapData: (data) => {
+          if (data.number_of_participants) return { name: data.study_short_name, value: data.number_of_participants }
+          return { name: data.group, value: data.subjects }
+        },
+        mapDatasetObject: (data) => {
+          if (data.number_of_participants) return { name: data.study_short_name, value: data.number_of_participants }
+          return { name: data.group, value: data.subjects }
+        },
+      }
     },
     SunburstConfig: {
       classes: sunburstStyle(),

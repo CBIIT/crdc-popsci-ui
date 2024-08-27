@@ -7,7 +7,7 @@ import { getFilters } from '@bento-core/facet-filter';
 import DashTemplateView from './DashTemplateView';
 import { DASHBOARD_QUERY_NEW } from '../../bento/dashboardTabData';
 import { calculateStatsTotals } from '../../components/Stats/utils';
-import { reverseData } from './tabs/utils';
+import { sortWidgetDataByKey } from './tabs/utils';
 
 const getDashData = (states) => {
   const {
@@ -55,12 +55,19 @@ const getDashData = (states) => {
 
         // Calculate totals using the copy
         const globalStatsBar = calculateStatsTotals(result.globalStatsBar);
-        // const studyCountByStudyDesign = revertData(result?.searchStudies?.studyCountByStudyDesign)
-        const reversedStudyCountByStudyDesign = reverseData(result?.searchStudies?.studyCountByStudyDesign);
+
+        sortWidgetDataByKey(result?.searchStudies?.studyCountByStudyDesign)
+
+        sortWidgetDataByKey(result.globalStatsBar, 'study_short_name')
+
+        sortWidgetDataByKey(result?.searchStudies?.studyCountByDataCollection)
 
         setDashData(prevData => {
-          const updatedData = { ...result.searchStudies, ...globalStatsBar, studyCountByStudyDesign: reversedStudyCountByStudyDesign};
-          console.log('Updated Dash Data:', updatedData);
+          const updatedData = { 
+            ...result.searchStudies,
+            ...globalStatsBar,
+            globalStatsBar: result.globalStatsBar
+          };
           return updatedData;
         });
       }
