@@ -293,23 +293,21 @@ export const SUNBURST_COLORS_LEVEL_2 = [
 // datatable_level2_colors: string[]
 // sliceTitle: string (optional)
 export const widgetConfig = [
-
   {
     type: 'donut',
     title: 'Studies',
     sliceTitle: "Participants",
-    dataName: 'studyCountByNeoplasm', // TODO: Need API to count based on  version study_short_name or other
+    dataName: 'globalStatsBar',
   },
- 
   {
     type: 'donut',
-    title: 'Primary Diagnoses',
+    title: 'Study Design',
     sliceTitle: "Studies",
-    dataName: 'studyCountByNeoplasm',
+    dataName: 'studyCountByStudyDesign',
   },
   {
     type: 'donut',
-    title: 'Data Collection Categories',
+    title: 'Data Collected',
     sliceTitle: "Studies",
     dataName: 'studyCountByDataCollection',
   }
