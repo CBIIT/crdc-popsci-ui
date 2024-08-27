@@ -141,7 +141,53 @@ const theme = {
         },
       },
     },
-  },
+    MuiSlider: {
+      root: {
+        textTransform: 'capitalize',
+      },
+      rail: {
+        backgroundColor: '#D4D4D4 !important',  // Slider rail
+      },
+      track: {
+        backgroundColor: '#794900 !important',   // Slider track
+      },
+      thumb: {
+        backgroundColor: '#794900 !important',    // Slider thumb
+        background: '#794900 !important',
+      },
+    },
+
+    MuiInput: {
+      root: {
+        width: 'fit-content !important',
+        backgroundColor: '#F0F0F0 !important',
+        borderBottom: '2px solid #000000',
+      },
+      input: {
+        width: 'fit-content',
+        margin: 'auto 3px',
+        textAlign: 'center',
+      }
+    },
+    MuiCollapse: {
+      root: {
+        '& > div > div > div > p': {
+          // Targeting Slider XXX-XXX
+          color: '#000000 !important',
+          background: '#FFFAF2 !important',
+          textAlign: 'left',
+          paddingLeft: '20px',
+          borderTop: '0.5px solid #969696',
+
+          fontFamily: 'Open Sans',
+          fontSize: '14px',
+          fontWeight: 300,
+          lineHeight: '19.07px',
+        },
+      }
+    },
+  }
+
 };
 
 export default ({

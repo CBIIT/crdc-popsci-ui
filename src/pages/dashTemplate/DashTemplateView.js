@@ -11,7 +11,7 @@ const DashTemplate = ({
   classes,
   dashData,
   activeFilters,
-  tabIndex,
+  tabIndex=0,
 }) => (
   <div className={classes.dashboardContainer}>
     <StatsView data={dashData} />

@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useApolloClient } from '@apollo/client';
 import { connect } from 'react-redux';
-import { useLocation } from 'react-router-dom/cjs/react-router-dom';
 import { CircularProgress } from '@material-ui/core';
 import { getFilters } from '@bento-core/facet-filter';
 import DashTemplateView from './DashTemplateView';
 import { DASHBOARD_QUERY_NEW } from '../../bento/dashboardTabData';
 
-let abs_min = 0;
-let abs_max = 0;
 function calculateStatsTotals(data) {
   return data.reduce((acc, item) => {
     acc.number_of_participants += item.number_of_participants;
@@ -17,11 +14,8 @@ function calculateStatsTotals(data) {
 }
 
 function updateSliderDataForEnrollmentPeriod(searchStudiesData) {
-  const { lowerBound: absoluteMinimum , upperBound: relativeMinimum, subjects: minSubjects} = searchStudiesData.enrollmentPeriodMin
-  const { lowerBound: relativeMaximum, upperBound: absoluteMaximum, subjects: maxSubjects} = searchStudiesData.enrollmentPeriodMax
-
-  abs_min = absoluteMinimum
-  abs_max = absoluteMaximum
+  const { lowerBound: absoluteMinimum, subjects: minSubjects} = searchStudiesData.enrollmentPeriodMin
+  const { upperBound: absoluteMaximum, subjects: maxSubjects} = searchStudiesData.enrollmentPeriodMax
 
   // result.searchStudies.enrollmentPeriodMax)
 
@@ -35,30 +29,28 @@ function updateSliderDataForEnrollmentPeriod(searchStudiesData) {
 }
 
 function updateSliderDataForStudyPeriod(searchStudiesData) {
-  const { lowerBound: absoluteMinimum , upperBound: relativeMinimum, subjects: minSubjects} = searchStudiesData.studyPeriodMin
-  const { lowerBound: relativeMaximum, upperBound: absoluteMaximum, subjects: maxSubjects} = searchStudiesData.studyPeriodMax
+  const { lowerBound: absoluteMinimum, subjects: minSubjects} = searchStudiesData.studyPeriodMin
+  const { upperBound: absoluteMaximum, subjects: maxSubjects} = searchStudiesData.studyPeriodMax
 
-  
-  // result.searchStudies.enrollmentPeriodMax)
   return { 
     studyPeriod: {
-      lowerBound: absoluteMinimum,
-      upperBound: absoluteMaximum,
+      lowerBound: 1969 || absoluteMinimum,
+      upperBound: 3000 || absoluteMaximum,
       subjects: Math.max(minSubjects, maxSubjects) // This can be relace by the numberOfStudies
     }
   }
 }
 
 function updateSliderDataForAgeAtEnrollment(searchStudiesData) {
-  const { lowerBound: absoluteMinimum , upperBound: relativeMinimum, subjects: minSubjects} = searchStudiesData.participantAgeAtEnrollmentMin
-  const { lowerBound: relativeMaximum, upperBound: absoluteMaximum, subjects: maxSubjects} = searchStudiesData.participantAgeAtEnrollmentMax
+  const { lowerBound: absoluteMinimum, subjects: minSubjects} = searchStudiesData.participantAgeAtEnrollmentMin
+  const { upperBound: absoluteMaximum, subjects: maxSubjects} = searchStudiesData.participantAgeAtEnrollmentMax
 
   
   // result.searchStudies.enrollmentPeriodMax)
   return { 
     ageAtEnrollment: {
-      lowerBound: absoluteMinimum,
-      upperBound: absoluteMaximum,
+      lowerBound: 19 || absoluteMinimum,
+      upperBound: 99 || absoluteMaximum,
       subjects: Math.max(minSubjects, maxSubjects) // This can be relace by the numberOfStudies
     }
   }
@@ -70,15 +62,6 @@ const getDashData = (states) => {
     filterState,
     localFindUpload, localFindAutocomplete,
   } = states;
-
-  const tabIndexMap = {
-    'participants': 0,
-    'biospecimens': 1,
-    'files': 2,
-  };
-  const { search } = useLocation();
-  const tabName = search ? new URLSearchParams(search).get('selectedTab').toLowerCase() : 'participants';
-  const tabIndex = tabIndexMap[tabName];
 
   const client = useApolloClient();
   async function getData(activeFilters) {
@@ -158,12 +141,13 @@ const getDashData = (states) => {
     });
     return () => controller.abort();
   }, [filterState, localFindUpload, localFindAutocomplete]);
-  return { dashData, activeFilters, tabIndex };
+  return { dashData, activeFilters };
 };
 
 const DashTemplateController = ((props) => {
   console.log("|| \t\t--------------------------------------")
-  const { dashData, activeFilters, tabIndex } = getDashData(props);
+
+  const { dashData, activeFilters } = getDashData(props);
   if (!dashData) {
     return (<CircularProgress />);
   }
@@ -173,7 +157,6 @@ const DashTemplateController = ((props) => {
       {...props}
       dashData={dashData}
       activeFilters={activeFilters}
-      tabIndex={tabIndex}
     />
   );
 });
