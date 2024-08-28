@@ -313,6 +313,20 @@ export const DASHBOARD_QUERY_NEW = gql`
       study_short_name
       number_of_participants
     }
+
+    minMaxBoundQuery {
+      number_of_participant_lower_bound
+      number_of_participant_upper_bound
+      
+      enrollment_beginning_year_lower_bound
+      enrollment_ending_year_upper_bound
+
+      study_beginning_year_lower_bound
+      study_ending_year_upper_bound
+      
+      participant_minimum_age_lower_bound
+      participant_maximum_age_upper_bound
+    }
   }
 `;
 

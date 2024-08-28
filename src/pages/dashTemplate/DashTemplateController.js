@@ -13,44 +13,96 @@ function calculateStatsTotals(data) {
   }, { number_of_participants: 0 });
 }
 
-function updateSliderDataForEnrollmentPeriod(searchStudiesData) {
-  const { lowerBound: absoluteMinimum, subjects: minSubjects} = searchStudiesData.enrollmentPeriodMin
-  const { upperBound: absoluteMaximum, subjects: maxSubjects} = searchStudiesData.enrollmentPeriodMax
+const updateSliderData = (searchStudiesData, minMaxBoundQuery, key) => {
+  const { lowerBound: absoluteMinimum, subjects: minSubjects } = searchStudiesData?.[`${key}Min`] || {};
+  const { upperBound: absoluteMaximum, subjects: maxSubjects } = searchStudiesData?.[`${key}Max`] || {};
+  const lowerBound = minMaxBoundQuery?.[0]?.[`${key}_lower_bound`] || absoluteMinimum;
+  const upperBound = minMaxBoundQuery?.[0]?.[`${key}_upper_bound`] || absoluteMaximum;
+
+  return {
+    [key]: {
+      lowerBound,
+      upperBound,
+      subjects: Math.max(minSubjects || 0, maxSubjects || 0),
+    }
+  };
+};
+
+function updateSliderDataForEnrollmentPeriod(searchStudiesData, minMaxBoundQuery) {
+  const { lowerBound: absoluteMinimum, subjects: minSubjects} = searchStudiesData?.enrollmentPeriodMin
+  const { upperBound: absoluteMaximum, subjects: maxSubjects} = searchStudiesData?.enrollmentPeriodMax
+
+  const enrollment_beginning_year_lower_bound = minMaxBoundQuery?.at(0)?.enrollment_beginning_year_lower_bound
+  const enrollment_ending_year_upper_bound = minMaxBoundQuery?.at(0)?.enrollment_ending_year_upper_bound
+
+
+  console.log("## enrollment_beginning_year_lower_bound: ", enrollment_beginning_year_lower_bound)
+  console.log("## enrollment_ending_year_upper_bound: ", enrollment_ending_year_upper_bound)
 
   // result.searchStudies.enrollmentPeriodMax)
 
   return { 
     enrollmentPeriod: {
-      lowerBound: 1970 || absoluteMinimum,
-      upperBound: 2021 || absoluteMaximum,
+      lowerBound: enrollment_beginning_year_lower_bound || absoluteMinimum,
+      upperBound: enrollment_ending_year_upper_bound || absoluteMaximum,
       subjects: Math.max(minSubjects, maxSubjects) // This can be relace by the numberOfStudies
     }
   }
 }
 
-function updateSliderDataForStudyPeriod(searchStudiesData) {
-  const { lowerBound: absoluteMinimum, subjects: minSubjects} = searchStudiesData.studyPeriodMin
-  const { upperBound: absoluteMaximum, subjects: maxSubjects} = searchStudiesData.studyPeriodMax
+
+function updateSliderDataForStudyPeriod(searchStudiesData, minMaxBoundQuery) {
+  const { lowerBound: absoluteMinimum, subjects: minSubjects} = searchStudiesData?.studyPeriodMin
+  const { upperBound: absoluteMaximum, subjects: maxSubjects} = searchStudiesData?.studyPeriodMax
+
+  const study_beginning_year_lower_bound = minMaxBoundQuery?.at(0)?.study_beginning_year_lower_bound
+  const study_ending_year_upper_bound = minMaxBoundQuery?.at(0)?.study_ending_year_upper_bound
+
+
+  console.log("## study_beginning_year_lower_bound: ", study_beginning_year_lower_bound)
+  console.log("## study_ending_year_upper_bound: ", study_ending_year_upper_bound)
+
 
   return { 
     studyPeriod: {
-      lowerBound: 1969 || absoluteMinimum,
-      upperBound: 3000 || absoluteMaximum,
+      lowerBound: study_beginning_year_lower_bound || absoluteMinimum,
+      upperBound: study_ending_year_upper_bound || absoluteMaximum,
       subjects: Math.max(minSubjects, maxSubjects) // This can be relace by the numberOfStudies
     }
   }
 }
 
-function updateSliderDataForAgeAtEnrollment(searchStudiesData) {
-  const { lowerBound: absoluteMinimum, subjects: minSubjects} = searchStudiesData.participantAgeAtEnrollmentMin
-  const { upperBound: absoluteMaximum, subjects: maxSubjects} = searchStudiesData.participantAgeAtEnrollmentMax
+function updateSliderDataForNumberOfParticipants(searchStudiesData, minMaxBoundQuery) {
+  const { lowerBound: absoluteMinimum, upperBound: absoluteMaximum, subjects} = searchStudiesData?.studyCountByNumberOfParticipants
 
+  const number_of_participant_lower_bound = minMaxBoundQuery?.at(0)?.number_of_participant_lower_bound
+  const number_of_participant_upper_bound = minMaxBoundQuery?.at(0)?.number_of_participant_upper_bound
+
+  return {
+    studyCountByNumberOfParticipants: {
+      lowerBound: number_of_participant_lower_bound || absoluteMinimum,
+      upperBound: number_of_participant_upper_bound || absoluteMaximum,
+      subjects: subjects // This can be relace by the numberOfStudies
+    }
+  }
+}
+
+function updateSliderDataForAgeAtEnrollment(searchStudiesData, minMaxBoundQuery) {
+  const { lowerBound: absoluteMinimum, subjects: minSubjects} = searchStudiesData?.participantAgeAtEnrollmentMin
+  const { upperBound: absoluteMaximum, subjects: maxSubjects} = searchStudiesData?.participantAgeAtEnrollmentMax
+
+  const participant_minimum_age_lower_bound = minMaxBoundQuery?.at(0)?.participant_minimum_age_lower_bound
+  const participant_maximum_age_upper_bound = minMaxBoundQuery?.at(0)?.participant_maximum_age_upper_bound
+
+
+  console.log("## participant_minimum_age_lower_bound: ", participant_minimum_age_lower_bound)
+  console.log("## participant_maximum_age_upper_bound: ", participant_maximum_age_upper_bound)
   
   // result.searchStudies.enrollmentPeriodMax)
   return { 
     ageAtEnrollment: {
-      lowerBound: 19 || absoluteMinimum,
-      upperBound: 99 || absoluteMaximum,
+      lowerBound: participant_minimum_age_lower_bound || absoluteMinimum,
+      upperBound: participant_maximum_age_upper_bound || absoluteMaximum,
       subjects: Math.max(minSubjects, maxSubjects) // This can be relace by the numberOfStudies
     }
   }
@@ -71,7 +123,6 @@ const getDashData = (states) => {
       // context: { clientName: 'ctdcOldService' },
     })
       .then((response) => response.data);
-      // Change data from two property to one
     return result;
   }
 
@@ -86,42 +137,31 @@ const getDashData = (states) => {
       ...(localFindUpload || []).map((obj) => obj.subject_id),
       ...(localFindAutocomplete || []).map((obj) => obj.title),
     ],
+    // Enrollment Period (enrollmentPeriodMin)
+    enrollment_beginning_year: filterState?.enrollment_year || [],
+    // Enrollment Period (enrollmentPeriodMax)
+    enrollment_ending_year: filterState?.enrollment_year || [],
+
+    // Study Period (studyPeriodMin)
+    study_beginning_year: filterState?.study_year || [],
+    // Study Period (studyPeriodMax)
+    study_ending_year: filterState?.study_year || [],
+
+    // Age at Enrollment (participantAgeAtEnrollmentMin)
+    study_participant_minimum_age: filterState?.study_participant_age || [],
+    // Age at Enrollment (participantAgeAtEnrollmentMax)
+    study_participant_maximum_age: filterState?.study_participant_age || []
   };
-
-  console.log("|| activeFilters: ", activeFilters)
-
-  // Enrollment Period (enrollmentPeriodMin)
-  activeFilters.enrollment_beginning_year = activeFilters?.enrollment_year || [] // activeFilters?.enrollment_year ? [1969, activeFilters?.enrollment_year?.at(0) || 2022] : [] // [abs_min,activeFilters?.enrollment_year?.at(0)] // activeFilters?.enrollment_year || []
-  // Enrollment Period (enrollmentPeriodMax)
-  activeFilters.enrollment_ending_year = activeFilters?.enrollment_year || [] // activeFilters?.enrollment_year ? [activeFilters?.enrollment_year?.at(1) || 1969, 2022] : [] // [activeFilters?.enrollment_year?.at(0), abs_max] // activeFilters?.enrollment_year || []
-
-  // Study Period (studyPeriodMin)
-  activeFilters.study_beginning_year = activeFilters?.study_year || []
-  // Study Period (studyPeriodMax)
-  activeFilters.study_ending_year = activeFilters?.study_year || []
-
-  // Age at Enrollment (participantAgeAtEnrollmentMin)
-  activeFilters.study_participant_minimum_age = activeFilters?.study_participant_age || []
-  // Age at Enrollment (participantAgeAtEnrollmentMax)
-  activeFilters.study_participant_maximum_age = activeFilters?.study_participant_age || []
-
-
 
   useEffect(() => {
     const controller = new AbortController();
     getData(activeFilters).then((result) => {
       if (result.searchStudies) {
-
-        // Calculate totals using the copy
         const globalStatsBar = calculateStatsTotals(result.globalStatsBar);
-        
-        const enrollmentPeriod = updateSliderDataForEnrollmentPeriod(result.searchStudies)
-        console.log("|| enrollmentPeriod: ", enrollmentPeriod)
-        const studyPeriod = updateSliderDataForStudyPeriod(result.searchStudies)
-        const ageAtEnrollment = updateSliderDataForAgeAtEnrollment(result.searchStudies)
-
-
-        
+        const enrollmentPeriod = updateSliderDataForEnrollmentPeriod(result.searchStudies, result.minMaxBoundQuery)
+        const studyPeriod = updateSliderDataForStudyPeriod(result.searchStudies, result.minMaxBoundQuery)
+        const studyCountByNumberOfParticipants = updateSliderDataForNumberOfParticipants(result.searchStudies, result.minMaxBoundQuery)
+        const ageAtEnrollment = updateSliderDataForAgeAtEnrollment(result.searchStudies, result.minMaxBoundQuery)
 
         setDashData(prevData => {
           const updatedData = {
@@ -130,34 +170,30 @@ const getDashData = (states) => {
             globalStatsBar: result.globalStatsBar,
             ...enrollmentPeriod,
             ...studyPeriod,
-            ...ageAtEnrollment
+            ...ageAtEnrollment,
+
+            ...studyCountByNumberOfParticipants
           };
 
-
-          console.log('||| Updated Dash Data:', updatedData);
           return updatedData;
         });
       }
     });
     return () => controller.abort();
   }, [filterState, localFindUpload, localFindAutocomplete]);
+
   return { dashData, activeFilters };
 };
 
 const DashTemplateController = ((props) => {
-  console.log("|| \t\t--------------------------------------")
-
   const { dashData, activeFilters } = getDashData(props);
+
   if (!dashData) {
     return (<CircularProgress />);
   }
 
   return (
-    <DashTemplateView
-      {...props}
-      dashData={dashData}
-      activeFilters={activeFilters}
-    />
+    <DashTemplateView {...props} dashData={dashData} activeFilters={activeFilters} />
   );
 });
 

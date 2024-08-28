@@ -1,6 +1,5 @@
 import React from 'react';
 import { ThemeProvider, createTheme } from '@material-ui/core/styles';
-import { Height } from '@material-ui/icons';
 
 const theme = {
   overrides: {
