@@ -6,6 +6,7 @@ import { getFilters } from '@bento-core/facet-filter';
 import DashTemplateView from './DashTemplateView';
 import { DASHBOARD_QUERY_NEW } from '../../bento/dashboardTabData';
 
+// Calculate the total number of participants
 function calculateStatsTotals(data) {
   return data.reduce((acc, item) => {
     acc.number_of_participants += item.number_of_participants;
@@ -13,101 +14,53 @@ function calculateStatsTotals(data) {
   }, { number_of_participants: 0 });
 }
 
+// Mapping object to handle different keys for min, max, lower, and upper bounds
+const boundMapping = {
+  enrollmentPeriod: {
+    min: 'enrollmentPeriodMin',
+    max: 'enrollmentPeriodMax',
+    lower: 'enrollment_beginning_year_lower_bound',
+    upper: 'enrollment_ending_year_upper_bound',
+  },
+  studyPeriod: {
+    min: 'studyPeriodMin',
+    max: 'studyPeriodMax',
+    lower: 'study_beginning_year_lower_bound',
+    upper: 'study_ending_year_upper_bound',
+  },
+  ageAtEnrollment: {
+    min: 'participantAgeAtEnrollmentMin',
+    max: 'participantAgeAtEnrollmentMax',
+    lower: 'participant_minimum_age_lower_bound',
+    upper: 'participant_maximum_age_upper_bound',
+  },
+  studyCountByNumberOfParticipants: {
+    min: 'studyCountByNumberOfParticipants',
+    max: 'studyCountByNumberOfParticipants',
+    lower: 'number_of_participant_lower_bound',
+    upper: 'number_of_participant_upper_bound',
+  },
+};
+
+// Function to update slider data for different types (enrollment period, study period, etc.)
 const updateSliderData = (searchStudiesData, minMaxBoundQuery, key) => {
-  const { lowerBound: absoluteMinimum, subjects: minSubjects } = searchStudiesData?.[`${key}Min`] || {};
-  const { upperBound: absoluteMaximum, subjects: maxSubjects } = searchStudiesData?.[`${key}Max`] || {};
-  const lowerBound = minMaxBoundQuery?.[0]?.[`${key}_lower_bound`] || absoluteMinimum;
-  const upperBound = minMaxBoundQuery?.[0]?.[`${key}_upper_bound`] || absoluteMaximum;
+  const minBoundKey = boundMapping[key].min;
+  const maxBoundKey = boundMapping[key].max;
+  
+  const { lowerBound: absoluteMinimum, subjects: minSubjects } = searchStudiesData?.[minBoundKey] || {};
+  const { upperBound: absoluteMaximum, subjects: maxSubjects } = searchStudiesData?.[maxBoundKey] || {};
+
+  const lowerBound = minMaxBoundQuery?.[0]?.[boundMapping[key].lower] || absoluteMinimum;
+  const upperBound = minMaxBoundQuery?.[0]?.[boundMapping[key].upper] || absoluteMaximum;
 
   return {
     [key]: {
       lowerBound,
       upperBound,
       subjects: Math.max(minSubjects || 0, maxSubjects || 0),
-    }
+    },
   };
 };
-
-function updateSliderDataForEnrollmentPeriod(searchStudiesData, minMaxBoundQuery) {
-  const { lowerBound: absoluteMinimum, subjects: minSubjects} = searchStudiesData?.enrollmentPeriodMin
-  const { upperBound: absoluteMaximum, subjects: maxSubjects} = searchStudiesData?.enrollmentPeriodMax
-
-  const enrollment_beginning_year_lower_bound = minMaxBoundQuery?.at(0)?.enrollment_beginning_year_lower_bound
-  const enrollment_ending_year_upper_bound = minMaxBoundQuery?.at(0)?.enrollment_ending_year_upper_bound
-
-
-  console.log("## enrollment_beginning_year_lower_bound: ", enrollment_beginning_year_lower_bound)
-  console.log("## enrollment_ending_year_upper_bound: ", enrollment_ending_year_upper_bound)
-
-  // result.searchStudies.enrollmentPeriodMax)
-
-  return { 
-    enrollmentPeriod: {
-      lowerBound: enrollment_beginning_year_lower_bound || absoluteMinimum,
-      upperBound: enrollment_ending_year_upper_bound || absoluteMaximum,
-      subjects: Math.max(minSubjects, maxSubjects) // This can be relace by the numberOfStudies
-    }
-  }
-}
-
-
-function updateSliderDataForStudyPeriod(searchStudiesData, minMaxBoundQuery) {
-  const { lowerBound: absoluteMinimum, subjects: minSubjects} = searchStudiesData?.studyPeriodMin
-  const { upperBound: absoluteMaximum, subjects: maxSubjects} = searchStudiesData?.studyPeriodMax
-
-  const study_beginning_year_lower_bound = minMaxBoundQuery?.at(0)?.study_beginning_year_lower_bound
-  const study_ending_year_upper_bound = minMaxBoundQuery?.at(0)?.study_ending_year_upper_bound
-
-
-  console.log("## study_beginning_year_lower_bound: ", study_beginning_year_lower_bound)
-  console.log("## study_ending_year_upper_bound: ", study_ending_year_upper_bound)
-
-
-  return { 
-    studyPeriod: {
-      lowerBound: study_beginning_year_lower_bound || absoluteMinimum,
-      upperBound: study_ending_year_upper_bound || absoluteMaximum,
-      subjects: Math.max(minSubjects, maxSubjects) // This can be relace by the numberOfStudies
-    }
-  }
-}
-
-function updateSliderDataForNumberOfParticipants(searchStudiesData, minMaxBoundQuery) {
-  const { lowerBound: absoluteMinimum, upperBound: absoluteMaximum, subjects} = searchStudiesData?.studyCountByNumberOfParticipants
-
-  const number_of_participant_lower_bound = minMaxBoundQuery?.at(0)?.number_of_participant_lower_bound
-  const number_of_participant_upper_bound = minMaxBoundQuery?.at(0)?.number_of_participant_upper_bound
-
-  return {
-    studyCountByNumberOfParticipants: {
-      lowerBound: number_of_participant_lower_bound || absoluteMinimum,
-      upperBound: number_of_participant_upper_bound || absoluteMaximum,
-      subjects: subjects // This can be relace by the numberOfStudies
-    }
-  }
-}
-
-function updateSliderDataForAgeAtEnrollment(searchStudiesData, minMaxBoundQuery) {
-  const { lowerBound: absoluteMinimum, subjects: minSubjects} = searchStudiesData?.participantAgeAtEnrollmentMin
-  const { upperBound: absoluteMaximum, subjects: maxSubjects} = searchStudiesData?.participantAgeAtEnrollmentMax
-
-  const participant_minimum_age_lower_bound = minMaxBoundQuery?.at(0)?.participant_minimum_age_lower_bound
-  const participant_maximum_age_upper_bound = minMaxBoundQuery?.at(0)?.participant_maximum_age_upper_bound
-
-
-  console.log("## participant_minimum_age_lower_bound: ", participant_minimum_age_lower_bound)
-  console.log("## participant_maximum_age_upper_bound: ", participant_maximum_age_upper_bound)
-  
-  // result.searchStudies.enrollmentPeriodMax)
-  return { 
-    ageAtEnrollment: {
-      lowerBound: participant_minimum_age_lower_bound || absoluteMinimum,
-      upperBound: participant_maximum_age_upper_bound || absoluteMaximum,
-      subjects: Math.max(minSubjects, maxSubjects) // This can be relace by the numberOfStudies
-    }
-  }
-}
-
 
 const getDashData = (states) => {
   const {
@@ -158,10 +111,10 @@ const getDashData = (states) => {
     getData(activeFilters).then((result) => {
       if (result.searchStudies) {
         const globalStatsBar = calculateStatsTotals(result.globalStatsBar);
-        const enrollmentPeriod = updateSliderDataForEnrollmentPeriod(result.searchStudies, result.minMaxBoundQuery)
-        const studyPeriod = updateSliderDataForStudyPeriod(result.searchStudies, result.minMaxBoundQuery)
-        const studyCountByNumberOfParticipants = updateSliderDataForNumberOfParticipants(result.searchStudies, result.minMaxBoundQuery)
-        const ageAtEnrollment = updateSliderDataForAgeAtEnrollment(result.searchStudies, result.minMaxBoundQuery)
+        const enrollmentPeriod = updateSliderData(result.searchStudies, result.minMaxBoundQuery, 'enrollmentPeriod')
+        const studyPeriod = updateSliderData(result.searchStudies, result.minMaxBoundQuery, 'studyPeriod')
+        const ageAtEnrollment = updateSliderData(result.searchStudies, result.minMaxBoundQuery, 'ageAtEnrollment')
+        const studyCountByNumberOfParticipants = updateSliderData(result.searchStudies, result.minMaxBoundQuery, 'studyCountByNumberOfParticipants')
 
         setDashData(prevData => {
           const updatedData = {
@@ -171,7 +124,6 @@ const getDashData = (states) => {
             ...enrollmentPeriod,
             ...studyPeriod,
             ...ageAtEnrollment,
-
             ...studyCountByNumberOfParticipants
           };
 
