@@ -29,7 +29,7 @@ export const landingPageData = {
   tile2: {
     alt: '',
     img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/TrialsImage.png',
-    titleText: 'Lorem',
+    titleText: 'Studies',
     descriptionText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.',
     callToActionText: 'Read More',
     callToActionLink: '/', // This links to the Programs Listing Page.
@@ -37,7 +37,7 @@ export const landingPageData = {
   tile3: {
     alt: '',
     img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/requestAccessImage.png',
-    titleText: 'Lorem',
+    titleText: 'Request Access',
     descriptionText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.',
     callToActionText: 'Read More',
     callToActionLink: '/', // Link to the Request Access Page
@@ -45,7 +45,7 @@ export const landingPageData = {
   tile4: {
     alt: '',
     img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/CasesImage.png',
-    titleText: 'Lorem',
+    titleText: 'Cases',
     descriptionText: 'Lorem ipsum dolor sit amet, onsectetur adipiscing elit, sed do eiusmod tempor incididunt.',
     callToActionText: 'Read More',
     callToActionLink: '/', // This links to the cases dashboard.
