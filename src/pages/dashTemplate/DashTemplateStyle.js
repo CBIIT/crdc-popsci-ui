@@ -9,7 +9,7 @@ export default (theme) => ({
     padding: '0 32px',
   },
   sideBar: {
-    width: '250px',
+    minWidth: '285px',
     maxHeight: '1300px',
     overflowX: 'hidden',
     backgroundColor: 'transparent',

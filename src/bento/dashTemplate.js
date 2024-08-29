@@ -72,60 +72,36 @@ export const facetsConfig = [
     show: true,
     defaultValue: DEFAULT_VALUE,
   },
-  // TODO: Slider
   {
     section: Studies,
     label: 'Enrollment Period',
-
-    // ************ lowerBound
-    /* apiPath: 'enrollmentPeriodMin',
-    apiForFiltering: 'enrollmentPeriodMin',
-    datafield: 'enrollment_beginning_year', */
-
-    // ************ upperBound
-    // apiPath: 'enrollmentPeriodMax',
-    // apiForFiltering: 'enrollmentPeriodMax',
-    // datafield: 'enrollment_ending_year',
+    apiPath: 'enrollmentPeriod',
+    apiForFiltering: 'enrollmentPeriod',
+    datafield: 'enrollment_year',
 
     ApiLowerBoundName: 'lowerBound',
     ApiUpperBoundName: 'upperBound',
     show: true,
-    // slider: true,
-    // type: InputTypes.SLIDER,
-    type: InputTypes.CHECKBOX,
+    slider: true,
+    type: InputTypes.SLIDER,
     sort_type: 'none',
-    minLowerBound: 0,
-    maxUpperBound: 100,
+    // minLowerBound: 1970,
+    // maxUpperBound: 2021,
     // quantifier: 'Years',
   }, 
-
-  // TODO: Slider
   {
     section: Studies,
     label: 'Study Period',
-
-    // ************ lowerBound
-    /* apiPath: 'studyPeriodMin',
-    apiForFiltering: 'studyPeriodMin',
-    datafield: 'study_beginning_year', */
-
-    // ************ upperBound
-    // apiPath: 'studyPeriodMax',
-    // apiForFiltering: 'studyPeriodMax', 
-    // datafield: 'study_ending_year',
-
+    apiPath: 'studyPeriod',
+    apiForFiltering: 'studyPeriod',
+    datafield: 'study_year',
     ApiLowerBoundName: 'lowerBound',
     ApiUpperBoundName: 'upperBound',
     show: true,
-    // slider: true,
-    // type: InputTypes.SLIDER,
-    type: InputTypes.CHECKBOX,
+    slider: true,
+    type: InputTypes.SLIDER,
     sort_type: 'none',
-    minLowerBound: 0,
-    maxUpperBound: 100,
-    // quantifier: 'Years',
   },
-    // TODO: Slider
   {
     section: Studies,
     label: 'Number of Participants',
@@ -138,9 +114,6 @@ export const facetsConfig = [
     slider: true,
     type: InputTypes.SLIDER,
     sort_type: 'none',
-    // minLowerBound: 0,
-    // maxUpperBound: 100,
-    // quantifier: 'Years',
   },
   {
     section: Studies,
@@ -179,35 +152,20 @@ export const facetsConfig = [
     show: true,
     defaultValue: DEFAULT_VALUE,
   },
+
   {
     section: Participants,
     label: 'Age at Enrollment',
-
-    // ************ lowerBound
-    /* apiPath: 'participantAgeAtEnrollmentMin',
-    apiForFiltering: 'participantAgeAtEnrollmentMin', 
-    datafield: 'study_participant_minimum_age', */
-
-    // ************ upperBound
-    // apiPath: 'participantAgeAtEnrollmentMax',
-    // apiForFiltering: 'participantAgeAtEnrollmentMax',
-    // datafield: 'study_participant_maximum_age',
-
+    apiPath: 'ageAtEnrollment',
+    apiForFiltering: 'ageAtEnrollment', 
+    datafield: 'study_participant_age',
     ApiLowerBoundName: 'lowerBound',
     ApiUpperBoundName: 'upperBound',
-
     show: true,
-
-    // slider: true,
-    // type: InputTypes.SLIDER,
-    type: InputTypes.CHECKBOX,
-
+    slider: true,
+    type: InputTypes.SLIDER,
     sort_type: 'none',
-    minLowerBound: 0,
-    maxUpperBound: 100,
-    // quantifier: 'Years',
   },
-
   {
     section: Participants,
     label: 'Race Representation',
