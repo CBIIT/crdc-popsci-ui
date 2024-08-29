@@ -72,12 +72,9 @@ export const facetsConfig = [
     show: true,
     defaultValue: DEFAULT_VALUE,
   },
-  // TODO: Slider
   {
     section: Studies,
     label: 'Enrollment Period',
-
-    // ************ lowerBound
     apiPath: 'enrollmentPeriod',
     apiForFiltering: 'enrollmentPeriod',
     datafield: 'enrollment_year',
@@ -88,34 +85,23 @@ export const facetsConfig = [
     slider: true,
     type: InputTypes.SLIDER,
     sort_type: 'none',
-    minLowerBound: 1970,
-    maxUpperBound: 2021,
+    // minLowerBound: 1970,
+    // maxUpperBound: 2021,
     // quantifier: 'Years',
-    printConsole: true,
   }, 
-
-  // TODO: Slider
   {
     section: Studies,
     label: 'Study Period',
-
-    // ************ lowerBound
     apiPath: 'studyPeriod',
     apiForFiltering: 'studyPeriod',
     datafield: 'study_year',
-
     ApiLowerBoundName: 'lowerBound',
     ApiUpperBoundName: 'upperBound',
     show: true,
     slider: true,
     type: InputTypes.SLIDER,
     sort_type: 'none',
-    minLowerBound: 1969,
-    maxUpperBound: 3000,
-    // maxUpperBound: 'ongoing',
-    // quantifier: 'Years',
   },
-    // TODO: Slider
   {
     section: Studies,
     label: 'Number of Participants',
@@ -128,11 +114,6 @@ export const facetsConfig = [
     slider: true,
     type: InputTypes.SLIDER,
     sort_type: 'none',
-    // minLowerBound: 0,
-    // maxUpperBound: 4000,
-    // quantifier: 'Years',
-
-    // printConsole: true,
   },
   {
     section: Studies,
@@ -171,31 +152,20 @@ export const facetsConfig = [
     show: true,
     defaultValue: DEFAULT_VALUE,
   },
+
   {
     section: Participants,
     label: 'Age at Enrollment',
-
-    // ************ lowerBound
     apiPath: 'ageAtEnrollment',
     apiForFiltering: 'ageAtEnrollment', 
     datafield: 'study_participant_age',
-
-
     ApiLowerBoundName: 'lowerBound',
     ApiUpperBoundName: 'upperBound',
-
     show: true,
-
     slider: true,
     type: InputTypes.SLIDER,
-    // type: InputTypes.CHECKBOX,
-
     sort_type: 'none',
-    // minLowerBound: 0,
-    // maxUpperBound: 100,
-    // quantifier: 'Years',
   },
-
   {
     section: Participants,
     label: 'Race Representation',
