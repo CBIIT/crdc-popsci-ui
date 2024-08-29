@@ -188,10 +188,11 @@ const LandingView = ({ classes, statsData }) => (
 );
 const styles = () => ({
   popPieChartImage: {
-    width: '682px',
-    marginTop: '153px',
-    height: '446px',
-    maxHeight: '446px',
+    width: '570px',
+    marginRight: '120px',
+    marginTop: '103px',
+    height: '530px',
+    maxHeight: '530px',
     background: `url(${landingPageData.landingPageHero.img})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: '100% 100%',
@@ -210,7 +211,7 @@ const styles = () => ({
   },
   texture: {
     backgroundSize: 'cover',
-    background: '#804098',
+    background: 'linear-gradient(180deg, #164656 1.82%, #0E94A9 86.24%)',
     padding: '81px 0 80px 0',
   },
   container: {
