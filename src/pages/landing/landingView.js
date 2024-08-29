@@ -241,7 +241,7 @@ const styles = () => ({
     fontSize: '32px',
     fontWeight: '500',
     lineHeight: '115%',
-    color: '#35FF88',
+    color: '#E46BE7',
     letterSpacing: '-0.02em',
     textAlign:'center',
     width:'375px',

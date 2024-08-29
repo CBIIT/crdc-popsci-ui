@@ -16,7 +16,7 @@ export const landingPageData = {
   callToActionLink: '/explore',
   landingPageHero: {
     alt: 'Alt tag1',
-    img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/popsci/popsci/images/icons/png/widget2.png',
+    img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/popsci/popsci/images/icons/png/widget.png',
   },
   tile1: {
     alt: '',
