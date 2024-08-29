@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
   numberLabel: {
     textAlign: 'right',
     color: '#27424E',
-    fontSize: '11px',
+    fontSize: '15px',
     fontWeight: '700',
     lineHeight: '11px',
     letterSpacing: '-0.02em',
@@ -149,7 +149,7 @@ const DataCollection = ({ data }) => {
             <Typography className={classes.value}>{item}</Typography>
           </Grid>
           <Grid item xs={12} sm={2} md={2}>
-            <Typography className={classes.number}>{annotationCount}</Typography>
+            <Typography className={classes.number}>{annotationCount>0? 'Yes': 'No'}</Typography>
           </Grid>
         </Grid>
       );
@@ -193,7 +193,7 @@ const DataCollection = ({ data }) => {
                   <Grid container>
                     <Grid item xs={12} sm={9} md={9}></Grid>
                     <Grid item xs={12} sm={3} md={3}>
-                      <Typography className={classes.numberLabel}>Number of Variables</Typography>
+                      <Typography className={classes.numberLabel}>Assessed</Typography>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -212,7 +212,7 @@ const DataCollection = ({ data }) => {
                   <Grid container>
                     <Grid item xs={12} sm={9} md={9}></Grid>
                     <Grid item xs={12} sm={3} md={3}>
-                      <Typography className={classes.numberLabel}>Number of Variables</Typography>
+                      <Typography className={classes.numberLabel}>Assessed</Typography>
                     </Grid>
                   </Grid>
                 </Grid>
