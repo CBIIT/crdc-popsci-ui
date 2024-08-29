@@ -2,17 +2,17 @@
     "data_collected": [
         {
             "Demographics / Lifestyle / Life events / Quality of life": [
-               "Age",
+                "Age",
                 "Biological Sex",
+                "Sexual Orientation and Gender Identity",
+                "Ethnicity and Race",
                 "Education Level",
                 "Employment Status",
-                "Ethnicity and Race",
+                "Residential Information",
                 "Language/Country of Origin",
                 "Life Events, Beliefs, Values",
                 "Marital Status",
                 "Quality of Life",
-                "Residential Information",
-                "Sexual Orientation and Gender Identity",
                 "Social Support",
                 "Socio-Economic Status"
             ]
@@ -21,8 +21,8 @@
             "Alcohol / Tobacco / Drug Use": [
                 "Alcohol Consumption",
                 "Cigarette Smoking",
-                "Drug Use",
-                "Other Tobacco Products"
+                "Other Tobacco Products",
+                "Drug Use"
             ]
         },
         {
@@ -39,68 +39,69 @@
         },
         {
             "Anthropometry": [
-                "Measured Anthropometry",
-                "Self-Reported Anthropometry"
+                "Self-Reported Anthropometry",
+                "Measured Anthropometry"
+               
                 
             ]
         },
         {
             "Reproductive Health History": [
+                "Puberty, Menstruation, and Menopause",
+                "Pregnancy and Parity",
                 "Breastfeeding",
                 "Contraception",
                 "Hormone Replacement",
-                "Pregnancy and Parity",
-                "Puberty, Menstruation, and Menopause",
                 "Sexual Behavior and Health"
             ]
         },
         {
             "Environmental or Occupational Exposures": [
-                "Chemical Exposure",
                 "Housing Exposures",
+                "Workplace Exposures",
                 "Radiation Exposure",
-                "Workplace Exposures"
+                "Chemical Exposure"
             ]
         },
         {
             "Medical / Health Status / Health History": [
-                "Cancer Treatment",
-                "Certain Conditions Originating in the Perinatal Period",
-                "Circulatory System",
-                "Cognitive Function",
-                "Complementary and Alternative Medicine",
-                "Congenital Malformations, Deformations and Chromosomal Abnormalities",
-                "Depression",
-                "Digestive System",
-                "Endocrine, Nutritional, Metabolic",
-                "Eye and Adnexa, Ear and Mastoid Process",
-                "Family History of Cancer",
-                "Family History of Diabetes",
-                "Family History of Heart Disease",
-                "Fatigue",
-                "Genitourinary System",
                 "Health Insurance Status",
+                "Screening",
                 "Immunization",
+                "Sleep Habits",
+                "Fatigue",
+                "Cognitive Function",
+                "Depression",
+                "Family History of Cancer",
+                "Family History of Heart Disease",
+                "Family History of Diabetes",
+                "Other Family History",
+                "Prescription Medication Use",
+                "Complementary and Alternative Medicine",
+                "Non-Prescription Medication",
+                "Other Medical Conditions",
+                "Other Psychosocial Variables",
+                "Psychological Measures",
+                "Cancer Treatment",
+                "Other Medical Treatements",
                 "Infectious and Parasitic Diseases",
-                "Injury, Poisoning, Certain Other Consequences of External Causes",
-                "Mental and Behavioral Disorders",
-                "Musculoskeletal and Connective Tissue",
                 "Neoplasms",
                 "Neoplasms, Blood, Blood-forming Organs",
+                "Endocrine, Nutritional, Metabolic",
+                "Mental and Behavioral Disorders",
                 "Nervous System",
-                "Non-Prescription Medication",
-                "Other Family History",
-                "Other Medical Conditions",
-                "Other Medical Treatements",
-                "Other Psychosocial Variables",
-                "Pregnancy, Childbirth and the Puerperium",
-                "Prescription Medication Use",
-                "Psychological Measures",
+                "Eye and Adnexa, Ear and Mastoid Process",
+                "Circulatory System",
                 "Respiratory System",
-                "Screening",
+                "Digestive System",
                 "Skin and Subcutaneous Tissue",
-                "Sleep Habits",
+                "Musculoskeletal and Connective Tissue",
+                "Genitourinary System",
+                "Pregnancy, Childbirth and the Puerperium",
+                "Certain Conditions Originating in the Perinatal Period",
+                "Congenital Malformations, Deformations and Chromosomal Abnormalities",
                 "Symptoms, Signs and Abnormal Clinical and Lab Findings",
+                "Injury, Poisoning, Certain Other Consequences of External Causes",
                 "Vital Status"
             ]
         }

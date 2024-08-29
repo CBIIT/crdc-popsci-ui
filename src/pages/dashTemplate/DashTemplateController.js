@@ -5,14 +5,8 @@ import { CircularProgress } from '@material-ui/core';
 import { getFilters } from '@bento-core/facet-filter';
 import DashTemplateView from './DashTemplateView';
 import { DASHBOARD_QUERY_NEW } from '../../bento/dashboardTabData';
-
-// Calculate the total number of participants
-function calculateStatsTotals(data) {
-  return data.reduce((acc, item) => {
-    acc.number_of_participants += item.number_of_participants;
-    return acc;
-  }, { number_of_participants: 0 });
-}
+import { calculateStatsTotals } from '../../components/Stats/utils';
+import { sortWidgetDataByKey } from './tabs/utils';
 
 // Mapping object to handle different keys for min, max, lower, and upper bounds
 const boundMapping = {
@@ -116,6 +110,12 @@ const getDashData = (states) => {
         const ageAtEnrollment = updateSliderData(result.searchStudies, result.minMaxBoundQuery, 'ageAtEnrollment')
         const studyCountByNumberOfParticipants = updateSliderData(result.searchStudies, result.minMaxBoundQuery, 'studyCountByNumberOfParticipants')
 
+        sortWidgetDataByKey(result?.searchStudies?.studyCountByStudyDesign)
+
+        sortWidgetDataByKey(result.globalStatsBar, 'study_short_name')
+
+        sortWidgetDataByKey(result?.searchStudies?.studyCountByDataCollection)
+
         setDashData(prevData => {
           const updatedData = {
             ...result.searchStudies, 
@@ -126,7 +126,6 @@ const getDashData = (states) => {
             ...ageAtEnrollment,
             ...studyCountByNumberOfParticipants
           };
-
           return updatedData;
         });
       }
