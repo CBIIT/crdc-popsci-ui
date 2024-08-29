@@ -166,7 +166,7 @@ const theme = {
         width: 'fit-content',
         fontSize: '13px',
         margin: '0px',
-        padding: 'auto 0px',
+        paddingLeft: '1px',
         textAlign: 'center',
       }
     },
