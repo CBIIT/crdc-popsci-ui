@@ -3,133 +3,84 @@ import { useApolloClient } from '@apollo/client';
 import { connect } from 'react-redux';
 import { CircularProgress } from '@material-ui/core';
 import { getFilters } from '@bento-core/facet-filter';
-import DashTemplateView from './DashTemplateView';
 import { DASHBOARD_QUERY_NEW } from '../../bento/dashboardTabData';
 import { calculateStatsTotals } from '../../components/Stats/utils';
-import { sortWidgetDataByKey } from './tabs/utils';
+import DashTemplateView from './DashTemplateView';
+import { sortWidgetDataByKey, updateSliderData } from './dashUtils';
 
-// Mapping object to handle different keys for min, max, lower, and upper bounds
-const boundMapping = {
-  enrollmentPeriod: {
-    min: 'enrollmentPeriodMin',
-    max: 'enrollmentPeriodMax',
-    lower: 'enrollment_beginning_year_lower_bound',
-    upper: 'enrollment_ending_year_upper_bound',
-  },
-  studyPeriod: {
-    min: 'studyPeriodMin',
-    max: 'studyPeriodMax',
-    lower: 'study_beginning_year_lower_bound',
-    upper: 'study_ending_year_upper_bound',
-  },
-  ageAtEnrollment: {
-    min: 'participantAgeAtEnrollmentMin',
-    max: 'participantAgeAtEnrollmentMax',
-    lower: 'participant_minimum_age_lower_bound',
-    upper: 'participant_maximum_age_upper_bound',
-  },
-  studyCountByNumberOfParticipants: {
-    min: 'studyCountByNumberOfParticipants',
-    max: 'studyCountByNumberOfParticipants',
-    lower: 'number_of_participant_lower_bound',
-    upper: 'number_of_participant_upper_bound',
-  },
+const fetchDashData = async (client, activeFilters) => {
+  const result = await client.query({
+    query: DASHBOARD_QUERY_NEW,
+    variables: activeFilters,
+    // context: { clientName: 'ctdcOldService' },
+  });
+  return result.data;
 };
 
-// Function to update slider data for different types (enrollment period, study period, etc.)
-const updateSliderData = (searchStudiesData, minMaxBoundQuery, key) => {
-  const minBoundKey = boundMapping[key].min;
-  const maxBoundKey = boundMapping[key].max;
-  
-  const { lowerBound: absoluteMinimum, subjects: minSubjects } = searchStudiesData?.[minBoundKey] || {};
-  const { upperBound: absoluteMaximum, subjects: maxSubjects } = searchStudiesData?.[maxBoundKey] || {};
+// Helper Function to prepare active filters for the query
+const prepareActiveFilters = (filterState, localFindUpload, localFindAutocomplete) => ({
+  ...getFilters(filterState),
+  subject_ids: [
+    ...(localFindUpload || []).map((obj) => obj.subject_id),
+    ...(localFindAutocomplete || []).map((obj) => obj.title),
+  ],
+  enrollment_beginning_year: filterState?.enrollment_year || [], // Enrollment Period (enrollmentPeriodMin)
+  enrollment_ending_year: filterState?.enrollment_year || [], // Enrollment Period (enrollmentPeriodMax)
 
-  const lowerBound = minMaxBoundQuery?.[0]?.[boundMapping[key].lower] || absoluteMinimum;
-  const upperBound = minMaxBoundQuery?.[0]?.[boundMapping[key].upper] || absoluteMaximum;
+  study_beginning_year: filterState?.study_year || [], // Study Period (studyPeriodMin)
+  study_ending_year: filterState?.study_year || [], // Study Period (studyPeriodMax)
 
-  return {
-    [key]: {
-      lowerBound,
-      upperBound,
-      subjects: Math.max(minSubjects || 0, maxSubjects || 0),
-    },
-  };
-};
+  study_participant_minimum_age: filterState?.study_participant_age || [], // Age at Enrollment (participantAgeAtEnrollmentMin)
+  study_participant_maximum_age: filterState?.study_participant_age || [] // Age at Enrollment (participantAgeAtEnrollmentMax)
+});
 
-const getDashData = (states) => {
-  const {
-    filterState,
-    localFindUpload, localFindAutocomplete,
-  } = states;
-
+// Hook to manage fetching and setting dashboard data
+const useDashData = (states) => {
+  const { filterState, localFindUpload, localFindAutocomplete } = states;
   const client = useApolloClient();
-  async function getData(activeFilters) {
-    const result = await client.query({
-      query: DASHBOARD_QUERY_NEW,
-      variables: activeFilters,
-      // context: { clientName: 'ctdcOldService' },
-    })
-      .then((response) => response.data);
-    return result;
-  }
-
   const [dashData, setDashData] = useState(null);
-  // const [enrollmentPeriodData, setEnrollmentPeriodData] = useState(null);
-  
-  // const { enrollment_year } = getFilters(filterState)
 
-  let activeFilters = {
-    ...getFilters(filterState),
-    subject_ids: [
-      ...(localFindUpload || []).map((obj) => obj.subject_id),
-      ...(localFindAutocomplete || []).map((obj) => obj.title),
-    ],
-    // Enrollment Period (enrollmentPeriodMin)
-    enrollment_beginning_year: filterState?.enrollment_year || [],
-    // Enrollment Period (enrollmentPeriodMax)
-    enrollment_ending_year: filterState?.enrollment_year || [],
-
-    // Study Period (studyPeriodMin)
-    study_beginning_year: filterState?.study_year || [],
-    // Study Period (studyPeriodMax)
-    study_ending_year: filterState?.study_year || [],
-
-    // Age at Enrollment (participantAgeAtEnrollmentMin)
-    study_participant_minimum_age: filterState?.study_participant_age || [],
-    // Age at Enrollment (participantAgeAtEnrollmentMax)
-    study_participant_maximum_age: filterState?.study_participant_age || []
-  };
+  const activeFilters = prepareActiveFilters(filterState, localFindUpload, localFindAutocomplete);
 
   useEffect(() => {
     const controller = new AbortController();
-    getData(activeFilters).then((result) => {
+
+    fetchDashData(client, activeFilters).then((result) => {
       if (result.searchStudies) {
-        const globalStatsBar = calculateStatsTotals(result.globalStatsBar);
+        // Calculate global stats - number_of_participants
+        const numberOfParticipantsGlobalStats = calculateStatsTotals(result?.globalStatsBar || []);
+
+        // Update slider data for different types
         const enrollmentPeriod = updateSliderData(result.searchStudies, result.minMaxBoundQuery, 'enrollmentPeriod')
         const studyPeriod = updateSliderData(result.searchStudies, result.minMaxBoundQuery, 'studyPeriod')
         const ageAtEnrollment = updateSliderData(result.searchStudies, result.minMaxBoundQuery, 'ageAtEnrollment')
         const studyCountByNumberOfParticipants = updateSliderData(result.searchStudies, result.minMaxBoundQuery, 'studyCountByNumberOfParticipants')
 
-        sortWidgetDataByKey(result?.searchStudies?.studyCountByStudyDesign)
+        // Sort widget data
+        sortWidgetDataByKey(result?.searchStudies?.studyCountByStudyDesign, 'group')
+        sortWidgetDataByKey(result?.globalStatsBar, 'study_short_name')
+        sortWidgetDataByKey(result?.searchStudies?.studyCountByDataCollection, 'group')
 
-        sortWidgetDataByKey(result.globalStatsBar, 'study_short_name')
-
-        sortWidgetDataByKey(result?.searchStudies?.studyCountByDataCollection)
-
+        // Set the dashboard data with updated values
         setDashData(prevData => {
           const updatedData = {
-            ...result.searchStudies, 
-            ...globalStatsBar,
-            globalStatsBar: result.globalStatsBar,
-            ...enrollmentPeriod,
-            ...studyPeriod,
-            ...ageAtEnrollment,
-            ...studyCountByNumberOfParticipants
+            ...result.searchStudies, // All other Facet and widget
+            globalStatsBar: result.globalStatsBar, // Used to populate Studies widget data
+            ...numberOfParticipantsGlobalStats, // Global Stats - Participants 
+            ...enrollmentPeriod, // Facet->Slider - Enrollment Period
+            ...studyPeriod, // Facet->Slider - Study Period
+            ...ageAtEnrollment, // Facet->Slider - Age At Enrollment
+            ...studyCountByNumberOfParticipants // Facet->Slider - Number of Participants
           };
           return updatedData;
         });
       }
     });
+
+    /* Cleanup function that runs when the component unmounts or before the effect re-runs.
+     * If the API request is still in progress when this happens, it will be aborted to prevent
+     * memory leaks and unnecessary state updates.
+     */ 
     return () => controller.abort();
   }, [filterState, localFindUpload, localFindAutocomplete]);
 
@@ -137,7 +88,7 @@ const getDashData = (states) => {
 };
 
 const DashTemplateController = ((props) => {
-  const { dashData, activeFilters } = getDashData(props);
+  const { dashData, activeFilters } = useDashData(props);
 
   if (!dashData) {
     return (<CircularProgress />);

@@ -164,7 +164,9 @@ const theme = {
       },
       input: {
         width: 'fit-content',
-        margin: 'auto 3px',
+        fontSize: '13px',
+        margin: '0px',
+        padding: 'auto 0px',
         textAlign: 'center',
       }
     },
