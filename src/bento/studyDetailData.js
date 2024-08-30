@@ -64,6 +64,7 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
         data_file_format
         data_file_size
         data_file_location
+        data_file_signed_url
       }
 
       associated_links {
@@ -242,13 +243,13 @@ export const studyDataFileTableConfig = {
       cellType: cellTypes.FORMAT_DATA,
     },
     {
-        dataField: 'data_file_location', // This need to left empty if no data need to be displayed before file download icon
+        dataField: 'data_file_signed_url', // This need to left empty if no data need to be displayed before file download icon
         header: 'Access',
         display: true,
         cellType: cellTypes.CUSTOM_ELEM,
         downloadDocument: true, // To indicate that column is document donwload
         documentDownloadProps: {
-          dataField: 'data_file_location',
+          dataField: 'data_file_signed_url',
           toolTipTextFileDownload: 'Download a copy of this file',
           iconFileDownload: downloadSuccess,
         },
