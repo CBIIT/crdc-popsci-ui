@@ -45,7 +45,6 @@ const TabItems = ({
       >
         {TABs}
       </Tabs>
-      <hr className={styleClasses.hrLine} />
     </>
   );
 };

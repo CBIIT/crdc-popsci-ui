@@ -12,7 +12,6 @@ const Stats = () => {
     }
     return state.stats.data;
   });
-
   return (!data || data.length === 0 ? (<CircularProgress />) : <StatsView data={data} />);
 };
 

@@ -10,16 +10,16 @@
     "@bento-core/all": "*",
     "@bento-core/authentication": "1.0.0-CTDC.0",
     "@bento-core/cart": "^1.0.1-ctdc.3",
+    "@bento-core/facet-filter": "1.0.1-ctdc.2",
     "@bento-core/global-search": "1.0.1-ctdc.0",
     "@bento-core/paginated-table": "1.0.1-ctdc.7",
     "@bento-core/table": "1.0.1-ctdc.5",
-    "@bento-core/facet-filter": "1.0.1-ctdc.2",
     "@bento-core/widgets": "1.0.1-ctdc.1",
     "@librpc/web": "^1.1.1",
     "@material-ui/core": "^4.12.4",
     "@material-ui/data-grid": "*",
     "@material-ui/icons": "^4.9.1",
-    "@material-ui/lab": "*",
+    "@material-ui/lab": "^4.0.0-alpha.61",
     "@svgr/webpack": "4.1.0",
     "axios": "^0.21.1",
     "babel-core": "7.0.0-bridge.0",
@@ -28,7 +28,6 @@
     "babel-loader": "8.0.5",
     "babel-plugin-named-asset-import": "^0.3.4",
     "babel-preset-react-app": "^7.0.1",
-    "bento-components": "^1.0.11",
     "bfj": "6.1.1",
     "case-sensitive-paths-webpack-plugin": "2.2.0",
     "classnames": "^2.2.6",
@@ -104,8 +103,8 @@
     "workbox-webpack-plugin": "3.6.3"
   },
   "scripts": {
-    "start": "PORT=3010 node scripts/start.js",
-    "build": "node scripts/build.js",
+    "start": "CI=false  && PORT=3010 node scripts/start.js",
+    "build": "CI=false  && node scripts/build.js",
     "test": "node scripts/test.js",
     "lint": "eslint src",
     "lint-fix": "eslint src --fix"
@@ -159,10 +158,7 @@
       "jsx",
       "node"
     ],
-    "watchPlugins": [
-      "/Users/doddapanenis2/Desktop/Develop/icdc-frontend/node_modules/jest-watch-typeahead/filename.js",
-      "/Users/doddapanenis2/Desktop/Develop/icdc-frontend/node_modules/jest-watch-typeahead/testname.js"
-    ]
+    "watchPlugins": []
   },
   "babel": {
     "presets": [
@@ -170,6 +166,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-optional-chaining": "^7.21.0",
     "eslint": "^6.2.2",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-plugin-import": "^2.22.0",

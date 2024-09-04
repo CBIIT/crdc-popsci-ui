@@ -1,14 +1,19 @@
 import React from 'react';
 import StatsBar from './StatsBarView';
 import { statsStyling, globalStatsData } from '../../bento/globalStatsData';
-import FileSize from './utils';
+import humanFileSize from './utils';
 
-// TODO - see if the variables `data` and `stats` can be merged to begin with
 const StatsView = ({ data }) => {
+  /* Update the data to convert the file size to a human-readable format */
+  const updatedData = {
+    ...data,
+    dataVolume: humanFileSize(data.dataVolume),
+  };
+
   // Incorporate data into the stats array
   const stats = globalStatsData.map((e) => ({
     name: e.statTitle,
-    val: data[e.statAPI],
+    val: updatedData[e.statAPI],
     statIconSrc: e.statIconSrc,
     statIconAlt: e.statIconAlt,
   }));

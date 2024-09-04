@@ -9,13 +9,30 @@ export default (theme) => ({
     padding: '0 32px',
   },
   sideBar: {
-    width: '250px',
+    minWidth: '285px',
     maxHeight: '1300px',
     overflowX: 'hidden',
     backgroundColor: 'transparent',
-    borderLeft: 'thin solid #B1B1B1',
+    // borderLeft: 'thin solid #B1B1B1',
     overflow: 'auto',
     zIndex: '99',
+    paddingBottom: '150px',
+
+    '&::-webkit-scrollbar': {
+      width: '0.5em',
+      height: '0.4em',
+    },
+    '&::-webkit-scrollbar-track': {
+      '-webkit-box-shadow': 'inset 0 0 6px #ccc',
+      borderRadius: '0px',
+      backgroundColor: '#CECECE',
+      border: '1px solid #003F74',
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: '#003F74',
+      outline: '1px solid slategrey',
+      borderRadius: '0px',
+    },
   },
   rightContent: {
     width: 'calc(100% - 275px)',

@@ -1,38 +1,55 @@
 export default () => ({
+  // Clear Facet
   clearAllButtonRoot: {
     margin: 'auto',
   },
   customButton: {
+    padding: '0px !important',
     borderRadius: '9px',
-    maxWidth: '30px',
+
+    maxWidth: '32px',
+    minWidth: '32px',
+
     maxHeight: '30px',
-    minWidth: '30px',
     minHeight: '30px',
+
     marginTop: '0px',
     fontSize: 9,
     textTransform: 'none',
     color: '#3d4241',
     marginLeft: '0px',
     '&:hover': {
-      backgroundColor: '#566672',
+      backgroundColor: '#415153',
       color: 'white',
+      border: '1px solid #435C60 !important',
+      '& $resetIcon': {
+        fill: '#FFFFFF !important',  // Change SVG color on hover
+      },
     },
   },
   floatRight: {
-    margin: '7px 0px 7px 6px',
+    margin: '17px 0px 14px 20px',
   },
   resetText: {
     marginTop: '0px',
     marginLeft: '8px',
-    color: '#0E6292',
-    fontSize: 14,
+    color: '#415153',
+    fontSize: '14px',
+    fontWeight: 600,
   },
   resetTextDisabled: {
     marginTop: '0px',
-    marginLeft: '8px',
-    color: '#4E575F',
-    fontSize: 14,
+    marginLeft: '10px',
+    color: '#AEBDBE',
+    fontSize: '14px',
+    fontWeight: 600,
   },
+  resetIcon: {
+    '&:hover': {
+      fill: '#FFFFFF',
+    },
+  },
+  // Clear Facet style end
   cases: {
     height: '5px',
   },
@@ -52,15 +69,18 @@ export default () => ({
     backgroundColor: '#e636e4',
   },
   sectionSummaryText: {
-    fontSize: '14px',
     flexShrink: '0',
-    fontFamily: 'Open Sans',
-    fontWeight: '600',
-    lineHeight: '1',
     marginLeft: '5px',
-    letterSpacing: '0',
     overflowWrap: 'break-word',
-    // textTransform: 'uppercase',
+
+    fontFamily: 'Open Sans',
+    fontSize: '16px',
+    fontWeight: 400,
+    lineHeight: '21.79px',
+    letterSpacing: '-0.02em',
+    textAlign: 'left',
+
+    color: '#000000',
   },
   dropDownIconSubSection: {
     marginLeft: '0px',
@@ -68,22 +88,36 @@ export default () => ({
   },
   customExpansionPanelSummaryRoot: {
     flexDirection: 'row-reverse',
-    paddingLeft: 4,
+    padding: '19px !important',
+    border: '1px solid red !important'
+  },
+  customExpansionPanelSummaryRoot2: {
+    // border: '1px solid red !important',
+    padding: '18px 8px 16px 19px !important',
+
   },
   customExpansionPanelSummaryRootView: {
     flexDirection: 'row-reverse',
     paddingLeft: 8,
+    // border: '1px solid black !important',
+    minHeight: '42px',
+    maxHeight: '42px',
+    height: '42px'
+
   },
   sectionSummaryTextContainer: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
     zIndex: 2,
-    fontFamily: 'Open Sans, Lato',
-    fontSize: 16, // 20
-    fontWeight: 300,
+    fontFamily: 'Poppins, Open Sans',
+    fontSize: '18.5px', // 20
+    fontWeight: 500,
     marginLeft: 3,
     color: '#000000',
+
+    lineHeight: '19.71px',
+    letterSpacing: '-0.02em',
   },
   CasesCheckbox: {
     color: '#10A075',
@@ -98,7 +132,7 @@ export default () => ({
   panelDetailText: {
     color: '#323232',
     fontFamily: 'Nunito',
-    fontSize: '14px',
+    fontSize: '16px',
     fontWeight: '200',
   },
   panelSubjectText: {
@@ -107,14 +141,19 @@ export default () => ({
     fontSize: '14px',
     marginRight: '0px',
   },
+  "activeFacetFilter_by_Studies": {
+    color: '#7A5015',
+
+    fontWeight: 700,
+    lineHeight: '20.8px',
+    letterSpacing: '-0.01em',
+  },
   "activeFacetFilter_by_Participants": {
-    color: '#076448',
-  },
-  "activeFacetFilter_by_Biospecimens": {
-    color: '#843806',
-  },
-  "activeFacetFilter_by_Data_Files": {
-    color: '#005A7A',
+    color: '#245F75',
+
+    fontWeight: 700,
+    lineHeight: '20.8px',
+    letterSpacing: '-0.01em',
   },
   searchContainer: {
     paddingTop: '15px',

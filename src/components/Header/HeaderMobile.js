@@ -24,6 +24,7 @@ const HeaderContainer = styled.div`
     .searchBarArea {
         padding: 0 16px 0 0;
         margin-left: 24px;
+        display: none;
     }
 
     .headerLowerContainer {
@@ -365,9 +366,9 @@ const Header = () => {
                 )
              }
 
-              <React.Fragment key={"login"}>
+             {/* <React.Fragment key={"login"}>
                        <LoginMenu />
-              </React.Fragment>
+              </React.Fragment>*/}
               
             </div>
           </div>

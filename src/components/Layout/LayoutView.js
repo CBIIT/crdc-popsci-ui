@@ -17,7 +17,6 @@ import Login from '../../pages/login';
 // import ProfileController from '../../pages/profile/profileController';
 import OverlayWindow from '../OverlayWindow/OverlayWindow';
 import AUTH_MIDDLEWARE_CONFIG from '../Auth/authMiddlewareConfig';
-import CartView from '../../pages/cart/cartController';
 import AuthSessionTimeoutController from '../SessionTimeout/SessionTimeoutController';
 import { AuthenticationMiddlewareGenerator } from '@bento-core/authentication';
 import UnderDev from '../../pages/error/Development';
@@ -60,7 +59,6 @@ const Layout = ({ classes, isSidebarOpened }) => {
               <Route exact path="/" component={Home} />
               <Route exact path="/home" component={Home} />
               <Route exact path="/study/:id" component={StudyDetail} />
-              <Route path="/fileCentricCart" component={CartView} />
               <Route path="/explore" component={DashTemplate} />
               <Route exact path="/data-dictionary" component={UnderDev} />
               <Route exact path="/data-harmonization" component={About} />

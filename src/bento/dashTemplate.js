@@ -1,41 +1,60 @@
 import { sortType, InputTypes } from '@bento-core/facet-filter';
 import { DEFAULT_VALUE } from './siteWideConfig';
+import reset_icon from '../assets/dash/resetIcon.svg'
 
-const Studies = 'Studies';
-const Participants = 'Participants';
+const Studies = 'Filter by Studies';
+const Participants = 'Filter by Participants';
 const GROUP = 'group';
 
 // --------------- Facet resetIcon link configuration --------------
 // Ideal size for resetIcon is 16x16 px
 export const resetIcon = {
-  src: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/Clear-icon.svg',
+  src: reset_icon,
   alt: 'Reset icon',
   size: '12 px',
 };
 
 // --------------- Dashboard Sidebar Sections styling --------------
 export const facetSectionVariables = {
-  'Studies': {
+  'Filter by Studies': {
     isExpanded: true,
     hasSearch: false,
-    hasArrowDropDownIcon: true,
+    hasArrowDropDownIcon: false,
   },
-  'Participants': {
+  'Filter by Participants': {
     isExpanded: true,
+    hasArrowDropDownIcon: false,
   },
 };
 
 export const facetsConfig = [
   {
     section: Studies,
-    label: 'Diagnosis',
-    apiPath: 'participantCountByCtepDiseaseTerm',
-    apiForFiltering: 'filterParticipantCountByCtepDiseaseTerm',
-    datafield: 'ctep_disease_term',
+    label: 'Study Acronym',
+
+    apiPath: 'studyCountByStudy',
+    apiForFiltering: 'filterStudyCountByStudy',
+    datafield: 'study_short_name',
+    
     field: GROUP,
     type: InputTypes.CHECKBOX,
     sort_type: sortType.ALPHABET,
     show: true,
+    defaultValue: DEFAULT_VALUE,
+    customCount: () => '', // Hide Study Acronym facet count
+  },
+  {
+    section: Studies,
+    label: 'Study Type',
+
+    apiPath: 'studyCountByStudyType',
+    apiForFiltering: 'filterStudyCountByStudyType',
+    datafield: 'study_type',
+
+    field: GROUP,
+    type: InputTypes.CHECKBOX,
+    sort_type: sortType.ALPHABET,
+    show: false,
     facetClasses: {
       border: '10px solid red'
     },
@@ -43,10 +62,10 @@ export const facetsConfig = [
   },
   {
     section: Studies,
-    label: 'Disease Stage',
-    apiPath: 'participantCountByStageOfDisease',
-    apiForFiltering: 'filterParticipantCountByStageOfDisease',
-    datafield: 'stage_of_disease',
+    label: 'Study Design',
+    apiPath: 'studyCountByStudyDesign',
+    apiForFiltering: 'filterStudyCountByStudyDesign',
+    datafield: 'study_design',
     field: GROUP,
     type: InputTypes.CHECKBOX,
     sort_type: sortType.ALPHABET,
@@ -55,10 +74,54 @@ export const facetsConfig = [
   },
   {
     section: Studies,
-    label: 'Tumor Grade',
-    apiPath: 'participantCountByTumorGrade',
-    apiForFiltering: 'filterParticipantCountByTumorGrade',
-    datafield: 'tumor_grade',
+    label: 'Enrollment Period',
+    apiPath: 'enrollmentPeriod',
+    apiForFiltering: 'enrollmentPeriod',
+    datafield: 'enrollment_year',
+
+    ApiLowerBoundName: 'lowerBound',
+    ApiUpperBoundName: 'upperBound',
+    show: true,
+    slider: true,
+    type: InputTypes.SLIDER,
+    sort_type: 'none',
+    // minLowerBound: 1970,
+    // maxUpperBound: 2021,
+    // quantifier: 'Years',
+  }, 
+  {
+    section: Studies,
+    label: 'Study Period',
+    apiPath: 'studyPeriod',
+    apiForFiltering: 'studyPeriod',
+    datafield: 'study_year',
+    ApiLowerBoundName: 'lowerBound',
+    ApiUpperBoundName: 'upperBound',
+    show: true,
+    slider: true,
+    type: InputTypes.SLIDER,
+    sort_type: 'none',
+  },
+  {
+    section: Studies,
+    label: 'Number of Participants',
+    apiPath: 'studyCountByNumberOfParticipants',
+    apiForFiltering: 'studyCountByNumberOfParticipants', 
+    datafield: 'number_of_participants',
+    ApiLowerBoundName: 'lowerBound',
+    ApiUpperBoundName: 'upperBound',
+    show: true,
+    slider: true,
+    type: InputTypes.SLIDER,
+    sort_type: 'none',
+  },
+  {
+    section: Studies,
+    label: 'Neoplasms',
+    apiPath: 'studyCountByNeoplasm',
+    apiForFiltering: 'filterStudyCountByNeoplasm',
+    datafield: 'primary_diagnosis_disease_term',
+
     field: GROUP,
     type: InputTypes.CHECKBOX,
     sort_type: sortType.ALPHABET,
@@ -67,34 +130,10 @@ export const facetsConfig = [
   },
   {
     section: Studies,
-    label: 'Sex',
-    apiPath: 'participantCountBySex',
-    apiForFiltering: 'filterParticipantCountBySex',
-    datafield: 'sex',
-    field: GROUP,
-    type: InputTypes.CHECKBOX,
-    sort_type: sortType.RANGE,
-    show: true,
-    defaultValue: DEFAULT_VALUE,
-  },
-  {
-    section: Studies,
-    label: 'Gender',
-    apiPath: 'participantCountByReportedGender',
-    apiForFiltering: 'filterParticipantCountByReportedGender',
-    datafield: 'reported_gender',
-    field: GROUP,
-    type: InputTypes.CHECKBOX,
-    sort_type: sortType.CUSTOM_NUMBER,
-    show: false,
-    defaultValue: DEFAULT_VALUE,
-  },
-  {
-    section: Studies,
-    label: 'Race',
-    apiPath: 'participantCountByRace',
-    apiForFiltering: 'filterParticipantCountByRace',
-    datafield: 'race',
+    label: 'Countries',
+    apiPath: 'studyCountByCountries',
+    apiForFiltering: 'filterStudyCountByCountries',
+    datafield: 'study_country',
     field: GROUP,
     type: InputTypes.CHECKBOX,
     sort_type: sortType.ALPHABET,
@@ -103,34 +142,36 @@ export const facetsConfig = [
   },
   {
     section: Studies,
-    label: 'Ethnicity',
-    apiPath: 'participantCountByEthnicity',
-    apiForFiltering: 'filterParticipantCountByEthnicity',
-    datafield: 'ethnicity',
+    label: 'Biospecimen Collection',
+    apiPath: 'studyCountByBiospecimenCollection',
+    apiForFiltering: 'filterStudyCountByBiospecimenCollection',
+    datafield: 'biospecimen_collection',
     field: GROUP,
     type: InputTypes.CHECKBOX,
     sort_type: sortType.ALPHABET,
     show: true,
     defaultValue: DEFAULT_VALUE,
   },
+
   {
-    section: Studies,
-    label: 'Carcinogen Exposure',
-    apiPath: 'participantCountByCarcinogenExposure',
-    apiForFiltering: 'filterParticipantCountByCarcinogenExposure',
-    datafield: 'carcinogen_exposure',
-    field: GROUP,
-    type: InputTypes.CHECKBOX,
-    sort_type: sortType.ALPHABET,
+    section: Participants,
+    label: 'Age at Enrollment',
+    apiPath: 'ageAtEnrollment',
+    apiForFiltering: 'ageAtEnrollment', 
+    datafield: 'study_participant_age',
+    ApiLowerBoundName: 'lowerBound',
+    ApiUpperBoundName: 'upperBound',
     show: true,
-    defaultValue: DEFAULT_VALUE,
+    slider: true,
+    type: InputTypes.SLIDER,
+    sort_type: 'none',
   },
   {
-    section: Studies,
-    label: 'Targeted Therapy',
-    apiPath: 'participantCountByTargetedTherapy',
-    apiForFiltering: 'filterParticipantCountByTargetedTherapy',
-    datafield: 'targeted_therapy',
+    section: Participants,
+    label: 'Race Representation',
+    apiPath: 'studyCountByRace',
+    apiForFiltering: 'filterStudyCountByRace',
+    datafield: 'races',
     field: GROUP,
     type: InputTypes.CHECKBOX,
     sort_type: sortType.ALPHABET,
@@ -139,10 +180,10 @@ export const facetsConfig = [
   },
   {
     section: Participants,
-    label: 'Anatomical Collection Site',
-    apiPath: 'specimenCountByAnatomicalCollectionSite',
-    apiForFiltering: 'filterSpecimenCountByAnatomicalCollectionSite',
-    datafield: 'anatomical_collection_site',
+    label: 'Ethnic Representation',
+    apiPath: 'studyCountByEthnicity',
+    apiForFiltering: 'filterStudyCountByEthnicity',
+    datafield: 'ethnicities',
     field: GROUP,
     type: InputTypes.CHECKBOX,
     sort_type: sortType.ALPHABET,
@@ -151,10 +192,10 @@ export const facetsConfig = [
   },
   {
     section: Participants,
-    label: 'Tissue Category',
-    apiPath: 'specimenCountByTissueCategory',
-    apiForFiltering: 'filterSpecimenCountByTissueCategory',
-    datafield: 'tissue_category',
+    label: 'Sex Representation',
+    apiPath: 'studyCountBySex',
+    apiForFiltering: 'filterStudyCountBySex',
+    datafield: 'sexes',
     field: GROUP,
     type: InputTypes.CHECKBOX,
     sort_type: sortType.ALPHABET,
@@ -163,10 +204,10 @@ export const facetsConfig = [
   },
   {
     section: Participants,
-    label: 'Collection Timepoint',
-    apiPath: 'participantCountByAssessmentTimepoint',
-    apiForFiltering: 'filterParticipantCountByAssessmentTimepoint',
-    datafield: 'assessment_timepoint',
+    label: 'Gender Representation',
+    apiPath: 'studyCountByGender',
+    apiForFiltering: 'filterStudyCountByGender',
+    datafield: 'genders',
     field: GROUP,
     type: InputTypes.CHECKBOX,
     sort_type: sortType.ALPHABET,
@@ -210,24 +251,22 @@ export const SUNBURST_COLORS_LEVEL_2 = [
 // datatable_level2_colors: string[]
 // sliceTitle: string (optional)
 export const widgetConfig = [
-
   {
     type: 'donut',
-    title: 'Sex',
+    title: 'Studies',
     sliceTitle: "Participants",
-    dataName: 'participantCountBySex',
-  },
- 
-  {
-    type: 'donut',
-    title: 'Targeted Therapy',
-    sliceTitle: "Participants",
-    dataName: 'participantCountByTargetedTherapy',
+    dataName: 'globalStatsBar',
   },
   {
     type: 'donut',
-    title: 'Files',
-    sliceTitle: "Files",
-    dataName: 'dataFileCountByDataFileType',
+    title: 'Study Design',
+    sliceTitle: "Studies",
+    dataName: 'studyCountByStudyDesign',
+  },
+  {
+    type: 'donut',
+    title: 'Data Collected',
+    sliceTitle: "Studies",
+    dataName: 'studyCountByDataCollection',
   }
 ];

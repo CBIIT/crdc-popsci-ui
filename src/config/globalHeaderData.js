@@ -29,18 +29,12 @@ export const navMobileList = [
     id: 'navbar-link-explore',
     className: 'navMobileItem',
   },
-  {
-    name: 'Study',
-    link: '/study/NCT04314401',
-    id: 'navbar-link-study',
-    className: 'navMobileItem',
-  },
-  {
-    name: 'About',
-    link: '',
-    id: 'navbar-dropdown-about',
-    className: 'navMobileItem clickable',
-  },
+  // {
+  //   name: 'About',
+  //   link: '',
+  //   id: 'navbar-dropdown-about',
+  //   className: 'navMobileItem clickable',
+  // },
 ];
 
 export const navbarSublists = {
@@ -51,12 +45,6 @@ export const navbarSublists = {
       link: '/purpose',
       id: 'navbar-dropdown-item-purpose',
       className: 'navMobileSubItem',
-    },
-    {
-      name: 'Contact Us',
-      link: '/support',
-      id: 'navbar-dropdown-item-contact-us',
-      className: 'navMobileSubItem',
-    },
+    }
   ],
 };

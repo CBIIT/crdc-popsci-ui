@@ -65,6 +65,16 @@ const QueryBarView = ({ data, statusReducer, localFind }) => {
         }));
       },
     },
+    customStyles: {
+      // custom Styles for Query Bar. Refer to bento-frontend/packages/query-bar/src/generators/styles.js
+      queryWrapper: {
+        height: '120px',
+        backgroundColor: 'white',
+        padding: '14px 14px 0px 35px',
+        overflowY: 'auto',
+        border: '1px solid #D4D6D7'
+      },
+    }
   });
 
   return (

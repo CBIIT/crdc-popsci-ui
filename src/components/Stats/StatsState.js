@@ -1,5 +1,6 @@
 import { GET_GLOBAL_STATS_DATA_QUERY as STATS_QUERY } from '../../bento/globalStatsData';
 import client from '../../utils/graphqlClient';
+import { calculateStatsTotals } from './utils';
 
 export const RECIEVE_STATS = 'RECIEVE_STATS';
 export const STATS_QUERY_ERR = 'STATS_QUERY_ERR';
@@ -25,11 +26,17 @@ function readyStats() {
 }
 
 function receiveStats(json) {
+  const searchStudies = json?.data?.searchStudies || {};
+  const globalStats = calculateStatsTotals(json?.data?.globalStatsBar) || {};
+
   return {
     type: RECIEVE_STATS,
     payload:
     {
-      data: json.data.searchParticipants ? json.data.searchParticipants : {},
+      data: {
+        ...searchStudies,
+        ...globalStats,
+      },
     },
   };
 }

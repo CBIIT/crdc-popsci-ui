@@ -5,10 +5,10 @@ import gql from 'graphql-tag';
 // Tile1 Tile2 Tile3 images 293x349 px
 // Tile4 image optimum size 600x 436 px
 export const landingPageData = {
-  callToActionTitle: 'POPULATION SCIENCE',
-  callToActionTitle2: 'DATA COMMONS',
-  callToActionDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-  callToActionButtonText: 'search cases',
+  callToActionTitle: 'Unleashing the power of data for global health',
+  callToActionTitle2: 'Welcome to the Population Science Data Commons',
+  callToActionDescription: 'Dive into the Population Science Data Commons, where vast datasets converge to illuminate patterns and help drive innovation in global health.',
+  callToActionButtonText: 'EXPLORE STUDIES',
   callToActionButtonIcon: {
     alt: 'Right Arrow',
     img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/svgs/homeRightArrow.svg',
@@ -16,30 +16,8 @@ export const landingPageData = {
   callToActionLink: '/explore',
   landingPageHero: {
     alt: 'Alt tag1',
-    img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/landing_Hero_Graphic.png',
+    img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/popsci/popsci/images/icons/png/widget.png',
   },
-  landingPagePeoplePieChart: {
-    alt: 'People Pie Chart ',
-    img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/svgs/homePagePopImage.svg',
-  },
-  landingPageStatsBar: [
-    {
-      statTitle: 'Programs',
-      statAPI: 'numberOfPrograms',
-    },
-    {
-      statTitle: 'Studies',
-      statAPI: 'numberOfStudies',
-    },
-    {
-      statTitle: 'Cases',
-      statAPI: 'numberOfCases',
-    },
-    {
-      statTitle: 'Files',
-      statAPI: 'numberOfFiles',
-    },
-  ],
   tile1: {
     alt: '',
     img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/homeImageforAboutCard.png',
@@ -51,26 +29,26 @@ export const landingPageData = {
   tile2: {
     alt: '',
     img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/TrialsImage.png',
-    titleText: 'Studies',
+    titleText: 'Lorem',
     descriptionText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.',
     callToActionText: 'Read More',
-    callToActionLink: '/studies', // This links to the Programs Listing Page.
+    callToActionLink: '/', // This links to the Programs Listing Page.
   },
   tile3: {
     alt: '',
     img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/requestAccessImage.png',
-    titleText: 'Request Access',
-    descriptionText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
+    titleText: 'Lorem',
+    descriptionText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.',
     callToActionText: 'Read More',
-    callToActionLink: '/request', // Link to the Request Access Page
+    callToActionLink: '/', // Link to the Request Access Page
   },
   tile4: {
     alt: '',
     img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/CasesImage.png',
-    titleText: 'Cases',
+    titleText: 'Lorem',
     descriptionText: 'Lorem ipsum dolor sit amet, onsectetur adipiscing elit, sed do eiusmod tempor incididunt.',
     callToActionText: 'Read More',
-    callToActionLink: '/explore', // This links to the cases dashboard.
+    callToActionLink: '/', // This links to the cases dashboard.
   },
 };
 

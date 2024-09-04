@@ -36,3 +36,10 @@ export const convertCRDCLinksToValue = (data, key) => {
 export const removeSquareBracketsFromString = (text) => {
   return text.replace(/\[|\]/g, '');
 };
+
+export const customSorting = (a, b) => {
+  let val = 0
+  if(a < b) { val = -1; }
+  if(a > b) { val = 1; }
+  return val;
+}

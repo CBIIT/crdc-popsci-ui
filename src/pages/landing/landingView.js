@@ -17,10 +17,13 @@ const LandingView = ({ classes, statsData }) => (
         <Grid container direction="row" justifyContent='center' alignItems='flex-start' className={classes.heroImage}>
           <Grid item className={classes.popPieChartImage}>
           </Grid>
-          <Grid item xs={4} className={classes.heroTextContainer}>
+          <Grid className={classes.heroTextContainer}>
             <div className={classes.heroTextWrapper}>
-              <div className={classes.headerTitle}>
-                { landingPageData.callToActionTitle } <br/> {landingPageData.callToActionTitle2}
+              <div className={classes.headerTitle1}>
+                { landingPageData.callToActionTitle } 
+               </div>
+              <div className={classes.headerTitle2}>
+                 {landingPageData.callToActionTitle2}
               </div>
               <div className={classes.headerContent}>
                 { landingPageData.callToActionDescription}
@@ -29,11 +32,6 @@ const LandingView = ({ classes, statsData }) => (
                 <Link to={landingPageData.callToActionLink} className={classes.headerLink}>
                   <Button className={classes.buttonText}>
                     {landingPageData.callToActionButtonText}
-                    <img
-                      src={landingPageData.callToActionButtonIcon.img}
-                      alt={landingPageData.callToActionButtonIcon.alt}
-                      className={classes.searchCaseArrow}
-                    />
                   </Button>
                 </Link>
               </div>
@@ -190,10 +188,12 @@ const LandingView = ({ classes, statsData }) => (
 );
 const styles = () => ({
   popPieChartImage: {
-    width: '529px',
-    height: '668px',
-    maxHeight: '668px',
-    background: `url(${landingPageData.landingPagePeoplePieChart.img})`,
+    width: '570px',
+    marginRight: '120px',
+    marginTop: '103px',
+    height: '530px',
+    maxHeight: '530px',
+    background: `url(${landingPageData.landingPageHero.img})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: '100% 100%',
     overflow: 'hidden',
@@ -203,15 +203,15 @@ const styles = () => ({
   },
   heroImage: {
     width: '100%',
-    maxHeight: '668px',
+    background: '#164656',
+    height: '668px',
     backgroundRepeat: 'no-repeat',
     backgroundSize: '100% 100%',
-    backgroundImage: `url(${landingPageData.landingPageHero.img})`,
     margin: '0 auto',
   },
   texture: {
     backgroundSize: 'cover',
-    background: '#804098',
+    background: 'linear-gradient(180deg, #164656 1.82%, #0E94A9 86.24%)',
     padding: '81px 0 80px 0',
   },
   container: {
@@ -235,26 +235,43 @@ const styles = () => ({
     textTransform: 'uppercase',
     letterSpacing: '0.8px',
   },
-  headerTitle: {
+  headerTitle1: {
     paddingTop: '157px',
     fontFamily: 'Poppins, Raleway, sans-serif',
-    fontSize: '45px',
+    fontSize: '32px',
+    fontWeight: '500',
+    lineHeight: '115%',
+    color: '#E46BE7',
+    letterSpacing: '-0.02em',
+    textAlign:'center',
+    width:'375px',
+    margin: 'auto',
+  },
+  headerTitle2: {
+    paddingTop: '10px',
+    fontFamily: 'Poppins, Raleway, sans-serif',
+    fontSize: '52px',
     fontWeight: '600',
     lineHeight: '115%',
-    color: '#24415C',
+    color: '#FFFFFF',
     letterSpacing: '-0.02em',
+    textAlign:'center',
+    width: '500px',
+
   },
   paddingLeft50: {
     paddingLeft: '50px',
   },
   headerContent: {
-    color: '#F15A2A',
+    color: '#ffffff',
     fontFamily: 'Open Sans, Raleway',
-    fontSize: '16px',
+    fontSize: '17px',
     fontWeight: '400',
     lineHeight: '165%',
-    marginTop: '24px',
-    marginBottom: '20px',
+    marginTop: '40px',
+    paddingLeft: '20px',
+    marginLeft: '40px',
+    borderLeft: '2px solid #bbb',
   },
   headerLink: {
     textDecoration: 'none',
@@ -485,35 +502,28 @@ const styles = () => ({
     paddingLeft: '2px',
   },
   heroTextContainer: {
-    // position: 'absolute',
-    width: '400px',
-    // margin: 'auto',
-    left: '12px',
-    right: 0,
-    '@media (min-width: 900px)': {
-      width: '906px',
-    },
-    paddingLeft: '95px'
+    marginLeft: '-63px',
   },
   heroTextWrapper: {
-    width: '394px',
+    maxWidth: '500px',
+    width:'max-content',
+    margin: 'auto',
+  },
+  headerButtonSection: {
+    width: '100%',
+    textAlign: 'center',
+    marginTop: '30px',
   },
   buttonText: {
     fontFamily: 'Raleway',
     fontWeight: 700,
-    fontSize: '15px',
+    fontSize: '12px',
     padding: '12px 30px',
-    height: '44px',
-    backgroundColor: '#24415C',
-    color: '#EDE5D0',
-    width: '266px',
+    height: '36px',
+    color: '#FFFFFF',
+    width: '197px',
     borderRadius: '30px',
-    '&:hover': {
-      backgroundColor: 'grey'
-    },
-  },
-  searchCaseArrow: {
-    marginLeft: '45px'
+    border: '2px solid #ffffff',
   },
 });
 export default withStyles(styles, { withTheme: true })(LandingView);
