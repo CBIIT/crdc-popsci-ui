@@ -1,6 +1,8 @@
+import React from 'react';
 import { sortType, InputTypes } from '@bento-core/facet-filter';
 import { DEFAULT_VALUE } from './siteWideConfig';
 import reset_icon from '../assets/dash/resetIcon.svg'
+import { Box, Typography } from '@material-ui/core';
 
 const Studies = 'Filter by Studies';
 const Participants = 'Filter by Participants';
@@ -26,6 +28,40 @@ export const facetSectionVariables = {
     hasArrowDropDownIcon: false,
   },
 };
+
+const CustomLowerUpperBound = (props) => {
+  const {minLowerBound, maxUpperBound, classes} = props
+  console.log("|||| customLowerUpperBound props: ", props)
+  return (
+    <Box className={classes.lowerUpperBound}>
+    <Typography className={classes.lowerBound}>
+      {minLowerBound}
+    </Typography>
+    <Typography className={classes.upperBound}>
+      {maxUpperBound >= new Date().getFullYear() ? 'ongoing' : maxUpperBound}
+    </Typography>
+  </Box>
+  )
+}
+
+const CustomSliderValue = (props) => {
+  const {sliderValue, minLowerBound, maxUpperBound, isValid, quantifier, classes} = props
+  console.log("|||| customSliderValue props: ", props)
+  if (sliderValue[0] > minLowerBound || sliderValue[1] < maxUpperBound) {
+    return (
+      <Typography
+        className={isValid() ? classes.sliderText : classes.invalidSliderText}
+      >
+        {sliderValue[0]}
+        {' - '}
+        {sliderValue[1] >= new Date().getFullYear() ? 'ongoing' : sliderValue[1]}
+        &nbsp;
+        {quantifier}
+      </Typography>
+    );
+  }
+  return null;
+}
 
 export const facetsConfig = [
   {
@@ -101,6 +137,8 @@ export const facetsConfig = [
     slider: true,
     type: InputTypes.SLIDER,
     sort_type: 'none',
+    CustomLowerUpperBound: CustomLowerUpperBound,
+    CustomSliderValue: CustomSliderValue,
   },
   {
     section: Studies,
