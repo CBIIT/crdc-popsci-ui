@@ -4,8 +4,6 @@ import externalLinkIcon from '../assets/externalLinkIcon.svg'
 import previousIcon from '../assets/study/previousIcon.svg';
 import { cellTypes, dataFormatTypes } from '@bento-core/table';
 import downloadSuccess from '../assets/dash/downloadSuccess.svg'
-import downloadLock from '../assets/dash/downloadLock.svg'
-import previewLarge from '../assets/dash/previewLarge.svg'
 // --------------- Tooltip configuration --------------
 
 export const tooltipContent = {
