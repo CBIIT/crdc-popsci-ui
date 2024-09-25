@@ -33,7 +33,7 @@ const useDashData = (states) => {
         const numberOfParticipantsGlobalStats = calculateStatsTotals(result?.globalStatsBar || []);
 
         // Update slider data for different types
-        const enrollmentPeriod = updateSliderData(result.searchStudies, result.minMaxBoundQuery, 'enrollmentPeriod')
+        const enrollmentPeriod = updateSliderData(result.searchStudies, result.minMaxBoundQuery, 'enrollmentPeriod', true)
         const studyPeriod = updateSliderData(result.searchStudies, result.minMaxBoundQuery, 'studyPeriod', true)
         const ageAtEnrollment = updateSliderData(result.searchStudies, result.minMaxBoundQuery, 'ageAtEnrollment')
         const studyCountByNumberOfParticipants = updateSliderData(result.searchStudies, result.minMaxBoundQuery, 'studyCountByNumberOfParticipants')

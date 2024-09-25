@@ -31,7 +31,6 @@ export const facetSectionVariables = {
 
 const CustomLowerUpperBound = (props) => {
   const {minLowerBound, maxUpperBound, classes} = props
-  console.log("|||| customLowerUpperBound props: ", props)
   return (
     <Box className={classes.lowerUpperBound}>
     <Typography className={classes.lowerBound}>
@@ -46,7 +45,6 @@ const CustomLowerUpperBound = (props) => {
 
 const CustomSliderValue = (props) => {
   const {sliderValue, minLowerBound, maxUpperBound, isValid, quantifier, classes} = props
-  console.log("|||| customSliderValue props: ", props)
   if (sliderValue[0] > minLowerBound || sliderValue[1] < maxUpperBound) {
     return (
       <Typography
@@ -121,6 +119,9 @@ export const facetsConfig = [
     slider: true,
     type: InputTypes.SLIDER,
     sort_type: 'none',
+    CustomLowerUpperBound: CustomLowerUpperBound,
+    CustomSliderValue: CustomSliderValue,
+    
     // minLowerBound: 1970,
     // maxUpperBound: 2021,
     // quantifier: 'Years',
