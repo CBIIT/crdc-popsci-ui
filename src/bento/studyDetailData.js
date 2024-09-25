@@ -158,13 +158,13 @@ export const studyPersonnelTableConfig = {
       tooltipText: 'sort',
       role: cellTypes.DISPLAY,
     },
-    {
-      dataField: 'email_address',
-      header: 'Email Address',
-      display: true,
-      tooltipText: 'sort',
-      role: cellTypes.DISPLAY,
-    },
+    // {
+    //   dataField: 'email_address',
+    //   header: 'Email Address',
+    //   display: false,
+    //   tooltipText: 'sort',
+    //   role: cellTypes.DISPLAY,
+    // },
     {
       dataField: 'person_role',
       header: 'Position or Role',
