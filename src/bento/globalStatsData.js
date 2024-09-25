@@ -105,10 +105,43 @@ export const globalStatsData = [
 
 export const GET_GLOBAL_STATS_DATA_QUERY = gql`
 
-  query search($study_short_name: [String]) {
+  query search(
+    $study_short_name: [String]
+    $study_type: [String] # Hidden for now
+    $study_design: [String]
+    $enrollment_beginning_year: [Int]
+    $enrollment_ending_year: [Int]
+    $study_beginning_year: [Int]
+    $study_ending_year: [Int]
+    $number_of_participants: [Int]
+    $primary_diagnosis_disease_term: [String]
+    $study_country: [String]
+    $biospecimen_collection: [String]
+    $study_participant_maximum_age: [Float]
+    $study_participant_minimum_age: [Float]
+    $races: [String]
+    $ethnicities: [String]
+    $sexes: [String]
+    $genders: [String]
+  ) {
     searchStudies(
       study_short_name: $study_short_name
-      # TODO: Add more argument to be used for Explore
+      study_type: $study_type # Hidden for now
+      study_design: $study_design
+      enrollment_beginning_year: $enrollment_beginning_year
+      enrollment_ending_year: $enrollment_ending_year
+      study_beginning_year: $study_beginning_year
+      study_ending_year: $study_ending_year
+      number_of_participants: $number_of_participants
+      primary_diagnosis_disease_term: $primary_diagnosis_disease_term
+      study_country: $study_country
+      biospecimen_collection: $biospecimen_collection
+      study_participant_maximum_age: $study_participant_maximum_age
+      study_participant_minimum_age: $study_participant_minimum_age
+      races: $races
+      ethnicities: $ethnicities
+      sexes: $sexes
+      genders: $genders
     ) {
         dataVolume
         numberOfStudies
@@ -118,6 +151,22 @@ export const GET_GLOBAL_STATS_DATA_QUERY = gql`
       }
     globalStatsBar(
       study_short_name: $study_short_name
+      study_type: $study_type # Hidden for now
+      study_design: $study_design
+      enrollment_beginning_year: $enrollment_beginning_year
+      enrollment_ending_year: $enrollment_ending_year
+      study_beginning_year: $study_beginning_year
+      study_ending_year: $study_ending_year
+      number_of_participants: $number_of_participants
+      primary_diagnosis_disease_term: $primary_diagnosis_disease_term
+      study_country: $study_country
+      biospecimen_collection: $biospecimen_collection
+      study_participant_maximum_age: $study_participant_maximum_age
+      study_participant_minimum_age: $study_participant_minimum_age
+      races: $races
+      ethnicities: $ethnicities
+      sexes: $sexes
+      genders: $genders
     ) {
         study_short_name
         number_of_participants
