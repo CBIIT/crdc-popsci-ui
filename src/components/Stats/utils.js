@@ -1,4 +1,4 @@
-const humanFileSize = (size) => {
+export const formatFileSize = (size) => {
   if (typeof size !== 'number') {
     return '';
   }
@@ -8,7 +8,15 @@ const humanFileSize = (size) => {
   return `${sizeStr} ${suffix}`;
 };
 
-export default humanFileSize;
+export const formatAsCommaSeparatedNumber = (val) => {
+  const parsedValue = parseInt(val, 10);
+
+  if (isNaN(parsedValue)) {
+    return '0';
+  }
+
+  return parsedValue.toLocaleString();
+}
 
 /* 
   Add up the number_of_participants for each Studies to display on Stats Bar.

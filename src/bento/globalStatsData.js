@@ -5,6 +5,7 @@ import participantsIcon from '../assets/stats/participants_icon.svg';
 import neoplasmsIcon from '../assets/stats/neoplasms_icon.svg';
 import dataCategoriesIcon from '../assets/stats/data_categories_icon.svg';
 import studyFilesIcon from '../assets/stats/study_files_icon.svg';
+import { formatFileSize, formatAsCommaSeparatedNumber } from '../components/Stats/utils';
 
 export const statsStyling = {
   global: {
@@ -58,6 +59,7 @@ export const globalStatsData = [
     statAPI: 'dataVolume', // searchStudies
     statIconSrc: dataVolumeIcon,
     statIconAlt: 'Data Volume Stats Bar Icon',
+    formatValue: formatFileSize,
   },
   {
     statTitle: 'Studies',
@@ -65,6 +67,7 @@ export const globalStatsData = [
     statAPI: 'numberOfStudies',
     statIconSrc: studiesIcon,
     statIconAlt: 'Studies Stats Bar Icon',
+    formatValue: formatAsCommaSeparatedNumber,
   },
   {
     statTitle: 'Participants',
@@ -72,6 +75,7 @@ export const globalStatsData = [
     statAPI: 'number_of_participants', // globalStatsBar
     statIconSrc: participantsIcon,
     statIconAlt: 'Participants Stats Bar Icon',
+    formatValue: formatAsCommaSeparatedNumber,
   },
   {
     statTitle: 'Neoplasms',
@@ -79,6 +83,7 @@ export const globalStatsData = [
     statAPI: 'numberOfDiagnosis',
     statIconSrc: neoplasmsIcon,
     statIconAlt: 'Neoplasms Stats Bar Icon',
+    formatValue: formatAsCommaSeparatedNumber,
   },
   {
     statTitle: 'Data Categories',
@@ -86,6 +91,7 @@ export const globalStatsData = [
     statAPI: 'numberOfDataCollectionCatagory',
     statIconSrc: dataCategoriesIcon,
     statIconAlt: 'Data Categories Stats Bar Icon',
+    formatValue: formatAsCommaSeparatedNumber,
   },
   {
     statTitle: 'Study Files',
@@ -93,6 +99,7 @@ export const globalStatsData = [
     statAPI: 'numberOfDataFiles',
     statIconSrc: studyFilesIcon,
     statIconAlt: 'Study Files Stats Bar Icon',
+    formatValue: formatAsCommaSeparatedNumber,
   }
 ];
 
