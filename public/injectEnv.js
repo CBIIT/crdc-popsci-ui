@@ -6,7 +6,7 @@ window.injectedEnv = {
 
   // Services API End Points:
   // REACT_APP_BACKEND_API: 'http://localhost:8080/v1/graphql/',
-  REACT_APP_BACKEND_API: 'https://popsci-dev.datacommons.cancer.gov/v1/graphql/',
+  REACT_APP_BACKEND_API: 'https://populationsciences-dev.datacommons.cancer.gov/v1/graphql/',
 
 
   REACT_APP_BACKEND_PUBLIC_API: 'http://localhost:3000/v1/public-graphql/',
