@@ -41,7 +41,7 @@ const useDashData = (states) => {
         // Sort widget data
         sortWidgetDataByKey(result?.searchStudies?.studyCountByStudyDesign, 'group')
         sortWidgetDataByKey(result?.globalStatsBar, 'study_short_name')
-        sortWidgetDataByKey(result?.searchStudies?.studyCountByDataCollection, 'group')
+        sortWidgetDataByKey(result?.searchStudies?.neoplasmCountByStudy, 'group')
 
         // Set the dashboard data with updated values
         setDashData(prevData => {
