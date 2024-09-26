@@ -15,6 +15,8 @@ import { Typography } from '../../../components/Wrappers/Wrappers';
 import { formatWidgetData } from './WidgetUtils';
 import sunburstStyle from './SunburstStyle'
 import { DEFAULT_VALUE } from '../../../bento/siteWideConfig';
+import { Sector } from 'recharts';
+import { formatAsCommaSeparatedNumber } from '../../../components/Stats/utils';// components/Stats/utils
 
 const WidgetView = ({
   classes,
@@ -43,6 +45,54 @@ const WidgetView = ({
         mapDatasetObject: (data) => {
           if (data.number_of_participants) return { name: data.study_short_name, value: data.number_of_participants }
           return { name: data.group, value: data.subjects }
+        },
+        renderActiveShape: (props) => {
+          const {
+            cx, cy, innerRadius, outerRadius, startAngle, endAngle,
+            fill, payload, value, textColor, fontSize, fontWeight, fontFamily,
+            titleLocation, titleAlignment, sliceTitle, totalCount, showTotalCount, textOverflowLength,
+          } = props;
+    
+          const isCapital = String(payload.name).toUpperCase() === String(payload.name);
+          const overflowLength = isCapital ? textOverflowLength : textOverflowLength + 10;
+    
+          const labelX = (titleAlignment === 'center') ? cx : (titleAlignment === 'left') ? 0 : cx * 2;
+          const labelY = (titleLocation === 'top') ? 9 : cy * 2;
+    
+          const faceValue = showTotalCount === true ? `${value} / ${totalCount}` : value;
+    
+          return (
+            <g>
+              <text x={labelX} y={labelY} dy={0} textAnchor={(titleAlignment === 'center') ? 'middle' : undefined} fill={textColor} fontSize={fontSize || '12px'} fontWeight={fontWeight || '500'} fontFamily={fontFamily || 'Nunito'} cursor="text">
+                {String(payload.name).length > overflowLength ? `${String(payload.name).substring(0, overflowLength)}...` : payload.name}
+                <title>{payload.name}</title>
+              </text>
+              <text x={cx} y={cy} dy={0} textAnchor="middle" fill={textColor} fontSize={fontSize || '12px'} fontWeight="bold" fontFamily={fontFamily || 'Nunito'}>
+                {`${formatAsCommaSeparatedNumber(faceValue)}`}
+              </text>
+              <text x={cx} y={cy} dy={12} textAnchor="middle" fill={textColor} fontSize={fontSize || '12px'} fontWeight="light" fontFamily={fontFamily || 'Nunito'}>
+                {`${sliceTitle}`}
+              </text>
+              <Sector
+                cx={cx}
+                cy={cy}
+                innerRadius={innerRadius}
+                outerRadius={outerRadius}
+                startAngle={startAngle}
+                endAngle={endAngle}
+                fill={fill}
+              />
+              <Sector
+                cx={cx}
+                cy={cy}
+                startAngle={startAngle}
+                endAngle={endAngle}
+                innerRadius={outerRadius + 6}
+                outerRadius={outerRadius + 8}
+                fill={fill}
+              />
+            </g>
+          );
         },
       }
     },
