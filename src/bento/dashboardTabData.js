@@ -209,11 +209,11 @@ export const DASHBOARD_QUERY_NEW = gql`
       }
 
       # Data Collection Categories (data_collection_category): Will only be used for Widget for now
-      studyCountByDataCollection{
+      neoplasmCountByStudy{
         group
         subjects
       }
-      filterStudyCountByDataCollection{
+      filterNeoplasmCountByStudy{
         group
         subjects
       }

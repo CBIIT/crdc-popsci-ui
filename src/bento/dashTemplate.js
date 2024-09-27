@@ -304,8 +304,8 @@ export const widgetConfig = [
   },
   {
     type: 'donut',
-    title: 'Data Collected',
-    sliceTitle: "Studies",
-    dataName: 'studyCountByDataCollection',
+    title: 'Studies: Neoplasm Count',
+    sliceTitle: "Neoplasms",
+    dataName: 'neoplasmCountByStudy',
   }
 ];
