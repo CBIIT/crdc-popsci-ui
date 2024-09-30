@@ -292,7 +292,7 @@ export const SUNBURST_COLORS_LEVEL_2 = [
 export const widgetConfig = [
   {
     type: 'donut',
-    title: 'Studies',
+    title: 'Studies: Participant Count',
     sliceTitle: "Participants",
     dataName: 'globalStatsBar',
   },
