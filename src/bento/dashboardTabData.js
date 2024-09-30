@@ -5,6 +5,7 @@ import { cellTypes, dataFormatTypes, headerTypes } from '@bento-core/table';
 import downloadSuccess from '../assets/dash/downloadSuccess.svg'
 import downloadLock from '../assets/dash/downloadLock.svg'
 import previewLarge from '../assets/dash/previewLarge.svg'
+import questionMarkCircle from '../assets/dash/questionMarkCircle.svg'
 
 // --------------- Tooltip configuration --------------
 export const tooltipContent = {
@@ -25,6 +26,12 @@ export const tooltipContent = {
   Biospecimens: 'Add filtered files associated with all biospecimens in the current results set to My Files',
   Files: 'Add all filtered files to My Files',
 };
+
+export const facetSectionTooltip = {
+  src: questionMarkCircle,
+  alt: 'Count details tooltip',
+  tooltipText: 'All counts reflect the number of studies',
+}
 
 // --------------- Dahboard Table external link configuration --------------
 // Ideal size for externalLinkIcon is 16x16 px

@@ -119,6 +119,35 @@ export default () => ({
     lineHeight: '19.71px',
     letterSpacing: '-0.02em',
   },
+  sectionSummaryTitle: {
+    position: 'relative', // So the icon can be positioned relative to this container
+  },
+  icon: {
+    position: 'absolute',
+    top: 0,
+    right: -15,
+    cursor: 'pointer',
+  },
+
+  customTooltip: {
+    fontFamily: 'Nunito',
+    color: '#595959',
+    fontSize: '14px',
+    fontWeight: 400,
+    lineHeight: '19.6px',
+    letterSpacing: '0em',
+    textAlign: 'left',
+
+    backgroundColor: '#FFFFFF',
+    borderRadius: '8px',
+    border: '1px solid #818181',
+    boxShadow: '0px 4px 4px 0px #00000040',
+
+    minWidth: '270px',
+    height: '32px',
+    padding: '6px 10px'
+  },
+  customArrow: {},
   CasesCheckbox: {
     color: '#10A075',
   },
