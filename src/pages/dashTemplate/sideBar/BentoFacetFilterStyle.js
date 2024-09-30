@@ -124,8 +124,8 @@ export default () => ({
   },
   icon: {
     position: 'absolute',
-    top: 0,
-    right: -15,
+    top: -2,
+    right: -14,
     cursor: 'pointer',
   },
 
@@ -136,14 +136,14 @@ export default () => ({
     fontWeight: 400,
     lineHeight: '19.6px',
     letterSpacing: '0em',
-    textAlign: 'left',
+    textAlign: 'center',
 
     backgroundColor: '#FFFFFF',
     borderRadius: '8px',
     border: '1px solid #818181',
     boxShadow: '0px 4px 4px 0px #00000040',
 
-    minWidth: '270px',
+    maxWidth: '270px',
     height: '32px',
     padding: '6px 10px'
   },
