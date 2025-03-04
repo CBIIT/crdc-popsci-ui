@@ -207,7 +207,7 @@ export const facetsConfig = [
   },
   {
     section: Participants,
-    label: 'Race Representation',
+    label: 'Race',
     apiPath: 'studyCountByRace',
     apiForFiltering: 'filterStudyCountByRace',
     datafield: 'races',
@@ -219,7 +219,7 @@ export const facetsConfig = [
   },
   {
     section: Participants,
-    label: 'Ethnic Representation',
+    label: 'Ethnicity',
     apiPath: 'studyCountByEthnicity',
     apiForFiltering: 'filterStudyCountByEthnicity',
     datafield: 'ethnicities',
@@ -231,7 +231,7 @@ export const facetsConfig = [
   },
   {
     section: Participants,
-    label: 'Sex Representation',
+    label: 'Sex',
     apiPath: 'studyCountBySex',
     apiForFiltering: 'filterStudyCountBySex',
     datafield: 'sexes',
