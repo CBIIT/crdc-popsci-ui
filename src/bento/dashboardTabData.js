@@ -235,7 +235,7 @@ export const DASHBOARD_QUERY_NEW = gql`
         subjects
       }
 
-      # Race Representation (race)
+      # Race (race)
       studyCountByRace{
         group
         subjects
@@ -245,7 +245,7 @@ export const DASHBOARD_QUERY_NEW = gql`
         subjects
       }
 
-      # Ethnic Representation (ethnicity)
+      # Ethnicity (ethnicity)
       studyCountByEthnicity{
         group
         subjects
@@ -255,7 +255,7 @@ export const DASHBOARD_QUERY_NEW = gql`
         subjects
       }
 
-      # Sex Representation (sex)
+      # Sex (sex)
       studyCountBySex{
         group
         subjects

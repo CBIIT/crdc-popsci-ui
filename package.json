@@ -1,7 +1,7 @@
 {
   "homepage": ".",
   "name": "crdc-popsci-ui",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.6.9",
