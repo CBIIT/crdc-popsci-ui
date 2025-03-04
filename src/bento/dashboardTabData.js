@@ -97,7 +97,6 @@ export const DASHBOARD_QUERY_NEW = gql`
     $races: [String]
     $ethnicities: [String]
     $sexes: [String]
-    $genders: [String]
   ){
     searchStudies(
       study_short_name: $study_short_name
@@ -116,7 +115,6 @@ export const DASHBOARD_QUERY_NEW = gql`
       races: $races
       ethnicities: $ethnicities
       sexes: $sexes
-      genders: $genders
     ){  
       dataVolume
       numberOfStudies
@@ -296,7 +294,6 @@ export const DASHBOARD_QUERY_NEW = gql`
       races: $races
       ethnicities: $ethnicities
       sexes: $sexes
-      genders: $genders
     ){
       study_short_name
       number_of_participants
@@ -345,7 +342,6 @@ $gender: [String],
 $races: [String],
 $ethnicities: [String],
 $sexes: [String],
-$genders: [String],
 $study_country: [String],
 $number_of_countries: [Int],
 $study_state_province_territory: [String],
@@ -383,7 +379,6 @@ gender: $gender,
 races: $races,
 ethnicities: $ethnicities,
 sexes: $sexes,
-genders: $genders,
 study_country: $study_country,
 number_of_countries: $number_of_countries,
 study_state_province_territory: $study_state_province_territory,
@@ -419,7 +414,6 @@ sort_direction: $sort_direction
     races
     ethnicities
     sexes
-    genders
     study_country
     number_of_countries
     study_state_province_territory
