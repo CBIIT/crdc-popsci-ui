@@ -264,16 +264,6 @@ export const DASHBOARD_QUERY_NEW = gql`
         group
         subjects
       }
-      
-      # Gender Representation (gender)
-      studyCountByGender{
-        group
-        subjects
-      }
-      filterStudyCountByGender{
-        group
-        subjects
-      }
     }
     
     # Global Stats
@@ -338,7 +328,6 @@ $study_participant_minimum_age: [Float],
 $race: [String],
 $ethnicity: [String],
 $sex: [String],
-$gender: [String],
 $races: [String],
 $ethnicities: [String],
 $sexes: [String],
@@ -375,7 +364,6 @@ study_participant_minimum_age: $study_participant_minimum_age,
 race: $race,
 ethnicity: $ethnicity,
 sex: $sex,
-gender: $gender,
 races: $races,
 ethnicities: $ethnicities,
 sexes: $sexes,
@@ -410,7 +398,6 @@ sort_direction: $sort_direction
     race
     ethnicity
     sex
-    gender
     races
     ethnicities
     sexes
@@ -434,7 +421,7 @@ sort_direction: $sort_direction
 
 `;
 
-// Query for Tab - Files Table
+// Query for Tab - Files Table -  (UNUSED; HERE FOR REFERENCE)
 export const GET_FILES_OVERVIEW_QUERY_ORIGINAL = gql`
 query fileOverview(
     $subject_ids: [String],
@@ -500,7 +487,7 @@ query fileOverview(
 }
 `;
 
-// --------------- GraphQL Query - Add Associated Files under Cases table to Cart ---------------
+// --------------- (UNUSED; HERE FOR REFERENCE) GraphQL Query - Add Associated Files under Cases table to Cart ---------------
 export const GET_ALL_FILEIDS_PARTICIPANTS_TAB_FOR_SELECT_ALL = gql`
 query participant_data_files(
   $subject_id: [String],
@@ -550,7 +537,7 @@ query participant_data_files(
 }
   `;
 
-// --------------- GraphQL Query - Add Associated Files under Biospecimens table to Cart ---------------
+// --------------- (UNUSED; HERE FOR REFERENCE) GraphQL Query - Add Associated Files under Biospecimens table to Cart ---------------
 export const GET_ALL_FILEIDS_BIOSPECIMENS_TAB_FOR_SELECT_ALL = gql`
 query biospecimenAddAllToCart(
   $subject_id: [String],
@@ -607,7 +594,7 @@ query biospecimenAddAllToCart(
 }
 `;
 
-// --------------- GraphQL Query - Add Associated Files under Files table to Cart ---------------
+// --------------- (UNUSED; HERE FOR REFERENCE) GraphQL Query - Add Associated Files under Files table to Cart ---------------
 export const GET_ALL_FILEIDS_FILES_TAB_FOR_SELECT_ALL = gql`
 query fileAddSelectedToCart(
   $data_file_uuid: [String],
@@ -658,7 +645,7 @@ query fileAddSelectedToCart(
 }
 `;
 
-// --------------- GraphQL Query - Add all files under Cases table to Cart ---------------
+// --------------- (UNUSED; HERE FOR REFERENCE) GraphQL Query - Add all files under Cases table to Cart ---------------
 export const GET_ALL_FILEIDS_FROM_PARTICIPANTS_TAB_FOR_ADD_ALL_CART = gql`
 query participant_data_files(
   $subject_id: [String],
@@ -707,7 +694,7 @@ query participant_data_files(
 }
 }`;
 
-// --------------- GraphQL Query - Add all files under Biospecimens table to Cart ---------------
+// --------------- (UNUSED; HERE FOR REFERENCE) GraphQL Query - Add all files under Biospecimens table to Cart ---------------
 export const GET_ALL_FILEIDS_FROM_BIOSPECIMENS_TAB_FOR_ADD_ALL_CART = gql`
   query biospecimenAddAllToCart(
     $subject_id: [String],
@@ -762,7 +749,7 @@ export const GET_ALL_FILEIDS_FROM_BIOSPECIMENS_TAB_FOR_ADD_ALL_CART = gql`
   }
 `;
 
-// --------------- GraphQL Query - Add all files under Files table to Cart ---------------
+// --------------- (UNUSED; HERE FOR REFERENCE) GraphQL Query - Add all files under Files table to Cart ---------------
 export const GET_ALL_FILEIDS_FROM_FILES_TAB_FOR_ADD_ALL_CART = gql`
 query fileAddAllToCart(
   $subject_id: [String],
@@ -811,7 +798,7 @@ query fileAddAllToCart(
 }
 `;
 
-// --------------- GraphQL query - Retrieve files tab details --------------
+// --------------- (UNUSED; HERE FOR REFERENCE) GraphQL query - Retrieve files tab details --------------
 export const GET_FILES_NAME_QUERY = gql`
 query fileOverview($file_ids: [String], $offset: Int = 0, $first: Int = 100000, $order_by:String ="file_name"){
   fileOverview(file_ids: $file_ids, offset: $offset,first: $first, order_by: $order_by) {
@@ -819,7 +806,7 @@ query fileOverview($file_ids: [String], $offset: Int = 0, $first: Int = 100000, 
   }
 }
   `;
-
+// (UNUSED; HERE FOR REFERENCE)
 export const GET_FILE_IDS_FROM_FILE_NAME = gql`
   query (
       $file_name: [String],
