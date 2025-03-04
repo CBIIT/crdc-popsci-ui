@@ -93,11 +93,9 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
       race
       ethnicity
       sex
-      gender
       races
       ethnicities
       sexes
-      genders
       study_country
       number_of_countries
       study_state_province_territory

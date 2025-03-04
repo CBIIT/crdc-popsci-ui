@@ -24,7 +24,6 @@ const cleanAndSort = (array) => {
 const races = cleanAndSort(data?.race);
 const ethnicities = cleanAndSort(data?.ethnicity);
 const sexes = cleanAndSort(data?.sex);
-const genders = cleanAndSort(data?.gender);
 
   let number_of_participants = 0;
 
@@ -109,18 +108,6 @@ const genders = cleanAndSort(data?.gender);
                 <Grid item xs={12} sm={8} md={8}>
                   {sexes.length > 0 && sexes.map((sex, index) => (
                     <Typography key={index} className={classes.value}>{sex}</Typography>
-                  ))}
-                </Grid>
-              </Grid>
-            </div>
-            <div className={classes.item}>
-              <Grid container>
-                <Grid item xs={12} sm={4} md={4}>
-                  <Typography className={classes.label}>PARTICIPANT GENDERS</Typography>
-                </Grid>
-                <Grid item xs={12} sm={8} md={8}>
-                  {genders.length > 0 && genders.map((gender, index) => (
-                    <Typography key={index} className={classes.value}>{gender}</Typography>
                   ))}
                 </Grid>
               </Grid>
