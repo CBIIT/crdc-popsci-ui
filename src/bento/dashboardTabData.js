@@ -97,7 +97,6 @@ export const DASHBOARD_QUERY_NEW = gql`
     $races: [String]
     $ethnicities: [String]
     $sexes: [String]
-    $genders: [String]
   ){
     searchStudies(
       study_short_name: $study_short_name
@@ -116,7 +115,6 @@ export const DASHBOARD_QUERY_NEW = gql`
       races: $races
       ethnicities: $ethnicities
       sexes: $sexes
-      genders: $genders
     ){  
       dataVolume
       numberOfStudies
@@ -266,16 +264,6 @@ export const DASHBOARD_QUERY_NEW = gql`
         group
         subjects
       }
-      
-      # Gender Representation (gender)
-      studyCountByGender{
-        group
-        subjects
-      }
-      filterStudyCountByGender{
-        group
-        subjects
-      }
     }
     
     # Global Stats
@@ -296,7 +284,6 @@ export const DASHBOARD_QUERY_NEW = gql`
       races: $races
       ethnicities: $ethnicities
       sexes: $sexes
-      genders: $genders
     ){
       study_short_name
       number_of_participants
@@ -341,11 +328,9 @@ $study_participant_minimum_age: [Float],
 $race: [String],
 $ethnicity: [String],
 $sex: [String],
-$gender: [String],
 $races: [String],
 $ethnicities: [String],
 $sexes: [String],
-$genders: [String],
 $study_country: [String],
 $number_of_countries: [Int],
 $study_state_province_territory: [String],
@@ -379,11 +364,9 @@ study_participant_minimum_age: $study_participant_minimum_age,
 race: $race,
 ethnicity: $ethnicity,
 sex: $sex,
-gender: $gender,
 races: $races,
 ethnicities: $ethnicities,
 sexes: $sexes,
-genders: $genders,
 study_country: $study_country,
 number_of_countries: $number_of_countries,
 study_state_province_territory: $study_state_province_territory,
@@ -415,11 +398,9 @@ sort_direction: $sort_direction
     race
     ethnicity
     sex
-    gender
     races
     ethnicities
     sexes
-    genders
     study_country
     number_of_countries
     study_state_province_territory
@@ -440,7 +421,7 @@ sort_direction: $sort_direction
 
 `;
 
-// Query for Tab - Files Table
+// Query for Tab - Files Table -  (UNUSED; HERE FOR REFERENCE)
 export const GET_FILES_OVERVIEW_QUERY_ORIGINAL = gql`
 query fileOverview(
     $subject_ids: [String],
@@ -506,7 +487,7 @@ query fileOverview(
 }
 `;
 
-// --------------- GraphQL Query - Add Associated Files under Cases table to Cart ---------------
+// --------------- (UNUSED; HERE FOR REFERENCE) GraphQL Query - Add Associated Files under Cases table to Cart ---------------
 export const GET_ALL_FILEIDS_PARTICIPANTS_TAB_FOR_SELECT_ALL = gql`
 query participant_data_files(
   $subject_id: [String],
@@ -556,7 +537,7 @@ query participant_data_files(
 }
   `;
 
-// --------------- GraphQL Query - Add Associated Files under Biospecimens table to Cart ---------------
+// --------------- (UNUSED; HERE FOR REFERENCE) GraphQL Query - Add Associated Files under Biospecimens table to Cart ---------------
 export const GET_ALL_FILEIDS_BIOSPECIMENS_TAB_FOR_SELECT_ALL = gql`
 query biospecimenAddAllToCart(
   $subject_id: [String],
@@ -613,7 +594,7 @@ query biospecimenAddAllToCart(
 }
 `;
 
-// --------------- GraphQL Query - Add Associated Files under Files table to Cart ---------------
+// --------------- (UNUSED; HERE FOR REFERENCE) GraphQL Query - Add Associated Files under Files table to Cart ---------------
 export const GET_ALL_FILEIDS_FILES_TAB_FOR_SELECT_ALL = gql`
 query fileAddSelectedToCart(
   $data_file_uuid: [String],
@@ -664,7 +645,7 @@ query fileAddSelectedToCart(
 }
 `;
 
-// --------------- GraphQL Query - Add all files under Cases table to Cart ---------------
+// --------------- (UNUSED; HERE FOR REFERENCE) GraphQL Query - Add all files under Cases table to Cart ---------------
 export const GET_ALL_FILEIDS_FROM_PARTICIPANTS_TAB_FOR_ADD_ALL_CART = gql`
 query participant_data_files(
   $subject_id: [String],
@@ -713,7 +694,7 @@ query participant_data_files(
 }
 }`;
 
-// --------------- GraphQL Query - Add all files under Biospecimens table to Cart ---------------
+// --------------- (UNUSED; HERE FOR REFERENCE) GraphQL Query - Add all files under Biospecimens table to Cart ---------------
 export const GET_ALL_FILEIDS_FROM_BIOSPECIMENS_TAB_FOR_ADD_ALL_CART = gql`
   query biospecimenAddAllToCart(
     $subject_id: [String],
@@ -768,7 +749,7 @@ export const GET_ALL_FILEIDS_FROM_BIOSPECIMENS_TAB_FOR_ADD_ALL_CART = gql`
   }
 `;
 
-// --------------- GraphQL Query - Add all files under Files table to Cart ---------------
+// --------------- (UNUSED; HERE FOR REFERENCE) GraphQL Query - Add all files under Files table to Cart ---------------
 export const GET_ALL_FILEIDS_FROM_FILES_TAB_FOR_ADD_ALL_CART = gql`
 query fileAddAllToCart(
   $subject_id: [String],
@@ -817,7 +798,7 @@ query fileAddAllToCart(
 }
 `;
 
-// --------------- GraphQL query - Retrieve files tab details --------------
+// --------------- (UNUSED; HERE FOR REFERENCE) GraphQL query - Retrieve files tab details --------------
 export const GET_FILES_NAME_QUERY = gql`
 query fileOverview($file_ids: [String], $offset: Int = 0, $first: Int = 100000, $order_by:String ="file_name"){
   fileOverview(file_ids: $file_ids, offset: $offset,first: $first, order_by: $order_by) {
@@ -825,7 +806,7 @@ query fileOverview($file_ids: [String], $offset: Int = 0, $first: Int = 100000, 
   }
 }
   `;
-
+// (UNUSED; HERE FOR REFERENCE)
 export const GET_FILE_IDS_FROM_FILE_NAME = gql`
   query (
       $file_name: [String],

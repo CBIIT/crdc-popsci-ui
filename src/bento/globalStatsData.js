@@ -122,7 +122,6 @@ export const GET_GLOBAL_STATS_DATA_QUERY = gql`
     $races: [String]
     $ethnicities: [String]
     $sexes: [String]
-    $genders: [String]
   ) {
     searchStudies(
       study_short_name: $study_short_name
@@ -141,7 +140,6 @@ export const GET_GLOBAL_STATS_DATA_QUERY = gql`
       races: $races
       ethnicities: $ethnicities
       sexes: $sexes
-      genders: $genders
     ) {
         dataVolume
         numberOfStudies
@@ -166,7 +164,6 @@ export const GET_GLOBAL_STATS_DATA_QUERY = gql`
       races: $races
       ethnicities: $ethnicities
       sexes: $sexes
-      genders: $genders
     ) {
         study_short_name
         number_of_participants

@@ -241,18 +241,6 @@ export const facetsConfig = [
     show: true,
     defaultValue: DEFAULT_VALUE,
   },
-  {
-    section: Participants,
-    label: 'Gender Representation',
-    apiPath: 'studyCountByGender',
-    apiForFiltering: 'filterStudyCountByGender',
-    datafield: 'genders',
-    field: GROUP,
-    type: InputTypes.CHECKBOX,
-    sort_type: sortType.ALPHABET,
-    show: true,
-    defaultValue: DEFAULT_VALUE,
-  }
 ];
 
 // --------------- Dashboard Widgets configuration --------------
