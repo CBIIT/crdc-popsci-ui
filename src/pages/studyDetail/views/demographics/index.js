@@ -30,15 +30,12 @@ const Demographics = ({ classes, studyShortName }) => {
     <ThemeProvider>
       <div className={classes.page}>
         <Grid container spacing={3} className={classes.container}>
-          {/* StatsSection */}
           <Grid item xs={12} sm={6} className={classes.section}>
             <StatsSection demo={demo} />
           </Grid>
 
-          {/* Divider */}
           {!isUnder800px && <div className={classes.divider} />}
 
-          {/* ChartSection */}
           <Grid item xs={12} sm={6} className={classes.charts}>
             <ChartSection demo={demo} />
           </Grid>
@@ -49,7 +46,6 @@ const Demographics = ({ classes, studyShortName }) => {
 };
 
 const styles = theme => ({
-  // General page styles
   page: { position: 'relative' },
   container: { padding: '0 68px', position: 'relative' },
   section: { margin: '40px 0 120px 0' },

@@ -13,12 +13,10 @@ import {
 
 const styles = theme => ({
   container: {
-    display: 'inline-block', // Use inline-block to shrink-wrap the container to the chart size
+    display: 'inline-block', 
     flexDirection: 'column',
     alignItems: 'center',
-    width: '100%', // Make the container take the full width
-    maxWidth: '1200px', // Increase the maximum width to make it wider
-    margin: '0 auto', // Center the container horizontally
+    width: '100%', 
   },
   title: {
     fontFamily: 'Open Sans',
