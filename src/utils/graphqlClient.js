@@ -11,7 +11,7 @@ const defaultOptions = {
 
 const BACKEND = env.REACT_APP_BACKEND_API;
 const PUBLIC_BACKEND = env.REACT_APP_BACKEND_PUBLIC_API;
-const MOCK = 'https://4250bc0d-7018-4a95-bffb-d4dceb96fb4d.mock.pstmn.io/v1/graphql';
+const MOCK = 'https://aac6ff42-470b-40bc-af91-508217a9eab5.mock.pstmn.io';
 const CTDC_OLD_SERVICE =  "https://clinical-stage.datacommons.cancer.gov/v1/graphql/";
 const LOCAL_SERVICE =  "http://localhost:8080/v1/graphql/";
 const AUTH_SERVICE = `${env.REACT_APP_AUTH_SERVICE_API}graphql`;
