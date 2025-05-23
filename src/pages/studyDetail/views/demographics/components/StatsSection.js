@@ -8,7 +8,7 @@ export const StatRow = ({ label, subLabel, labelCaption, children, classes }) =>
       <Grid item xs={8}>
         <Typography className={classes.label}>
           {label}
-          {subLabel && <span className={classes.unboldLabel}>{subLabel}</span>}
+          {subLabel && <span className={classes.subLabel}>{subLabel}</span>}
         </Typography>
       </Grid>
       <Grid item xs={4}>
@@ -25,8 +25,22 @@ export const StatRow = ({ label, subLabel, labelCaption, children, classes }) =>
   </div>
 );
 
-const StatsSection = ({ classes, demo }) => {
-  const formattedCount = Number(demo.number_of_participants || 0).toLocaleString();
+const StatsSection = ({ classes, data, demo }) => {
+  const {
+    number_of_participants = 0,
+    participant_maximum_age,
+    participant_minimum_age,
+    participant_age_range = '',
+    participant_mean_age = '',
+    participant_median_age = '',
+    participant_races = [],
+    participant_ethnicities = [],
+    participant_sexes = [],
+  } = demo
+
+  console.log("|| demo: ", demo)
+
+  const formattedCount = Number(number_of_participants || 0).toLocaleString();
 
   return (
     <>
@@ -40,7 +54,7 @@ const StatsSection = ({ classes, demo }) => {
         labelCaption="Data reflects Age at Enrollment"
         classes={classes}
       >
-        {demo.participant_minimum_age} – {demo.participant_maximum_age}
+        {`${participant_maximum_age} - ${participant_minimum_age}`}
       </StatRow>
 
       <StatRow
@@ -49,7 +63,7 @@ const StatsSection = ({ classes, demo }) => {
         labelCaption="Data reflects Age at Enrollment"
         classes={classes}
       >
-        {demo.participant_mean_age}
+        {participant_mean_age}
       </StatRow>
 
       <StatRow
@@ -58,25 +72,25 @@ const StatsSection = ({ classes, demo }) => {
         labelCaption="Data reflects Age at Enrollment"
         classes={classes}
       >
-        {demo.participant_median_age}
+        {participant_median_age}
       </StatRow>
 
-      {Array.isArray(demo.participant_races) && (
+      {Array.isArray(participant_races) && (
         <SortableTable
-          data={demo.participant_races}
+          data={participant_races}
           sectionTitle="Participant Races"
           sectionCaption="Participants may identify as more than one race"
         />
       )}
-      {Array.isArray(demo.participant_ethnicities) && (
+      {Array.isArray(participant_ethnicities) && (
         <SortableTable
-          data={demo.participant_ethnicities}
+          data={participant_ethnicities}
           sectionTitle="Participant Ethnicities"
         />
       )}
-      {Array.isArray(demo.participant_sexes) && (
+      {Array.isArray(participant_sexes) && (
         <SortableTable
-          data={demo.participant_sexes}
+          data={participant_sexes}
           sectionTitle="Participant Sexes"
         />
       )}
@@ -89,7 +103,6 @@ const StatsSection = ({ classes, demo }) => {
 const styles = theme => ({
   item: {
     marginBottom: '40px',
-    // border: '1px solid #E4E4E4',
   },
   label: {
     color: '#27424E',
@@ -98,15 +111,16 @@ const styles = theme => ({
     fontFamily: 'Open Sans',
     lineHeight: '22px',
     textAlign: 'left',
-    // border: '1px solid blue',
   },
-  unboldLabel: {
-    color: '#27424E',
-    fontSize: '16px !important',
+  subLabel: {
     fontFamily: 'Open Sans',
-    lineHeight: '22px',
-    textAlign: 'left',
     fontWeight: 400,
+    fontSize: '13px !important',
+    lineHeight: '105%',
+    letterSpacing: '4%',
+    textTransform: 'lowercase',
+    paddingLeft: '3px',
+    color: 'black',
   },
   value: {
     fontSize: '16px !important',
@@ -115,12 +129,11 @@ const styles = theme => ({
     lineHeight: '22px',
     textAlign: 'left',
     paddingLeft: '40px',
-    // border: '1px solid #E4E4E4',
   },
   labelCaption: {
     fontFamily: 'Nunito',
     fontWeight: 500,
-    fontSize: '11px',
+    fontSize: '11px !important',
     lineHeight: '100%',
     letterSpacing: '0%',
     color: '#497494',
