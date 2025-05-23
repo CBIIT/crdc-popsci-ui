@@ -26,7 +26,7 @@ import StatsView from '../../components/Stats/StatsView';
 
 const StudyDetailView = ({ classes, data, isLoading=false, isError=false, studyShortName}) => {
   const [snackbarState, setsnackbarState] = React.useState({ open: false, value: 0 });
-  const [currentTab, setCurrentTab] = React.useState(2);
+  const [currentTab, setCurrentTab] = React.useState(0);
 
   /*
     Notification i.e. XXX files are added to cart. Might be used for Study Files tab
