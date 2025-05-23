@@ -22,6 +22,38 @@ export const previousPageIcon = previousIcon;
 
 export const GET_STUDY_DETAIL_DATA_QUERY = gql`
   query study($study_short_name: [String]) {
+    # Study detail data for Demographics Tab
+    # studyDemographics(study_short_name: $study_short_name) {
+    #   number_of_participants
+
+    #   participant_maximum_age # PARTICIPANT AGE RANGE (years)
+    #   participant_minimum_age # PARTICIPANT AGE RANGE (years)
+    #   participant_age_range # PARTICIPANT AGE RANGE (years)
+    #   participant_mean_age # MEAN PARTICIPANT AGE (years)
+    #   participant_median_age # MEDIAN PARTICIPANT AGE (years)
+      
+      #Participants: Age at Enrollment; TODO: Need to be uncommented once the API is ready
+      # participant_age_at_enrollment{
+      #   group
+      #   subject
+      # }
+
+      # PARTICIPANT_RACES
+      # participant_races {
+      #   group
+      #   subjects
+      # }
+      # PARTICIPANT ETHNICITIES
+      # participant_ethnicities {
+      #   group
+      #   subjects
+      # }
+      # PARTICIPANT SEXES
+      # participant_sexes {
+      #   group
+      #   subjects
+      # } 
+    # }
 
     dataCollectionPage(study_short_name:$study_short_name) {
       study_short_name

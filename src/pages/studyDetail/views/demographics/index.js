@@ -19,7 +19,8 @@ function useDemographicsData(studyShortName) {
   return { loading, error, demo };
 }
 
-const Demographics = ({ classes, studyShortName }) => {
+const Demographics = ({ classes, data, studyShortName }) => {
+  // Mock Demographics Data
   const { loading, error, demo } = useDemographicsData(studyShortName);
 
   if (loading) return <Typography>Loading…</Typography>;
@@ -30,7 +31,7 @@ const Demographics = ({ classes, studyShortName }) => {
       <div className={classes.page}>
         <Grid container spacing={3} className={classes.container}>
           <Grid item xs={12} sm={6} className={classes.section}>
-            <StatsSection demo={demo} />
+            <StatsSection data={data} demo={demo} />
           </Grid>
 
           <Grid item xs={1}>
