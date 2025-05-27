@@ -24,9 +24,9 @@ import {
 import TabContentWrapper from './TabContentWrapper';
 import StatsView from '../../components/Stats/StatsView';
 
-const StudyDetailView = ({ classes, data, isLoading=false, isError=false, studyShortName}) => {
+const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
   const [snackbarState, setsnackbarState] = React.useState({ open: false, value: 0 });
-  const [currentTab, setCurrentTab] = React.useState(2);
+  const [currentTab, setCurrentTab] = React.useState(0);
 
   /*
     Notification i.e. XXX files are added to cart. Might be used for Study Files tab
@@ -54,7 +54,7 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false, studyS
   const processedTabs = [
     { index: 0, label: 'Overview', content: <Overview data={studyGeneral || {}}  />},
     { index: 1, label: 'Neoplasms', content: <Neoplasms data={studyGeneral || {}} /> },
-    { index: 2, label: 'Demographics', content: <Demographics data={studyGeneral || {}} studyShortName={studyShortName} /> },
+    { index: 2, label: 'Demographics', content: <Demographics data={studyGeneral || {}} /> },
     { index: 3, label: 'Data Collected' ,content: <DataCollection data={data?.dataCollectionPage[0].data_collection || {}} /> },
     { index: 4, label: 'Countries and States',content: <Country data={studyGeneral || {}} /> },
     { index: 5, label: 'Publications', content: <Publications data={studyGeneral || {}} /> },
