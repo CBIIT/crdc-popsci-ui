@@ -53,10 +53,11 @@ const CustomTooltip = ({ active, payload, label }) => {
   };
 
   if (active && payload && payload.length) {
+    const value = payload[0].value != null ? payload[0].value.toLocaleString() : '';
     return (
       <div style={tooltipStyle}>
         <p style={{ margin: 0, fontWeight: 'bold', fontFamily: 'Open Sans', }}>{`Group: ${label}`}</p>
-        <p style={{ margin: 0, fontFamily: 'Open Sans'}}>{`Participants: ${payload[0].value}`}</p>
+        <p style={{ margin: 0, fontFamily: 'Open Sans'}}>{`Participants: ${value}`}</p>
       </div>
     );
   }
@@ -93,8 +94,8 @@ const BarChartV2 = ({
           <YAxis 
             tick={{ fontSize: 12, fontFamily: 'Open Sans', fill: '#666666' }}
           />
-          {/*<Tooltip content={<CustomTooltip />} />*/}
-          <Bar dataKey="subject">
+          <Tooltip content={<CustomTooltip />} />
+          <Bar dataKey="subjects">
             {chartData.map((_entry, index) => (
               <Cell
                 key={`cell-${index}`}
