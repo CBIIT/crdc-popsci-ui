@@ -21,6 +21,7 @@ function useDemographicsData(studyShortName) {
 const Demographics = ({ classes, data, studyShortName }) => {
   // Mock Demographics Data
   const { loading, error, demo } = useDemographicsData(studyShortName);
+  const isUnder800px = useMediaQuery('(max-width:800px)'); // Check if screen width is under 800px
 
   if (loading) return <Typography>Loading ...</Typography>;
   if (error)   return <Typography>Error loading demographics</Typography>;
