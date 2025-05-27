@@ -1,4 +1,3 @@
-// src/components/Demographics.jsx
 import React from 'react';
 import { Box, Grid, Typography, withStyles, useMediaQuery } from '@material-ui/core';
 import { useQuery } from '@apollo/client';
@@ -19,25 +18,25 @@ function useDemographicsData(studyShortName) {
   return { loading, error, demo };
 }
 
-const Demographics = ({ classes, studyShortName }) => {
+const Demographics = ({ classes, data, studyShortName }) => {
+  // Mock Demographics Data
   const { loading, error, demo } = useDemographicsData(studyShortName);
-  const isUnder800px = useMediaQuery('(max-width:800px)'); // Check if screen width is under 800px
 
-  if (loading) return <Typography>Loading…</Typography>;
-  if (error) return <Typography>Error loading demographics</Typography>;
+  if (loading) return <Typography>Loading ...</Typography>;
+  if (error)   return <Typography>Error loading demographics</Typography>;
 
   return (
     <ThemeProvider>
       <div className={classes.page}>
         <Grid container spacing={3} className={classes.container}>
           <Grid item xs={12} sm={6} className={classes.section}>
-            <StatsSection demo={demo} />
+            <StatsSection data={data} demo={demo} />
           </Grid>
 
           {!isUnder800px && <div className={classes.divider} />}
 
           <Grid item xs={12} sm={6} className={classes.charts}>
-            <ChartSection demo={demo} />
+            <ChartSection data={data} demo={demo} />
           </Grid>
         </Grid>
       </div>
