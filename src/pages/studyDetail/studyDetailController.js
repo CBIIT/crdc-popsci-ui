@@ -36,7 +36,7 @@ const StudyDetailController =  ({ match }) => {
       </Typography>
     );
   }
-  return <StudyDetailView data={data || {}} studyShortName={match.params.id}/>;
+  return <StudyDetailView data={data || {}} />;
 };
 
 export default StudyDetailController;
