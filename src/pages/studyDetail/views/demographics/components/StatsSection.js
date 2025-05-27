@@ -28,17 +28,13 @@ export const StatRow = ({ label, subLabel, labelCaption, children, classes }) =>
 const StatsSection = ({ classes, data, demo }) => {
   const {
     number_of_participants = 0,
-    participant_maximum_age,
-    participant_minimum_age,
     participant_age_range = '',
     participant_mean_age = '',
     participant_median_age = '',
     participant_races = [],
     participant_ethnicities = [],
     participant_sexes = [],
-  } = demo
-
-  console.log("|| demo: ", demo)
+  } = demo // TODO: replace with data when Real GraphQL API is available
 
   const formattedCount = Number(number_of_participants || 0).toLocaleString();
 
@@ -54,7 +50,7 @@ const StatsSection = ({ classes, data, demo }) => {
         labelCaption="Data reflects Age at Enrollment"
         classes={classes}
       >
-        {`${participant_minimum_age} - ${participant_maximum_age}`}
+        {`${participant_age_range}`}
       </StatRow>
 
       <StatRow
