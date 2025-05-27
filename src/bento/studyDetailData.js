@@ -156,7 +156,8 @@ export const GET_STUDY_DETAIL_DEMOGRAPHIC_DATA_QUERY = gql`
 query studyDemo($study_short_name: [String]) {
   studyDemographics(study_short_name: $study_short_name) {
     number_of_participants
-
+    
+    participant_age_range
     participant_maximum_age # PARTICIPANT AGE RANGE (years)
     participant_minimum_age # PARTICIPANT AGE RANGE (years)
     participant_mean_age # MEAN PARTICIPANT AGE (years)
@@ -165,23 +166,23 @@ query studyDemo($study_short_name: [String]) {
     #Participants: Age at Enrollment
     participant_age_at_enrollment{
       group
-      subject
+      subjects
     }
 
     # PARTICIPANT_RACES
     participant_races {
       group
-      subject
+      subjects
     }
     # PARTICIPANT ETHNICITIES
     participant_ethnicities {
       group
-      subject
+      subjects
     }
     # PARTICIPANT SEXES
     participant_sexes {
       group
-      subject
+      subjects
     } 
   }
   
