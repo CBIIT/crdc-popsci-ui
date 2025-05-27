@@ -93,7 +93,7 @@ const BarChartV2 = ({
           <YAxis 
             tick={{ fontSize: 12, fontFamily: 'Open Sans', fill: '#666666' }}
           />
-          <Tooltip content={<CustomTooltip />} />
+          {/*<Tooltip content={<CustomTooltip />} />*/}
           <Bar dataKey="subject">
             {chartData.map((_entry, index) => (
               <Cell
