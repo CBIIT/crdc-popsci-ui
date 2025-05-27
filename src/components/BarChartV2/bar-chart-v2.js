@@ -68,7 +68,6 @@ const BarChartV2 = ({
   chartTitle,
   classes,
 }) => {
-  console.log('chartdata length: ', chartData.length);
   const chartWidth = chartData.length > 8 ? chartData.length * 35: 280; 
 
   return (
