@@ -24,7 +24,7 @@ import {
 import TabContentWrapper from './TabContentWrapper';
 import StatsView from '../../components/Stats/StatsView';
 
-const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
+const StudyDetailView = ({ classes, data, isLoading=false, isError=false, studyShortName}) => {
   const [snackbarState, setsnackbarState] = React.useState({ open: false, value: 0 });
   const [currentTab, setCurrentTab] = React.useState(0);
 
@@ -40,6 +40,7 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
   );
 
   const studyGeneral = {...data?.studyGeneral?.at(0), ...data?.tabStudy?.at(0), ...data?.globalStatsBar?.at(0)};
+  const studyDemographics = data?.studyDemographics?.at(0);
 
   const statsbarData = {
     ...data.searchStudies,
@@ -54,7 +55,7 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
   const processedTabs = [
     { index: 0, label: 'Overview', content: <Overview data={studyGeneral || {}}  />},
     { index: 1, label: 'Neoplasms', content: <Neoplasms data={studyGeneral || {}} /> },
-    { index: 2, label: 'Demographics', content: <Demographics data={studyGeneral || {}} /> },
+    { index: 2, label: 'Demographics', content: <Demographics data={studyDemographics || {}} studyShortName={studyShortName} /> },
     { index: 3, label: 'Data Collected' ,content: <DataCollection data={data?.dataCollectionPage[0].data_collection || {}} /> },
     { index: 4, label: 'Countries and States',content: <Country data={studyGeneral || {}} /> },
     { index: 5, label: 'Publications', content: <Publications data={studyGeneral || {}} /> },
