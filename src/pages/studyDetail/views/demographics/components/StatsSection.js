@@ -54,7 +54,7 @@ const StatsSection = ({ classes, data, demo }) => {
         labelCaption="Data reflects Age at Enrollment"
         classes={classes}
       >
-        {`${participant_maximum_age} - ${participant_minimum_age}`}
+        {`${participant_minimum_age} - ${participant_maximum_age}`}
       </StatRow>
 
       <StatRow
