@@ -136,11 +136,11 @@ function SortableTable({
                 </TableCell>
               </TableRow>
             ) : (
-              rows.map(({ group, subject }) => (
+              rows.map(({ group, subjects }) => (
                 <TableRow key={group} className={classes.tableRow}>
                   <TableCell>{group}</TableCell>
                   <TableCell className={classes.countCell}>
-                    {subject.toLocaleString()}
+                    {subjects.toLocaleString()}
                   </TableCell>
                 </TableRow>
               ))

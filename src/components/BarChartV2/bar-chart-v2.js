@@ -94,7 +94,7 @@ const BarChartV2 = ({
             tick={{ fontSize: 12, fontFamily: 'Open Sans', fill: '#666666' }}
           />
           <Tooltip content={<CustomTooltip />} />
-          <Bar dataKey="subject">
+          <Bar dataKey="subjects">
             {chartData.map((_entry, index) => (
               <Cell
                 key={`cell-${index}`}
