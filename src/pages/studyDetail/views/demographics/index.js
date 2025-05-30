@@ -1,6 +1,5 @@
-// src/components/Demographics.jsx
 import React from 'react';
-import { Grid, Typography, withStyles } from '@material-ui/core';
+import { Box, Grid, Typography, withStyles, useMediaQuery } from '@material-ui/core';
 import { useQuery } from '@apollo/client';
 import { GET_STUDY_DETAIL_DEMOGRAPHIC_DATA_QUERY } from '../../../../bento/studyDetailData';
 import ThemeProvider from './themeConfig';
@@ -22,8 +21,9 @@ function useDemographicsData(studyShortName) {
 const Demographics = ({ classes, data, studyShortName }) => {
   // Mock Demographics Data
   const { loading, error, demo } = useDemographicsData(studyShortName);
+  const isUnder800px = useMediaQuery('(max-width:800px)'); // Check if screen width is under 800px
 
-  if (loading) return <Typography>Loading…</Typography>;
+  if (loading) return <Typography>Loading ...</Typography>;
   if (error)   return <Typography>Error loading demographics</Typography>;
 
   return (
@@ -34,12 +34,10 @@ const Demographics = ({ classes, data, studyShortName }) => {
             <StatsSection data={data} demo={demo} />
           </Grid>
 
-          <Grid item xs={1}>
-            <div className={classes.divider} />
-          </Grid>
+          {!isUnder800px && <div className={classes.divider} />}
 
-          <Grid item xs={12} sm={5} className={classes.section}>
-            <ChartSection demo={demo} />
+          <Grid item xs={12} sm={6} className={classes.charts}>
+            <ChartSection data={data} demo={demo} />
           </Grid>
         </Grid>
       </div>
@@ -48,15 +46,18 @@ const Demographics = ({ classes, data, studyShortName }) => {
 };
 
 const styles = theme => ({
-  // General page styles 
-  page: {},
-  container: { padding: '0 68px' },
+  page: { position: 'relative' },
+  container: { padding: '0 68px', position: 'relative' },
   section: { margin: '40px 0 120px 0' },
+  charts: { margin: '20px 0 120px 0' },
   divider: {
+    position: 'absolute',
+    left: '50%',
+    top: 10,
+    bottom: 0,
     borderLeft: '2px solid #76C4E4',
-    height: '100%',
-    marginLeft: '20px',
-    marginRight: '20px',
+    transform: 'translateX(-50%)',
+    pointerEvents: 'none',
   },
 });
 
