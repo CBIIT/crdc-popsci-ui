@@ -58,7 +58,9 @@ const styles = (theme) => ({
   CancerTypeSwitch:{
     paddingLeft: '9px',
   },
-
+  radioButtonSpacing: {
+      marginRight: '89px',
+  },
   CancerTypeLabel: {
     fontFamily: 'Open Sans',
     fontSize: '16px !important',
@@ -162,7 +164,7 @@ const styles = (theme) => ({
   gridContainer: {
     display: 'grid',
     gridTemplateColumns: 'repeat(3, 1fr)', 
-    columnGap: '20px', 
+    columnGap: '100px', 
     rowGap: '20px', 
     justifyContent: 'center',
     marginTop:'20px'

@@ -69,7 +69,7 @@ const cancerTypesByDiseaseMorphology = async () => {
   return icd_morphology_terms_static;
 };
 
-const Neoplasms = ({ classes, data }) => {
+const CancerTypes = ({ classes, data }) => {
   const {
     primary_diagnosis_disease_term = [],
     primary_diagnosis_disease_term_test = [
@@ -173,7 +173,10 @@ const Neoplasms = ({ classes, data }) => {
                       value="PrimaryDiseaseSite" 
                       control={<CustomRadio/>} 
                       label="by Primary Disease Site"
-                      classes={{ label: classes.CancerTypeLabel }}
+                      classes={{
+                        root: classes.radioButtonSpacing,
+                        label: classes.CancerTypeLabel
+                      }}
                     />
                     <FormControlLabel 
                       value="ICDMorphology" 
@@ -209,4 +212,4 @@ const Neoplasms = ({ classes, data }) => {
   );
 };
 
-export default withStyles(styles, { withTheme: true })(Neoplasms);
+export default withStyles(styles, { withTheme: true })(CancerTypes);
