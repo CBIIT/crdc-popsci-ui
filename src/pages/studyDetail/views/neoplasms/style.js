@@ -61,13 +61,14 @@ const styles = (theme) => ({
 
   CancerTypeLabel: {
     fontFamily: 'Open Sans',
-    fontSize: '16px',
+    fontSize: '16px !important',
     color: '#4B4B4B',
     fontWeight: 400,
     lineHeight: '22px',
     '.Mui-checked + &': {
       color: '#3B7E97',
       fontWeight: 700,
+      fontSize: '16px !important',
       textDecoration: 'underline',
       textDecorationThickness: '1.5px',
       textUnderlineOffset: '4px',
@@ -172,6 +173,11 @@ const styles = (theme) => ({
     display: 'flex',
     alignItems: 'center',
     gap: '6px',
+    fontFamily: 'Open Sans',
+    fontWeight: 400,
+    fontSize: '16px',
+    lineHeight: '22px',
+    letterSpacing: 0,
   },
   code: {
     fontFamily: 'Open Sans',
@@ -180,16 +186,16 @@ const styles = (theme) => ({
     lineHeight: '22px',
     letterSpacing: 0,
     textTransform: 'uppercase',
-    color: '#5B7886',
   },
   term: {
     flex: 1,
-    color: '#222',
+    color: '#000000',
   },
   count: {
-    color: '#136071',
+    color: '#245F7B',
     marginLeft: 6,
-    fontWeight: 500,
+    fontWeight: 600,
+    fontSize: '14px',
   },
 
   /********           Smaller Screen Style              ********/
