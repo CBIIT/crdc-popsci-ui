@@ -1,44 +1,29 @@
-const styles = (theme) => ({
+const SCROLL_HEIGHT = '700px';
+const DETAIL_HEIGHT = '730px';
+const COLUMN_GAP = '100px';
+const ROW_GAP = '20px';
+
+const styles = theme => ({
   detailContainer: {
     margin: '30px auto',
+    marginBottom: '40px',
     paddingLeft: '64px',
     fontFamily: theme.custom.fontFamilySans,
     letterSpacing: '0.014em',
-    color: '#000000',
-    size: '12px',
+    fontSize: '12px',
     lineHeight: '23px',
-
+    color: '#000000',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'flex-start',
-    minHeight: '730px',
-    maxHeight: '730px',
-
-    marginBottom: '40px',
+    minHeight: DETAIL_HEIGHT,
+    maxHeight: DETAIL_HEIGHT,
   },
 
-  detailContainerLeft: {
-    display: 'block',
-    overflowY: 'auto',
-    paddingTop: '30px',
-    minHeight: '700px',
-  },
-  leftInnerContainer: {
-    padding: '0px 65px 0px 0px'
-  },
-
-  detailContainerRight: {
-    marginTop: '30px',
-  },
-  rightInnerContainer: {
-    padding: '0px 53px 30px 43px',
-  },
-  
   scrollDiv: {
-    minHeight: '700px',
-    maxHeight: '700px',
+    minHeight: SCROLL_HEIGHT,
+    maxHeight: SCROLL_HEIGHT,
     overflowY: 'scroll',
-
     '&::-webkit-scrollbar': {
       width: '0.5em',
       height: '0.4em',
@@ -55,12 +40,14 @@ const styles = (theme) => ({
     },
   },
 
-  CancerTypeSwitch:{
+  CancerTypeSwitch: {
     paddingLeft: '9px',
   },
+
   radioButtonSpacing: {
-      marginRight: '89px',
+    marginRight: '89px',
   },
+
   CancerTypeLabel: {
     fontFamily: 'Open Sans',
     fontSize: '16px !important',
@@ -77,16 +64,15 @@ const styles = (theme) => ({
     },
   },
 
-  NumCancerType:{
+  NumCancerType: {
+    paddingLeft: '23px',
     '& > span:first-child': {
       fontFamily: 'Open Sans',
-      fontWeight: '600',
+      fontWeight: 600,
       fontSize: '16px',
       lineHeight: '22px',
       color: '#245F7B',
-
     },
-    paddingLeft: '23px',
   },
 
   mainLabel: {
@@ -107,80 +93,30 @@ const styles = (theme) => ({
     fontWeight: 400,
     lineHeight: '22px',
     color: '#000000',
-    margin: '-20px 0px 0px 30px',
-  },
-
-  keyAndValueRow: {
-    display: 'flex',
-    margin: '0px',
-    padding: '0px',
-  },
-  label: {
-    fontFamily: 'Open Sans',
-    fontSize: '16px',
-    fontWeight: 700,
-    lineHeight: '16.8px',
-    letterSpacing: '-0.01em',
-
-    color: '#27424E',
-    textAlign: 'left',
-    width: '164px',
-    minWidth: '164px',
-    marginBottom: '20px',
-  },
-  value: {
-    fontFamily: 'Open Sans',
-    fontSize: '16px',
-    fontWeight: 400,
-    lineHeight: '22px',
-
-    color: '#4B4B4B',
-    textAlign: 'left',
-    paddingLeft: '55px',
-  },
-
-  link: {
-    fontFamily: 'Open Sans',
-    fontSize: '16px',
-    fontWeight: 600,
-    lineHeight: '18px',
-    textAlign: 'left',
-    color: '#005D85',
-    textDecoration: 'underline',
-    marginBottom: '5px',
-  },
-  externalLinkIcon: {
-    marginLeft: '3px'
-  },
-
-  noData: {
-    fontFamily: 'Open Sans',
-    fontSize: '18px',
-    fontWeight: 700,
-    lineHeight: '23.4px',
-    color: '#000',
+    margin: '-20px 0 0 30px',
   },
 
   gridContainer: {
     display: 'grid',
-      /* up to 3 columns, each min 200px; auto-fits down to 2 or 1 as needed */
-      gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-      gap: '20px 100px',        // rowGap 20px, columnGap 100px
-      justifyContent: 'center',
-      marginTop: '20px',
-    },
+    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+    gap: `${ROW_GAP} ${COLUMN_GAP}`,
+    justifyContent: 'center',
+    marginTop: '20px',
+  },
+
   neoplasmText: {
-    wordBreak: 'break-word',
-    margin: '5px 0',
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     gap: '6px',
+    margin: '5px 0',
+    wordBreak: 'break-word',
     fontFamily: 'Open Sans',
     fontWeight: 400,
     fontSize: '16px',
     lineHeight: '22px',
     letterSpacing: 0,
   },
+
   code: {
     fontFamily: 'Open Sans',
     fontWeight: 400,
@@ -188,11 +124,14 @@ const styles = (theme) => ({
     lineHeight: '22px',
     letterSpacing: 0,
     textTransform: 'uppercase',
+    color: '#5B7886',
   },
+
   term: {
     flex: 1,
     color: '#000000',
   },
+
   count: {
     color: '#245F7B',
     marginLeft: 6,
@@ -200,96 +139,42 @@ const styles = (theme) => ({
     fontSize: '14px',
   },
 
-  /********           Smaller Screen Style              ********/
-  '@media (max-width: 950px)': {
+  /* Smaller Screen Style */
+  [theme.breakpoints.down(950)]: {
     detailContainer: {
       paddingLeft: '24px',
     },
-    rightInnerContainer: {
-      paddingLeft: '24px',
-    },
-    value: {
-      paddingLeft: '24px',
-    },
-    studyFileContainer: {
-      marginLeft: '24px !important',
-    },
   },
 
-  /********           Switch from Two to one column based layout      ********/
-  '@media (max-width: 799px)': {
+  /* Switch from Three to Two Column */
+  [theme.breakpoints.down(1100)]: {
     detailContainer: {
       minHeight: 'fit-content',
       maxHeight: 'fit-content',
       borderRight: 'none',
     },
-    leftInnerContainer: {
-      padding: '0px 53px 0px 0px'
-    },
-    rightInnerContainer: {
-      padding: '0px 53px 0px 0px'
-    },
     scrollDiv: {
-      maxHeight: 'fit-content',
       minHeight: 'fit-content',
+      maxHeight: 'fit-content',
       overflowY: 'auto',
     },
     borderRight: {
       borderRight: 'none',
-    },
-    detailContainerLeft: {
-      minHeight: 'fit-content'
-    },
-    detailContainerRight: {
-      minHeight: 'fit-content',
-      paddingBottom: '30px',
     },
     gridContainer: {
       gridTemplateColumns: 'repeat(2, 1fr)',
     },
   },
 
-  /********           Mobile sizing              ********/
-  '@media (max-width: 470px)': {
+  /* Switch from Two to One Column */
+  [theme.breakpoints.down(800)]: {
     detailContainer: {
       paddingLeft: '10px',
       paddingRight: '10px',
     },
-    value: {
-      paddingLeft: '10px'
-    },
-    studyFileContainer: {
-      marginLeft: '10px !important',
-      marginRight: '10px !important',
-    },
     gridContainer: {
       gridTemplateColumns: 'repeat(1, 1fr)',
     },
-  },
-
-  studyFileContainer: {
-    margin: '56px 70px 100px 64px',
-  },
-  studyPersonnelTitle: {
-    fontFamily: 'Open Sans',
-    fontSize: '16px',
-    fontWeight: 700,
-    lineHeight: '20.8px',
-    letterSpacing: '-0.01em',
-    textAlign: 'left',
-
-    textTransform: 'uppercase',
-    paddingBottom: '18px',
-    margin: '0px'
-  },
-  studyPersonnelTable: {
-    paddingLeft: '10px',
-  },
-  noStudyRecords: {
-    paddingLeft: '10px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center', 
   },
 });
 

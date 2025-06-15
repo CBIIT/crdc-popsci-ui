@@ -11,8 +11,8 @@ const makeColumns = (items, rowCount) =>
 
 const CancerTypeGrid = ({ classes, cancerTypes }) => {
   const theme = useTheme();
-  const isXs = useMediaQuery(theme.breakpoints.down('xs')); // <600px
-  const isSm = useMediaQuery(theme.breakpoints.down('sm')); // <960px
+  const isXs = useMediaQuery(theme.breakpoints.down('xs')); // <800px
+  const isSm = useMediaQuery(theme.breakpoints.down('sm')); // <1100px
 
   // pick between 1,2,3 columns
   const columnsCount = isXs ? 1 : isSm ? 2 : 3;
@@ -37,10 +37,12 @@ const CancerTypeGrid = ({ classes, cancerTypes }) => {
               key={`${item.code || item.term}_${idx}`}
               className={classes.neoplasmText}
             >
-              {item.code && <span className={classes.code}>{item.code}</span>}
-              <span className={classes.term}>{item.term}</span>
+              <span className={classes.term}>
+                {item.code && <span className={classes.code}>{item.code}&nbsp;&nbsp;</span>}
+                {item.term}
+              </span>
               <span className={classes.count}>
-                ({item.participantCount})
+                {item.participantCount}
               </span>
             </div>
           ))}
