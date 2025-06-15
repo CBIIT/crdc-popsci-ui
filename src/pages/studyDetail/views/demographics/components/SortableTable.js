@@ -17,7 +17,6 @@ import SortControls from '../../../common/SortControls';
 const SORT_OPTIONS = [
   { key: 'alpha', label: 'Sort Alphabetically' },
   { key: 'count', label: 'Sort by Participant Count' },
-  { key: 'code', label: 'Sort by code' },
 ];
 
 function SortableTable({

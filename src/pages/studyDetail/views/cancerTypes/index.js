@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   Box,
   FormControlLabel,
@@ -11,42 +11,6 @@ import OverviewThemeProvider from './theme';
 import styles from './style';
 import SortControls from '../../common/SortControls';
 import CancerTypeGrid from './CancerTypeGrid';
-
-const ROW_COUNT = 10;
-
-const makeColumns = (items) =>
-  items.reduce((cols, item, idx) => {
-    const colIndex = Math.floor(idx / ROW_COUNT);
-    if (!cols[colIndex]) cols[colIndex] = [];
-    cols[colIndex].push(item);
-    return cols;
-  }, []);
-
-const NeoplasmGrid = ({ classes, diseaseTerms }) => {
-  const columns = useMemo(() => makeColumns(diseaseTerms), [diseaseTerms]);
-  return (
-    <div className={classes.gridContainer}>
-      {columns.map((col, i) => (
-        <div key={i}>
-          {col.map((item, idx) => (
-            <div
-              key={`${item.code || item.term}_${idx}`}
-              className={classes.neoplasmText}
-            >
-              {item.code && <span className={classes.code}>{item.code}</span>}
-              <span className={classes.term}>{item.term}</span>
-              <span className={classes.count}>
-                ({item.participantCount})
-              </span>
-            </div>
-          ))}
-        </div>
-      ))}
-    </div>
-  );
-};
-
-const NeoplasmGridStyled = withStyles(styles)(NeoplasmGrid);
 
 const cancerStatic = {
   PrimaryDiseaseSite: [

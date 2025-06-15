@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Grid, Typography, withStyles, useMediaQuery } from '@material-ui/core';
+import { Grid, Typography, withStyles, useMediaQuery } from '@material-ui/core';
 import { useQuery } from '@apollo/client';
 import { GET_STUDY_DETAIL_DEMOGRAPHIC_DATA_QUERY } from '../../../../bento/studyDetailData';
 import ThemeProvider from './themeConfig';
