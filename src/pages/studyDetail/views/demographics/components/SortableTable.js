@@ -1,7 +1,6 @@
-import React, { memo, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   Box,
-  Button,
   Grid,
   Paper,
   Table,
@@ -13,36 +12,13 @@ import {
   Typography,
   makeStyles,
 } from '@material-ui/core';
-import clsx from 'clsx';
-import upwardArrow from '../../../../../assets/study/upwardArrow.svg';
-import downwardArrow from '../../../../../assets/study/downwardArrow.svg';
+import SortControls from '../../../common/SortControls';
 
 const SORT_OPTIONS = [
   { key: 'alpha', label: 'Sort Alphabetically' },
   { key: 'count', label: 'Sort by Participant Count' },
+  { key: 'code', label: 'Sort by code' },
 ];
-
-const SortButton = memo(({ sortKey, label, active, direction, onClick, classes }) => {
-  const iconSrc = direction === 'asc' ? upwardArrow : downwardArrow;
-
-  return (
-    <Button
-      size="small"
-      onClick={() => onClick(sortKey)}
-      startIcon={
-        active ? (
-          <img
-            src={iconSrc}
-            alt={direction === 'asc' ? 'Ascending' : 'Descending'}
-          />
-        ) : null
-      }
-      className={clsx(classes.sortButton, active && classes.active)}
-    >
-      {label}
-    </Button>
-  );
-});
 
 function SortableTable({
   data = [],
@@ -76,13 +52,13 @@ function SortableTable({
     return direction === 'asc' ? sorted : sorted.reverse();
   }, [data, sortBy, direction]);
 
-  // Change sort key or toggle direction if same key is clicked
-  const handleSortClick = key => {
-    if (key === sortBy) {
+  // Handles sort key and direction
+  const handleSortChange = key => {
+    if (key === sortBy) { // If already sorted by this key, toggle direction
       setDirection(dir => (dir === 'asc' ? 'desc' : 'asc'));
-    } else {
+    } else { // Otherwise, switch to the new key and reset direction to ascending
       setSortBy(key);
-      setDirection('asc'); // Always default to ascending when changing sort field
+      setDirection('asc'); // Default to ascending for new sort key
     }
   };
 
@@ -95,19 +71,12 @@ function SortableTable({
             {sectionTitle}
           </Typography>
           {/* Group sort buttons so they wrap together */}
-          <Box display="flex" className={classes.sortButtonGroup}>
-            {SORT_OPTIONS.map(({ key, label }) => (
-              <SortButton
-                key={key}
-                sortKey={key}
-                label={label}
-                active={sortBy === key}
-                direction={direction}
-                onClick={handleSortClick}
-                classes={classes}
-              />
-            ))}
-          </Box>
+          <SortControls
+            sortOptions={SORT_OPTIONS}
+            sortBy={sortBy}
+            direction={direction}
+            onSortChange={handleSortChange}
+          />
         </Box>
 
         {sectionCaption && (
