@@ -18,6 +18,16 @@ export default ({
     
   };
 
+  themesLight.overrides.MuiButton = {
+    root: { padding: 0, textTransform: 'none' },
+    text: { padding: 0 },
+    textSizeSmall: { padding: 0 },
+    startIcon: {
+      marginRight: '5px',
+      marginLeft: '0px'
+    }
+  }
+
   themesLight.overrides.MuiGrid = {
     item: {
       marginBottom: '0px',

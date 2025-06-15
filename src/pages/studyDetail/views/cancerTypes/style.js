@@ -163,12 +163,12 @@ const styles = (theme) => ({
 
   gridContainer: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)', 
-    columnGap: '100px', 
-    rowGap: '20px', 
-    justifyContent: 'center',
-    marginTop:'20px'
-  },
+      /* up to 3 columns, each min 200px; auto-fits down to 2 or 1 as needed */
+      gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+      gap: '20px 100px',        // rowGap 20px, columnGap 100px
+      justifyContent: 'center',
+      marginTop: '20px',
+    },
   neoplasmText: {
     wordBreak: 'break-word',
     margin: '5px 0',
