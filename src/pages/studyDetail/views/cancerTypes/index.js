@@ -101,10 +101,10 @@ const CancerTypes = ({ classes, data }) => {
   // Choose between API data or fallback
   const options = {
     PrimaryDiseaseSite:
-      data.cancer_diagnosis_primary_site ||
+      data.cancer_diagnosis_primary_site_collection ||
       cancerStatic.PrimaryDiseaseSite,
     ICDMorphology:
-      data.cancer_diagnosis_disease_morphology ||
+      data.cancer_diagnosis_disease_morphology_collection ||
       cancerStatic.ICDMorphology,
   };
 
