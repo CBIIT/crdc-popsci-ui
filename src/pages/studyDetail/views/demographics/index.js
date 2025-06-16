@@ -6,6 +6,7 @@ import StatsSection from './components/StatsSection';
 import ChartSection from './components/ChartSection';
 import { capitalizeWordsExcept } from '../../common/utils';
 import { useMockQuery } from '../../../../utils/useMockQuery';
+import ErrorMessage from '../../../../components/ErrorMessage/ErrorMessage';
 
 const Demographics = ({ classes, data, studyShortName }) => {
   // Mock Demographics Data
@@ -18,7 +19,7 @@ const Demographics = ({ classes, data, studyShortName }) => {
   const isUnder800px = useMediaQuery('(max-width:800px)'); // Check if screen width is under 800px
 
   if (loading) return <CircularProgress />;
-  if (error) return <p variant="headline" color="error" size="lg" style={{textAlign: 'center', color: 'red', fontSize: '20px', margin: '50px auto'}}>Error loading demographics tab</p>
+  if (error) return (<ErrorMessage message={`Error loading demographics tab. Error: ${error}`} />)
   if (!data || (typeof data === 'object' && Object.keys(data).length === 0)) {
     return (
       <div className={classes.page}>
