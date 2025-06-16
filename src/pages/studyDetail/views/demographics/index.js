@@ -1,27 +1,20 @@
 import React from 'react';
 import { Grid, Typography, withStyles, useMediaQuery, CircularProgress } from '@material-ui/core';
-import { useQuery } from '@apollo/client';
 import { GET_STUDY_DETAIL_DEMOGRAPHIC_DATA_QUERY } from '../../../../bento/studyDetailData';
 import ThemeProvider from './themeConfig';
 import StatsSection from './components/StatsSection';
 import ChartSection from './components/ChartSection';
 import { capitalizeWordsExcept } from '../../common/utils';
-
-function useDemographicsData(studyShortName) {
-  const { loading, error, data: raw } = useQuery(
-    GET_STUDY_DETAIL_DEMOGRAPHIC_DATA_QUERY,
-    {
-      variables: { study_short_name: [studyShortName] },
-      context: { clientName: 'mockService' },
-    }
-  );
-  const demo = raw?.studyDemographics?.[0] || {};
-  return { loading, error, demo };
-}
+import { useMockQuery } from '../../../../utils/useMockQuery';
 
 const Demographics = ({ classes, data, studyShortName }) => {
   // Mock Demographics Data
-  const { loading, error, demo } = useDemographicsData(studyShortName);
+  const { loading, error, mockData } = useMockQuery({
+    query: GET_STUDY_DETAIL_DEMOGRAPHIC_DATA_QUERY,
+    variables: { study_short_name: [studyShortName] },
+    selector: d => d.studyDemographics?.[0]
+  });
+
   const isUnder800px = useMediaQuery('(max-width:800px)'); // Check if screen width is under 800px
 
   if (loading) return <CircularProgress />;
@@ -64,13 +57,13 @@ const Demographics = ({ classes, data, studyShortName }) => {
       <div className={classes.page}>
         <Grid container spacing={3} className={classes.container}>
           <Grid item xs={12} sm={6} className={classes.section}>
-            <StatsSection data={data} demo={demo} />
+            <StatsSection data={data} demo={mockData} />
           </Grid>
 
           {!isUnder800px && <div className={classes.divider} />}
 
           <Grid item xs={12} sm={6} className={classes.charts}>
-            <ChartSection data={data} demo={demo} />
+            <ChartSection data={data} demo={mockData} />
           </Grid>
         </Grid>
       </div>
