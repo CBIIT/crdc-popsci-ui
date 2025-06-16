@@ -22,7 +22,7 @@ const StudyDetailController =  ({ match }) => {
       // TODO: Handle invalid study_short_name better ex. Like ICDC
       return (
         <p variant="headline" color="error" size="lg" style={{textAlign: 'center', color: 'red', fontSize: '20px', margin: '50px auto'}}>
-          Unfortunately, we found no study that matched <strong>{match.params.id}</strong>. Go Back to <a href="/#/explore">Explore</a>
+          Unfortunately, no studies matched the acronym <strong>"{match.params.id}."</strong> Please go back to Explore. <a href="/#/explore">Explore</a>
         </p>
       );
       // return <Explore invalid />;

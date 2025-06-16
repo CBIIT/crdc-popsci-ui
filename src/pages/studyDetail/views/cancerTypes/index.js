@@ -5,6 +5,7 @@ import {
   Grid,
   Radio as MuiRadio,
   RadioGroup,
+  Typography,
   withStyles,
 } from '@material-ui/core';
 import OverviewThemeProvider from './theme';
@@ -106,6 +107,29 @@ const CancerTypes = ({ classes, data }) => {
       data.cancer_diagnosis_disease_morphology ||
       cancerStatic.ICDMorphology,
   };
+
+  // Show error message if no cancer type data is available
+  const noData =
+    (!options ||
+      (
+        (!options.PrimaryDiseaseSite || options.PrimaryDiseaseSite.length === 0) &&
+        (!options.ICDMorphology || options.ICDMorphology.length === 0)
+      )
+    );
+
+  if (noData) {
+    return (
+      <div className={classes.detailContainer}>
+        <Grid container justifyContent="center" alignItems="center" style={{ minHeight: '300px' }}>
+          <Grid item xs={12}>
+            <Typography align="center">
+              There are no cancer types available for this study
+            </Typography>
+          </Grid>
+        </Grid>
+      </div>
+    );
+  }
 
   const [view, setView] = useState('PrimaryDiseaseSite');
   // view-scoped sort state
