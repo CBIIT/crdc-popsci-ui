@@ -123,6 +123,7 @@ function SortableTable({
 const useStyles = makeStyles(theme => ({
   rootContainer: {
     marginBottom: '40px',
+    marginRight: '58px'
   },
   sectionHeaderBox: {
     paddingBottom: '5px'

@@ -4,7 +4,7 @@ import {
   BarChart,
   XAxis,
   YAxis,
-  CartesianGrid,
+  // CartesianGrid,
   Bar,
   Cell,
   Text,
