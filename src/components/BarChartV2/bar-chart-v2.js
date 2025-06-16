@@ -13,10 +13,10 @@ import {
 
 const styles = theme => ({
   container: {
-    display: 'inline-block', 
+    display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    width: '100%', 
+    width: '100%',
   },
   title: {
     fontFamily: 'Open Sans',
@@ -27,6 +27,12 @@ const styles = theme => ({
     textAlign: 'center',
     whiteSpace: 'nowrap',
     width: '100%',
+  },
+  chartWrapper: {
+    width: '100%',
+    overflowY: 'hidden',
+    display: 'flex',
+    justifyContent: 'center',
   },
 });
 
@@ -78,17 +84,17 @@ const BarChartV2 = ({
           {"Participants: " + chartTitle}
         </h3>
       </div>
-      <div style={{overflowY: 'hidden'}}>
+      <div className={classes.chartWrapper}>
         <BarChart
           width={chartWidth}
-          height={260}
+          height={280}
           data={chartData}
         >
           {/* <CartesianGrid strokeDasharray="3 3" /> */}
           <XAxis 
             dataKey="group" 
             tick={CustomizedAxisTick}
-            height={40}
+            height={60}
             interval={0}
           />
           <YAxis 

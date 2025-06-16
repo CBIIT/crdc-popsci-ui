@@ -91,7 +91,7 @@ function SortableTable({
           <TableHead>
             <TableRow className={classes.headRow}>
               <TableCell component="td"/> {/* Empty header for the group column */}
-              <TableCell>
+              <TableCell className={classes.headerCountCell}>
                 Participant&nbsp;Count
               </TableCell>
             </TableRow>
@@ -123,7 +123,10 @@ function SortableTable({
 const useStyles = makeStyles(theme => ({
   rootContainer: {
     marginBottom: '40px',
-    marginRight: '58px'
+    marginRight: '58px',
+    [theme.breakpoints.down(799)]: {
+      marginRight: '0px',
+    },
   },
   sectionHeaderBox: {
     paddingBottom: '5px'
@@ -162,10 +165,14 @@ const useStyles = makeStyles(theme => ({
     '&:nth-of-type(odd)': { backgroundColor: '#ECEFF2' },
     '&:nth-of-type(even)': { backgroundColor: '#ffffff' },
   },
-  countCell: {
-    // Styling for the count column
-    fontWeight: 600,
+  headerCountCell: {
+    width: '150px',
     textAlign: 'center',
+  },
+  countCell: {
+    width: '150px',
+    textAlign: 'center',
+    fontWeight: 600,
     color: '#245F7B',
   },
   sortButton: {

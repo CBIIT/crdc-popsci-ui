@@ -80,8 +80,19 @@ const Demographics = ({ classes, data, studyShortName }) => {
 
 const styles = theme => ({
   page: { position: 'relative' },
-  container: { padding: '0 68px', position: 'relative' },
-  section: { margin: '40px 0 120px 0' },
+  container: {
+    padding: '0 68px',
+    position: 'relative',
+    [theme.breakpoints.down(799)]: {
+      padding: '0 34px',
+    },
+  },
+  section: {
+    margin: '40px 0 120px 0',
+    [theme.breakpoints.down(799)]: {
+      margin: '40px 0 0 0',
+    },
+  },
   charts: { margin: '20px 0 120px 0' },
   divider: {
     position: 'absolute',
