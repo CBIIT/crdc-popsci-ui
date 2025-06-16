@@ -10,8 +10,9 @@ import {
 import OverviewThemeProvider from './theme';
 import styles from './style';
 import SortControls from '../../common/SortControls';
-import CancerTypeGrid from './CancerTypeGrid';
+import ResponsiveColumnList from './ResponsiveColumnList';
 
+/** Static fallback data for each view */
 const cancerStatic = {
   PrimaryDiseaseSite: [
     { term: "Benign Cellular Infiltrate", participantCount: 63 },
@@ -64,12 +65,39 @@ const cancerStatic = {
   ]
 };
 
+/** Styled radio used in the view switcher */
 const CustomRadio = withStyles({
   root:    { color: '#136071', transform: 'scale(1.3)' },
   checked: { color: '#1D91AB' },
 })((props) => <MuiRadio color="default" {...props} />);
 
+/**
+ * Render callback for each item in the ResponsiveColumnList
+ */
+const renderCancerType = (item, idx, classes) => (
+  <div
+    key={`${item.code || item.term}_${idx}`}
+    className={classes.columnItem}
+  >
+    <span className={classes.term}>
+      {item.code && (
+        <span className={classes.code}>
+          {item.code}&nbsp;&nbsp;
+        </span>
+      )}
+      {item.term}
+    </span>
+    <span className={classes.count}>
+      ({item.participantCount})
+    </span>
+  </div>
+);
+
+/**
+ * Main component: toggles view and displays sorted cancer types
+ */
 const CancerTypes = ({ classes, data }) => {
+  // Choose between API data or fallback
   const options = {
     PrimaryDiseaseSite:
       data.cancer_diagnosis_primary_site ||
@@ -80,7 +108,6 @@ const CancerTypes = ({ classes, data }) => {
   };
 
   const [view, setView] = useState('PrimaryDiseaseSite');
-
   // view-scoped sort state
   const [sortState, setSortState] = useState({
     PrimaryDiseaseSite: { sortBy: 'alpha', direction: 'asc' },
@@ -89,8 +116,7 @@ const CancerTypes = ({ classes, data }) => {
 
   const { sortBy, direction } = sortState[view];
 
-  
-
+  // Build sort options for the current view
   const SORT_OPTIONS = useMemo(() => {
     const base = [
       { key: 'alpha', label: 'Sort Alphabetically' },
@@ -102,6 +128,7 @@ const CancerTypes = ({ classes, data }) => {
     return base;
   }, [view]);
 
+  // Sorting functions
   const comparators = {
     alpha: (a, b) => {
       // Place rows without a group value at the end
@@ -117,7 +144,8 @@ const CancerTypes = ({ classes, data }) => {
     code: (a, b) => (a.code || '').localeCompare(b.code || ''),
   };
 
-  const terms = useMemo(() => {
+  // Apply sorting and direction
+  const cancerTypesTerms = useMemo(() => {
     const sorted = [...options[view]].sort(comparators[sortBy]);
     return direction === 'asc' ? sorted : sorted.reverse();
   }, [options, view, sortBy, direction]);
@@ -154,11 +182,8 @@ const CancerTypes = ({ classes, data }) => {
         <Grid container>
           <Grid item xs={12} sm={12} className={classes.borderRight}>
             <div className={classes.scrollDiv}>
-              <Grid
-                container
-                direction="row"
-                className={classes.leftInnerContainer}
-              >
+              <Grid container direction="row" className={classes.leftInnerContainer}>
+                {/* View switcher */}
                 <Grid item xs={12} className={classes.mainLabel}>
                   <span>View Cancer Type:</span>
                 </Grid>
@@ -188,26 +213,23 @@ const CancerTypes = ({ classes, data }) => {
                 </Grid>
 
                 <Grid item xs={12} style={{ marginTop: 22 }} />
-
+                
+                {/* Count display */}
                 <Grid item xs={12} className={classes.mainLabel}>
                   <span>Number of Cancer Types</span>
                 </Grid>
                 <Grid item xs={12} className={classes.NumCancerType}>
                   <span>
-                    {terms.length}
+                    {cancerTypesTerms.length}
                     <span style={{ marginLeft: 10 }}>{countLabel}</span>
                   </span>
                 </Grid>
 
                 <Grid item xs={12} style={{ marginTop: 22 }} />
-
+                
+                {/* Sort controls */}
                 <Grid item xs={12}>
-                  <Box
-                    alignItems="center"
-                    display="flex"
-                    flexDirection="row"
-                    className={classes.mainLabel}
-                  >
+                  <Box alignItems="center" display="flex" flexDirection="row" className={classes.mainLabel}>
                     <span>CANCER TYPES</span>
                     <SortControls
                       sortOptions={SORT_OPTIONS}
@@ -217,9 +239,14 @@ const CancerTypes = ({ classes, data }) => {
                     />
                   </Box>
                 </Grid>
-
+                
+                {/* Responsive list */}
                 <Grid item xs={12} className={classes.mainValue}>
-                  <CancerTypeGrid classes={classes} cancerTypes={terms} />
+                  <ResponsiveColumnList
+                    classes={classes}
+                    items={cancerTypesTerms}
+                    renderItem={(item, idx) => renderCancerType(item, idx, classes)}
+                  />
                 </Grid>
               </Grid>
             </div>

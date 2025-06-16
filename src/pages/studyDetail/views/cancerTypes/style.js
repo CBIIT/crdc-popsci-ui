@@ -96,7 +96,7 @@ const styles = theme => ({
     margin: '-20px 0 0 30px',
   },
 
-  gridContainer: {
+  columnsContainer: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
     gap: `${ROW_GAP} ${COLUMN_GAP}`,
@@ -104,7 +104,7 @@ const styles = theme => ({
     marginTop: '20px',
   },
 
-  neoplasmText: {
+  columnItem: {
     display: 'flex',
     alignItems: 'flex-start',
     gap: '6px',
@@ -161,7 +161,7 @@ const styles = theme => ({
     borderRight: {
       borderRight: 'none',
     },
-    gridContainer: {
+    columnsContainer: {
       gridTemplateColumns: 'repeat(2, 1fr)',
     },
   },
@@ -172,7 +172,7 @@ const styles = theme => ({
       paddingLeft: '10px',
       paddingRight: '10px',
     },
-    gridContainer: {
+    columnsContainer: {
       gridTemplateColumns: 'repeat(1, 1fr)',
     },
   },
