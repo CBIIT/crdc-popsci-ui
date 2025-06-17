@@ -38,3 +38,18 @@ export function capitalizeWordsExcept(
     })
     .join(' ');
 }
+
+// Utility to safely return a string or default to an empty string
+export const getSafeString = (val) => val || '';
+
+/**
+ * Compares two strings with fallback handling for missing values.
+ * - Treats undefined/null/empty values as empty strings.
+ * - Places rows with missing values at the end.
+ */
+export const compareStringsWithFallback = (aVal, bVal) => {
+  if (!aVal && !bVal) return 0; // both missing → equal
+  if (!aVal) return 1;          // a is missing → comes after b
+  if (!bVal) return -1;         // b is missing → comes after a
+  return aVal.localeCompare(bVal); // both present → do string comparison
+};

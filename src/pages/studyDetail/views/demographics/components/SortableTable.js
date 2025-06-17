@@ -13,6 +13,7 @@ import {
   makeStyles,
 } from '@material-ui/core';
 import SortControls from '../../../common/SortControls';
+import { compareStringsWithFallback, getSafeString } from '../../../common/utils';
 
 const SORT_OPTIONS = [
   { key: 'alpha', label: 'Sort Alphabetically' },
@@ -32,16 +33,7 @@ function SortableTable({
 
   // Define comparator functions for each sort key
   const comparators = {
-    alpha: (a, b) => {
-      // Place rows without a group value at the end
-      const aVal = a.group || '';
-      const bVal = b.group || '';
-      if (!aVal && !bVal) return 0;
-      if (!aVal) return 1;
-      if (!bVal) return -1;
-      return aVal.localeCompare(bVal);
-    },
-    // Compare by subject count (defaulting to 0)
+    alpha: (a, b) => compareStringsWithFallback(getSafeString(a.group), getSafeString(b.group)),
     count: (a, b) => (a.subjects || 0) - (b.subjects || 0),
   };
 
