@@ -58,13 +58,13 @@ const Demographics = ({ classes, data, studyShortName }) => {
       <div className={classes.page}>
         <Grid container spacing={3} className={classes.container}>
           <Grid item xs={12} sm={6} className={classes.section}>
-            <StatsSection data={data} demo={mockData} />
+            <StatsSection data={data} mockData={mockData} />
           </Grid>
 
           {!isUnder800px && <div className={classes.divider} />}
 
           <Grid item xs={12} sm={6} className={classes.charts}>
-            <ChartSection data={data} demo={mockData} />
+            <ChartSection data={data} mockData={mockData} />
           </Grid>
         </Grid>
       </div>

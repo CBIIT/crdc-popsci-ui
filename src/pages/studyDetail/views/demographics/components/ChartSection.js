@@ -2,7 +2,7 @@ import React from 'react';
 import { withStyles, Grid } from '@material-ui/core';
 import BarChartV2 from '../../../../../components/BarChartV2/bar-chart-v2';
 
-const ChartSection = ({ classes, data, demo }) => {
+const ChartSection = ({ classes, data }) => {
   const {
     participant_count_by_age,
     participant_races,

@@ -14,7 +14,7 @@ import SortControls from '../../common/SortControls';
 import ResponsiveColumnList from './ResponsiveColumnList';
 
 /** Static fallback data for each view */
-const cancerStatic = {
+const mockData = {
   PrimaryDiseaseSite: [
     { term: "Benign Cellular Infiltrate", participantCount: 63 },
     { term: "Benign Neoplasm", participantCount: 103 },
@@ -102,10 +102,10 @@ const CancerTypes = ({ classes, data }) => {
   const options = {
     PrimaryDiseaseSite:
       data.cancer_diagnosis_primary_site_collection ||
-      cancerStatic.PrimaryDiseaseSite,
+      mockData.PrimaryDiseaseSite,
     ICDMorphology:
       data.cancer_diagnosis_disease_morphology_collection ||
-      cancerStatic.ICDMorphology,
+      mockData.ICDMorphology,
   };
 
   // Show error message if no cancer type data is available

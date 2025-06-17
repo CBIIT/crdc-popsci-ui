@@ -25,7 +25,7 @@ export const StatRow = ({ label, subLabel, labelCaption, children, classes }) =>
   </div>
 );
 
-const StatsSection = ({ classes, data, demo }) => {
+const StatsSection = ({ classes, data }) => {
   const {
     number_of_participants,
     participant_age_range,
