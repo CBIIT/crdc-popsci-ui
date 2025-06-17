@@ -18,6 +18,16 @@ export default ({
     
   };
 
+  themesLight.overrides.MuiButton = {
+    root: { padding: 0, textTransform: 'none' },
+    text: { padding: 0 },
+    textSizeSmall: { padding: 0 },
+    startIcon: {
+      marginRight: '5px',
+      marginLeft: '0px'
+    }
+  }
+
   themesLight.overrides.MuiGrid = {
     item: {
       marginBottom: '0px',
@@ -32,7 +42,7 @@ export default ({
       values: {
         ...themes.light.custom.breakpoints.values,
         md: themes.light.custom.breakpoints.values.customMd, // Set md breakpoint to 1100px
-        sm: themes.light.custom.breakpoints.values.customSm, // Set sm breakpoint to 799px
+        sm: themes.light.custom.breakpoints.values.customSm, // Set sm breakpoint to 800px
       },
     },
   });
