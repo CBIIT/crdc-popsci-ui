@@ -41,6 +41,8 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false, studyS
 
   const studyGeneral = {...data?.studyGeneral?.at(0), ...data?.tabStudy?.at(0), ...data?.globalStatsBar?.at(0)};
   const studyDemographics = data?.studyDemographics?.at(0);
+  const primarySiteMorphology = data?.primarySiteMorphology?.at(0);
+
 
   const statsbarData = {
     ...data.searchStudies,
@@ -54,7 +56,7 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false, studyS
 
   const processedTabs = [
     { index: 0, label: 'Overview', content: <Overview data={studyGeneral || {}}  />},
-    { index: 1, label: 'Cancer Types', content: <CancerTypes data={studyGeneral || {}} /> },
+    { index: 1, label: 'Cancer Types', content: <CancerTypes data={primarySiteMorphology || {}} /> },
     { index: 2, label: 'Demographics', content: <Demographics data={studyDemographics || {}} studyShortName={studyShortName} /> },
     { index: 3, label: 'Data Collected' ,content: <DataCollection data={data?.dataCollectionPage[0].data_collection || {}} /> },
     { index: 4, label: 'Countries and States',content: <Country data={studyGeneral || {}} /> },

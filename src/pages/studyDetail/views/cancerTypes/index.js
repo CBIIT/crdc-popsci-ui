@@ -12,6 +12,7 @@ import OverviewThemeProvider from './theme';
 import styles from './style';
 import SortControls from '../../common/SortControls';
 import ResponsiveColumnList from './ResponsiveColumnList';
+import { compareStringsWithFallback, getSafeString } from '../../common/utils';
 
 /** Static fallback data for each view */
 const mockData = {
@@ -74,25 +75,28 @@ const CustomRadio = withStyles({
 
 /**
  * Render callback for each item in the ResponsiveColumnList
+ * item {
+    group
+    group_code
+    subjects
+ * }
  */
-const renderCancerType = (item, idx, classes) => (
-  <div
-    key={`${item.code || item.term}_${idx}`}
-    className={classes.columnItem}
-  >
-    <span className={classes.term}>
-      {item.code && (
-        <span className={classes.code}>
-          {item.code}&nbsp;&nbsp;
-        </span>
-      )}
-      {item.term}
-    </span>
-    <span className={classes.count}>
-      ({item.participantCount})
-    </span>
-  </div>
-);
+const renderCancerType = (classes, item, idx, view) => {
+  const {group, group_code, subjects} = item;
+
+  const divKey = `${group_code || group}_${subjects}_${idx}`;
+
+  return (
+    <div key={divKey} className={classes.columnItem}>
+      <span className={classes.term}>
+        { view === 'ICDMorphology' && (<span className={classes.code}> { group_code }&nbsp;&nbsp;</span>) }
+        {group}
+      </span>
+      <span className={classes.count}>({(subjects)})</span>
+    </div>
+  );
+}
+  
 
 /**
  * Main component: toggles view and displays sorted cancer types
@@ -154,18 +158,9 @@ const CancerTypes = ({ classes, data }) => {
 
   // Sorting functions
   const comparators = {
-    alpha: (a, b) => {
-      // Place rows without a group value at the end
-      const aVal = a.term || '';
-      const bVal = b.term || '';
-      if (!aVal && !bVal) return 0;
-      if (!aVal) return 1;
-      if (!bVal) return -1;
-      return aVal.localeCompare(bVal);
-    },
-    count: (a, b) =>
-      (a.participantCount || 0) - (b.participantCount || 0),
-    code: (a, b) => (a.code || '').localeCompare(b.code || ''),
+    code: (a, b) => compareStringsWithFallback(getSafeString(a.group_code), getSafeString(b.group_code)),
+    alpha: (a, b) => compareStringsWithFallback(getSafeString(a.group), getSafeString(b.group)),
+    count: (a, b) => (a.subjects || 0) - (b.subjects || 0),
   };
 
   // Apply sorting and direction
@@ -269,7 +264,7 @@ const CancerTypes = ({ classes, data }) => {
                   <ResponsiveColumnList
                     classes={classes}
                     items={cancerTypesTerms}
-                    renderItem={(item, idx) => renderCancerType(item, idx, classes)}
+                    renderItem={(item, idx) => renderCancerType(classes, item, idx, view)}
                   />
                 </Grid>
               </Grid>

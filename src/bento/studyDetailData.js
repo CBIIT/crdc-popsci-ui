@@ -24,19 +24,19 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
   query study($study_short_name: [String]) {
     
     ## Data for Cancer Types tab
-    # primarySiteMorphology(study_short_name: $study_short_name) {
-    #   study_short_name,
-    #   cancer_diagnosis_disease_morphology_collection {
-    #     group
-    #     group_code
-    #     subjects
-    #   }
-    #   cancer_diagnosis_primary_site_collection {
-    #     group
-    #     group_code
-    #     subjects
-    #   }
-    # }
+    primarySiteMorphology(study_short_name: $study_short_name) {
+      study_short_name,
+      cancer_diagnosis_disease_morphology_collection {
+        group
+        group_code
+        subjects
+      }
+      cancer_diagnosis_primary_site_collection {
+        group
+        group_code
+        subjects
+      }
+    }
 
     # Study detail data for Demographics tab
     studyDemographics(study_short_name: $study_short_name) {
