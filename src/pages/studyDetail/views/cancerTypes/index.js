@@ -84,7 +84,7 @@ const CustomRadio = withStyles({
 const renderCancerType = (classes, item, idx, view) => {
   const {group, group_code, subjects} = item;
 
-  const divKey = `${group_code || group}_${subjects}_${idx}`;
+  const divKey = `${group_code || group}_${idx}`;
 
   return (
     <div key={divKey} className={classes.columnItem}>
