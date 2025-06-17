@@ -42,7 +42,7 @@ const Demographics = ({ classes, data, studyShortName }) => {
         }))
       : arr;
 
-  data = {
+  const processedData = {
     number_of_participants: data?.number_of_participants || '',
     participant_age_range: data?.participant_age_range || '',
     participant_mean_age: data?.participant_mean_age || '',
@@ -58,13 +58,13 @@ const Demographics = ({ classes, data, studyShortName }) => {
       <div className={classes.page}>
         <Grid container spacing={3} className={classes.container}>
           <Grid item xs={12} sm={6} className={classes.section}>
-            <StatsSection data={data} mockData={mockData} />
+            <StatsSection data={processedData} mockData={mockData} />
           </Grid>
 
           {!isUnder800px && <div className={classes.divider} />}
 
           <Grid item xs={12} sm={6} className={classes.charts}>
-            <ChartSection data={data} mockData={mockData} />
+            <ChartSection data={processedData} mockData={mockData} />
           </Grid>
         </Grid>
       </div>
