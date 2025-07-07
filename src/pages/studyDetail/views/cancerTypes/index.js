@@ -152,7 +152,10 @@ const CancerTypes = ({ classes, data }) => {
       { key: 'count', label: 'Sort by Participant Count' },
     ];
     if (view === 'ICDMorphology') {
-      base.push({ key: 'code', label: 'Sort by code' });
+      return [
+        { key: 'code', label: 'Sort by ICD-0 code' },
+        ...base,
+      ];  
     }
     return base;
   }, [view]);
