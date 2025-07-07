@@ -65,13 +65,13 @@ const ResponsiveColumnList = ({ classes, items, renderItem }) => {
   );
 
   return (
-    <div className={classes.columnsContainer}>
+    <>
       {columnsArray.map((colItems, colIndex) => (
         <div key={colIndex}>
           { colItems.map((item, idx) => renderItem(item, idx)) }
         </div>
       ))}
-    </div>
+    </>
   );
 };
 

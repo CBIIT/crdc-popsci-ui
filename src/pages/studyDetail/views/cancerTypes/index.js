@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import {
   Box,
   FormControlLabel,
@@ -137,6 +137,8 @@ const CancerTypes = ({ classes, data }) => {
   }
 
   const [view, setView] = useState('PrimaryDiseaseSite');
+  const scrollRef = useRef(null);
+
   // view-scoped sort state
   const [sortState, setSortState] = useState({
     PrimaryDiseaseSite: { sortBy: 'alpha', direction: 'asc' },
@@ -158,6 +160,13 @@ const CancerTypes = ({ classes, data }) => {
       ];  
     }
     return base;
+  }, [view]);
+
+  // Reset scroll position to top when view changes
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = 0;
+    }
   }, [view]);
 
   // Sorting functions
@@ -264,11 +273,13 @@ const CancerTypes = ({ classes, data }) => {
                 
                 {/* Responsive list */}
                 <Grid item xs={12} className={classes.mainValue}>
-                  <ResponsiveColumnList
-                    classes={classes}
-                    items={cancerTypesTerms}
-                    renderItem={(item, idx) => renderCancerType(classes, item, idx, view)}
-                  />
+                  <div ref={scrollRef} className={classes.columnsContainer}>
+                    <ResponsiveColumnList
+                      classes={classes}
+                      items={cancerTypesTerms}
+                      renderItem={(item, idx) => renderCancerType(classes, item, idx, view)}
+                    />
+                  </div>
                 </Grid>
               </Grid>
           </Grid>
