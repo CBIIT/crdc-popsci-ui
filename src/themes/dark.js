@@ -26,7 +26,7 @@ const white = '#FFFFFF';
 
 export default {
   custom: {
-    maxContentWidth: '1440px',
+    maxContentWidth: '1900px',
     maxContent: 'white',
     bodyBackGround: '#FFFFFF',
     cardBackGround: '#f0f6f8',
