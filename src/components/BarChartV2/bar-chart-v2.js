@@ -70,12 +70,23 @@ const CustomTooltip = ({ active, payload, label }) => {
   return null;
 };
 
+
+// Helper function to sort chart data alphabetically by group
+function sortChartDataAlpha(data) {
+  return [...data].sort((a, b) => {
+    const aStr = (a.group || '').toString().toLowerCase();
+    const bStr = (b.group || '').toString().toLowerCase();
+    return aStr.localeCompare(bStr);
+  });
+}
+
 const BarChartV2 = ({
   chartData,
   chartTitle,
   classes,
 }) => {
-  const chartWidth = chartData.length > 8 ? chartData.length * 35: 280; 
+  const sortedData = sortChartDataAlpha(chartData);
+  const chartWidth = sortedData.length > 8 ? sortedData.length * 35 : 280;
 
   return (
     <div className={classes.container}>
@@ -88,7 +99,7 @@ const BarChartV2 = ({
         <BarChart
           width={chartWidth}
           height={280}
-          data={chartData}
+          data={sortedData}
         >
           {/* <CartesianGrid strokeDasharray="3 3" /> */}
           <XAxis 
@@ -102,7 +113,7 @@ const BarChartV2 = ({
           />
           <Tooltip content={<CustomTooltip />} />
           <Bar dataKey="subjects">
-            {chartData.map((_entry, index) => (
+            {sortedData.map((_entry, index) => (
               <Cell
                 key={`cell-${index}`}
                 fill={palette[index % palette.length]}
