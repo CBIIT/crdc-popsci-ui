@@ -14,8 +14,6 @@ import {
 } from '@material-ui/core';
 import SortControls from '../../../common/SortControls';
 import { compareStringsWithFallback, getSafeString } from '../../../common/utils';
-import { BorderBottom } from '@material-ui/icons';
-
 const SORT_OPTIONS = [
   { key: 'alpha', label: 'Sort Alphabetically' },
   { key: 'count', label: 'Sort by Participant Count' },
