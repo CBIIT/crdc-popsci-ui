@@ -121,6 +121,10 @@ const styles = theme => ({
     fontSize: '16px',
     lineHeight: '22px',
     letterSpacing: 0,
+
+    '&:hover': {
+      borderBottom: '1px solid #3B7E97',
+    },
   },
 
   code: {
