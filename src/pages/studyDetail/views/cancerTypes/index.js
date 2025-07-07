@@ -194,7 +194,7 @@ const CancerTypes = ({ classes, data }) => {
   const countLabel =
     view === 'PrimaryDiseaseSite'
       ? 'Primary Disease Sites'
-      : 'ICD-0 Disease Morphologies';
+      : 'Disease Morphologies';
 
   return (
     <OverviewThemeProvider>
