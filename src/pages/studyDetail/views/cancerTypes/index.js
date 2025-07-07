@@ -8,6 +8,7 @@ import {
   Typography,
   withStyles,
 } from '@material-ui/core';
+import { cn} from '@bento-core/util';
 import OverviewThemeProvider from './theme';
 import styles from './style';
 import SortControls from '../../common/SortControls';
@@ -200,8 +201,7 @@ const CancerTypes = ({ classes, data }) => {
       <div className={classes.detailContainer}>
         <Grid container>
           <Grid item xs={12} sm={12} className={classes.borderRight}>
-            <div className={classes.scrollDiv}>
-              <Grid container direction="row" className={classes.leftInnerContainer}>
+              <Grid container direction="row" className={classes.tabContent}>
                 {/* View switcher */}
                 <Grid item xs={12} className={classes.mainLabel}>
                   <span>View Cancer Type:</span>
@@ -248,7 +248,7 @@ const CancerTypes = ({ classes, data }) => {
                 
                 {/* Sort controls */}
                 <Grid item xs={12}>
-                  <Box alignItems="center" display="flex" flexDirection="row" className={classes.mainLabel}>
+                  <Box alignItems="center" display="flex" flexDirection="row" className={cn(classes.mainLabel, classes.cancerTypesList)}>
                     <span>CANCER TYPES</span>
                     <SortControls
                       sortOptions={SORT_OPTIONS}
@@ -268,7 +268,6 @@ const CancerTypes = ({ classes, data }) => {
                   />
                 </Grid>
               </Grid>
-            </div>
           </Grid>
         </Grid>
       </div>
