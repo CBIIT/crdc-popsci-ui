@@ -46,7 +46,7 @@ export default {
         sm: 600,
         md: 960,
         lg: 1440,
-        xl: 1920,
+        xl: 1900,
         customSm: 800, // Custom breakpoint for sm used for Studies page
         customMd: 1100, // Custom breakpoint for md used for Studies page
       },
