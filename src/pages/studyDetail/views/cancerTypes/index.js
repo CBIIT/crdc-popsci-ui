@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect, useRef } from 'react';
+import React, { useState, useMemo, useLayoutEffect, useRef } from 'react';
 import {
   Box,
   FormControlLabel,
@@ -163,7 +163,7 @@ const CancerTypes = ({ classes, data }) => {
   }, [view]);
 
   // Reset scroll position to top when view changes
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = 0;
     }
