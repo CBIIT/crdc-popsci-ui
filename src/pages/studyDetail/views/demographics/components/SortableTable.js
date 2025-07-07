@@ -14,6 +14,7 @@ import {
 } from '@material-ui/core';
 import SortControls from '../../../common/SortControls';
 import { compareStringsWithFallback, getSafeString } from '../../../common/utils';
+import { BorderBottom } from '@material-ui/icons';
 
 const SORT_OPTIONS = [
   { key: 'alpha', label: 'Sort Alphabetically' },
@@ -151,21 +152,30 @@ const useStyles = makeStyles(theme => ({
   },
   headRow: {
     background: '#ffffff',
+    '& > *': {
+      borderTop: 'none',
+      borderBottom: 'none',
+    },
   },
   tableRow: {
     // Alternating row background colors
     '&:nth-of-type(odd)': { backgroundColor: '#ECEFF2' },
     '&:nth-of-type(even)': { backgroundColor: '#ffffff' },
+    '& > *': {
+      borderTop: 'none',
+      borderBottom: 'none',
+    },
   },
   headerCountCell: {
     width: '150px',
-    textAlign: 'center',
+    textAlign: 'center', 
   },
   countCell: {
     width: '150px',
-    textAlign: 'center',
+    textAlign: 'left',
     fontWeight: 600,
     color: '#245F7B',
+    paddingLeft: '43px'
   },
   sortButton: {
     background: '#ffffff',
