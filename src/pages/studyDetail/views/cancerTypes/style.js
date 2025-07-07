@@ -1,7 +1,24 @@
-const SCROLL_HEIGHT = '700px';
+const SCROLL_HEIGHT = '524px';
 const DETAIL_HEIGHT = '730px';
 const COLUMN_GAP = '100px';
 const ROW_GAP = '20px';
+
+const scrollbarStyles = {
+  '&::-webkit-scrollbar': {
+    width: '0.5em',
+    height: '0.4em',
+  },
+  '&::-webkit-scrollbar-track': {
+    '-webkit-box-shadow': 'inset 0 0 6px white',
+    borderRadius: '0px',
+    backgroundColor: '#ffffff',
+  },
+  '&::-webkit-scrollbar-thumb': {
+    backgroundColor: '#76C4E4',
+    outline: '1px solid slategrey',
+    borderRadius: '0px',
+  },
+};    
 
 const styles = theme => ({
   detailContainer: {
@@ -19,25 +36,8 @@ const styles = theme => ({
     minHeight: DETAIL_HEIGHT,
     maxHeight: DETAIL_HEIGHT,
   },
-
-  scrollDiv: {
-    minHeight: SCROLL_HEIGHT,
-    maxHeight: SCROLL_HEIGHT,
-    overflowY: 'scroll',
-    '&::-webkit-scrollbar': {
-      width: '0.5em',
-      height: '0.4em',
-    },
-    '&::-webkit-scrollbar-track': {
-      '-webkit-box-shadow': 'inset 0 0 6px white',
-      borderRadius: '0px',
-      backgroundColor: '#ffffff',
-    },
-    '&::-webkit-scrollbar-thumb': {
-      backgroundColor: '#76C4E4',
-      outline: '1px solid slategrey',
-      borderRadius: '0px',
-    },
+  tabContent: {
+    paddingRight: '16px',
   },
 
   CancerTypeSwitch: {
@@ -95,6 +95,9 @@ const styles = theme => ({
     color: '#000000',
     margin: '-20px 0 0 30px',
   },
+  cancerTypesList: {
+    paddingBottom: '10px',
+  },
 
   columnsContainer: {
     display: 'grid',
@@ -102,6 +105,13 @@ const styles = theme => ({
     gap: `${ROW_GAP} ${COLUMN_GAP}`,
     justifyContent: 'center',
     marginTop: '20px',
+
+    minHeight: SCROLL_HEIGHT,
+    maxHeight: SCROLL_HEIGHT,
+    overflowY: 'scroll',
+    paddingRight: '16px',
+
+    ...scrollbarStyles,
   },
 
   columnItem: {
@@ -115,6 +125,10 @@ const styles = theme => ({
     fontSize: '16px',
     lineHeight: '22px',
     letterSpacing: 0,
+
+    '&:hover': {
+      borderBottom: '1px solid #3B7E97',
+    },
   },
 
   code: {
@@ -152,11 +166,6 @@ const styles = theme => ({
       minHeight: 'fit-content',
       maxHeight: 'fit-content',
       borderRight: 'none',
-    },
-    scrollDiv: {
-      minHeight: 'fit-content',
-      maxHeight: 'fit-content',
-      overflowY: 'auto',
     },
     borderRight: {
       borderRight: 'none',

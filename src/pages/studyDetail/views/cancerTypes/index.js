@@ -8,6 +8,7 @@ import {
   Typography,
   withStyles,
 } from '@material-ui/core';
+import { cn } from '@bento-core/util';
 import OverviewThemeProvider from './theme';
 import styles from './style';
 import SortControls from '../../common/SortControls';
@@ -151,7 +152,10 @@ const CancerTypes = ({ classes, data }) => {
       { key: 'count', label: 'Sort by Participant Count' },
     ];
     if (view === 'ICDMorphology') {
-      base.push({ key: 'code', label: 'Sort by code' });
+      return [
+        { key: 'code', label: 'Sort by ICD-O code' },
+        ...base,
+      ];  
     }
     return base;
   }, [view]);
@@ -193,15 +197,14 @@ const CancerTypes = ({ classes, data }) => {
   const countLabel =
     view === 'PrimaryDiseaseSite'
       ? 'Primary Disease Sites'
-      : 'ICD-0 Disease Morphologies';
+      : 'Disease Morphologies';
 
   return (
     <OverviewThemeProvider>
       <div className={classes.detailContainer}>
         <Grid container>
           <Grid item xs={12} sm={12} className={classes.borderRight}>
-            <div className={classes.scrollDiv}>
-              <Grid container direction="row" className={classes.leftInnerContainer}>
+              <Grid container direction="row" className={classes.tabContent}>
                 {/* View switcher */}
                 <Grid item xs={12} className={classes.mainLabel}>
                   <span>View Cancer Type:</span>
@@ -225,7 +228,7 @@ const CancerTypes = ({ classes, data }) => {
                     <FormControlLabel
                       value="ICDMorphology"
                       control={<CustomRadio />}
-                      label="by ICD-0 Disease Morphology"
+                      label="by ICD-O Disease Morphology"
                       classes={{ label: classes.CancerTypeLabel }}
                     />
                   </RadioGroup>
@@ -248,7 +251,7 @@ const CancerTypes = ({ classes, data }) => {
                 
                 {/* Sort controls */}
                 <Grid item xs={12}>
-                  <Box alignItems="center" display="flex" flexDirection="row" className={classes.mainLabel}>
+                  <Box alignItems="center" display="flex" flexDirection="row" className={cn(classes.mainLabel, classes.cancerTypesList)}>
                     <span>CANCER TYPES</span>
                     <SortControls
                       sortOptions={SORT_OPTIONS}
@@ -268,7 +271,6 @@ const CancerTypes = ({ classes, data }) => {
                   />
                 </Grid>
               </Grid>
-            </div>
           </Grid>
         </Grid>
       </div>
