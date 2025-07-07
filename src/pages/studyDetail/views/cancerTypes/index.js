@@ -153,7 +153,7 @@ const CancerTypes = ({ classes, data }) => {
     ];
     if (view === 'ICDMorphology') {
       return [
-        { key: 'code', label: 'Sort by ICD-0 code' },
+        { key: 'code', label: 'Sort by ICD-O code' },
         ...base,
       ];  
     }
@@ -228,7 +228,7 @@ const CancerTypes = ({ classes, data }) => {
                     <FormControlLabel
                       value="ICDMorphology"
                       control={<CustomRadio />}
-                      label="by ICD-0 Disease Morphology"
+                      label="by ICD-O Disease Morphology"
                       classes={{ label: classes.CancerTypeLabel }}
                     />
                   </RadioGroup>
