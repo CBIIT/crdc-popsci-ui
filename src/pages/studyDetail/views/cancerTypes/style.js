@@ -3,6 +3,23 @@ const DETAIL_HEIGHT = '730px';
 const COLUMN_GAP = '100px';
 const ROW_GAP = '20px';
 
+const scrollbarStyles = {
+  '&::-webkit-scrollbar': {
+    width: '0.5em',
+    height: '0.4em',
+  },
+  '&::-webkit-scrollbar-track': {
+    '-webkit-box-shadow': 'inset 0 0 6px white',
+    borderRadius: '0px',
+    backgroundColor: '#ffffff',
+  },
+  '&::-webkit-scrollbar-thumb': {
+    backgroundColor: '#76C4E4',
+    outline: '1px solid slategrey',
+    borderRadius: '0px',
+  },
+};    
+
 const styles = theme => ({
   detailContainer: {
     margin: '30px auto',
@@ -94,20 +111,7 @@ const styles = theme => ({
     overflowY: 'scroll',
     paddingRight: '16px',
 
-    '&::-webkit-scrollbar': {
-      width: '0.5em',
-      height: '0.4em',
-    },
-    '&::-webkit-scrollbar-track': {
-      '-webkit-box-shadow': 'inset 0 0 6px white',
-      borderRadius: '0px',
-      backgroundColor: '#ffffff',
-    },
-    '&::-webkit-scrollbar-thumb': {
-      backgroundColor: '#76C4E4',
-      outline: '1px solid slategrey',
-      borderRadius: '0px',
-    },
+    ...scrollbarStyles,
   },
 
   columnItem: {

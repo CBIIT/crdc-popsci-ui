@@ -8,7 +8,7 @@ import {
   Typography,
   withStyles,
 } from '@material-ui/core';
-import { cn} from '@bento-core/util';
+import { cn } from '@bento-core/util';
 import OverviewThemeProvider from './theme';
 import styles from './style';
 import SortControls from '../../common/SortControls';
