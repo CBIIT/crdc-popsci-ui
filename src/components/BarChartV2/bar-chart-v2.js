@@ -32,7 +32,7 @@ const styles = theme => ({
     width: '100%',
     overflowY: 'hidden',
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'left',
   },
 });
 
@@ -41,7 +41,7 @@ export const palette = ['#6ECDD3', '#55676F', '#E3AB19', '#C01E2E', '#B39C7C', ]
 function CustomizedAxisTick(props) {
   const { x, y, payload } = props;
   return (
-    <Text x={x} y={y} style={{fontFamily: 'Open Sans', fontSize: "10px"}} fill="#000000" textAnchor="middle" width="15" verticalAnchor="start">
+    <Text x={x} y={y} style={{fontFamily: 'Open Sans', fontSize: "9px"}} fill="#000000" textAnchor="middle" width="15" verticalAnchor="start">
       {payload.value}
     </Text>
   );
@@ -85,8 +85,9 @@ const BarChartV2 = ({
   chartTitle,
   classes,
 }) => {
+
   const sortedData = sortChartDataAlpha(chartData);
-  const chartWidth = sortedData.length > 8 ? sortedData.length * 35 : 280;
+  const chartWidth = sortedData.length > 5 ? sortedData.length * 55: 280;
 
   return (
     <div className={classes.container}>
