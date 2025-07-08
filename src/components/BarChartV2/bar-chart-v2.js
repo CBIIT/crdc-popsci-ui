@@ -113,9 +113,9 @@ const BarChartV2 = ({
           />
           <Tooltip content={<CustomTooltip />} />
           <Bar dataKey="subjects">
-            {sortedData.map((_entry, index) => (
+            {sortedData.map((_entry) => (
               <Cell
-                key={`cell-${index}`}
+                key={`cell-${_entry.group}`}
                 fill={palette[index % palette.length]}
               />
             ))}
