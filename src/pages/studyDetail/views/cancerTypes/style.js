@@ -5,17 +5,19 @@ const ROW_GAP = '20px';
 
 const scrollbarStyles = {
   '&::-webkit-scrollbar': {
-    width: '0.5em',
-    height: '0.4em',
+    width: '7px',
+    height: '7px',
   },
   '&::-webkit-scrollbar-track': {
-    '-webkit-box-shadow': 'inset 0 0 6px white',
+    '-webkit-box-shadow': 'inset 0 0 6px #CECECE',
     borderRadius: '0px',
-    backgroundColor: '#ffffff',
+    backgroundColor: '#CECECE',
+    outline: '1px solid #CECECE',
+
   },
   '&::-webkit-scrollbar-thumb': {
-    backgroundColor: '#76C4E4',
-    outline: '1px solid slategrey',
+    backgroundColor: '#003F74',
+    outline: '1px solid #000000',
     borderRadius: '0px',
   },
 };    
