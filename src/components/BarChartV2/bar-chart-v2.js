@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { withStyles } from '@material-ui/core';
 import {
   BarChart,
@@ -70,12 +70,67 @@ const CustomTooltip = ({ active, payload, label }) => {
   return null;
 };
 
+
+// Helper function to sort chart data alphabetically by group
+function sortChartDataAlpha(data) {
+  return [...data].sort((a, b) => {
+    const aStr = (a.group || '').toString().toLowerCase();
+    const bStr = (b.group || '').toString().toLowerCase();
+    return aStr.localeCompare(bStr);
+  });
+}
+
 const BarChartV2 = ({
   chartData,
   chartTitle,
   classes,
 }) => {
-  const chartWidth = chartData.length > 5 ? chartData.length * 55: 280; 
+  const chartWrapperRef = useRef(null);
+
+  const sortedData = sortChartDataAlpha(chartData);
+  const chartWidth = sortedData.length > 5 ? sortedData.length * 55 : 280;
+
+  // Advanced onScroll handler to visually fix Y axis and overlay white rect
+  const handleScroll = (e) => {
+    // Find recharts surface and axis elements inside this chart wrapper
+    const wrapper = chartWrapperRef.current?.querySelector('.recharts-surface');
+    const graphWrapper = chartWrapperRef.current;
+    const allAxis = chartWrapperRef.current?.querySelectorAll('.recharts-yAxis');
+    const xAxis = chartWrapperRef.current?.querySelector('.recharts-xAxis');
+
+    if (!allAxis || !xAxis) return;
+
+    const xAxisHeight = xAxis.getBoundingClientRect().height;
+
+    allAxis.forEach((axis) => {
+      // Try to get orientation from tick line or fallback to 'left'
+      const tickLine = axis.querySelector('.recharts-cartesian-axis-tick-line');
+      const orientation = tickLine?.getAttribute('orientation') || 'left';
+
+      // Remove any existing rects to avoid duplicates
+      const oldRects = axis.querySelectorAll('rect.y-axis-rect-' + orientation);
+      oldRects.forEach(r => r.remove());
+
+      // Create white rect overlay
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      const yAxisheight = axis.getBoundingClientRect().height;
+      const yAxisWidth = axis.getBoundingClientRect().width;
+      rect.setAttribute('x', '0');
+      rect.setAttribute('y', '0');
+      rect.setAttribute('width', yAxisWidth + 15);
+      rect.setAttribute('height', yAxisheight + xAxisHeight - 10);
+      rect.setAttribute('fill', 'white');
+      rect.setAttribute('class', `y-axis-rect-${orientation}`);
+      axis.insertBefore(rect, axis.firstChild);
+
+      // Calculate position for transform
+      const position =
+        orientation === 'left'
+          ? e.target.scrollLeft
+          : e.target.scrollLeft - (wrapper?.clientWidth || 0) + (graphWrapper?.clientWidth || 0);
+      axis.style.transform = `translateX(${position}px)`;
+    });
+  };
 
   return (
     <div className={classes.container}>
@@ -84,11 +139,16 @@ const BarChartV2 = ({
           {"Participants: " + chartTitle}
         </h3>
       </div>
-      <div className={classes.chartWrapper}>
+      <div
+        className={classes.chartWrapper}
+        ref={chartWrapperRef}
+        onScroll={handleScroll}
+        style={{ overflowX: 'auto', width: '100%' }}
+      >
         <BarChart
           width={chartWidth}
           height={280}
-          data={chartData}
+          data={sortedData}
         >
           {/* <CartesianGrid strokeDasharray="3 3" /> */}
           <XAxis 
@@ -97,18 +157,18 @@ const BarChartV2 = ({
             height={60}
             interval={0}
           />
-          <YAxis 
-            tick={{ fontSize: 12, fontFamily: 'Open Sans', fill: '#666666' }}
-          />
-          <Tooltip content={<CustomTooltip />} />
           <Bar dataKey="subjects">
-            {chartData.map((_entry, index) => (
+            {sortedData.map((_entry, index) => (
               <Cell
-                key={`cell-${index}`}
+                key={`cell-${_entry.group}`}
                 fill={palette[index % palette.length]}
               />
             ))}
           </Bar>
+          <YAxis 
+            tick={{ fontSize: 12, fontFamily: 'Open Sans', fill: '#666666' }}
+          />
+          <Tooltip content={<CustomTooltip />} />
         </BarChart>
       </div>
     </div>
