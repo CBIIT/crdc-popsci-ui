@@ -103,9 +103,9 @@ const styles = theme => ({
 
   columnsContainer: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 320px))',
     gap: `${ROW_GAP} ${COLUMN_GAP}`,
-    justifyContent: 'center',
+    justifyContent: 'left',
     marginTop: '20px',
 
     minHeight: SCROLL_HEIGHT,
