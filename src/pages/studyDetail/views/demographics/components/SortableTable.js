@@ -166,14 +166,15 @@ const useStyles = makeStyles(theme => ({
   },
   headerCountCell: {
     width: '150px',
-    textAlign: 'center', 
+    textAlign: 'right', 
+    paddingRight: '23px',
   },
   countCell: {
     width: '150px',
-    textAlign: 'left',
+    textAlign: 'right',
     fontWeight: 600,
     color: '#245F7B',
-    paddingLeft: '43px'
+    paddingRight: '23px'
   },
   sortButton: {
     background: '#ffffff',
