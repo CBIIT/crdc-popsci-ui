@@ -155,7 +155,7 @@ const CancerTypes = ({ classes, data }) => {
     ];
     if (view === 'ICDMorphology') {
       return [
-        { key: 'code', label: 'Sort by ICD-O code' },
+        { key: 'code', label: 'Sort by ICD-O Code' },
         ...base,
       ];  
     }
