@@ -2,24 +2,45 @@ import React from 'react';
 import { Typography } from '@material-ui/core';
 import { cellTypes, headerTypes } from '@bento-core/table';
 import DocumentDownloadView from '../../../../../components/DocumentDownload/DocumentDownloadView';
+import IconCell from './IconCell';
 
 
 // Helper component for custom cell rendering
 export const CustomCellView = (props) => {
   const {
-    downloadDocument, documentDownloadProps,
-    displayEmpty, dataField
+    fileDelivery, accessControl, displayEmpty, dataField, customCellProps
   } = props;
   
-  if (downloadDocument) {
-    return (
-      <DocumentDownloadView
-        signedUrl={props[dataField]}
-        {...documentDownloadProps}
-        {...props}
-      />
-    );
+  if (accessControl){
+    if (dataField === "data_file_access_control") {
+      if (props[dataField] === "Open Access") {
+        return (
+          <IconCell
+            signedUrl={props[dataField]}
+            toolTipText={customCellProps?.openAccessTooltip}
+            iconSrc={customCellProps?.openAccessIcon}
+            showToolTip={true}
+            onAction={(url) => console.log(`Downloading ${url}`)}
+          />
+        );
+      } else if (props[dataField] === "Controlled Access") {
+        return (
+          <IconCell
+            signedUrl={props[dataField]}
+            toolTipText={customCellProps?.controlledAccessTooltip}
+            iconSrc={customCellProps?.controlledAccessIcon}
+            showToolTip={true}
+            onAction={(url) => console.log(`Downloading ${url}`)}
+          />
+        );
+      }
+    }
   }
+
+  if (fileDelivery) {
+
+  }
+
   if (typeof displayEmpty === "boolean") {
     return (
       <Typography>
