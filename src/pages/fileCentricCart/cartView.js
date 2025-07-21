@@ -1,197 +1,81 @@
-import React from 'react';
-import {
-  Grid, withStyles, IconButton,
-} from '@material-ui/core';
+import React, { useContext, useState } from 'react';
+import { Grid, withStyles } from '@material-ui/core';
+import { TableContext, TableView } from '@bento-core/paginated-table';
+import { configColumn } from './tableConfig/Column';
+import { themeConfig } from './tableConfig/Theme';
+import styles from './CartStyle';
+import CartWrapper from './CartWrapper';
+import {paginationOptions} from './tableConfig/PaginationOptions';
+import HeaderView from './components/header/HeaderView';
+const CartView = (props) => {
+  const {
+    classes,
+    config,
+    tblRows = [],
+    isServer = true,
+    filesId = [],
+  } = props;
 
-import { DeleteOutline as DeleteOutlineIcon, ArrowDropDown as ArrowDropDownIcon } from '@material-ui/icons';
-import CartHeader from './components/header/cartHeader';
-import CartBody from './components/body/cartBody';
-import CartFooter from './components/footer/cartFooter';
-import DialogBox from './components/dialogBox/dialogBox';
-import Styles from './cartView.style';
-import client from '../../utils/graphqlClient';
-import {
-  myFilesPageData, table, manifestData, GET_MY_CART_DATA_QUERY,
-} from '../../bento/fileCentricCartWorkflowData';
-import { deleteFromCart } from './store/cart';
-import { downloadJson } from './utils';
-import Message from '../../components/Message';
+  // access table state
+  const tableContext = useContext(TableContext);
+  const { context } = tableContext;
 
-const cartView = ({
-  classes, data, fileIDs = [], defaultSortCoulmn, defaultSortDirection,
-}) => {
-  const [modalStatus, setModalStatus] = React.useState(false);
-  const [TopMessageStatus, setTopMessageStatus] = React.useState(false);
-  const [removeAllMessageStatus, setRemoveAllMessageStatus] = React.useState(false);
-  const commentRef = React.useRef();
-  async function fetchData() {
-    const fetchResult = await client
-      .query({
-        query: GET_MY_CART_DATA_QUERY,
-        variables: {
-          first: fileIDs.length, ...{ uuid: fileIDs },
-        },
-      })
-      .then((result) => result.data.filesInList);
-    return fetchResult;
-  }
+  console.log("||| tableContext: ", context)
 
-  function toggleMessageStatus(status) {
-    return status === 'close' ? setTopMessageStatus(false) : setTopMessageStatus(true);
-  }
+  const [isUpdated,setIsUpdated] = useState(false);
+  props ={ ...props, removeCheck: () => {setIsUpdated(true)}}
 
-  function toggleRemoveAllMessageStatus(status) {
-    return status === 'close' ? setRemoveAllMessageStatus(false) : setRemoveAllMessageStatus(true);
-  }
-
-  // ================= Dialogbox Functions =================
-  const openDialogBox = () => setModalStatus(true);
-  const closeDialogBox = () => setModalStatus(false);
-  function deleteSubjectsAndCloseModal() {
-    closeDialogBox();
-    deleteFromCart({ fileIds: fileIDs });
-  }
-
-  const numberOfFilesBeDeleted = myFilesPageData.popUpWindow.showNumberOfFileBeRemoved
-    ? fileIDs.length : '';
-
-  // =========== Downlaod Manifest Functions ===========
-  async function prepareDownload() {
-    const data1 = await fetchData();
-    const userComments = commentRef.current.getValue();
-    return downloadJson(
-      data1,
-      userComments,
-      myFilesPageData.manifestFileName,
-      manifestData,
-    );
-  }
-
-  const fileIdIndex = table.columns.map((d) => d.dataField).findIndex((e) => e === 'uuid');
-
-  const deleteColumn = [{
-    name: 'Remove',
-    label: 'Remove',
-    options: {
-      sort: false,
-      customBodyRender: (value, tableMeta) => (
-        <div className={classes.tableDeleteButtonDiv}>
-          <button
-            type="button"
-            className={classes.tableDeleteButton}
-            onClick={() => deleteFromCart({ fileIds: tableMeta.rowData[fileIdIndex] })}
-          >
-            <DeleteOutlineIcon fontSize="small" />
-          </button>
-        </div>
-      ),
-      customHeadRender: () => (
-        <th className={classes.removeThCell}>
-          <span role="button">
-            <div className={classes.removeHeadCell}>
-              <div
-                className={classes.removeHeadCellText}
-                id="cart_remove_button_text"
-              >
-                Remove
-              </div>
-              <div className={classes.removeHeadCellIcon}>
-                <IconButton aria-label="help" className={classes.removeHeadCellIconButton}>
-                  <ArrowDropDownIcon onClick={() => openDialogBox()} onMouseEnter={() => toggleRemoveAllMessageStatus('open')} onMouseLeave={() => toggleRemoveAllMessageStatus('close')} />
-                </IconButton>
-                {removeAllMessageStatus ? (
-                  <div className={classes.removeAllMessage}>
-                    {' '}
-                    Remove
-                    {' '}
-                    <b>All</b>
-                    {' '}
-                    items in cart.
-                    {' '}
-                  </div>
-                ) : ''}
-              </div>
-            </div>
-          </span>
-        </th>
-      ),
-    },
-  }];
-
-  const tooltipMessageData = (
-    <span>
-      {myFilesPageData.tooltipMessage}
-      {' '}
-    </span>
-  );
+  /**
+  * configure table state
+  * https://github.com/CBIIT/bento-frontend/tree/master/packages/paginated-table/src/table
+  */
+  const initTblState = (initailState) => ({
+    ...initailState,
+    title: 'myFiles',
+    query: config.api,
+    dataKey: config.dataKey,
+    columns: configColumn({ columns: config.columns, ...props }),
+    selectedRows: [],
+    tableMsg: config.tableMsg,
+    paginationAPIField: config.paginationAPIField,
+    sortBy: config.defaultSortField,
+    sortOrder: config.defaultSortDirection,
+    rowsPerPage: 10,
+    page: 0,
+    extendedViewConfig: config.extendedViewConfig,
+  });
+  
+  const variables = {};
+  variables.data_file_uuid = filesId;
 
   return (
-    <Grid>
-      <DialogBox
-        isOpen={modalStatus}
-        acceptAction={deleteSubjectsAndCloseModal}
-        closeModal={closeDialogBox}
-        messageData={myFilesPageData.popUpWindow}
-        numberOfFilesBeDeleted={numberOfFilesBeDeleted}
-      />
-      <div className={classes.myFilesWrapper}>
-        <Grid item xs={12}>
-          <CartHeader
-            headerIconSrc={myFilesPageData.headerIconSrc}
-            headerIconAlt={myFilesPageData.headerIconAlt}
-            mainTitle={myFilesPageData.mainTitle}
-            subTitle={myFilesPageData.subTitle}
-            paginationAPIField={myFilesPageData.paginationAPIField}
-          />
+    <Grid container className={classes.myFilesContainer}>
+      
+      <Grid item xs={12}>
+        <div className={classes.myFilesWrapper}>
+          <CartWrapper
+            classes={classes}
+            queryVariables={variables}
+            totalRowCount={filesId.length}
+          >
+            <HeaderView filesId={filesId} />
 
-          <div className={classes.topButtonGroup}>
-            <button
-              type="button"
-              disabled={data.length === 0}
-              className={!data.length ? `${classes.downloadButton} ${classes.disabledButton}` : classes.downloadButton}
-              onClick={() => prepareDownload()}
-              id={`button_${myFilesPageData.downButtonText}`}
-            >
-              {myFilesPageData.downButtonText}
-              {' '}
-            </button>
-            <IconButton aria-label="help" onFocus={() => toggleMessageStatus('top', 'open')} onMouseEnter={() => toggleMessageStatus('open')} onMouseOver={() => toggleMessageStatus('open')} onMouseLeave={() => toggleMessageStatus('close')}>
-              <img
-                onMouseEnter={() => toggleMessageStatus('open')}
-                onMouseOver={() => toggleMessageStatus('open')}
-                onFocus={() => toggleMessageStatus('top', 'open')}
-                src={myFilesPageData.tooltipIcon}
-                alt={myFilesPageData.tooltipAlt}
-                className={classes.helpIcon}
-              />
-            </IconButton>
-            {TopMessageStatus ? (
-              <div className={classes.messageTop}>
-                {' '}
-                <Message data={tooltipMessageData} />
-                {' '}
-              </div>
-            ) : ''}
-          </div>
-          <div id="table_selected_files" className={classes.tableWrapper}>
-            <CartBody
-              data={data}
-              deleteColumn={deleteColumn}
-              fileIDs={fileIDs}
-              defaultSortCoulmn={defaultSortCoulmn}
-              defaultSortDirection={defaultSortDirection}
-              paginationAPIField={myFilesPageData.paginationAPIField}
+            <TableView
+              initState={initTblState}
+              checkedItemReset={isUpdated}
+              themeConfig={themeConfig}
+              queryVariables={variables}
+              totalRowCount={filesId.length}
+              tblRows={tblRows}
+              server={isServer}
+              paginationOptions={paginationOptions(context, config)}
             />
-            <CartFooter
-              placeholder={myFilesPageData.textareaPlaceholder}
-              ref={commentRef}
-            />
-          </div>
-        </Grid>
-      </div>
+          
+          </CartWrapper>
+        </div>
+      </Grid>
     </Grid>
-
   );
 };
 
-export default withStyles(Styles, { withTheme: true })(cartView);
+export default withStyles(styles)(CartView);
