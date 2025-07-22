@@ -12,7 +12,7 @@ const StudyFiles = ({ classes, data, }) => {
   const { data_file = [] } = data;
   const data_file_with_access = data_file.map(item => ({
     ...item,
-    data_file_access_control: accessTypes[Math.floor(Math.random() * accessTypes.length)]
+    data_file_access_control: item.data_file_access_control || accessTypes[Math.floor(Math.random() * accessTypes.length)] || "Unknown Access"
   }));
 
   return (
