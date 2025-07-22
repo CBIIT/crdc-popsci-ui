@@ -228,7 +228,7 @@ const CancerTypes = ({ classes, data }) => {
                     <FormControlLabel
                       value="PrimaryDiseaseSite"
                       control={<CustomRadio />}
-                      label="by Primary Disease Site"
+                      label="by Uberon Primary Disease Site" 
                       classes={{
                         root:  classes.radioButtonSpacing,
                         label: classes.CancerTypeLabel,
