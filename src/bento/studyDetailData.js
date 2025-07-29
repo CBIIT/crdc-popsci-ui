@@ -350,7 +350,7 @@ export const studyDataFileTableConfig = {
       header: 'File Delivery',
       display: true,
       cellType: cellTypes.CUSTOM_ELEM,
-      accessControl: true,
+      fileDelivery: true,
       customCellProps: {
         openAccessTooltip: 'Download this file or add to cart using checkbox',
         controlledAccessTooltip: 'Available only via the Cloud; add to cart using checkbox',
