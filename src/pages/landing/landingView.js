@@ -9,6 +9,7 @@ import { Button } from '../../components/Wrappers/Wrappers';
 import { landingPageData } from '../../bento/landingPageData';
 import icon from '../../assets/landing/LP_ReadMore.svg';
 import iconAbout from '../../assets/landing/LP_About_Fullarticle.Arrow.svg';
+import { FormatLineSpacing } from '@material-ui/icons';
 
 const LandingView = ({ classes, statsData }) => (
   <div className={classes.page}>
@@ -359,7 +360,7 @@ const styles = () => ({
     color: '#ffffff',
     textDecoration: 'none',
     textTransform: 'uppercase',
-    fontSize: '12px',
+    fontSize: '14px',
     fontWeight: '600',
     lineHeight: '45px',
     paddingLeft: '20px',
@@ -431,9 +432,9 @@ const styles = () => ({
     background: '#24415C',
     color: '#FFFFFF',
     fontFamily: 'Raleway',
-    fontSize: '12px',
+    fontSize: '14px',
     fontWeight: '600',
-    lineHeight: '25px',
+    lineHeight: '2%',
     paddingLeft: '8px',
     textDecoration: 'none',
     letterSpacing: '1px',
@@ -477,7 +478,7 @@ const styles = () => ({
     width: '71px',
     color: '#FFFFFF',
     fontFamily: 'Raleway',
-    fontSize: '12px',
+    fontSize: '14px',
     fontWeight: '600',
     lineHeight: '19.31px',
     textDecoration: 'none',
@@ -517,13 +518,14 @@ const styles = () => ({
   buttonText: {
     fontFamily: 'Raleway',
     fontWeight: 700,
-    fontSize: '12px',
+    fontSize: '14px',
     padding: '12px 30px',
     height: '36px',
     color: '#FFFFFF',
     width: '197px',
     borderRadius: '30px',
     border: '2px solid #ffffff',
+    lineHeight: '2%',
   },
 });
 export default withStyles(styles, { withTheme: true })(LandingView);
