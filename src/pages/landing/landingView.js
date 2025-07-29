@@ -9,6 +9,7 @@ import { Button } from '../../components/Wrappers/Wrappers';
 import { landingPageData } from '../../bento/landingPageData';
 import icon from '../../assets/landing/LP_ReadMore.svg';
 import iconAbout from '../../assets/landing/LP_About_Fullarticle.Arrow.svg';
+
 const LandingView = ({ classes, statsData }) => (
   <div className={classes.page}>
     <div className={classes.container}>
@@ -432,7 +433,7 @@ const styles = () => ({
     fontFamily: 'Raleway',
     fontSize: '14px',
     fontWeight: '600',
-    lineHeight: '25px',
+    lineHeight: '2%',
     paddingLeft: '8px',
     textDecoration: 'none',
     letterSpacing: '1px',
@@ -476,7 +477,7 @@ const styles = () => ({
     width: '71px',
     color: '#FFFFFF',
     fontFamily: 'Raleway',
-    fontSize: '14px',
+    fontSize: '12px',
     fontWeight: '600',
     lineHeight: '2%',
     textDecoration: 'none',
