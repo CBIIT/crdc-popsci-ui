@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 import dataVolumeIcon from '../assets/stats/data_volume_icon.svg';
 import studiesIcon from '../assets/stats/studies_icon.svg';
 import participantsIcon from '../assets/stats/participants_icon.svg';
-import neoplasmsIcon from '../assets/stats/neoplasms_icon.svg';
+import cancertypesIcon from '../assets/stats/cancertypes_icon.svg';
 import dataCategoriesIcon from '../assets/stats/data_categories_icon.svg';
 import studyFilesIcon from '../assets/stats/study_files_icon.svg';
 import { formatFileSize, formatAsCommaSeparatedNumber } from '../components/Stats/utils';
@@ -78,11 +78,11 @@ export const globalStatsData = [
     formatValue: formatAsCommaSeparatedNumber,
   },
   {
-    statTitle: 'Neoplasms',
+    statTitle: 'Cancer Types',
     type: 'field',
     statAPI: 'numberOfDiagnosis',
-    statIconSrc: neoplasmsIcon,
-    statIconAlt: 'Neoplasms Stats Bar Icon',
+    statIconSrc: cancertypesIcon,
+    statIconAlt: 'Cancer Types Stats Bar Icon',
     formatValue: formatAsCommaSeparatedNumber,
   },
   {
