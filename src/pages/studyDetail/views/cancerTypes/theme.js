@@ -41,7 +41,7 @@ export default ({
       ...themes.light.custom.breakpoints,
       values: {
         ...themes.light.custom.breakpoints.values,
-        md: themes.light.custom.breakpoints.values.customMd, // Set md breakpoint to 1100px
+        md: themes.light.custom.breakpoints.values.customMd, // Set md breakpoint to 1000px
         sm: themes.light.custom.breakpoints.values.customSm, // Set sm breakpoint to 800px
       },
     },

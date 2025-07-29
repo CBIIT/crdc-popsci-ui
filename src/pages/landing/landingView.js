@@ -480,7 +480,7 @@ const styles = () => ({
     fontFamily: 'Raleway',
     fontSize: '14px',
     fontWeight: '600',
-    lineHeight: '19.31px',
+    lineHeight: '2%',
     textDecoration: 'none',
     marginLeft: '8px',
     letterSpacing: '1px',
@@ -525,7 +525,7 @@ const styles = () => ({
     width: '197px',
     borderRadius: '30px',
     border: '2px solid #ffffff',
-    lineHeight: '25px',
+    lineHeight: '2%',
   },
 });
 export default withStyles(styles, { withTheme: true })(LandingView);
