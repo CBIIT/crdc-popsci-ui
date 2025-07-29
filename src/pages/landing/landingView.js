@@ -525,7 +525,7 @@ const styles = () => ({
     width: '197px',
     borderRadius: '30px',
     border: '2px solid #ffffff',
-    lineHeight: '2%',
+    lineHeight: '25px',
   },
 });
 export default withStyles(styles, { withTheme: true })(LandingView);
