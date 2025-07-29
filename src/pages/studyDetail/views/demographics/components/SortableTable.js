@@ -139,6 +139,7 @@ const useStyles = makeStyles(theme => ({
     lineHeight: '100%',
     letterSpacing: '0%',
     color: '#497494',
+    paddingTop: '3px',
   },
   sortButtonGroup: {
     // Group the two sort buttons so they wrap together

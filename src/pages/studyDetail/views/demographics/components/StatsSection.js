@@ -142,6 +142,7 @@ const styles = theme => ({
     lineHeight: '100%',
     letterSpacing: '0%',
     color: '#497494',
+    paddingTop: '3px',
   },
 });
 

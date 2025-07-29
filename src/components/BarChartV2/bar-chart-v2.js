@@ -10,6 +10,7 @@ import {
   Text,
   Tooltip
 } from 'recharts';
+import { BorderRight } from '@material-ui/icons';
 
 const styles = theme => ({
   container: {
@@ -27,6 +28,8 @@ const styles = theme => ({
     textAlign: 'center',
     whiteSpace: 'nowrap',
     width: '100%',
+    position: 'relative',
+    left: '7px',
   },
   chartWrapper: {
     width: '100%',
@@ -40,9 +43,11 @@ export const palette = ['#6ECDD3', '#55676F', '#E3AB19', '#C01E2E', '#B39C7C', ]
 
 function CustomizedAxisTick(props) {
   const { x, y, payload } = props;
+  // Replace 'To' with 'to' in the label
+  const label = typeof payload.value === 'string' ? payload.value.replace(/\bTo\b/g, 'to') : payload.value;
   return (
     <Text x={x} y={y} style={{fontFamily: 'Open Sans', fontSize: "9px"}} fill="#000000" textAnchor="middle" width="15" verticalAnchor="start">
-      {payload.value}
+      {label}
     </Text>
   );
 }
