@@ -9,8 +9,6 @@ import { Button } from '../../components/Wrappers/Wrappers';
 import { landingPageData } from '../../bento/landingPageData';
 import icon from '../../assets/landing/LP_ReadMore.svg';
 import iconAbout from '../../assets/landing/LP_About_Fullarticle.Arrow.svg';
-import { FormatLineSpacing } from '@material-ui/icons';
-
 const LandingView = ({ classes, statsData }) => (
   <div className={classes.page}>
     <div className={classes.container}>
