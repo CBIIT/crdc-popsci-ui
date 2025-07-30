@@ -895,7 +895,7 @@ export const tabContainers = [
       },
       {
         dataField: 'primary_diagnosis_disease_count',
-        header: 'Neoplasms',
+        header: 'Cancer Types',
         display: true,
         tooltipText: 'sort',
       },
