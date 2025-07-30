@@ -1,25 +1,52 @@
 import React from 'react';
 import { Typography } from '@material-ui/core';
 import { cellTypes, headerTypes } from '@bento-core/table';
-import DocumentDownloadView from '../../../../../components/DocumentDownload/DocumentDownloadView';
-
+import IconCell from './IconCell';
 
 // Helper component for custom cell rendering
 export const CustomCellView = (props) => {
   const {
-    downloadDocument, documentDownloadProps,
-    displayEmpty, dataField
+    fileDelivery,
+    accessControl,
+    displayEmpty,
+    dataField,
+    customCellProps,
   } = props;
-  
-  if (downloadDocument) {
-    return (
-      <DocumentDownloadView
-        signedUrl={props[dataField]}
-        {...documentDownloadProps}
-        {...props}
-      />
-    );
+
+  // Helper to render IconCell for access control/file delivery
+  const renderIconCell = (type) => {
+    if (props[dataField] === "Open Access") {
+      return (
+        <IconCell
+          signedUrl={props[dataField]}
+          toolTipText={customCellProps?.openAccessTooltip}
+          iconSrc={customCellProps?.openAccessIcon}
+          showToolTip={true}
+          {...(type === 'fileDelivery' && { onAction: (url) => console.log(`Open Access Downloading ${url}`) })}
+        />
+      );
+    }
+    if (props[dataField] === "Controlled Access") {
+      return (
+        <IconCell
+          signedUrl={props[dataField]}
+          toolTipText={customCellProps?.controlledAccessTooltip}
+          iconSrc={customCellProps?.controlledAccessIcon}
+          showToolTip={true}
+        />
+      );
+    }
+    return null;
+  };
+
+  if (accessControl && dataField === "data_file_access_control") {
+    return renderIconCell('accessControl');
   }
+
+  if (fileDelivery && dataField === "data_file_access_control") {
+    return renderIconCell('fileDelivery');
+  }
+
   if (typeof displayEmpty === "boolean") {
     return (
       <Typography>
