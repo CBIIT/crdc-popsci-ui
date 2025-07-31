@@ -82,8 +82,6 @@ const AppTheme = ({ children }) => {
       ...baseTheme.custom.breakpoints,
       values: {
         ...baseTheme.custom.breakpoints.values,
-        md: baseTheme.custom.breakpoints.values.customMd,
-        sm: baseTheme.custom.breakpoints.values.customSm,
       },
     },
   });
