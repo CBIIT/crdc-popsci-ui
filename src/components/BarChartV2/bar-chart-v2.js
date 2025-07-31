@@ -10,7 +10,6 @@ import {
   Text,
   Tooltip
 } from 'recharts';
-import { BorderRight } from '@material-ui/icons';
 
 const styles = theme => ({
   container: {
@@ -122,7 +121,7 @@ const BarChartV2 = ({
       const yAxisWidth = axis.getBoundingClientRect().width;
       rect.setAttribute('x', '0');
       rect.setAttribute('y', '0');
-      rect.setAttribute('width', yAxisWidth + 30);
+      rect.setAttribute('width', yAxisWidth + 15);
       rect.setAttribute('height', yAxisheight + xAxisHeight - 10);
       rect.setAttribute('fill', 'white');
       rect.setAttribute('class', `y-axis-rect-${orientation}`);
