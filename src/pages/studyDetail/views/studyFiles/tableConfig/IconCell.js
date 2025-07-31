@@ -10,6 +10,7 @@ const IconCell = ({
   iconSrc = '',
   showToolTip = true,
   onAction,
+  tooltipPlacement='bottom'
 }) => {
 
   const handleAction = () => {
@@ -21,7 +22,7 @@ const IconCell = ({
   return (
     <div>
       {showToolTip ? (
-        <ToolTip classes={{ tooltip: classes.customTooltip, arrow: classes.customArrow }} title={toolTipText} placement="bottom">
+        <ToolTip classes={{ tooltip: classes.customTooltip, arrow: classes.customArrow }} title={toolTipText} placement={tooltipPlacement}>
           <div
             onClick={handleAction}
             style={{ textAlign: 'center' }}
@@ -43,19 +44,30 @@ const IconCell = ({
 
 const styles = () => ({
   customTooltip: {
-    borderRadius: '5px',
-    border: '.2px solid #C3C3C3',
-    // border: 'none',
-    boxShadow: '0px 4px 10px 0px #00000040',
-    fontFamily: 'Open Sans',
-    color: '#223D4C',
-    fontSize: '13px',
-    fontWeight: 600,
-    lineHeight: '19px',
-    letterSpacing: '0em',
+    backgroundColor: '#ffffff',
+    color: '#595959',
     textAlign: 'left',
-    maxWidth: '349px',
-    padding: '10px 15px'
+
+    fontFamily: 'Nunito',
+    fontWeight: '400',
+    fontStyle: 'Regular',
+    fontSize: '14px',
+    leadingTrim: 'NONE',
+    lineHeight: '17px',
+    letterSpacing: '0%',
+
+    maxWidth: '400px',
+    minHeight: '29px',
+    gap: '10px',
+    paddingTop: '6px',
+    paddingRight: '12px',
+    paddingBottom: '6px',
+    paddingLeft: '12px',
+    borderRadius: '8px',
+    borderWidth: '1px',
+
+    border: '1px solid #818181',
+    boxShadow: '0px 4px 4px 0px #00000040',
   },
   customArrow: {
   },

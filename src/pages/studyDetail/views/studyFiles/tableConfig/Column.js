@@ -22,6 +22,7 @@ export const CustomCellView = (props) => {
           toolTipText={customCellProps?.openAccessTooltip}
           iconSrc={customCellProps?.openAccessIcon}
           showToolTip={true}
+          tooltipPlacement={'top'}
           {...(type === 'fileDelivery' && { onAction: (url) => console.log(`Open Access Downloading ${url}`) })}
         />
       );
@@ -33,6 +34,7 @@ export const CustomCellView = (props) => {
           toolTipText={customCellProps?.controlledAccessTooltip}
           iconSrc={customCellProps?.controlledAccessIcon}
           showToolTip={true}
+          tooltipPlacement={'top'}
         />
       );
     }

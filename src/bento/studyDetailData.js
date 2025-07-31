@@ -8,14 +8,26 @@ import lockedPadlockIcon from '../assets/study/lockedPadlockIcon.svg';
 
 import directDownloadIcon from '../assets/study/directDownloadIcon.svg';
 import cloudOnlyAccessIcon from '../assets/study/cloudOnlyAccessIcon.svg';
+import questionMarkCircle from '../assets/Question_Mark_Circle.svg';
+
 
 
 
 // --------------- Tooltip configuration --------------
-
-export const tooltipContent = {
-  src: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/icdc/images/svgs/Tooltip.SpeechBubble.svg',
+export const tooltipContentForSelectedFile = {
+  //  use as aletrative
+  icon: questionMarkCircle,
   alt: 'tooltipIcon',
+  arrow: false,
+  DataFiles: 'Add selected files to My Files',
+
+};
+
+export const tooltipContentForAllFile = {
+  icon: questionMarkCircle,
+  alt: 'tooltipIcon',
+  arrow: false,
+  DataFiles: 'Add all files associated with this study to My Files'
 };
 
 export const title = {
@@ -263,6 +275,58 @@ export const studyPersonnelTableConfig = {
   ],
 };
 
+
+// --------------- GraphQL Query - "ADD SELECTED FILES" under Files tab ---------------
+export const GET_FILE_IDS_FOR_SELECTED_FILES = gql`
+query fileAddSelectedToCart(
+  # $data_file_uuid: [String], # Helps in adding the selected files to the cart
+
+  $study_short_name: [String],
+
+  $first: Int,
+  $offset: Int= 0, 
+  $order_by: String = "data_file_uuid",
+  $sort_direction: String = "asc"
+ ){
+  fileOverview(
+    # data_file_uuid: $data_file_uuid,
+    study_short_name: $study_short_name,
+
+    first: $first
+    offset: $offset
+    order_by: $order_by
+    sort_direction: $sort_direction
+  ){
+      data_file_uuid,
+  }
+}
+`;
+
+
+// --------------- GraphQL Query - "ADD ALL FILES" under Files tab --------------- study_short_name
+export const GET_ALL_FILE_IDS_FOR_FILES = gql`
+query fileAddAllToCart(
+  # $data_file_uuid: [String],
+  $study_short_name: [String],
+
+  $first: Int,
+  $offset: Int= 0, 
+  $order_by: String = "data_file_uuid",
+  $sort_direction: String = "asc"
+ ){
+  fileOverview(
+    study_short_name: $study_short_name
+
+    first: $first
+    offset: $offset
+    order_by: $order_by
+    sort_direction: $sort_direction
+  ){
+      data_file_uuid,
+  }
+}
+`;
+
 // --------------- Tabs Table configuration --------------
 export const studyDataFileTableConfig = {
   name: 'DataFiles',
@@ -273,6 +337,8 @@ export const studyDataFileTableConfig = {
   defaultSortDirection: 'asc',
   tableID: 'dataFile_table',
   id: 'dataFile_table',
+    // id: 'file_tab',
+    // tableID: 'file_tab_table',
 
   extendedViewConfig: {
     pagination: true, // Top pagination: true || false
@@ -282,7 +348,7 @@ export const studyDataFileTableConfig = {
   columns: [
     {
       cellType: cellTypes.CHECKBOX,
-      display: false,
+      display: true,
       role: cellTypes.CHECKBOX,
     },
     {
@@ -362,4 +428,29 @@ export const studyDataFileTableConfig = {
     },
 
   ],
+
+
+
+    selectableRows: true,
+    tableMsg: {
+      noMatch: 'No Matching Records Found',
+    },
+
+    addFilesRequestVariableKey: 'study_short_name',
+    
+    addFilesResponseKeys: ['fileOverview', 'study_short_name'],
+    addSelectedFilesQuery: GET_FILE_IDS_FOR_SELECTED_FILES,
+
+    addAllFilesResponseKeys: ['fileOverview', 'study_short_name'],
+    addAllFileQuery: GET_ALL_FILE_IDS_FOR_FILES,
+
+    // addFilesRequestVariableKey: 'data_file_uuid',
+    
+    // addFilesResponseKeys: ['fileOverview', 'data_file_uuid'],
+    // addSelectedFilesQuery: GET_FILE_IDS_FOR_SELECTED_FILES,
+
+    // addAllFilesResponseKeys: ['fileOverview', 'data_file_uuid'],
+    // addAllFileQuery: GET_ALL_FILE_IDS_FOR_FILES,
 };
+
+
