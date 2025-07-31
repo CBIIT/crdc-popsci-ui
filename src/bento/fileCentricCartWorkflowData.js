@@ -3,6 +3,9 @@ import { cellTypes, dataFormatTypes } from '@bento-core/table';
 import { types } from '@bento-core/paginated-table';
 import { customMyFilesTabDownloadCSV } from './tableDownloadCSV';
 import cartPageIcon from '../assets/cart/cartPageIcon.svg'
+import downloadSuccess from '../assets/dash/downloadSuccess.svg'
+import downloadLock from '../assets/dash/downloadLock.svg'
+import previewLarge from '../assets/dash/previewLarge.svg'
 
 export const getManifestFileSignedUrlEndPoint = 'get-manifest-file-signed-url'
 export const navBarCartData = {
@@ -29,7 +32,7 @@ export const tooltipContent = {
 };
 
 export const myFilesPageData = {
-  manifestFileName: 'CTDC File Manifest',
+  manifestFileName: 'PopSci File Manifest',
   tooltipIcon: 'https://raw.githubusercontent.com/google/material-design-icons/master/src/action/help/materialicons/24px.svg',
   tooltipAlt: 'tooltip icon',
   tooltipMessage: 'To access and analyze files: select and remove unwanted files,  click the “Download Manifest” button, and upload the resulting Manifest file to your Seven Bridges Genomics account.',
@@ -39,18 +42,18 @@ export const myFilesPageData = {
       container: 'paginatedTable',
       paginatedTable: true,
     },
-    {
-      container: 'buttons',
-      size: 'xl',
-      clsName: 'container_footer',
-      items: [
-        {
-          clsName: 'manifest_comments',
-          type: types.TEXT_INPUT,
-          placeholder: 'User Comment',
-        }
-      ],
-    },
+    // {
+    //   container: 'buttons',
+    //   size: 'xl',
+    //   clsName: 'container_footer',
+    //   items: [
+    //     {
+    //       clsName: 'manifest_comments',
+    //       type: types.TEXT_INPUT,
+    //       placeholder: 'User Comment',
+    //     }
+    //   ],
+    // },
   ],
 
   downButtonText: 'DOWNLOAD MANIFEST',
@@ -133,35 +136,14 @@ export const GET_MY_CART_DATA_QUERY = gql`
       order_by: $order_by,
       sort_direction: $sort_direction
     ){
-      study_short_name
-      data_file_name
-      data_file_format
-      data_file_type
-      data_file_size
-      association
-      ctep_disease_term
-      meddra_disease_code
-      histology
-      data_file_description
-      participant_id
-      primary_disease_site
-      specimen_id
-      ctep_disease_term
-      data_file_uuid
-      parent_specimen_id
-      stage_of_disease
-      tumor_grade
-      age_at_enrollment
-      sex
-      race
-      data_file_checksum_value
-      ethnicity
-      carcinogen_exposure
-      targeted_therapy
-      anatomical_collection_site
-      tissue_category
-      assessment_timepoint
-      drs_uri
+       data_file_uuid
+        data_file_name
+        data_file_type
+        data_file_description
+        data_file_format
+        data_file_size
+        data_file_location
+        data_file_signed_url
    }
   }
 `;
@@ -180,35 +162,14 @@ export const GET_MY_CART_DATA_QUERY_DESC = gql` query filesInList(
     order_by: $order_by,
     sort_direction: $sort_direction
   ){
-    study_short_name
-    data_file_name
-    data_file_format
-    data_file_type
-    data_file_size
-    association
-    data_file_description
-    participant_id
-    ctep_disease_term
-    meddra_disease_code
-    histology
-    parent_specimen_id
-    primary_disease_site
-    specimen_id
-    ctep_disease_term
-    data_file_uuid
-    stage_of_disease
-    tumor_grade
-    age_at_enrollment
-    sex
-    race
-    data_file_checksum_value
-    ethnicity
-    carcinogen_exposure
-    targeted_therapy
-    anatomical_collection_site
-    tissue_category
-    assessment_timepoint
-    drs_uri
+        data_file_uuid
+        data_file_name
+        data_file_type
+        data_file_description
+        data_file_format
+        data_file_size
+        data_file_location
+        data_file_signed_url
  }
 }`;
 
@@ -229,8 +190,8 @@ export const table = {
   objectKey: 'filesInList',
   extendedViewConfig: {
     pagination: true,
-    manageViewColumns: false, //{ title: "View Columns" },
-    download: false,
+    manageViewColumns: true, //{ title: "View Columns" },
+    download: true,
     
     /*{
       downloadCsv: "Download Table Contents As CSV",
@@ -240,74 +201,118 @@ export const table = {
     }, */
   },
   columns: [
-    {
-      cellType: cellTypes.CHECKBOX,
-      display: true,
-      role: cellTypes.CHECKBOX,
-    },
-    {
-      dataField: 'data_file_name',
-      header: 'File Name',
-      display: true,
-      tooltipText: 'sort',
-      role: cellTypes.DISPLAY,
-    },
-    {
-      dataField: 'data_file_format',
-      header: 'Format',
-      display: true,
-      tooltipText: 'sort',
-      role: cellTypes.DISPLAY,
-    },
-    {
-      dataField: 'data_file_type',
-      header: 'File Type',
-      display: true,
-      tooltipText: 'sort',
-      role: cellTypes.DISPLAY,
-    },
-    {
-      dataField: 'data_file_size',
-      header: 'Size',
-      display: true,
-      tooltipText: 'sort',
-      role: cellTypes.DISPLAY,
-      dataFormatType: dataFormatTypes.FORMAT_BYTES,
-      cellType: cellTypes.FORMAT_DATA,
-    },
-    {
-      dataField: 'data_file_description',
-      header: 'Description',
-      display: true,
-      tooltipText: 'sort',
-      role: cellTypes.DISPLAY,
-    },
-    {
-      dataField: 'specimen_id',
-      header: 'Biospecimen ID',
-      display: false,
-      tooltipText: 'sort',
-      role: cellTypes.DISPLAY,
-    },
-    {
-      dataField: 'parent_specimen_id',
-      header: 'Parent Biospecimen ID',
-      display: true,
-      tooltipText: 'sort',
-      role: cellTypes.DISPLAY,
-    },
-    {
-      dataField: 'participant_id',
-      header: 'Participant ID',
-      display: true,
-      tooltipText: 'sort',
-      role: cellTypes.DISPLAY,
-    },
-    {
-      cellType: cellTypes.DELETE,
-      headerType: cellTypes.DELETE,
-      display: true,
-    },
+     {
+          cellType: cellTypes.CHECKBOX,
+          display: false,
+          role: cellTypes.CHECKBOX,
+        },
+        {
+          dataField: 'data_file_name',
+          header: 'File Name',
+          display: true,
+          tooltipText: 'sort',
+          role: cellTypes.DISPLAY,
+        },
+        {
+          dataField: 'data_file_type',
+          header: 'File Type',
+          display: true,
+          tooltipText: 'sort',
+          role: cellTypes.DISPLAY,
+        },
+        {
+          dataField: 'association',
+          header: 'Association',
+          display: false,
+          tooltipText: 'sort',
+          role: cellTypes.DISPLAY,
+        },
+        {
+          dataField: 'data_file_description',
+          header: 'Description',
+          display: true,
+          tooltipText: 'sort',
+          role: cellTypes.DISPLAY,
+        },
+        {
+          dataField: 'data_file_format',
+          header: 'Format',
+          display: true,
+          tooltipText: 'sort',
+          role: cellTypes.DISPLAY,
+        },
+        {
+          dataField: 'data_file_size',
+          header: 'Size',
+          display: true,
+          tooltipText: 'sort',
+          role: cellTypes.DISPLAY,
+    
+          dataFormatType: dataFormatTypes.FORMAT_BYTES,
+          cellType: cellTypes.FORMAT_DATA,
+        },
+        {
+        dataField: 'data_file_uuid', // This need to left empty if no data need to be displayed before file download icon
+        header: 'Access',
+        display: true,
+        cellType: cellTypes.CUSTOM_ELEM,
+        downloadDocument: false, // To indicate that column is document donwload
+        documentDownloadProps: {
+          // Max file size needs to bin Bytes to seperate two support file preview and download
+          maxFileSize: 80000000, // 10MB => 80,000,000 bits
+          // datafield where file file column exists in the table
+          fileSizeColumn: 'data_file_size',
+          // datafield where file file id exists in the table which is used to get file location
+          fileLocationColumn: 'data_file_uuid',
+          // datafield where file format exists in the table
+          fileFormatColumn: 'data_file_format',
+          // datafield where file case id exists in the table which is used to get file information
+          caseIdColumn: 'participant_id',
+          // datafield where file name exists
+          fileName: 'data_file_name',
+
+          // Case 2: Not logged in or access not granted, file size below {maxFileSize}
+          iconUnauthenticated: downloadLock,
+          toolTipTextUnauthenticated: 'Controlled Access file',
+
+          // Case 3: Regardless of login status, file size larger than {maxFileSize}
+          iconFilePreview: previewLarge,
+          toolTipTextFilePreview: 'Open Access file',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+        },
+        {
+             dataField: 'data_file_uuid', // This need to left empty if no data need to be displayed before file download icon
+        header: 'File Delivery',
+        display: true,
+        cellType: cellTypes.CUSTOM_ELEM,
+        downloadDocument: true, // To indicate that column is document donwload
+        documentDownloadProps: {
+          // Max file size needs to bin Bytes to seperate two support file preview and download
+          maxFileSize: 80000000, // 10MB => 80,000,000 bits
+          // datafield where file file column exists in the table
+          fileSizeColumn: 'data_file_size',
+          // datafield where file file id exists in the table which is used to get file location
+          fileLocationColumn: 'data_file_uuid',
+          // datafield where file format exists in the table
+          fileFormatColumn: 'data_file_format',
+          // datafield where file case id exists in the table which is used to get file information
+          caseIdColumn: 'participant_id',
+          // datafield where file name exists
+          fileName: 'data_file_name',
+
+          // Case 1: Logged in and granted access, file size below {maxFileSize}
+          toolTipTextFileDownload: 'Download a copy of this file',
+          iconFileDownload: downloadSuccess,
+          
+          // Case 2: Not logged in or access not granted, file size below {maxFileSize}
+          iconUnauthenticated: downloadLock,
+          toolTipTextUnauthenticated: 'This file must be accessed via the Cloud',
+        },
+        tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
+          },
   ],
   tableMsg: {
     noMatch: 'No files have been added to the cart',

@@ -69,7 +69,7 @@ const HeaderView = ({
             />
           </div>
 
-          <Grid container alignItems="center" className={classes.headerContent}>
+          {/* <Grid container alignItems="center" className={classes.headerContent}>
             <span className={classes.pageTitle}>{'Cart > Selected Files'}</span>
             <Button
               onClick={displayReadMeHandler}
@@ -84,13 +84,13 @@ const HeaderView = ({
             >
               README
             </Button>
-          </Grid>
+          </Grid>  */}
           
         </div>
         
       </div>
 
-      <Grid container alignItems="center" justifyContent="flex-end" xs={12} md={12} lg={12} className={classes.actionBtn}>
+      {/* <Grid container alignItems="center" justifyContent="flex-end" xs={12} md={12} lg={12} className={classes.actionBtn}>
         <FormControl>
           <RadioGroup
             row
@@ -118,16 +118,16 @@ const HeaderView = ({
         filesId={filesId} 
         allFiles={allFiles}
       /> 
-      </Grid>
+      </Grid> */}
       
-      <ReadMeDialogComponent
+      {/* <ReadMeDialogComponent
         content={content}
         config={{
           readMeTitle: 'Understanding the “My Files” Cart Page',
         }}
         display={displayReadMe}
         displayReadMeDialog={displayReadMeHandler}
-      />
+      /> */}
     </HeaderThemeprovider>
   );
 };

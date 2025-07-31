@@ -27,7 +27,6 @@ const CartView = (props) => {
 
   /**
   * configure table state
-  * https://github.com/CBIIT/bento-frontend/tree/master/packages/paginated-table/src/table
   */
   const initTblState = (initailState) => ({
     ...initailState,
@@ -45,6 +44,7 @@ const CartView = (props) => {
     extendedViewConfig: config.extendedViewConfig,
   });
   
+  
   const variables = {};
   variables.data_file_uuid = filesId;
 
@@ -59,7 +59,6 @@ const CartView = (props) => {
             totalRowCount={filesId.length}
           >
             <HeaderView filesId={filesId} />
-
             <TableView
               initState={initTblState}
               checkedItemReset={isUpdated}
@@ -70,7 +69,6 @@ const CartView = (props) => {
               server={isServer}
               paginationOptions={paginationOptions(context, config)}
             />
-          
           </CartWrapper>
         </div>
       </Grid>
