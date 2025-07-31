@@ -36,7 +36,7 @@ export const wrapperConfig = [
       type: types.BUTTON,
       role: btnTypes.DOWNLOAD_MANIFEST,
       btnType: btnTypes.DOWNLOAD_MANIFEST,
-      tooltipCofig: tooltipContent,
+      tooltipConfig: tooltipContent,
     }],
 },
 {
