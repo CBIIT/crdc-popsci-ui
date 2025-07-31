@@ -94,47 +94,7 @@ const BarChartV2 = ({
   const sortedData = sortChartDataAlpha(chartData);
   const chartWidth = sortedData.length > 5 ? sortedData.length * 55 : 280;
 
-  // Advanced onScroll handler to visually fix Y axis and overlay white rect
-  const handleScroll = (e) => {
-    // Find recharts surface and axis elements inside this chart wrapper
-    const wrapper = chartWrapperRef.current?.querySelector('.recharts-surface');
-    const graphWrapper = chartWrapperRef.current;
-    const allAxis = chartWrapperRef.current?.querySelectorAll('.recharts-yAxis');
-    const xAxis = chartWrapperRef.current?.querySelector('.recharts-xAxis');
 
-    if (!allAxis || !xAxis) return;
-
-    const xAxisHeight = xAxis.getBoundingClientRect().height;
-
-    allAxis.forEach((axis) => {
-      // Try to get orientation from tick line or fallback to 'left'
-      const tickLine = axis.querySelector('.recharts-cartesian-axis-tick-line');
-      const orientation = tickLine?.getAttribute('orientation') || 'left';
-
-      // Remove any existing rects to avoid duplicates
-      const oldRects = axis.querySelectorAll('rect.y-axis-rect-' + orientation);
-      oldRects.forEach(r => r.remove());
-
-      // Create white rect overlay
-      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-      const yAxisheight = axis.getBoundingClientRect().height;
-      const yAxisWidth = axis.getBoundingClientRect().width;
-      rect.setAttribute('x', '0');
-      rect.setAttribute('y', '0');
-      rect.setAttribute('width', yAxisWidth + 15);
-      rect.setAttribute('height', yAxisheight + xAxisHeight - 10);
-      rect.setAttribute('fill', 'white');
-      rect.setAttribute('class', `y-axis-rect-${orientation}`);
-      axis.insertBefore(rect, axis.firstChild);
-
-      // Calculate position for transform
-      const position =
-        orientation === 'left'
-          ? e.target.scrollLeft
-          : e.target.scrollLeft - (wrapper?.clientWidth || 0) + (graphWrapper?.clientWidth || 0);
-      axis.style.transform = `translateX(${position}px)`;
-    });
-  };
 
   return (
     <div className={classes.container}>
@@ -146,7 +106,6 @@ const BarChartV2 = ({
       <div
         className={classes.chartWrapper}
         ref={chartWrapperRef}
-        onScroll={handleScroll}
         style={{ overflowX: 'auto', width: '100%' }}
       >
         <BarChart
