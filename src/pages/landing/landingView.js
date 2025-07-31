@@ -477,7 +477,7 @@ const styles = () => ({
     width: '71px',
     color: '#FFFFFF',
     fontFamily: 'Raleway',
-    fontSize: '12px',
+    fontSize: '14px',
     fontWeight: '600',
     lineHeight: '2%',
     textDecoration: 'none',
