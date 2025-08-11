@@ -165,7 +165,7 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
       number_of_countries
       study_state_province_territory
       number_of_states_provinces_territories
-      primary_diagnosis_disease_term
+      primary_diagnosis_disease_term # To be replaced with cancer_diagnosis_primary_site_list
       primary_diagnosis_disease_count
     }
 

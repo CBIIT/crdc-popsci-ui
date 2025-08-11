@@ -159,7 +159,7 @@ export const facetsConfig = [
     label: 'Cancer Types',
     apiPath: 'studyCountByNeoplasm',
     apiForFiltering: 'filterStudyCountByNeoplasm',
-    datafield: 'primary_diagnosis_disease_term',
+    datafield: 'cancer_diagnosis_primary_site_list',
 
     field: GROUP,
     type: InputTypes.CHECKBOX,
