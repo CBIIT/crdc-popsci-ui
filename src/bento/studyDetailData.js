@@ -1,17 +1,14 @@
 import gql from 'graphql-tag';
+import { cellTypes, dataFormatTypes } from '@bento-core/table';
 import studyHeaderIcon from '../assets/study/studyHeaderIcon.svg'
 import externalLinkIcon from '../assets/externalLinkIcon.svg'
 import previousIcon from '../assets/study/previousIcon.svg';
-import { cellTypes, dataFormatTypes } from '@bento-core/table';
 import openPadlockIcon from '../assets/study/openPadlockIcon.svg';
 import lockedPadlockIcon from '../assets/study/lockedPadlockIcon.svg';
 
 import directDownloadIcon from '../assets/study/directDownloadIcon.svg';
 import cloudOnlyAccessIcon from '../assets/study/cloudOnlyAccessIcon.svg';
 import questionMarkCircle from '../assets/Question_Mark_Circle.svg';
-
-
-
 
 // --------------- Tooltip configuration --------------
 export const tooltipContentForSelectedFile = {
@@ -258,13 +255,6 @@ export const studyPersonnelTableConfig = {
       tooltipText: 'sort',
       role: cellTypes.DISPLAY,
     },
-    // {
-    //   dataField: 'email_address',
-    //   header: 'Email Address',
-    //   display: false,
-    //   tooltipText: 'sort',
-    //   role: cellTypes.DISPLAY,
-    // },
     {
       dataField: 'person_role',
       header: 'Position or Role',
@@ -276,55 +266,53 @@ export const studyPersonnelTableConfig = {
 };
 
 
-// --------------- GraphQL Query - "ADD SELECTED FILES" under Files tab ---------------
+// --------------- GraphQL Query - "ADD SELECTED FILES" under Study Files tab ---------------
 export const GET_FILE_IDS_FOR_SELECTED_FILES = gql`
-query fileAddSelectedToCart(
-  # $data_file_uuid: [String], # Helps in adding the selected files to the cart
-
-  $study_short_name: [String],
-
-  $first: Int,
-  $offset: Int= 0, 
-  $order_by: String = "data_file_uuid",
-  $sort_direction: String = "asc"
- ){
-  fileOverview(
-    # data_file_uuid: $data_file_uuid,
-    study_short_name: $study_short_name,
-
-    first: $first
-    offset: $offset
-    order_by: $order_by
-    sort_direction: $sort_direction
-  ){
-      data_file_uuid,
+  query studyFiles(
+    $study_short_name: [String]
+    $data_file_uuid: [String]
+    $first: Int
+    $offset: Int
+    $order_by: String
+    $sort_direction: String
+  ) {
+    studyFiles(
+      study_short_name: $study_short_name
+      data_file_uuid: $data_file_uuid
+      first: $first
+      offset: $offset
+      order_by: $order_by
+      sort_direction: $sort_direction
+    ) {
+      data_file_name
+      data_file_uuid
+    }
   }
-}
 `;
 
 
-// --------------- GraphQL Query - "ADD ALL FILES" under Files tab --------------- study_short_name
+// --------------- GraphQL Query - "ADD ALL FILES" under Study Files tab ---------------
 export const GET_ALL_FILE_IDS_FOR_FILES = gql`
-query fileAddAllToCart(
-  # $data_file_uuid: [String],
-  $study_short_name: [String],
-
-  $first: Int,
-  $offset: Int= 0, 
-  $order_by: String = "data_file_uuid",
-  $sort_direction: String = "asc"
- ){
-  fileOverview(
-    study_short_name: $study_short_name
-
-    first: $first
-    offset: $offset
-    order_by: $order_by
-    sort_direction: $sort_direction
-  ){
-      data_file_uuid,
+  query studyFiles(
+    $study_short_name: [String]
+    $data_file_uuid: [String]
+    $first: Int
+    $offset: Int
+    $order_by: String
+    $sort_direction: String
+  ) {
+    studyFiles(
+      study_short_name: $study_short_name
+      data_file_uuid: $data_file_uuid
+      first: $first
+      offset: $offset
+      order_by: $order_by
+      sort_direction: $sort_direction
+    ) {
+      data_file_name
+      data_file_uuid
+    }
   }
-}
 `;
 
 // --------------- Tabs Table configuration --------------
@@ -335,10 +323,8 @@ export const studyDataFileTableConfig = {
   dataKey: 'data_file_uuid',
   defaultSortField: 'data_file_name',
   defaultSortDirection: 'asc',
-  tableID: 'dataFile_table',
-  id: 'dataFile_table',
-    // id: 'file_tab',
-    // tableID: 'file_tab_table',
+  tableID: 'study_files_tab_table',
+  id: 'study_files_tab',
 
   extendedViewConfig: {
     pagination: true, // Top pagination: true || false
@@ -429,28 +415,18 @@ export const studyDataFileTableConfig = {
 
   ],
 
+  selectableRows: true,
+  tableMsg: {
+    noMatch: 'No Matching Records Found',
+  },
 
+  addFilesRequestVariableKey: 'data_file_uuid',
+  
+  addFilesResponseKeys: ['studyFiles', 'data_file_uuid'],
+  addSelectedFilesQuery: GET_FILE_IDS_FOR_SELECTED_FILES,
 
-    selectableRows: true,
-    tableMsg: {
-      noMatch: 'No Matching Records Found',
-    },
-
-    addFilesRequestVariableKey: 'study_short_name',
-    
-    addFilesResponseKeys: ['fileOverview', 'study_short_name'],
-    addSelectedFilesQuery: GET_FILE_IDS_FOR_SELECTED_FILES,
-
-    addAllFilesResponseKeys: ['fileOverview', 'study_short_name'],
-    addAllFileQuery: GET_ALL_FILE_IDS_FOR_FILES,
-
-    // addFilesRequestVariableKey: 'data_file_uuid',
-    
-    // addFilesResponseKeys: ['fileOverview', 'data_file_uuid'],
-    // addSelectedFilesQuery: GET_FILE_IDS_FOR_SELECTED_FILES,
-
-    // addAllFilesResponseKeys: ['fileOverview', 'data_file_uuid'],
-    // addAllFileQuery: GET_ALL_FILE_IDS_FOR_FILES,
+  addAllFilesResponseKeys: ['studyFiles', 'data_file_uuid'],
+  addAllFileQuery: GET_ALL_FILE_IDS_FOR_FILES,
 };
 
 
