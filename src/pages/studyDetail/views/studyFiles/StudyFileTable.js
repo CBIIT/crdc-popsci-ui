@@ -17,7 +17,7 @@ import styles from './tableStyle';
 
 const StudyPersonnel = (props) => {
   const config = studyDataFileTableConfig;
-  const { data, classes } = props;
+  const { data, classes, studyShortName } = props;
 
   /**
     * initialize state for useReducer
@@ -47,6 +47,8 @@ const StudyPersonnel = (props) => {
     * 11. selectedRows: (Optional) provides ids of the selected row (id defined by dataKey)
     * 12. themeConfig - (optional) configure table style
   */
+    // variables: { study_short_name: [studyShortName] },
+
   const initTblState = (initailState) => ({
     ...initailState,
     title: config.name,
@@ -71,7 +73,7 @@ const StudyPersonnel = (props) => {
         customTheme={customTheme}
         classes={classes}
         section={config.name}
-        // activeFilters={activeFilters}
+        activeFilters={{ study_short_name: [studyShortName] }}
       >
         <Grid container>
           <Grid item xs={12} id={config.tableID}>
