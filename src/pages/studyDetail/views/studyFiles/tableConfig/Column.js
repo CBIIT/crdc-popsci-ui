@@ -15,26 +15,24 @@ export const CustomCellView = (props) => {
 
   // Helper to render IconCell for access control/file delivery
   const renderIconCell = (type) => {
-    if (props[dataField] === "Open Access") {
+    if (type === 'accessControl' && props[dataField] === "Open Access") {
       return (
         <IconCell
           signedUrl={props[dataField]}
           toolTipText={customCellProps?.openAccessTooltip}
           iconSrc={customCellProps?.openAccessIcon}
           showToolTip={true}
-          tooltipPlacement={'top'}
-          {...(type === 'fileDelivery' && { onAction: (url) => console.log(`Open Access Downloading ${url}`) })}
         />
       );
     }
-    if (props[dataField] === "Controlled Access") {
+    // All Files can only be accessed through Seven Bridges Cancer Genomics Cloud 
+    if (type === 'fileDelivery' || props[dataField] === "Controlled Access") {
       return (
         <IconCell
           signedUrl={props[dataField]}
           toolTipText={customCellProps?.controlledAccessTooltip}
           iconSrc={customCellProps?.controlledAccessIcon}
           showToolTip={true}
-          tooltipPlacement={'top'}
         />
       );
     }
