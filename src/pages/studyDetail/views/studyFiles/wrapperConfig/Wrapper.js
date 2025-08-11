@@ -109,26 +109,14 @@ export const DisplayCustomText = ({
   tab,
   totalRowCount = 0,
 }) => {
-  console.log("||| DisplayCustomText: ")
-  const {
-    id,
-  } = tab;
-  let text = 'Add all ${totalRowCount} files to My Files?';
+  const { id } = tab;
+  let text = '';
   switch (id) {
-    case 'participants_tab':
-      text = `Add all filtered Files for the ${totalRowCount} selected Participants to My Files?`;
-      break;
-    case 'biospecimens_tab':
-      text = `Add all filtered Files for the ${totalRowCount} selected Biospecimens to My Files?`;
-      break;
-    case 'file_tab':
+    case 'study_files_tab':
       text = `Add all ${totalRowCount} to My Files?`;
       break;
-    case 'study_file_tab':
-      text = `Add all ${totalRowCount} files to My Files?`;
-      break;
     default:
-      text = `Add all ${totalRowCount} files to My Files?`;
+      text = `Add all ${totalRowCount} to My Files?`;
       break;
   }
   return (
@@ -158,8 +146,8 @@ export const configWrapper = (tab, wrapperConfig, context, totalRowCount) => {
         ? tab.addAllFilesResponseKeys : tab.addFilesResponseKeys,
       DisplayCustomText: {component: (props) => DisplayCustomText({ tab, ...props, totalRowCount }),
         actions:[
-          { label: 'No', className:'noBtn', type:'Negative' },
-          { label: 'Yes', className:'yesBtn', type:'Positive' },
+          { label: 'CANCEL', className:'noBtn', type:'Negative' },
+          { label: 'CONFIRM', className:'yesBtn', type:'Positive' },
         ],
       },
     })) : [],

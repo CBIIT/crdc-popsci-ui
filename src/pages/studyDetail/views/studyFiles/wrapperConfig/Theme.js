@@ -1,9 +1,9 @@
 export const customTheme = {
   MuiContainer: {
     root: {
-      paddingTop: '5px',
       '&.container_header': {
         textAlign: 'right',
+        marginTop: '33px',
       },
       '&.container_footer': {
         paddingTop: '10px',
@@ -19,8 +19,6 @@ export const customTheme = {
         textDecoration: 'none',
       },
       '& img': {
-        // width: '29px',
-        // paddingRight: '12px',
         verticalAlign: 'top',
         marginTop: '6px',
         // '&.addAllTooltip': {},
@@ -35,10 +33,7 @@ export const customTheme = {
     root: {
       color: '#FFFFFF',
       fontSize: '14px',
-      marginTop: '6px',
       fontFamily: 'Raleway',
-      // borderRadius: '10px',
-      // marginBottom: '10px',
       textTransform: 'uppercase',
 
       fontWeight: 700,
@@ -49,25 +44,17 @@ export const customTheme = {
       verticalAlign: 'middle',
 
    
-      paddingTop: '14px',
-      paddingRight: '30px',
-      paddingBottom: '14px',
-      paddingLeft: '30px',
+      padding: '14px 30px',
       borderRadius: '30px',
-
-
-
-
 
       '&.add_all_button': {
         marginLeft: '20px',
         marginRight: '2px',
-        // width: '120px',
         backgroundColor: '#3E7C9D',
       },
       '&.add_selected_button': {
         marginRight: '2px',
-        backgroundColor: 'red'
+        backgroundColor: '#4B8074'
       },
       '&.add_selected_button_DataFiles': {
         backgroundColor: '#4B8074',
@@ -79,16 +66,19 @@ export const customTheme = {
         },
       },
       '&.yesBtn': {
-        width: '133px',
-        height: '45px',
+        width: '115px',
+        height: '41px',
         cursor: 'pointer',
-        background: '#3E74B6',
+        background: '#0C534C',
+        color: '#fff',
+        marginLeft: '15px !important'
       },
       '&.noBtn': {
-        width: '133px',
-        height: '45px',
+        width: '115px',
+        height: '41px',
         cursor: 'pointer',
         background: '#4F5D69',
+        color: '#fff',
       },
     },
   },
@@ -104,27 +94,34 @@ export const customTheme = {
   },
   MuiDialog: {
     paper: {
-      width: '431px',
-      height: '170px',
-      borderRadius: '25px !important',
+      width: '573px',
+      height: '206px',
       textAlign: 'center',
-      backgroundColor: '#E8DFDC !important',
-      border: '2px solid #A61401',
+      backgroundColor: '#fff !important',
+
+      fontFamily: 'Open Sans',
+      fontWeight: 400,
+      fontStyle: 'Regular',
+      fontSize: '14px',
+      lineHeight: '130%',
+      letterSpacing: 0,
+
+      backdropFilter: 'blur(4px)',
+
+      padding: '50px 38px',
+      margin: '0px'
     },
   },
   MuiDialogContent: {
     root: {
-      padding: '40px 20px 0px 20px',
-      '&.alter-content': {
-        fontFamily: 'Lato',
-        size: '16px',
+      '&:first-child': {
+        paddingTop: '0px'
       },
     },
   },
   MuiDialogActions: {
     root: {
       justifyContent: 'center',
-      paddingBottom: '25px',
     },
   },
 };
