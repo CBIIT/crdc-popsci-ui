@@ -20,7 +20,6 @@ export const customTheme = {
       },
       '& img': {
         verticalAlign: 'top',
-        marginTop: '6px',
         // '&.addAllTooltip': {},
         // '&.addSelectedFileTooltip': {},
       },
