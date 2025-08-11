@@ -12,12 +12,10 @@ import questionMarkCircle from '../assets/Question_Mark_Circle.svg';
 
 // --------------- Tooltip configuration --------------
 export const tooltipContentForSelectedFile = {
-  //  use as aletrative
   icon: questionMarkCircle,
   alt: 'tooltipIcon',
   arrow: false,
   DataFiles: 'Add selected files to My Files',
-
 };
 
 export const tooltipContentForAllFile = {
