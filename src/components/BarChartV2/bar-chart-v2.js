@@ -94,8 +94,6 @@ const BarChartV2 = ({
   const sortedData = sortChartDataAlpha(chartData);
   const chartWidth = sortedData.length > 5 ? sortedData.length * 55 : 280;
 
-
-
   return (
     <div className={classes.container}>
       <div>

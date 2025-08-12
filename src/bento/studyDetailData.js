@@ -3,7 +3,14 @@ import studyHeaderIcon from '../assets/study/studyHeaderIcon.svg'
 import externalLinkIcon from '../assets/externalLinkIcon.svg'
 import previousIcon from '../assets/study/previousIcon.svg';
 import { cellTypes, dataFormatTypes } from '@bento-core/table';
-import downloadSuccess from '../assets/dash/downloadSuccess.svg'
+import openPadlockIcon from '../assets/study/openPadlockIcon.svg';
+import lockedPadlockIcon from '../assets/study/lockedPadlockIcon.svg';
+
+import directDownloadIcon from '../assets/study/directDownloadIcon.svg';
+import cloudOnlyAccessIcon from '../assets/study/cloudOnlyAccessIcon.svg';
+
+
+
 // --------------- Tooltip configuration --------------
 
 export const tooltipContent = {
@@ -149,7 +156,7 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
       number_of_countries
       study_state_province_territory
       number_of_states_provinces_territories
-      primary_diagnosis_disease_term
+      primary_diagnosis_disease_term # To be replaced with cancer_diagnosis_primary_site_list
       primary_diagnosis_disease_count
     }
 
@@ -324,18 +331,35 @@ export const studyDataFileTableConfig = {
       cellType: cellTypes.FORMAT_DATA,
     },
     {
-        dataField: 'data_file_signed_url', // This need to left empty if no data need to be displayed before file download icon
-        header: 'Access',
-        display: true,
-        cellType: cellTypes.CUSTOM_ELEM,
-        downloadDocument: true, // To indicate that column is document donwload
-        documentDownloadProps: {
-          dataField: 'data_file_signed_url',
-          toolTipTextFileDownload: 'Download a copy of this file',
-          iconFileDownload: downloadSuccess,
-        },
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
+      dataField: 'data_file_access_control', // This need to left empty if no data need to be displayed before file download icon
+      header: 'Access Control',
+      display: true,
+      cellType: cellTypes.CUSTOM_ELEM,
+      accessControl: true,
+      customCellProps: {
+        openAccessTooltip: 'Open Access file',
+        controlledAccessTooltip: 'Controlled Access file',
+        openAccessIcon: openPadlockIcon,
+        controlledAccessIcon: lockedPadlockIcon
       },
+      tooltipText: 'sort',
+      role: cellTypes.DISPLAY,
+    },
+    {
+      dataField: 'data_file_access_control', // This need to left empty if no data need to be displayed before file download icon
+      header: 'File Delivery',
+      display: true,
+      cellType: cellTypes.CUSTOM_ELEM,
+      fileDelivery: true,
+      customCellProps: {
+        openAccessTooltip: 'Download this file or add to cart using checkbox',
+        controlledAccessTooltip: 'Available only via the Cloud; add to cart using checkbox',
+        openAccessIcon: directDownloadIcon,
+        controlledAccessIcon: cloudOnlyAccessIcon,
+      },
+      tooltipText: 'sort',
+      role: cellTypes.DISPLAY,
+    },
+
   ],
 };

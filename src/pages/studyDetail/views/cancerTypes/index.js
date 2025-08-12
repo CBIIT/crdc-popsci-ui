@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useLayoutEffect, useRef } from 'react';
 import {
   Box,
   FormControlLabel,
@@ -137,6 +137,8 @@ const CancerTypes = ({ classes, data }) => {
   }
 
   const [view, setView] = useState('PrimaryDiseaseSite');
+  const scrollRef = useRef(null);
+
   // view-scoped sort state
   const [sortState, setSortState] = useState({
     PrimaryDiseaseSite: { sortBy: 'alpha', direction: 'asc' },
@@ -153,11 +155,18 @@ const CancerTypes = ({ classes, data }) => {
     ];
     if (view === 'ICDMorphology') {
       return [
-        { key: 'code', label: 'Sort by ICD-O code' },
+        { key: 'code', label: 'Sort by ICD-O Code' },
         ...base,
       ];  
     }
     return base;
+  }, [view]);
+
+  // Reset scroll position to top when view changes
+  useLayoutEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = 0;
+    }
   }, [view]);
 
   // Sorting functions
@@ -219,7 +228,7 @@ const CancerTypes = ({ classes, data }) => {
                     <FormControlLabel
                       value="PrimaryDiseaseSite"
                       control={<CustomRadio />}
-                      label="by Primary Disease Site"
+                      label="by Uberon Primary Disease Site" 
                       classes={{
                         root:  classes.radioButtonSpacing,
                         label: classes.CancerTypeLabel,
@@ -264,11 +273,13 @@ const CancerTypes = ({ classes, data }) => {
                 
                 {/* Responsive list */}
                 <Grid item xs={12} className={classes.mainValue}>
-                  <ResponsiveColumnList
-                    classes={classes}
-                    items={cancerTypesTerms}
-                    renderItem={(item, idx) => renderCancerType(classes, item, idx, view)}
-                  />
+                  <div ref={scrollRef} className={classes.columnsContainer}>
+                    <ResponsiveColumnList
+                      classes={classes}
+                      items={cancerTypesTerms}
+                      renderItem={(item, idx) => renderCancerType(classes, item, idx, view)}
+                    />
+                  </div>
                 </Grid>
               </Grid>
           </Grid>

@@ -100,31 +100,6 @@ const tblBody = {
 
       color: '#4B4B4B',
 
-      '&.data_file_name': {
-        width: '294px',
-      },
-      '&.data_file_type': {
-        width: '179px',
-      },
-      '&.association': {
-        width: '150px',
-      },
-      '&.data_file_description': {
-        minWidth: '280px',
-        width: '280px',
-      },
-      '&.data_file_format': {
-        width: '100px',
-      },
-      '&.data_file_signed_url': {
-        width: '70px',
-      },
-      '&.data_file_size': {
-        width: '70px',
-        paddingRight: '35px', // Align based on Footer Pagination 
-        whiteSpace: 'nowrap',
-
-      },
     },
   },
 

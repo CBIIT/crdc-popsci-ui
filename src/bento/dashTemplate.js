@@ -156,10 +156,10 @@ export const facetsConfig = [
   },
   {
     section: Studies,
-    label: 'Neoplasms',
+    label: 'Cancer Types',
     apiPath: 'studyCountByNeoplasm',
     apiForFiltering: 'filterStudyCountByNeoplasm',
-    datafield: 'primary_diagnosis_disease_term',
+    datafield: 'cancer_diagnosis_primary_site_list',
 
     field: GROUP,
     type: InputTypes.CHECKBOX,
@@ -292,8 +292,8 @@ export const widgetConfig = [
   },
   {
     type: 'donut',
-    title: 'Studies: Neoplasm Count',
-    sliceTitle: "Neoplasms",
+    title: 'Studies: Cancer Type Count',
+    sliceTitle: "Cancer Types",
     dataName: 'neoplasmCountByStudy',
   }
 ];

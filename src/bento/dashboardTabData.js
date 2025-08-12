@@ -89,7 +89,7 @@ export const DASHBOARD_QUERY_NEW = gql`
     $study_beginning_year: [Int]
     $study_ending_year: [Int]
     $number_of_participants: [Int]
-    $primary_diagnosis_disease_term: [String]
+    $cancer_diagnosis_primary_site_list: [String]
     $study_country: [String]
     $biospecimen_collection: [String]
     $study_participant_maximum_age: [Float]
@@ -107,7 +107,7 @@ export const DASHBOARD_QUERY_NEW = gql`
       study_beginning_year: $study_beginning_year
       study_ending_year: $study_ending_year
       number_of_participants: $number_of_participants
-      primary_diagnosis_disease_term: $primary_diagnosis_disease_term
+      cancer_diagnosis_primary_site_list: $cancer_diagnosis_primary_site_list
       study_country: $study_country
       biospecimen_collection: $biospecimen_collection
       study_participant_maximum_age: $study_participant_maximum_age
@@ -183,7 +183,7 @@ export const DASHBOARD_QUERY_NEW = gql`
         subjects
       }
 
-      # Neoplasms (primary_diagnosis_disease_term)
+      # Cancer Types (cancer_diagnosis_primary_site_list)
       studyCountByNeoplasm{
         group
         subjects
@@ -276,7 +276,7 @@ export const DASHBOARD_QUERY_NEW = gql`
       study_beginning_year: $study_beginning_year
       study_ending_year: $study_ending_year
       number_of_participants: $number_of_participants
-      primary_diagnosis_disease_term: $primary_diagnosis_disease_term
+      cancer_diagnosis_primary_site_list: $cancer_diagnosis_primary_site_list
       study_country: $study_country
       biospecimen_collection: $biospecimen_collection
       study_participant_maximum_age: $study_participant_maximum_age
@@ -335,7 +335,7 @@ $study_country: [String],
 $number_of_countries: [Int],
 $study_state_province_territory: [String],
 $number_of_states_provinces_territories: [Int],
-$primary_diagnosis_disease_term: [String],
+$primary_diagnosis_disease_term: [String], # To be replaced with $cancer_diagnosis_primary_site_list: [String],
 $primary_diagnosis_disease_count: [Int],
 $first: Int,
 $offset: Int,
@@ -371,7 +371,7 @@ study_country: $study_country,
 number_of_countries: $number_of_countries,
 study_state_province_territory: $study_state_province_territory,
 number_of_states_provinces_territories: $number_of_states_provinces_territories,
-primary_diagnosis_disease_term: $primary_diagnosis_disease_term,
+primary_diagnosis_disease_term: $primary_diagnosis_disease_term, # To be replaced with cancer_diagnosis_primary_site_list: $cancer_diagnosis_primary_site_list, 
 primary_diagnosis_disease_count: $primary_diagnosis_disease_count,
 first: $first,
 offset: $offset,
@@ -405,7 +405,7 @@ sort_direction: $sort_direction
     number_of_countries
     study_state_province_territory
     number_of_states_provinces_territories
-    primary_diagnosis_disease_term
+    primary_diagnosis_disease_term # To be replaced with cancer_diagnosis_primary_site_list
     primary_diagnosis_disease_count
     enrollment_period
     study_period
@@ -895,7 +895,7 @@ export const tabContainers = [
       },
       {
         dataField: 'primary_diagnosis_disease_count',
-        header: 'Neoplasms',
+        header: 'Cancer Types',
         display: true,
         tooltipText: 'sort',
       },

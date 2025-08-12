@@ -1,11 +1,17 @@
 import React from 'react';
 import { withStyles, Icon } from '@material-ui/core';
 
-const Logo = ({ imgSrc, imgAlt = 'Logo alt text', classes }) => (
-  <Icon>
-    <img src={imgSrc} className={classes.root} alt={imgAlt} />
-  </Icon>
-);
+const CustomIcon = ({ imgSrc, imgAlt = 'Logo alt text', classes: userClasses }) => {
+  // Merge internal styles with user-provided styles (user overrides internal)
+  const defaultClasses = styles();
+  const mergedClasses = { ...defaultClasses.root, ...(userClasses?.root || {}) };
+
+  return (
+    <Icon>
+      <img src={imgSrc} style={mergedClasses} alt={imgAlt} />
+    </Icon>
+  );
+};
 
 const styles = () => ({
   root: {
@@ -17,4 +23,4 @@ const styles = () => ({
   },
 });
 
-export default withStyles(styles)(Logo);
+export default CustomIcon;

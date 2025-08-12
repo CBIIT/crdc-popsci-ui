@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 import dataVolumeIcon from '../assets/stats/data_volume_icon.svg';
 import studiesIcon from '../assets/stats/studies_icon.svg';
 import participantsIcon from '../assets/stats/participants_icon.svg';
-import neoplasmsIcon from '../assets/stats/neoplasms_icon.svg';
+import cancertypesIcon from '../assets/stats/cancertypes_icon.svg';
 import dataCategoriesIcon from '../assets/stats/data_categories_icon.svg';
 import studyFilesIcon from '../assets/stats/study_files_icon.svg';
 import { formatFileSize, formatAsCommaSeparatedNumber } from '../components/Stats/utils';
@@ -78,11 +78,11 @@ export const globalStatsData = [
     formatValue: formatAsCommaSeparatedNumber,
   },
   {
-    statTitle: 'Neoplasms',
+    statTitle: 'Cancer Types',
     type: 'field',
     statAPI: 'numberOfDiagnosis',
-    statIconSrc: neoplasmsIcon,
-    statIconAlt: 'Neoplasms Stats Bar Icon',
+    statIconSrc: cancertypesIcon,
+    statIconAlt: 'Cancer Types Stats Bar Icon',
     formatValue: formatAsCommaSeparatedNumber,
   },
   {
@@ -114,7 +114,7 @@ export const GET_GLOBAL_STATS_DATA_QUERY = gql`
     $study_beginning_year: [Int]
     $study_ending_year: [Int]
     $number_of_participants: [Int]
-    $primary_diagnosis_disease_term: [String]
+    $cancer_diagnosis_primary_site_list: [String]
     $study_country: [String]
     $biospecimen_collection: [String]
     $study_participant_maximum_age: [Float]
@@ -132,7 +132,7 @@ export const GET_GLOBAL_STATS_DATA_QUERY = gql`
       study_beginning_year: $study_beginning_year
       study_ending_year: $study_ending_year
       number_of_participants: $number_of_participants
-      primary_diagnosis_disease_term: $primary_diagnosis_disease_term
+      cancer_diagnosis_primary_site_list: $cancer_diagnosis_primary_site_list
       study_country: $study_country
       biospecimen_collection: $biospecimen_collection
       study_participant_maximum_age: $study_participant_maximum_age
@@ -156,7 +156,7 @@ export const GET_GLOBAL_STATS_DATA_QUERY = gql`
       study_beginning_year: $study_beginning_year
       study_ending_year: $study_ending_year
       number_of_participants: $number_of_participants
-      primary_diagnosis_disease_term: $primary_diagnosis_disease_term
+      cancer_diagnosis_primary_site_list: $cancer_diagnosis_primary_site_list
       study_country: $study_country
       biospecimen_collection: $biospecimen_collection
       study_participant_maximum_age: $study_participant_maximum_age
