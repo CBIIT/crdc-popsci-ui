@@ -40,7 +40,6 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
       }
       cancer_diagnosis_primary_site_collection {
         group
-        group_code
         subjects
       }
     }
