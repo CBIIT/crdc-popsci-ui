@@ -11,8 +11,8 @@ export const StatRow = ({ label, subLabel, labelCaption, children, classes }) =>
           {subLabel && <span className={classes.subLabel}>{subLabel}</span>}
         </Typography>
       </Grid>
-      <Grid item xs={4}>
-        <Typography className={classes.value}>{children}</Typography>
+      <Grid item xs={4} style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+        <Typography className={classes.valueRight}>{children}</Typography>
       </Grid>
     </Grid>
     {labelCaption && (
@@ -41,7 +41,7 @@ const StatsSection = ({ classes, data }) => {
   return (
     <>
       <StatRow label="NUMBER OF PARTICIPANTS" classes={classes}>
-        {formattedCount}
+        <span className={classes.valueRight}>{formattedCount}</span>
       </StatRow>
 
       <StatRow
@@ -50,7 +50,7 @@ const StatsSection = ({ classes, data }) => {
         labelCaption="Data reflects Age at Enrollment"
         classes={classes}
       >
-        {`${participant_age_range}`}
+        <span className={classes.valueRight}>{`${participant_age_range}`}</span>
       </StatRow>
 
       <StatRow
@@ -59,7 +59,7 @@ const StatsSection = ({ classes, data }) => {
         labelCaption="Data reflects Age at Enrollment"
         classes={classes}
       >
-        {participant_mean_age}
+        <span className={classes.valueRight}>{participant_mean_age}</span>
       </StatRow>
 
       <StatRow
@@ -68,7 +68,7 @@ const StatsSection = ({ classes, data }) => {
         labelCaption="Data reflects Age at Enrollment"
         classes={classes}
       >
-        {participant_median_age}
+        <span className={classes.valueRight}>{participant_median_age}</span>
       </StatRow>
 
       {Array.isArray(participant_races) && (
@@ -126,6 +126,15 @@ const styles = theme => ({
     textAlign: 'left',
     paddingLeft: '40px',
   },
+  valueRight: {
+    fontSize: '16px !important',
+    fontWeight: 400,
+    fontFamily: 'Open Sans',
+    lineHeight: '22px',
+    textAlign: 'right',
+    paddingRight: '43px',
+    whiteSpace: 'nowrap',
+  },
   labelCaption: {
     fontFamily: 'Nunito',
     fontWeight: 500,
@@ -133,6 +142,7 @@ const styles = theme => ({
     lineHeight: '100%',
     letterSpacing: '0%',
     color: '#497494',
+    paddingTop: '3px',
   },
 });
 

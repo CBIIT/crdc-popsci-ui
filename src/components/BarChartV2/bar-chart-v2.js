@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { withStyles } from '@material-ui/core';
 import {
   BarChart,
@@ -27,6 +27,8 @@ const styles = theme => ({
     textAlign: 'center',
     whiteSpace: 'nowrap',
     width: '100%',
+    position: 'relative',
+    left: '7px',
   },
   chartWrapper: {
     width: '100%',
@@ -40,9 +42,11 @@ export const palette = ['#6ECDD3', '#55676F', '#E3AB19', '#C01E2E', '#B39C7C', ]
 
 function CustomizedAxisTick(props) {
   const { x, y, payload } = props;
+  // Replace 'To' with 'to' in the label
+  const label = typeof payload.value === 'string' ? payload.value.replace(/\bTo\b/g, 'to') : payload.value;
   return (
     <Text x={x} y={y} style={{fontFamily: 'Open Sans', fontSize: "9px"}} fill="#000000" textAnchor="middle" width="15" verticalAnchor="start">
-      {payload.value}
+      {label}
     </Text>
   );
 }
@@ -85,9 +89,10 @@ const BarChartV2 = ({
   chartTitle,
   classes,
 }) => {
+  const chartWrapperRef = useRef(null);
 
   const sortedData = sortChartDataAlpha(chartData);
-  const chartWidth = sortedData.length > 5 ? sortedData.length * 55: 280;
+  const chartWidth = sortedData.length > 5 ? sortedData.length * 55 : 280;
 
   return (
     <div className={classes.container}>
@@ -96,7 +101,11 @@ const BarChartV2 = ({
           {"Participants: " + chartTitle}
         </h3>
       </div>
-      <div className={classes.chartWrapper}>
+      <div
+        className={classes.chartWrapper}
+        ref={chartWrapperRef}
+        style={{ overflowX: 'auto', width: '100%' }}
+      >
         <BarChart
           width={chartWidth}
           height={280}
@@ -109,10 +118,6 @@ const BarChartV2 = ({
             height={60}
             interval={0}
           />
-          <YAxis 
-            tick={{ fontSize: 12, fontFamily: 'Open Sans', fill: '#666666' }}
-          />
-          <Tooltip content={<CustomTooltip />} />
           <Bar dataKey="subjects">
             {sortedData.map((_entry, index) => (
               <Cell
@@ -121,6 +126,10 @@ const BarChartV2 = ({
               />
             ))}
           </Bar>
+          <YAxis 
+            tick={{ fontSize: 12, fontFamily: 'Open Sans', fill: '#666666' }}
+          />
+          <Tooltip content={<CustomTooltip />} />
         </BarChart>
       </div>
     </div>
