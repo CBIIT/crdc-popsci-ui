@@ -25,7 +25,7 @@ import DashTemplate from '../../pages/dashTemplate/DashTemplateController';
 import RAView from '../../pages/about/requestAccess'; 
 import ActivitiesController from '../ActivitiesController'; 
 import useVisitedPageSync from '../../utils/useVisitedPageSync';
-import CartView from '../../pages/fileCentricCart/CartController';
+import CartView from '../../pages/fileCentricCart/cartController';
 
 const ScrollToTopComponent = () => {
   window.scrollTo(0, 0);
