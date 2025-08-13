@@ -47,7 +47,6 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
       }
       cancer_diagnosis_primary_site_collection {
         group
-        group_code
         subjects
       }
     }
@@ -148,6 +147,7 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
       study_ending_year
       biospecimen_collection
       study_status
+      participant_age_range
       dbgap_accession_id
       number_of_participants
       study_participant_maximum_age
@@ -156,9 +156,6 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
       race
       ethnicity
       sex
-      races
-      ethnicities
-      sexes
       study_country
       number_of_countries
       study_state_province_territory

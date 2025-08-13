@@ -119,9 +119,9 @@ export const GET_GLOBAL_STATS_DATA_QUERY = gql`
     $biospecimen_collection: [String]
     $study_participant_maximum_age: [Float]
     $study_participant_minimum_age: [Float]
-    $races: [String]
-    $ethnicities: [String]
-    $sexes: [String]
+    $race: [String]
+    $ethnicity: [String]
+    $sex: [String]
   ) {
     searchStudies(
       study_short_name: $study_short_name
@@ -137,9 +137,9 @@ export const GET_GLOBAL_STATS_DATA_QUERY = gql`
       biospecimen_collection: $biospecimen_collection
       study_participant_maximum_age: $study_participant_maximum_age
       study_participant_minimum_age: $study_participant_minimum_age
-      races: $races
-      ethnicities: $ethnicities
-      sexes: $sexes
+      race: $race
+      ethnicity: $ethnicity
+      sex: $sex
     ) {
         dataVolume
         numberOfStudies
@@ -161,9 +161,9 @@ export const GET_GLOBAL_STATS_DATA_QUERY = gql`
       biospecimen_collection: $biospecimen_collection
       study_participant_maximum_age: $study_participant_maximum_age
       study_participant_minimum_age: $study_participant_minimum_age
-      races: $races
-      ethnicities: $ethnicities
-      sexes: $sexes
+      race: $race
+      ethnicity: $ethnicity
+      sex: $sex
     ) {
         study_short_name
         number_of_participants
