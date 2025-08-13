@@ -119,7 +119,7 @@ export const GET_GLOBAL_STATS_DATA_QUERY = gql`
     $biospecimen_collection: [String]
     $study_participant_maximum_age: [Float]
     $study_participant_minimum_age: [Float]
-    $races: [String]
+    $race: [String]
     $ethnicity: [String]
     $sex: [String]
   ) {
