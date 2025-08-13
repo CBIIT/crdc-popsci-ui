@@ -183,7 +183,7 @@ export const DASHBOARD_QUERY_NEW = gql`
         subjects
       }
 
-      # Neoplasms (cancer_diagnosis_primary_site_list)
+      # Neoplasms => Cancer Types (cancer_diagnosis_primary_site_list)
       studyCountByNeoplasm{
         group
         subjects
@@ -281,6 +281,9 @@ export const DASHBOARD_QUERY_NEW = gql`
       biospecimen_collection: $biospecimen_collection
       study_participant_maximum_age: $study_participant_maximum_age
       study_participant_minimum_age: $study_participant_minimum_age
+      race: $race
+      ethnicity: $ethnicity
+      sex: $sex
     ){
       study_short_name
       number_of_participants
@@ -329,6 +332,7 @@ $study_country: [String],
 $number_of_countries: [Int],
 $study_state_province_territory: [String],
 $number_of_states_provinces_territories: [Int],
+$cancer_diagnosis_primary_site_list: [String],
 $primary_diagnosis_disease_count: [Int],
 $first: Int,
 $offset: Int,
@@ -361,6 +365,7 @@ study_country: $study_country,
 number_of_countries: $number_of_countries,
 study_state_province_territory: $study_state_province_territory,
 number_of_states_provinces_territories: $number_of_states_provinces_territories,
+cancer_diagnosis_primary_site_list: $cancer_diagnosis_primary_site_list,
 primary_diagnosis_disease_count: $primary_diagnosis_disease_count,
 first: $first,
 offset: $offset,
@@ -393,6 +398,7 @@ sort_direction: $sort_direction
     number_of_states_provinces_territories
     enrollment_period
     participant_age_range
+    cancer_diagnosis_primary_site_list
     primary_diagnosis_disease_count
     study_period
     
