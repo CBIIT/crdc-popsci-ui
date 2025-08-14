@@ -199,13 +199,6 @@ export const table = {
     pagination: true,
     manageViewColumns: true, //{ title: "View Columns" },
     download: true,
-    
-    /*{
-      downloadCsv: "Download Table Contents As CSV",
-      downloadFileName: "CTDC_My_Files_download",
-      // customDownload: true,
-      // ...customMyFilesTabDownloadCSV,
-    }, */
   },
   columns: [
      {
