@@ -9,6 +9,9 @@ import previewLarge from '../assets/dash/previewLarge.svg'
 import openPadlockIcon from '../assets/study/openPadlockIcon.svg';
 import lockedPadlockIcon from '../assets/study/lockedPadlockIcon.svg';
 
+import directDownloadIcon from '../assets/study/directDownloadIcon.svg';
+import cloudOnlyAccessIcon from '../assets/study/cloudOnlyAccessIcon.svg';
+
 export const getManifestFileSignedUrlEndPoint = 'get-manifest-file-signed-url'
 export const navBarCartData = {
   cartLabel: 'Cart',
@@ -145,6 +148,7 @@ export const GET_MY_CART_DATA_QUERY = gql`
         data_file_format
         data_file_size
         data_file_location
+        data_file_access_control
         data_file_signed_url
    }
   }
@@ -170,6 +174,7 @@ export const GET_MY_CART_DATA_QUERY_DESC = gql` query filesInList(
         data_file_description
         data_file_format
         data_file_size
+        data_file_access_control
         data_file_location
         data_file_signed_url
  }
@@ -269,36 +274,51 @@ export const table = {
               role: cellTypes.DISPLAY,
         },
         {
-             dataField: 'data_file_uuid', // This need to left empty if no data need to be displayed before file download icon
-        header: 'File Delivery',
-        display: true,
-        cellType: cellTypes.CUSTOM_ELEM,
-        downloadDocument: true, // To indicate that column is document donwload
-        documentDownloadProps: {
-          // Max file size needs to bin Bytes to seperate two support file preview and download
-          maxFileSize: 80000000, // 10MB => 80,000,000 bits
-          // datafield where file file column exists in the table
-          fileSizeColumn: 'data_file_size',
-          // datafield where file file id exists in the table which is used to get file location
-          fileLocationColumn: 'data_file_uuid',
-          // datafield where file format exists in the table
-          fileFormatColumn: 'data_file_format',
-          // datafield where file case id exists in the table which is used to get file information
-          caseIdColumn: 'participant_id',
-          // datafield where file name exists
-          fileName: 'data_file_name',
-
-          // Case 1: Logged in and granted access, file size below {maxFileSize}
-          toolTipTextFileDownload: 'Download a copy of this file',
-          iconFileDownload: downloadSuccess,
-          
-          // Case 2: Not logged in or access not granted, file size below {maxFileSize}
-          iconUnauthenticated: downloadLock,
-          toolTipTextUnauthenticated: 'This file must be accessed via the Cloud',
+              dataField: 'data_file_access_control', // This need to left empty if no data need to be displayed before file download icon
+              header: 'File Delivery',
+              display: true,
+              cellType: cellTypes.CUSTOM_ELEM,
+              fileDelivery: true,
+              customCellProps: {
+                openAccessTooltip: 'Open Access file',
+                controlledAccessTooltip: 'This file must be accessed via the Cloud',
+                openAccessIcon: directDownloadIcon,
+                controlledAccessIcon: cloudOnlyAccessIcon,
+              },
+              tooltipText: 'sort',
+              role: cellTypes.DISPLAY,
         },
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
-          },
+        // {
+        //      dataField: 'data_file_uuid', // This need to left empty if no data need to be displayed before file download icon
+        // header: 'File Delivery',
+        // display: true,
+        // cellType: cellTypes.CUSTOM_ELEM,
+        // downloadDocument: true, // To indicate that column is document donwload
+        // documentDownloadProps: {
+        //   // Max file size needs to bin Bytes to seperate two support file preview and download
+        //   maxFileSize: 80000000, // 10MB => 80,000,000 bits
+        //   // datafield where file file column exists in the table
+        //   fileSizeColumn: 'data_file_size',
+        //   // datafield where file file id exists in the table which is used to get file location
+        //   fileLocationColumn: 'data_file_uuid',
+        //   // datafield where file format exists in the table
+        //   fileFormatColumn: 'data_file_format',
+        //   // datafield where file case id exists in the table which is used to get file information
+        //   caseIdColumn: 'participant_id',
+        //   // datafield where file name exists
+        //   fileName: 'data_file_name',
+
+        //   // Case 1: Logged in and granted access, file size below {maxFileSize}
+        //   toolTipTextFileDownload: 'Download a copy of this file',
+        //   iconFileDownload: downloadSuccess,
+          
+        //   // Case 2: Not logged in or access not granted, file size below {maxFileSize}
+        //   iconUnauthenticated: downloadLock,
+        //   toolTipTextUnauthenticated: 'This file must be accessed via the Cloud',
+        // },
+        // tooltipText: 'sort',
+        // role: cellTypes.DISPLAY,
+        //   },
   ],
   tableMsg: {
     noMatch: 'No files have been added to the cart',

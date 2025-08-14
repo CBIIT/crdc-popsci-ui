@@ -19,12 +19,15 @@ const CartView = (props) => {
   // access table state
   const tableContext = useContext(TableContext);
   const { context } = tableContext;
-
+ const accessTypes = ["Open Access", "Controlled Access"];
   console.log("||| tableContext: ", context)
 
   const [isUpdated,setIsUpdated] = useState(false);
   props ={ ...props, removeCheck: () => {setIsUpdated(true)}}
-
+  const data_file_with_access = tblRows.map(item => ({
+    ...item,
+    data_file_access_control: item.data_file_access_control || accessTypes[Math.floor(Math.random() * accessTypes.length)] || "Unknown Access"
+  }));
   /**
   * configure table state
   */
@@ -65,7 +68,7 @@ const CartView = (props) => {
               themeConfig={themeConfig}
               queryVariables={variables}
               totalRowCount={filesId.length}
-              tblRows={tblRows}
+              tblRows={data_file_with_access}
               server={isServer}
               paginationOptions={paginationOptions(context, config)}
             />
