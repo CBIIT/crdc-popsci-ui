@@ -115,7 +115,7 @@ const styles = (theme) => ({
     maxWidth: '200px',
     textAlign: 'center',
     margin: '0 auto',
-  }
+  },
 });
 
 export default styles;

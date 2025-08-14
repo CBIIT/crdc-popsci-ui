@@ -98,6 +98,7 @@ export const DASHBOARD_QUERY_NEW = gql`
     $ethnicities: [String]
     $sexes: [String]
   ){
+
     searchStudies(
       study_short_name: $study_short_name
       study_type: $study_type # Hidden for now
@@ -263,7 +264,7 @@ export const DASHBOARD_QUERY_NEW = gql`
       filterStudyCountBySex{
         group
         subjects
-      }
+      }   
     }
     
     # Global Stats
@@ -288,6 +289,7 @@ export const DASHBOARD_QUERY_NEW = gql`
       study_short_name
       number_of_participants
     }
+
 
     minMaxBoundQuery {
       number_of_participant_lower_bound

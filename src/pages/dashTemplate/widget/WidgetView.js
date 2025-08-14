@@ -12,17 +12,28 @@ import styles from './WidgetStyle';
 import { widgetConfig } from '../../../bento/dashTemplate';
 import colors from '../../../utils/colors';
 import { Typography } from '../../../components/Wrappers/Wrappers';
+import BarChartV2 from '../../../components/BarChartV2/bar-chart-v2';
 import { formatWidgetData } from './WidgetUtils';
 import sunburstStyle from './SunburstStyle'
 import { DEFAULT_VALUE } from '../../../bento/siteWideConfig';
 import { Sector } from 'recharts';
 import { formatAsCommaSeparatedNumber } from '../../../components/Stats/utils';// components/Stats/utils
+import { GET_STUDY_DETAIL_DEMOGRAPHIC_DATA_QUERY } from '../../../bento/studyDetailData';
 
 const WidgetView = ({
   classes,
   data,
   theme,
 }) => {
+
+  const barchartdata1 = data;
+
+  console.log("widgetview data", data);
+  console.log("widgetview barchartdata", barchartdata1);
+  console.log("widgetview short name", data.study_short_name);
+  console.log("widgetview race", data.studyCountByRace);
+  console.log("widgetview sex", data.studyCountBySex);
+
   const displayWidgets = formatWidgetData(data, widgetConfig);
   const [collapse, setCollapse] = React.useState(true);
   // const themeChanger = useTheme(); Hidding Dark Mode
@@ -120,6 +131,15 @@ const WidgetView = ({
     return sunburstTitle;
   };
   
+  const barChartTitleStyle = {
+    fontFamily: 'Nunito',
+    fontWeight: 'normal',
+    fontSize: '16px',
+    color: '#3478A5',
+    marginLeft: '64px',
+    textAlign: 'left', 
+  };
+
   return (
     <>
       <div className={classes.widgetsCollapse}>
@@ -152,7 +172,7 @@ const WidgetView = ({
       </div>
       <Collapse in={collapse} className={classes.backgroundWidgets}>
         <Grid container>
-          {widgetConfig.slice(0, 6).map((widget, index) => {
+          {widgetConfig.slice(0, 6).map((widget, index) => {  
             const dataset = displayWidgets[widget.dataName];
             if (!dataset || dataset.length === 0) {
               return <></>;
@@ -184,9 +204,42 @@ const WidgetView = ({
             );
           })}
         </Grid>
+        <Grid container spacing={2} style={{ marginTop: 24 }}>
+          {/* Studies: Participant Count Histogram (left) */}
+          {displayWidgets['studyCountByStudyDesign'] && displayWidgets['studyCountByStudyDesign'].length > 0 && (
+            <Grid item lg={4} md={4} sm={12} xs={12}>
+              <BarChartV2
+                chartData={data.studyCountBySex}
+                chartTitle="Age at Enrollment"
+                titleStyle={barChartTitleStyle}
+              />
+            </Grid>
+          )}
+          {/* Study Design Histogram (middle) */}
+          {displayWidgets['studyCountByStudyDesign'] && displayWidgets['studyCountByStudyDesign'].length > 0 && (
+            <Grid item lg={4} md={4} sm={12} xs={12}>
+              <BarChartV2
+                chartData={data.studyCountByRace}
+                chartTitle="Race"
+                titleStyle={barChartTitleStyle}
+              />
+            </Grid>
+          )}
+          {/* Studies: Sex (right) */}
+          {displayWidgets['studyCountByStudyDesign'] && displayWidgets['studyCountByStudyDesign'].length > 0 && (
+            <Grid item lg={4} md={4} sm={12} xs={12}>
+              <BarChartV2
+                chartData={data.studyCountBySex}
+                chartTitle="Sex"
+                titleStyle={barChartTitleStyle}
+              />
+            </Grid>
+          )}
+        </Grid>
       </Collapse>
     </>
   );
 };
 
 export default withStyles(styles, { withTheme: true })(WidgetView);
+

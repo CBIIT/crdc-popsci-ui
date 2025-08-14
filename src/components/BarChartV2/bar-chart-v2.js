@@ -24,7 +24,7 @@ const styles = theme => ({
     color: '#4B4B4B',
     fontSize: '16px',
     lineHeight: '22px',
-    textAlign: 'center',
+    textAlign: 'left',
     whiteSpace: 'nowrap',
     width: '100%',
   },
@@ -83,16 +83,20 @@ function sortChartDataAlpha(data) {
 const BarChartV2 = ({
   chartData,
   chartTitle,
+  titleStyle = {},
   classes,
 }) => {
 
   const sortedData = sortChartDataAlpha(chartData);
-  const chartWidth = sortedData.length > 5 ? sortedData.length * 55: 280;
+  const chartWidth = sortedData.length > 5 ? sortedData.length * 55 : 280;
 
   return (
     <div className={classes.container}>
-      <div>
-        <h3 className={classes.title}>
+      <div style={{ width: '100%' }}>
+        <h3 
+          className={classes.title} 
+          style={{...titleStyle }}
+        >
           {"Participants: " + chartTitle}
         </h3>
       </div>
