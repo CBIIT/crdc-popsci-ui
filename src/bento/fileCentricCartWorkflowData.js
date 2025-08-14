@@ -210,7 +210,7 @@ export const table = {
   columns: [
      {
           cellType: cellTypes.CHECKBOX,
-          display: false,
+          display: true,
           role: cellTypes.CHECKBOX,
         },
         {
@@ -287,6 +287,11 @@ export const table = {
               },
               tooltipText: 'sort',
               role: cellTypes.DISPLAY,
+        },
+        {
+          cellType: cellTypes.DELETE,
+          headerType: cellTypes.DELETE,
+          display: true,
         },
         // {
         //      dataField: 'data_file_uuid', // This need to left empty if no data need to be displayed before file download icon
