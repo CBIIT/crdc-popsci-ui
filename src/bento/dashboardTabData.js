@@ -80,7 +80,7 @@ export const tabIndex = [
 
 // Main Query used to populate Facet, Widget components
 export const DASHBOARD_QUERY_NEW = gql`
-  query search(
+query search(
     $study_short_name: [String]
     $study_type: [String] # Hidden for now
     $study_design: [String]
@@ -94,11 +94,11 @@ export const DASHBOARD_QUERY_NEW = gql`
     $biospecimen_collection: [String]
     $study_participant_maximum_age: [Float]
     $study_participant_minimum_age: [Float]
-    $races: [String]
-    $ethnicities: [String]
-    $sexes: [String]
+    $race: [String]
+    $ethnicity: [String]
+    $sex: [String]
   ){
-
+ 
     searchStudies(
       study_short_name: $study_short_name
       study_type: $study_type # Hidden for now
@@ -113,16 +113,16 @@ export const DASHBOARD_QUERY_NEW = gql`
       biospecimen_collection: $biospecimen_collection
       study_participant_maximum_age: $study_participant_maximum_age
       study_participant_minimum_age: $study_participant_minimum_age
-      races: $races
-      ethnicities: $ethnicities
-      sexes: $sexes
+      race: $race
+      ethnicity: $ethnicity
+      sex: $sex
     ){  
       dataVolume
       numberOfStudies
       numberOfDataCollectionCatagory
       numberOfDiagnosis
       numberOfDataFiles
-
+ 
       # Study Acronym(study_short_name)
       studyCountByStudy{
         group
@@ -132,7 +132,7 @@ export const DASHBOARD_QUERY_NEW = gql`
         group
         subjects
       }
-
+ 
       # Study Type(study_type) - Hidden
       studyCountByStudyType{
         group
@@ -142,7 +142,7 @@ export const DASHBOARD_QUERY_NEW = gql`
         group
         subjects
       }
-
+ 
       # Study Design (study_design)
       studyCountByStudyDesign{
         group
@@ -152,7 +152,7 @@ export const DASHBOARD_QUERY_NEW = gql`
         group
         subjects
       }
-
+ 
       # Enrollment Period(enrollment_beginning_year, enrollment_ending_year)
       enrollmentPeriodMin{
         lowerBound
@@ -164,7 +164,7 @@ export const DASHBOARD_QUERY_NEW = gql`
         upperBound
         subjects
       }
-
+ 
       # Study Period (study_beginning_year, study_ending_year)
       studyPeriodMin{
         lowerBound
@@ -176,14 +176,14 @@ export const DASHBOARD_QUERY_NEW = gql`
         upperBound
         subjects
       }
-
+ 
       # Number of Participants (number_of_participants)
       studyCountByNumberOfParticipants{
         lowerBound
         upperBound
         subjects
       }
-
+ 
       # Cancer Types (cancer_diagnosis_primary_site_list)
       studyCountByNeoplasm{
         group
@@ -193,7 +193,7 @@ export const DASHBOARD_QUERY_NEW = gql`
         group
         subjects
       }
-
+ 
       # Countries (study_country)
       studyCountByCountries{
         group
@@ -203,7 +203,7 @@ export const DASHBOARD_QUERY_NEW = gql`
         group
         subjects
       }
-
+ 
       # Biospecimen Collection (biospecimen_collection)
       studyCountByBiospecimenCollection{
         group
@@ -213,7 +213,7 @@ export const DASHBOARD_QUERY_NEW = gql`
         group
         subjects
       }
-
+ 
       # Data Collection Categories (data_collection_category): Will only be used for Widget for now
       neoplasmCountByStudy{
         group
@@ -223,7 +223,7 @@ export const DASHBOARD_QUERY_NEW = gql`
         group
         subjects
       }
-
+ 
       # Age at Enrollment (study_participant_minimum_age, study_participant_maximum_age)
       participantAgeAtEnrollmentMin{
         lowerBound
@@ -235,7 +235,7 @@ export const DASHBOARD_QUERY_NEW = gql`
         upperBound
         subjects
       }
-
+ 
       # Race (race)
       studyCountByRace{
         group
@@ -245,7 +245,7 @@ export const DASHBOARD_QUERY_NEW = gql`
         group
         subjects
       }
-
+ 
       # Ethnicity (ethnicity)
       studyCountByEthnicity{
         group
@@ -255,7 +255,7 @@ export const DASHBOARD_QUERY_NEW = gql`
         group
         subjects
       }
-
+ 
       # Sex (sex)
       studyCountBySex{
         group
@@ -282,22 +282,66 @@ export const DASHBOARD_QUERY_NEW = gql`
       biospecimen_collection: $biospecimen_collection
       study_participant_maximum_age: $study_participant_maximum_age
       study_participant_minimum_age: $study_participant_minimum_age
-      races: $races
-      ethnicities: $ethnicities
-      sexes: $sexes
+      race: $race
+      ethnicity: $ethnicity
+      sex: $sex
     ){
       study_short_name
       number_of_participants
     }
-
-
+    studyDemographics(
+      study_short_name: $study_short_name
+      )
+    {
+    study_name
+    study_short_name
+    study_description
+    study_type
+    study_design
+    enrollment_beginning_year
+    enrollment_ending_year
+    enrollment_period
+    study_beginning_year
+    study_ending_year
+    study_period
+    participant_age_range
+    biospecimen_collection
+    study_status
+    dbgap_accession_id
+    number_of_participants
+    participant_maximum_age
+    participant_minimum_age
+    participant_mean_age
+    participant_median_age
+    participant_races{
+      group
+      subjects
+        __typename
+    }
+    participant_ethnicities{
+      group
+      subjects
+        __typename
+    }
+    participant_sexes{
+      group
+      subjects
+        __typename
+    }
+    participant_count_by_age{
+      group
+      subjects
+        __typename
+    }
+    __typename
+  }
     minMaxBoundQuery {
       number_of_participant_lower_bound
       number_of_participant_upper_bound
       
       enrollment_beginning_year_lower_bound
       enrollment_ending_year_upper_bound
-
+ 
       study_beginning_year_lower_bound
       study_ending_year_upper_bound
       

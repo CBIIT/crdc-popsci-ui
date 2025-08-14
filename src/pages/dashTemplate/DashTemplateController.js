@@ -42,14 +42,14 @@ const useDashData = (states) => {
         sortWidgetDataByKey(result?.searchStudies?.studyCountByStudyDesign, 'group')
         sortWidgetDataByKey(result?.globalStatsBar, 'study_short_name')
         sortWidgetDataByKey(result?.searchStudies?.neoplasmCountByStudy, 'group')
-        sortWidgetDataByKey(result?.studyDemo, 'study_short_name')
+        sortWidgetDataByKey(result?.studyDemographics?.participant_count_by_age, 'group')
 
         // Set the dashboard data with updated values
         setDashData(prevData => {
           const updatedData = {
             ...result.searchStudies, // All other Facet and widget
             globalStatsBar: result.globalStatsBar, // Used to populate Studies widget data
-            studyDemo: result.studyDemo,
+            studyDemographics: result.studyDemographics,
             ...numberOfParticipantsGlobalStats, // Global Stats - Participants 
 
             ...enrollmentPeriod, // Facet->Slider - Enrollment Period

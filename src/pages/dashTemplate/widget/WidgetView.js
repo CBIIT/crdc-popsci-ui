@@ -18,7 +18,6 @@ import sunburstStyle from './SunburstStyle'
 import { DEFAULT_VALUE } from '../../../bento/siteWideConfig';
 import { Sector } from 'recharts';
 import { formatAsCommaSeparatedNumber } from '../../../components/Stats/utils';// components/Stats/utils
-import { GET_STUDY_DETAIL_DEMOGRAPHIC_DATA_QUERY } from '../../../bento/studyDetailData';
 
 const WidgetView = ({
   classes,
@@ -205,7 +204,7 @@ const WidgetView = ({
           })}
         </Grid>
         <Grid container spacing={2} style={{ marginTop: 24 }}>
-          {/* Studies: Participant Count Histogram (left) */}
+          {/* Participants: Age of Enrollment (left) */}
           {displayWidgets['studyCountByStudyDesign'] && displayWidgets['studyCountByStudyDesign'].length > 0 && (
             <Grid item lg={4} md={4} sm={12} xs={12}>
               <BarChartV2
@@ -215,7 +214,7 @@ const WidgetView = ({
               />
             </Grid>
           )}
-          {/* Study Design Histogram (middle) */}
+          {/* Participants: Races (middle) */}
           {displayWidgets['studyCountByStudyDesign'] && displayWidgets['studyCountByStudyDesign'].length > 0 && (
             <Grid item lg={4} md={4} sm={12} xs={12}>
               <BarChartV2
@@ -225,7 +224,7 @@ const WidgetView = ({
               />
             </Grid>
           )}
-          {/* Studies: Sex (right) */}
+          {/* Participants: Sex (right) */}
           {displayWidgets['studyCountByStudyDesign'] && displayWidgets['studyCountByStudyDesign'].length > 0 && (
             <Grid item lg={4} md={4} sm={12} xs={12}>
               <BarChartV2
