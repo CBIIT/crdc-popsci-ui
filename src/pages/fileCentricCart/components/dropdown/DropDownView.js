@@ -241,7 +241,7 @@ const DropDownView = ({ classes, filesId = [], allFiles }) => {
   const getMenuItem = () => {
     return (
       <Fragment>
-        {/* <MenuItem>
+         <MenuItem>
           <Tooltip
             arrow
             interactive
@@ -262,7 +262,7 @@ const DropDownView = ({ classes, filesId = [], allFiles }) => {
             <img className={classes.cgcIcon} src={cgcIcon} alt="icon" />
           </span>
           </Tooltip>
-        </MenuItem> */}
+        </MenuItem> 
         <MenuItem style={{ cursor: isDropDownDisabled && 'not-allowed'}} className="downloadManifestBtn">
           <Tooltip
             arrow
