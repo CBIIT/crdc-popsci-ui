@@ -3,14 +3,13 @@ import { cellTypes, dataFormatTypes } from '@bento-core/table';
 import { types } from '@bento-core/paginated-table';
 import { customMyFilesTabDownloadCSV } from './tableDownloadCSV';
 import cartPageIcon from '../assets/cart/cartPageIcon.svg'
-import downloadSuccess from '../assets/dash/downloadSuccess.svg'
-import downloadLock from '../assets/dash/downloadLock.svg'
-import previewLarge from '../assets/dash/previewLarge.svg'
 import openPadlockIcon from '../assets/study/openPadlockIcon.svg';
 import lockedPadlockIcon from '../assets/study/lockedPadlockIcon.svg';
 
 import directDownloadIcon from '../assets/study/directDownloadIcon.svg';
 import cloudOnlyAccessIcon from '../assets/study/cloudOnlyAccessIcon.svg';
+import CustomFooterMessage from '../pages/fileCentricCart/tableConfig/CustomFooterMessage';
+
 
 export const getManifestFileSignedUrlEndPoint = 'get-manifest-file-signed-url'
 export const navBarCartData = {
@@ -47,23 +46,34 @@ export const myFilesPageData = {
       container: 'paginatedTable',
       paginatedTable: true,
     },
-    // {
-    //   container: 'buttons',
-    //   size: 'xl',
-    //   clsName: 'container_footer',
-    //   items: [
-    //     {
-    //       clsName: 'manifest_comments',
-    //       type: types.TEXT_INPUT,
-    //       placeholder: 'User Comment',
-    //     }
-    //   ],
-    // },
+    {
+      container: 'instruction',
+      clsName: 'container_footer',
+      items: [
+        {
+          clsName: 'text_instruction',
+          type: types.CUSTOM_ELEM,
+          customViewElem: CustomFooterMessage,
+        }
+      ],
+    },
+    {
+      container: 'buttons',
+      size: 'xl',
+      clsName: 'container_footer',
+      items: [
+        {
+          clsName: 'manifest_comments',
+          type: types.TEXT_INPUT,
+          placeholder: 'User Comment',
+        }
+      ],
+    },
   ],
 
   downButtonText: 'DOWNLOAD MANIFEST',
   headerIconSrc: cartPageIcon,
-  headerIconAlt: 'CTDC Cart header logo',
+  headerIconAlt: 'PSDC Cart header logo',
 };
 
 export const USER_COMMENT = "User_Comment";
@@ -72,55 +82,17 @@ export const manifestData = {
   keysToInclude: [
     'data_file_name',   // ('name' - 1/4 required fields)
     'drs_uri',          // ('drs_uri' - 2/4 required fields)
-    'study_short_name', // ('study_short_name' - 3/4 required fields)
-    'participant_id',       // ('participant_id' - 4/4 required fields)
-
-    'data_file_uuid',
-    'data_file_checksum_value',
-    'parent_specimen_id',
-    'ctep_disease_term',
-    'meddra_disease_code',
-    'primary_disease_site',
-    'histology',
-    'stage_of_disease',
-    'tumor_grade',
-    'age_at_enrollment',
-    'sex',
-    'race',
-    'ethnicity',
-    'carcinogen_exposure',
-    'targeted_therapy',
-    'parent_specimen_id',
-    'anatomical_collection_site',
-    'tissue_category',
-    'assessment_timepoint',
+    'data_file_uuid', // ('study_short_name' - 3/4 required fields)
+    'data_file_checksum_value',       // ('participant_id' - 4/4 required fields)
+    'study_short_name',
     'User_Comment'
   ],
   header: [
     'name',
     'drs_uri',
-    'study_short_name',
-    'participant_id',
-
-    'File ID',
+    'File UUID',
     'Md5sum',
-    'Biospecimen ID',
-    'Diagnosis',
-    'MedDRA Disease Code',
-    'Primary Site',
-    'Histology',
-    'Stage of Disease',
-    'Tumor Grade',
-    'Age',
-    'Sex',
-    'Race',
-    'Ethnicity',
-    'Carcinogen Exposure',
-    'Targeted Therapy',
-    'Parent Biospecimen ID',
-    'Anatomical Collection Site',
-    'Tissue Category',
-    'Collection Timepoint',
+    'Study Acronym',
     'User Comment'
   ],
 };

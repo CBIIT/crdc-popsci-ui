@@ -20,7 +20,6 @@ const CartView = (props) => {
   const tableContext = useContext(TableContext);
   const { context } = tableContext;
  const accessTypes = ["Open Access", "Controlled Access"];
-  console.log("||| tableContext: ", context)
 
   const [isUpdated,setIsUpdated] = useState(false);
   props ={ ...props, removeCheck: () => {setIsUpdated(true)}}
@@ -50,7 +49,6 @@ const CartView = (props) => {
   
   const variables = {};
   variables.data_file_uuid = filesId;
-
   return (
     <Grid container className={classes.myFilesContainer}>
       

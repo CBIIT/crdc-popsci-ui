@@ -25,4 +25,7 @@ export default () => ({
   customTooltip: {
     border: '#03A383 1px solid',
   },
+  text_instruction: {
+    border: '#03A383 1px solid',
+  },
 });

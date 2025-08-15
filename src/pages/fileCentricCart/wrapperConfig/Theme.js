@@ -64,6 +64,12 @@ export const customTheme = {
         '&.tooltip_icon': {
           width: '25px',
         },
+        '& span.text_instruction': {
+          maxWidth: '412px',
+          fontSize: '16px',
+          color: '#000000',
+          margin: '10px 5px',
+        },
         '& textarea.manifest_comments': {
           color: '#000000',
           border: '1px solid #707070',
