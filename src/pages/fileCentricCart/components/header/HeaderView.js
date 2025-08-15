@@ -29,28 +29,6 @@ const HeaderView = ({
   // if allFile radio button is true download all file with Download manifest btn
   const [allFiles, setAllFiles] = useState(true);
 
-  const getReadMe = async (url) => {
-    try {
-      if (!url) {
-        console.warn('README URL is not configured');
-        return;
-      }
-      const { data } = await axios.get(url);
-      setContent(data);
-    } catch (error) {
-      console.error('Error fetching README:', error);
-    }
-  };
-
-  useEffect(() => {
-    if (env.REACT_APP_FILE_CENTRIC_CART_README) {
-      getReadMe(env.REACT_APP_FILE_CENTRIC_CART_README);
-    }
-  }, []);
-
-  const displayReadMeHandler = () => {
-    setDisplayReadMe(!displayReadMe);
-  };
 
   const handleRadioChange = (event) => {
     const isAllSelected = event.target.value === 'true';
@@ -68,29 +46,10 @@ const HeaderView = ({
               alt={myFilesPageData.headerIconAlt}
             />
           </div>
-
-          {/* <Grid container alignItems="center" className={classes.headerContent}>
-            <span className={classes.pageTitle}>{'Cart > Selected Files'}</span>
-            <Button
-              onClick={displayReadMeHandler}
-              color="primary"
-              variant="contained"
-              endIcon={<img src={ReadMoreSVG} alt="Read More icon" />}
-              classes={{
-                root: classes.readMeBtnRoot,
-                label: classes.readMeBtnLabel,
-                endIcon: classes.readmeEndIcon
-              }}
-            >
-              README
-            </Button>
-          </Grid>  */}
-          
         </div>
-        
       </div>
 
-      {/* <Grid container alignItems="center" justifyContent="flex-end" xs={12} md={12} lg={12} className={classes.actionBtn}>
+      <Grid container alignItems="center" justifyContent="flex-end" xs={12} md={12} lg={12} className={classes.actionBtn}>
         <FormControl>
           <RadioGroup
             row
@@ -118,16 +77,7 @@ const HeaderView = ({
         filesId={filesId} 
         allFiles={allFiles}
       /> 
-      </Grid> */}
-      
-      {/* <ReadMeDialogComponent
-        content={content}
-        config={{
-          readMeTitle: 'Understanding the “My Files” Cart Page',
-        }}
-        display={displayReadMe}
-        displayReadMeDialog={displayReadMeHandler}
-      /> */}
+      </Grid>
     </HeaderThemeprovider>
   );
 };
