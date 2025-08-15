@@ -488,6 +488,7 @@ const NavBar = () => {
               </CartSpan> 
               ):(
          <CartSpan>
+                <CartContainer />
         </CartSpan> 
         )}
       </NavContainer>

@@ -14,7 +14,7 @@ const StudyFiles = ({ classes, data, studyShortName }) => {
     ...item,
     data_file_access_control: item.data_file_access_control || accessTypes[Math.floor(Math.random() * accessTypes.length)] || "Unknown Access"
   }));
-
+  
   return (
     <OverviewThemeProvider>
       {/* Study Personnel Section */}

@@ -1,8 +1,8 @@
 import React from 'react';
 import { cellTypes, headerTypes } from '@bento-core/table';
+import { Typography } from '@material-ui/core';
 import CustomHeaderRemover from './CustomHeaderRemover';
-
-export const CustomCellView = () => (<></>);
+import IconCell from '../../studyDetail/views/studyFiles/tableConfig/IconCell';
 
 export const CustomHeaderCellView = (props) => {
   const {
@@ -19,6 +19,64 @@ export const CustomHeaderCellView = (props) => {
       return (<></>);
   }
 };
+
+
+// Helper component for custom cell rendering
+export const CustomCellView = (props) => {
+  const {
+    fileDelivery,
+    accessControl,
+    displayEmpty,
+    dataField,
+    customCellProps,
+  } = props;
+
+  // Helper to render IconCell for access control/file delivery
+  const renderIconCell = (type) => {
+    if (type === 'accessControl' && props[dataField] === "Open Access") {
+      return (
+        <IconCell
+          signedUrl={props[dataField]}
+          toolTipText={customCellProps?.openAccessTooltip}
+          iconSrc={customCellProps?.openAccessIcon}
+          showToolTip={true}
+        />
+      );
+    }
+    // All Files can only be accessed through Seven Bridges Cancer Genomics Cloud 
+    if (type === 'fileDelivery' || props[dataField] === "Controlled Access") {
+      return (
+        <IconCell
+          signedUrl={props[dataField]}
+          toolTipText={customCellProps?.controlledAccessTooltip}
+          iconSrc={customCellProps?.controlledAccessIcon}
+          showToolTip={true}
+        />
+      );
+    }
+    return null;
+  };
+
+  if (accessControl && dataField === "data_file_access_control") {
+    return renderIconCell('accessControl');
+  }
+
+  if (fileDelivery && dataField === "data_file_access_control") {
+    return renderIconCell('fileDelivery');
+  }
+
+  if (typeof displayEmpty === "boolean") {
+    return (
+      <Typography>
+        {displayEmpty || props[dataField] ? props[dataField] : ""}
+      </Typography>
+    );
+  }
+
+  // Return empty fragment for other cases
+  return null;
+};
+
 
 /**
 * set column configuration
