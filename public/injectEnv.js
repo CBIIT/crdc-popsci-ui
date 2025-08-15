@@ -6,14 +6,14 @@ window.injectedEnv = {
 
   // Services API End Points:
   // REACT_APP_BACKEND_API: 'http://localhost:8080/v1/graphql/',
-  REACT_APP_BACKEND_API: 'https://internal-crdc-p-albae-auxdjeeamikd-2058219484.us-east-1.elb.amazonaws.com/v1/graphql/',
+  REACT_APP_BACKEND_API: 'https://populationsciences-dev.datacommons.cancer.gov/v1/graphql/',
 
 
   REACT_APP_BACKEND_PUBLIC_API: 'http://localhost:3000/v1/public-graphql/',
   REACT_APP_FILE_SERVICE_API: 'http://localhost:3000/api/files/',
   REACT_APP_AUTH_SERVICE_API: 'http://localhost:3000/api/auth/',
   REACT_APP_USER_SERVICE_API: 'http://localhost:3000/api/users/',
-
+  REACT_APP_INTEROP_SERVICE_URL: 'https://populationsciences-dev.datacommons.cancer.gov/api/interoperation/',
   // IDP Auth url
   REACT_APP_NIH_AUTH_URL: 'https://stsstg.nih.gov/auth/oauth/v2/authorize',
   // Client IDs for IDP
