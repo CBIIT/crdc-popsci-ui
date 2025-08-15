@@ -139,6 +139,7 @@ const useStyles = makeStyles(theme => ({
     lineHeight: '100%',
     letterSpacing: '0%',
     color: '#497494',
+    paddingTop: '3px',
   },
   sortButtonGroup: {
     // Group the two sort buttons so they wrap together
@@ -166,14 +167,15 @@ const useStyles = makeStyles(theme => ({
   },
   headerCountCell: {
     width: '150px',
-    textAlign: 'center', 
+    textAlign: 'right', 
+    paddingRight: '23px',
   },
   countCell: {
     width: '150px',
-    textAlign: 'left',
+    textAlign: 'right',
     fontWeight: 600,
     color: '#245F7B',
-    paddingLeft: '43px'
+    paddingRight: '23px'
   },
   sortButton: {
     background: '#ffffff',

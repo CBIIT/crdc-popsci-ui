@@ -1,21 +1,28 @@
 import gql from 'graphql-tag';
+import { cellTypes, dataFormatTypes } from '@bento-core/table';
 import studyHeaderIcon from '../assets/study/studyHeaderIcon.svg'
 import externalLinkIcon from '../assets/externalLinkIcon.svg'
 import previousIcon from '../assets/study/previousIcon.svg';
-import { cellTypes, dataFormatTypes } from '@bento-core/table';
 import openPadlockIcon from '../assets/study/openPadlockIcon.svg';
 import lockedPadlockIcon from '../assets/study/lockedPadlockIcon.svg';
 
 import directDownloadIcon from '../assets/study/directDownloadIcon.svg';
 import cloudOnlyAccessIcon from '../assets/study/cloudOnlyAccessIcon.svg';
-
-
+import questionMarkCircle from '../assets/Question_Mark_Circle.svg';
 
 // --------------- Tooltip configuration --------------
-
-export const tooltipContent = {
-  src: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/icdc/images/svgs/Tooltip.SpeechBubble.svg',
+export const tooltipContentForSelectedFile = {
+  icon: questionMarkCircle,
   alt: 'tooltipIcon',
+  arrow: false,
+  DataFiles: 'Add selected files to My Files',
+};
+
+export const tooltipContentForAllFile = {
+  icon: questionMarkCircle,
+  alt: 'tooltipIcon',
+  arrow: false,
+  DataFiles: 'Add all files associated with this study to My Files'
 };
 
 export const title = {
@@ -40,7 +47,6 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
       }
       cancer_diagnosis_primary_site_collection {
         group
-        group_code
         subjects
       }
     }
@@ -141,6 +147,7 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
       study_ending_year
       biospecimen_collection
       study_status
+      participant_age_range
       dbgap_accession_id
       number_of_participants
       study_participant_maximum_age
@@ -149,9 +156,6 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
       race
       ethnicity
       sex
-      races
-      ethnicities
-      sexes
       study_country
       number_of_countries
       study_state_province_territory
@@ -246,13 +250,6 @@ export const studyPersonnelTableConfig = {
       tooltipText: 'sort',
       role: cellTypes.DISPLAY,
     },
-    // {
-    //   dataField: 'email_address',
-    //   header: 'Email Address',
-    //   display: false,
-    //   tooltipText: 'sort',
-    //   role: cellTypes.DISPLAY,
-    // },
     {
       dataField: 'person_role',
       header: 'Position or Role',
@@ -263,6 +260,56 @@ export const studyPersonnelTableConfig = {
   ],
 };
 
+
+// --------------- GraphQL Query - "ADD SELECTED FILES" under Study Files tab ---------------
+export const GET_FILE_IDS_FOR_SELECTED_FILES = gql`
+  query studyFiles(
+    $study_short_name: [String]
+    $data_file_uuid: [String]
+    $first: Int
+    $offset: Int
+    $order_by: String
+    $sort_direction: String
+  ) {
+    studyFiles(
+      study_short_name: $study_short_name
+      data_file_uuid: $data_file_uuid
+      first: $first
+      offset: $offset
+      order_by: $order_by
+      sort_direction: $sort_direction
+    ) {
+      data_file_name
+      data_file_uuid
+    }
+  }
+`;
+
+
+// --------------- GraphQL Query - "ADD ALL FILES" under Study Files tab ---------------
+export const GET_ALL_FILE_IDS_FOR_FILES = gql`
+  query studyFiles(
+    $study_short_name: [String]
+    $data_file_uuid: [String]
+    $first: Int
+    $offset: Int
+    $order_by: String
+    $sort_direction: String
+  ) {
+    studyFiles(
+      study_short_name: $study_short_name
+      data_file_uuid: $data_file_uuid
+      first: $first
+      offset: $offset
+      order_by: $order_by
+      sort_direction: $sort_direction
+    ) {
+      data_file_name
+      data_file_uuid
+    }
+  }
+`;
+
 // --------------- Tabs Table configuration --------------
 export const studyDataFileTableConfig = {
   name: 'DataFiles',
@@ -271,8 +318,8 @@ export const studyDataFileTableConfig = {
   dataKey: 'data_file_uuid',
   defaultSortField: 'data_file_name',
   defaultSortDirection: 'asc',
-  tableID: 'dataFile_table',
-  id: 'dataFile_table',
+  tableID: 'study_files_tab_table',
+  id: 'study_files_tab',
 
   extendedViewConfig: {
     pagination: true, // Top pagination: true || false
@@ -282,7 +329,7 @@ export const studyDataFileTableConfig = {
   columns: [
     {
       cellType: cellTypes.CHECKBOX,
-      display: false,
+      display: true,
       role: cellTypes.CHECKBOX,
     },
     {
@@ -362,4 +409,19 @@ export const studyDataFileTableConfig = {
     },
 
   ],
+
+  selectableRows: true,
+  tableMsg: {
+    noMatch: 'No Matching Records Found',
+  },
+
+  addFilesRequestVariableKey: 'data_file_uuid',
+  
+  addFilesResponseKeys: ['studyFiles', 'data_file_uuid'],
+  addSelectedFilesQuery: GET_FILE_IDS_FOR_SELECTED_FILES,
+
+  addAllFilesResponseKeys: ['studyFiles', 'data_file_uuid'],
+  addAllFileQuery: GET_ALL_FILE_IDS_FOR_FILES,
 };
+
+
