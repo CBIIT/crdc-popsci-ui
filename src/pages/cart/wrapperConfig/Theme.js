@@ -78,7 +78,7 @@ export const customTheme = {
           borderRadius: '10px',
         },
         '&  span.text_instruction': {
-          color: 'red',
+          color: '#FF0000',
           border: '1px solid #707070',
           height: '96px',
           resize: 'none',
