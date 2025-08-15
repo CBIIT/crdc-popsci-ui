@@ -25,13 +25,38 @@ const WidgetView = ({
   theme,
 }) => {
 
-  const barchartdata1 = data;
+  const processData = (studyDemographics, dataType) => {
+    if (!studyDemographics || !Array.isArray(studyDemographics)) return [];
+    
+    const fieldMap = {
+      age: 'participant_count_by_age',
+      sex: 'participant_sexes', 
+      race: 'participant_races'
+    };
+    
+    const fieldName = fieldMap[dataType];
+    if (!fieldName) return [];
+    
+    const counts = {};
+    studyDemographics.forEach(study => {
+      if (study[fieldName] && Array.isArray(study[fieldName])) {
+        study[fieldName].forEach(item => {
+          const groupName = item.group;
+          const count = item.subjects;
+          counts[groupName] = (counts[groupName] || 0) + count;
+        });
+      }
+    });
+    
+    return Object.entries(counts).map(([group, count]) => ({
+      group: group,
+      subjects: count
+    }));
+  };
 
-  console.log("widgetview data", data);
-  console.log("widgetview barchartdata", barchartdata1);
-  console.log("widgetview short name", data.study_short_name);
-  console.log("widgetview race", data.studyCountByRace);
-  console.log("widgetview sex", data.studyCountBySex);
+  const processedSexData = processData(data.studyDemographics, 'sex');
+  const processedAgeData = processData(data.studyDemographics, 'age');
+  const processedRaceData = processData(data.studyDemographics, 'race');
 
   const displayWidgets = formatWidgetData(data, widgetConfig);
   const [collapse, setCollapse] = React.useState(true);
@@ -205,30 +230,30 @@ const WidgetView = ({
         </Grid>
         <Grid container spacing={2} style={{ marginTop: 24 }}>
           {/* Participants: Age of Enrollment (left) */}
-          {displayWidgets['studyCountByStudyDesign'] && displayWidgets['studyCountByStudyDesign'].length > 0 && (
+          {processedAgeData && processedAgeData.length > 0 && (
             <Grid item lg={4} md={4} sm={12} xs={12}>
               <BarChartV2
-                chartData={data.studyCountBySex}
+                chartData={processedAgeData}
                 chartTitle="Age at Enrollment"
                 titleStyle={barChartTitleStyle}
               />
             </Grid>
           )}
           {/* Participants: Races (middle) */}
-          {displayWidgets['studyCountByStudyDesign'] && displayWidgets['studyCountByStudyDesign'].length > 0 && (
+          {processedRaceData && processedRaceData.length > 0 && (
             <Grid item lg={4} md={4} sm={12} xs={12}>
               <BarChartV2
-                chartData={data.studyCountByRace}
+                chartData={processedRaceData}
                 chartTitle="Race"
                 titleStyle={barChartTitleStyle}
               />
             </Grid>
           )}
           {/* Participants: Sex (right) */}
-          {displayWidgets['studyCountByStudyDesign'] && displayWidgets['studyCountByStudyDesign'].length > 0 && (
+          {processedSexData && processedSexData.length > 0 && (
             <Grid item lg={4} md={4} sm={12} xs={12}>
               <BarChartV2
-                chartData={data.studyCountBySex}
+                chartData={processedSexData}
                 chartTitle="Sex"
                 titleStyle={barChartTitleStyle}
               />
