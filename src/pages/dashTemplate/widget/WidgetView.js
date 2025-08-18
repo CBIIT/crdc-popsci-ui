@@ -54,7 +54,7 @@ const WidgetView = ({
     }));
   };
 
-  const processedSexData = processData(data.studyDemographics, 'sex');
+  const processedSexData = processData(data.studyDemographics, 'sex'); 
   const processedAgeData = processData(data.studyDemographics, 'age');
   const processedRaceData = processData(data.studyDemographics, 'race');
 

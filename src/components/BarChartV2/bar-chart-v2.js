@@ -83,7 +83,7 @@ function sortChartDataAlpha(data) {
 const BarChartV2 = ({
   chartData,
   chartTitle,
-  titleStyle = {},
+  titleStyle = {textAlign: 'center'},
   classes,
 }) => {
 
