@@ -13,7 +13,7 @@ window.injectedEnv = {
   REACT_APP_FILE_SERVICE_API: 'http://localhost:3000/api/files/',
   REACT_APP_AUTH_SERVICE_API: 'http://localhost:3000/api/auth/',
   REACT_APP_USER_SERVICE_API: 'http://localhost:3000/api/users/',
-
+  REACT_APP_INTEROP_SERVICE_URL: 'https://populationsciences-dev.datacommons.cancer.gov/api/interoperation/',
   // IDP Auth url
   REACT_APP_NIH_AUTH_URL: 'https://stsstg.nih.gov/auth/oauth/v2/authorize',
   // Client IDs for IDP

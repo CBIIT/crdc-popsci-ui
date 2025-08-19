@@ -112,7 +112,7 @@ export default (theme) => ({
     borderBottom: '4px solid #073155',
   },
   hrLine: {
-    marginTop: '-2px',
+    marginTop: '-4px',
     marginBottom: '0',
     border: '1px solid #76C4E4',
   },

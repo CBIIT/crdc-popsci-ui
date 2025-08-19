@@ -44,6 +44,16 @@ export const wrapperConfig = [
   paginatedTable: true,
 },
 {
+      container: 'instruction',
+      items: [
+        {
+          clsName: 'text_instruction',
+          type: types.TEXT,
+          text: 'To access and analyze files: select and remove unwanted files,  click the “Download Manifest” button, and upload the resulting Manifest file to your Seven Bridges Genomics account.',
+        }
+      ],
+},
+{
   container: 'buttons',
   size: 'xl',
   clsName: 'container_footer',

@@ -6,7 +6,7 @@ import OverviewThemeProvider from './ThemeConfig';
 import StudyPersonnel from './StudyFileTable';
 import styles from './style';
 
-const StudyFiles = ({ classes, data, }) => {
+const StudyFiles = ({ classes, data, studyShortName }) => {
   const accessTypes = ["Open Access", "Controlled Access"];
   
   const { data_file = [] } = data;
@@ -14,14 +14,14 @@ const StudyFiles = ({ classes, data, }) => {
     ...item,
     data_file_access_control: item.data_file_access_control || accessTypes[Math.floor(Math.random() * accessTypes.length)] || "Unknown Access"
   }));
-
+  
   return (
     <OverviewThemeProvider>
       {/* Study Personnel Section */}
       <div className={classes.studyFileContainer}>
         {data_file_with_access.length > 0 ? (
           <div className={classes.studyPersonnelTable}>
-            <StudyPersonnel data={data_file_with_access} />
+            <StudyPersonnel data={data_file_with_access} studyShortName={studyShortName} />
           </div>
         ): (
           <div className={classes.noStudyRecords}>

@@ -61,11 +61,24 @@ export const customTheme = {
           marginLeft: '5px',
           verticalAlign: 'top',
         },
-        '&.tooltip_icon': {
+        '& .tooltip_icon': {
           width: '25px',
         },
         '& textarea.manifest_comments': {
           color: '#000000',
+          border: '1px solid #707070',
+          height: '96px',
+          resize: 'none',
+          padding: '15px',
+          fontSize: '12px',
+          maxWidth: '412px',
+          background: '#ebebeb',
+          fontFamily: 'Roboto, Open Sans',
+          marginRight: '10px',
+          borderRadius: '10px',
+        },
+        '&  span.text_instruction': {
+          color: '#FF0000',
           border: '1px solid #707070',
           height: '96px',
           resize: 'none',

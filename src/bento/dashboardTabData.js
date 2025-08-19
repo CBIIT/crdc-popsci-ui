@@ -374,14 +374,11 @@ $study_participant_minimum_age: [Float],
 $race: [String],
 $ethnicity: [String],
 $sex: [String],
-$races: [String],
-$ethnicities: [String],
-$sexes: [String],
 $study_country: [String],
 $number_of_countries: [Int],
 $study_state_province_territory: [String],
 $number_of_states_provinces_territories: [Int],
-$primary_diagnosis_disease_term: [String], # To be replaced with $cancer_diagnosis_primary_site_list: [String],
+$cancer_diagnosis_primary_site_list: [String],
 $primary_diagnosis_disease_count: [Int],
 $first: Int,
 $offset: Int,
@@ -410,14 +407,11 @@ study_participant_minimum_age: $study_participant_minimum_age,
 race: $race,
 ethnicity: $ethnicity,
 sex: $sex,
-races: $races,
-ethnicities: $ethnicities,
-sexes: $sexes,
 study_country: $study_country,
 number_of_countries: $number_of_countries,
 study_state_province_territory: $study_state_province_territory,
 number_of_states_provinces_territories: $number_of_states_provinces_territories,
-primary_diagnosis_disease_term: $primary_diagnosis_disease_term, # To be replaced with cancer_diagnosis_primary_site_list: $cancer_diagnosis_primary_site_list, 
+cancer_diagnosis_primary_site_list: $cancer_diagnosis_primary_site_list,
 primary_diagnosis_disease_count: $primary_diagnosis_disease_count,
 first: $first,
 offset: $offset,
@@ -444,18 +438,16 @@ sort_direction: $sort_direction
     race
     ethnicity
     sex
-    races
-    ethnicities
-    sexes
     study_country
     number_of_countries
     study_state_province_territory
     number_of_states_provinces_territories
-    primary_diagnosis_disease_term # To be replaced with cancer_diagnosis_primary_site_list
-    primary_diagnosis_disease_count
     enrollment_period
+    participant_age_range
+    cancer_diagnosis_primary_site_list
+    primary_diagnosis_disease_count
     study_period
-    enrollment_age
+    
     data_collection{
         data_collection_category
         data_collection_category_annotation_count
@@ -464,7 +456,6 @@ sort_direction: $sort_direction
   }
   
 }
-
 `;
 
 // Query for Tab - Files Table -  (UNUSED; HERE FOR REFERENCE)
@@ -963,7 +954,7 @@ export const tabContainers = [
         tooltipText: 'sort',
       },
       {
-        dataField: 'enrollment_age',
+        dataField: 'participant_age_range',
         header: 'Enrollment Age',
         display: true,
         tooltipText: 'sort',
