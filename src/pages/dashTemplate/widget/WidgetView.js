@@ -25,8 +25,15 @@ const WidgetView = ({
   theme,
 }) => {
 
-  const processData = (studyDemographics, dataType) => {
+  console.log("data: ", data);
+
+  const processData = (studyDemographics, studyCountByStudy, dataType) => {
     if (!studyDemographics || !Array.isArray(studyDemographics)) return [];
+    
+    // Get the list of filtered study short names from studyCountByStudy
+    const filteredStudyNames = new Set(
+      (studyCountByStudy || []).map(study => study.group)
+    );
     
     const fieldMap = {
       age: 'participant_count_by_age',
@@ -38,15 +45,19 @@ const WidgetView = ({
     if (!fieldName) return [];
     
     const counts = {};
-    studyDemographics.forEach(study => {
-      if (study[fieldName] && Array.isArray(study[fieldName])) {
-        study[fieldName].forEach(item => {
-          const groupName = item.group;
-          const count = item.subjects;
-          counts[groupName] = (counts[groupName] || 0) + count;
-        });
-      }
-    });
+    
+    // Only process studies that are in the filtered list
+    studyDemographics
+      .filter(study => filteredStudyNames.has(study.study_short_name))
+      .forEach(study => {
+        if (study[fieldName] && Array.isArray(study[fieldName])) {
+          study[fieldName].forEach(item => {
+            const groupName = item.group;
+            const count = item.subjects;
+            counts[groupName] = (counts[groupName] || 0) + count;
+          });
+        }
+      });
     
     return Object.entries(counts).map(([group, count]) => ({
       group: group,
@@ -54,9 +65,10 @@ const WidgetView = ({
     }));
   };
 
-  const processedSexData = processData(data.studyDemographics, 'sex');
-  const processedAgeData = processData(data.studyDemographics, 'age');
-  const processedRaceData = processData(data.studyDemographics, 'race');
+  // Use studyCountByStudy to filter the demographics data
+  const processedSexData = processData(data.studyDemographics, data.studyCountByStudy, 'sex');
+  const processedAgeData = processData(data.studyDemographics, data.studyCountByStudy, 'age');
+  const processedRaceData = processData(data.studyDemographics, data.studyCountByStudy, 'race');
 
   console.log("data: ", data);
 

@@ -78,6 +78,27 @@ export const tabIndex = [
   }
 ];
 
+export const DASHBOARD_QUERY_DEMOGRAPHICS = gql`
+  query studyDemo(
+    $study_short_name: [String]
+    ){
+      study_short_name
+
+      participant_count_by_age {
+        group
+        subjects
+      }
+      participant_races {
+        group
+        subjects
+      }
+      participant_sexes {
+        group
+        subjects
+      }
+    }
+`
+
 // Main Query used to populate Facet, Widget components
 export const DASHBOARD_QUERY_NEW = gql`
 query search(
