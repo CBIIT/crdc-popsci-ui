@@ -35,12 +35,10 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
       study_short_name,
       cancer_diagnosis_disease_morphology_collection {
         group
-        group_code
         subjects
       }
       cancer_diagnosis_primary_site_collection {
         group
-        group_code
         subjects
       }
     }
@@ -149,9 +147,6 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
       race
       ethnicity
       sex
-      races
-      ethnicities
-      sexes
       study_country
       number_of_countries
       study_state_province_territory
