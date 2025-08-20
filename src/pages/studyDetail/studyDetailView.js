@@ -61,7 +61,7 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false, studyS
     { index: 3, label: 'Data Collected' ,content: <DataCollection data={data?.dataCollectionPage[0].data_collection || {}} /> },
     { index: 4, label: 'Countries and States',content: <Country data={studyGeneral || {}} /> },
     { index: 5, label: 'Publications', content: <Publications data={studyGeneral || {}} /> },
-    { index: 6, label: 'Study Files', content: <StudyFiles data={studyFiles || {}} studyShortName={studyShortName} />},
+    { index: 6, label: 'Study Files', content: <StudyFiles data={studyFiles || []} studyShortName={studyShortName} />},
   ];
 
   if (isLoading) return <CircularProgress />;
