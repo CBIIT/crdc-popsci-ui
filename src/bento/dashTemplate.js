@@ -295,5 +295,5 @@ export const widgetConfig = [
     title: 'Studies: Cancer Type Count',
     sliceTitle: "Cancer Types",
     dataName: 'neoplasmCountByStudy',
-  },
+  }
 ];

@@ -80,7 +80,7 @@ export const tabIndex = [
 
 // Main Query used to populate Facet, Widget components
 export const DASHBOARD_QUERY_NEW = gql`
-query search(
+  query search(
     $study_short_name: [String]
     $study_type: [String] # Hidden for now
     $study_design: [String]
