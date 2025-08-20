@@ -25,7 +25,6 @@ const WidgetView = ({
   theme,
 }) => {
 
-
   const processData = (studyDemographics, studyCountByStudy, dataType) => {
     if (!studyDemographics || !Array.isArray(studyDemographics)) return [];
     
