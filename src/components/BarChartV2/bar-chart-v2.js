@@ -118,6 +118,7 @@ const BarChartV2 = ({
             height={60}
             interval={0}
           />
+          <Tooltip content={<CustomTooltip />} />
           <Bar dataKey="subjects">
             {sortedData.map((_entry, index) => (
               <Cell
@@ -129,7 +130,6 @@ const BarChartV2 = ({
           <YAxis 
             tick={{ fontSize: 12, fontFamily: 'Open Sans', fill: '#666666' }}
           />
-          <Tooltip content={<CustomTooltip />} />
         </BarChart>
       </div>
     </div>
