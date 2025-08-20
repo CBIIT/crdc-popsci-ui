@@ -275,4 +275,3 @@ const WidgetView = ({
 };
 
 export default withStyles(styles, { withTheme: true })(WidgetView);
-
