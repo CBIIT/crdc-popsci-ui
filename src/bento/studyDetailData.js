@@ -366,7 +366,7 @@ export const studyDataFileTableConfig = {
       role: cellTypes.DISPLAY,
     },
     {
-      dataField: 'data_file_size',
+      dataField: 'data_volume',
       header: 'Size',
       display: true,
       tooltipText: 'sort',
