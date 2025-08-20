@@ -115,23 +115,21 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
         publication_record_id
       }
 
-      data_file {
-        data_file_uuid
-        association
-        data_file_name
-        data_file_type
-        data_file_description
-        data_file_format
-        data_file_size
-        data_file_location
-        data_file_signed_url
-      }
-
       associated_links {
         associated_link_name
         associated_link_record_id
         associated_link_url
       }
+    }
+
+    studyFiles( study_short_name: $study_short_name) {
+      data_file_uuid
+      data_file_name
+      data_file_type
+      data_file_description
+      data_file_format
+      data_volume # data_file_size
+      data_file_access_control
     }
 
     tabStudy(study_short_name: $study_short_name) {
@@ -368,7 +366,7 @@ export const studyDataFileTableConfig = {
       role: cellTypes.DISPLAY,
     },
     {
-      dataField: 'data_file_size',
+      dataField: 'data_volume',
       header: 'Size',
       display: true,
       tooltipText: 'sort',
