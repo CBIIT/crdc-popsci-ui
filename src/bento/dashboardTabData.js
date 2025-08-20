@@ -78,27 +78,6 @@ export const tabIndex = [
   }
 ];
 
-export const DASHBOARD_QUERY_DEMOGRAPHICS = gql`
-  query studyDemo(
-    $study_short_name: [String]
-    ){
-      study_short_name
-
-      participant_count_by_age {
-        group
-        subjects
-      }
-      participant_races {
-        group
-        subjects
-      }
-      participant_sexes {
-        group
-        subjects
-      }
-    }
-`
-
 // Main Query used to populate Facet, Widget components
 export const DASHBOARD_QUERY_NEW = gql`
 query search(
@@ -314,32 +293,9 @@ query search(
       study_short_name: $study_short_name
       )
     {
-    study_name
     study_short_name
-    study_description
-    study_type
-    study_design
-    enrollment_beginning_year
-    enrollment_ending_year
-    enrollment_period
-    study_beginning_year
-    study_ending_year
-    study_period
-    participant_age_range
-    biospecimen_collection
-    study_status
-    dbgap_accession_id
-    number_of_participants
-    participant_maximum_age
-    participant_minimum_age
-    participant_mean_age
-    participant_median_age
+
     participant_races{
-      group
-      subjects
-        __typename
-    }
-    participant_ethnicities{
       group
       subjects
         __typename

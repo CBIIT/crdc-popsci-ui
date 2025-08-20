@@ -30,7 +30,6 @@ const WidgetView = ({
   const processData = (studyDemographics, studyCountByStudy, dataType) => {
     if (!studyDemographics || !Array.isArray(studyDemographics)) return [];
     
-    // Get the list of filtered study short names from studyCountByStudy
     const filteredStudyNames = new Set(
       (studyCountByStudy || []).map(study => study.group)
     );
@@ -46,7 +45,6 @@ const WidgetView = ({
     
     const counts = {};
     
-    // Only process studies that are in the filtered list
     studyDemographics
       .filter(study => filteredStudyNames.has(study.study_short_name))
       .forEach(study => {
