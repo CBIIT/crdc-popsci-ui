@@ -42,7 +42,7 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false, studyS
   const studyGeneral = {...data?.studyGeneral?.at(0), ...data?.tabStudy?.at(0), ...data?.globalStatsBar?.at(0)};
   const studyDemographics = data?.studyDemographics?.at(0);
   const primarySiteMorphology = data?.primarySiteMorphology?.at(0);
-
+  const studyFiles = data?.studyFiles;
 
   const statsbarData = {
     ...data.searchStudies,
@@ -61,7 +61,7 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false, studyS
     { index: 3, label: 'Data Collected' ,content: <DataCollection data={data?.dataCollectionPage[0].data_collection || {}} /> },
     { index: 4, label: 'Countries and States',content: <Country data={studyGeneral || {}} /> },
     { index: 5, label: 'Publications', content: <Publications data={studyGeneral || {}} /> },
-    { index: 6, label: 'Study Files', content: <StudyFiles data={studyGeneral || {}} studyShortName={studyShortName} />},
+    { index: 6, label: 'Study Files', content: <StudyFiles data={studyFiles || {}} studyShortName={studyShortName} />},
   ];
 
   if (isLoading) return <CircularProgress />;
