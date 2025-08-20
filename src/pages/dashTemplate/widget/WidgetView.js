@@ -12,6 +12,7 @@ import styles from './WidgetStyle';
 import { widgetConfig } from '../../../bento/dashTemplate';
 import colors from '../../../utils/colors';
 import { Typography } from '../../../components/Wrappers/Wrappers';
+import BarChartV2 from '../../../components/BarChartV2/bar-chart-v2';
 import { formatWidgetData } from './WidgetUtils';
 import sunburstStyle from './SunburstStyle'
 import { DEFAULT_VALUE } from '../../../bento/siteWideConfig';
@@ -23,6 +24,48 @@ const WidgetView = ({
   data,
   theme,
 }) => {
+
+  const processData = (studyDemographics, studyCountByStudy, dataType) => {
+    if (!studyDemographics || !Array.isArray(studyDemographics)) return [];
+    
+    const filteredStudyNames = new Set(
+      (studyCountByStudy || []).map(study => study.group)
+    );
+    
+    const fieldMap = {
+      age: 'participant_count_by_age',
+      sex: 'participant_sexes', 
+      race: 'participant_races'
+    };
+    
+    const fieldName = fieldMap[dataType];
+    if (!fieldName) return [];
+    
+    const counts = {};
+    
+    studyDemographics
+      .filter(study => filteredStudyNames.has(study.study_short_name))
+      .forEach(study => {
+        if (study[fieldName] && Array.isArray(study[fieldName])) {
+          study[fieldName].forEach(item => {
+            const groupName = item.group;
+            const count = item.subjects;
+            counts[groupName] = (counts[groupName] || 0) + count;
+          });
+        }
+      });
+    
+    return Object.entries(counts).map(([group, count]) => ({
+      group: group,
+      subjects: count
+    }));
+  };
+
+  // Use studyCountByStudy to filter the demographics data
+  const processedSexData = processData(data.studyDemographics, data.studyCountByStudy, 'sex');
+  const processedAgeData = processData(data.studyDemographics, data.studyCountByStudy, 'age');
+  const processedRaceData = processData(data.studyDemographics, data.studyCountByStudy, 'race');
+
   const displayWidgets = formatWidgetData(data, widgetConfig);
   const [collapse, setCollapse] = React.useState(true);
   // const themeChanger = useTheme(); Hidding Dark Mode
@@ -120,6 +163,15 @@ const WidgetView = ({
     return sunburstTitle;
   };
   
+  const barChartTitleStyle = {
+    fontFamily: 'Nunito',
+    fontWeight: 'normal',
+    fontSize: '16px',
+    color: '#3478A5',
+    marginLeft: '64px',
+    textAlign: 'left', 
+  };
+
   return (
     <>
       <div className={classes.widgetsCollapse}>
@@ -183,6 +235,38 @@ const WidgetView = ({
               </Grid>
             );
           })}
+        </Grid>
+        <Grid container spacing={2} style={{ marginTop: 24 }}>
+          {/* Participants: Age of Enrollment (left) */}
+          {processedAgeData && processedAgeData.length > 0 && (
+            <Grid item lg={4} md={4} sm={12} xs={12}>
+              <BarChartV2
+                chartData={processedAgeData}
+                chartTitle="Age at Enrollment"
+                titleStyle={barChartTitleStyle}
+              />
+            </Grid>
+          )}
+          {/* Participants: Races (middle) */}
+          {processedRaceData && processedRaceData.length > 0 && (
+            <Grid item lg={4} md={4} sm={12} xs={12}>
+              <BarChartV2
+                chartData={processedRaceData}
+                chartTitle="Race"
+                titleStyle={barChartTitleStyle}
+              />
+            </Grid>
+          )}
+          {/* Participants: Sex (right) */}
+          {processedSexData && processedSexData.length > 0 && (
+            <Grid item lg={4} md={4} sm={12} xs={12}>
+              <BarChartV2
+                chartData={processedSexData}
+                chartTitle="Sex"
+                titleStyle={barChartTitleStyle}
+              />
+            </Grid>
+          )}
         </Grid>
       </Collapse>
     </>
