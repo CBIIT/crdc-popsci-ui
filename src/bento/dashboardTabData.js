@@ -98,7 +98,6 @@ export const DASHBOARD_QUERY_NEW = gql`
     $ethnicity: [String]
     $sex: [String]
   ){
- 
     searchStudies(
       study_short_name: $study_short_name
       study_type: $study_type # Hidden for now
