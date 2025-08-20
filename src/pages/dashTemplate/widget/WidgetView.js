@@ -18,6 +18,7 @@ import sunburstStyle from './SunburstStyle'
 import { DEFAULT_VALUE } from '../../../bento/siteWideConfig';
 import { Sector } from 'recharts';
 import { formatAsCommaSeparatedNumber } from '../../../components/Stats/utils';// components/Stats/utils
+import { capitalizeWordsExcept } from '../../studyDetail/common/utils';
 
 const WidgetView = ({
   classes,
@@ -56,7 +57,7 @@ const WidgetView = ({
       });
     
     return Object.entries(counts).map(([group, count]) => ({
-      group: group,
+      group: capitalizeWordsExcept(group, ['or', 'and']),
       subjects: count
     }));
   };
@@ -244,6 +245,8 @@ const WidgetView = ({
                 chartData={processedAgeData}
                 chartTitle="Age at Enrollment"
                 titleStyle={barChartTitleStyle}
+                chartwidth={320}
+                barWidth={30}
               />
             </Grid>
           )}
@@ -254,6 +257,8 @@ const WidgetView = ({
                 chartData={processedRaceData}
                 chartTitle="Race"
                 titleStyle={barChartTitleStyle}
+                chartwidth={280}
+                barWidth={55}
               />
             </Grid>
           )}
@@ -264,6 +269,7 @@ const WidgetView = ({
                 chartData={processedSexData}
                 chartTitle="Sex"
                 titleStyle={barChartTitleStyle}
+                chartwidth={280}
               />
             </Grid>
           )}

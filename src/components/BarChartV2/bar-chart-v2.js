@@ -24,6 +24,7 @@ const styles = theme => ({
     color: '#4B4B4B',
     fontSize: '16px',
     lineHeight: '22px',
+    textAlign: 'center',
     whiteSpace: 'nowrap',
     width: '100%',
     position: 'relative',
@@ -86,21 +87,21 @@ function sortChartDataAlpha(data) {
 const BarChartV2 = ({
   chartData,
   chartTitle,
-  titleStyle = {textAlign: 'center'},
   classes,
+  chartwidth = 300,
+  barWidth = 50,
 }) => {
   const chartWrapperRef = useRef(null);
 
   const sortedData = sortChartDataAlpha(chartData);
-  const chartWidth = sortedData.length > 5 ? sortedData.length * 55 : 280;
+  const calculatedWidth = sortedData.length > Math.min(chartwidth/barWidth) ? sortedData.length * barWidth : chartwidth;
+  console.log('width: ', calculatedWidth, sortedData.length);
+  // const chartWidth = Math.min(calculatedWidth, 320);
 
   return (
     <div className={classes.container}>
-      <div style={{ width: '100%' }}>
-        <h3 
-          className={classes.title} 
-          style={{...titleStyle}}
-        >
+      <div>
+        <h3 className={classes.title}>
           {"Participants: " + chartTitle}
         </h3>
       </div>
@@ -110,7 +111,7 @@ const BarChartV2 = ({
         style={{ overflowX: 'auto', width: '100%' }}
       >
         <BarChart
-          width={chartWidth}
+          width={calculatedWidth}
           height={280}
           data={sortedData}
         >
@@ -132,6 +133,7 @@ const BarChartV2 = ({
           </Bar>
           <YAxis 
             tick={{ fontSize: 12, fontFamily: 'Open Sans', fill: '#666666' }}
+            width={50}
           />
         </BarChart>
       </div>
