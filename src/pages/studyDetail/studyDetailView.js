@@ -43,7 +43,7 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false, studyS
   const studyDemographics = data?.studyDemographics?.at(0);
   const primarySiteMorphology = data?.primarySiteMorphology?.at(0);
 
-
+ 
   const statsbarData = {
     ...data.searchStudies,
     number_of_participants: studyGeneral.number_of_participants,
