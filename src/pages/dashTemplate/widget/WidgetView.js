@@ -68,8 +68,6 @@ const WidgetView = ({
   const processedAgeData = processData(data.studyDemographics, data.studyCountByStudy, 'age');
   const processedRaceData = processData(data.studyDemographics, data.studyCountByStudy, 'race');
 
-  console.log("data: ", data);
-
   const displayWidgets = formatWidgetData(data, widgetConfig);
   const [collapse, setCollapse] = React.useState(true);
   // const themeChanger = useTheme(); Hidding Dark Mode
@@ -208,7 +206,7 @@ const WidgetView = ({
       </div>
       <Collapse in={collapse} className={classes.backgroundWidgets}>
         <Grid container>
-          {widgetConfig.slice(0, 6).map((widget, index) => {  
+          {widgetConfig.slice(0, 6).map((widget, index) => {
             const dataset = displayWidgets[widget.dataName];
             if (!dataset || dataset.length === 0) {
               return <></>;
