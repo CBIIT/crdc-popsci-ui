@@ -80,6 +80,10 @@ const WidgetView = ({
         cellPadding: 2,
         textOverflowLength: 20,
         textColor: theme.palette.widgetBackground.contrastText,
+        titleColor: '#0F253A',
+        titleFontFamily: 'Nunito',
+        titleFontWeight: 'normal',
+        titleFontSize: '16px',
       },
       functions: {
         mapData: (data) => {
@@ -107,7 +111,7 @@ const WidgetView = ({
     
           return (
             <g>
-              <text x={labelX} y={labelY} dy={0} textAnchor={(titleAlignment === 'center') ? 'middle' : undefined} fill={textColor} fontSize={fontSize || '12px'} fontWeight={fontWeight || '500'} fontFamily={fontFamily || 'Nunito'} cursor="text">
+              <text x={labelX} y={labelY} dy={0} textAnchor={(titleAlignment === 'center') ? 'middle' : undefined} fill={'#0F253A'} fontSize={'16px'} fontWeight={'normal'} fontFamily={'Nunito'} cursor="text">
                 {String(payload.name).length > overflowLength ? `${String(payload.name).substring(0, overflowLength)}...` : payload.name}
                 <title>{payload.name}</title>
               </text>
@@ -165,12 +169,31 @@ const WidgetView = ({
   };
   
   const barChartTitleStyle = {
-    fontFamily: 'Nunito',
-    fontWeight: 'normal',
+    fontFamily: 'Open Sans',
+    fontWeight: 400,
+    fontStyle: 'normal',
     fontSize: '16px',
-    color: '#3478A5',
-    marginLeft: '64px',
-    textAlign: 'left', 
+    lineHeight: '107%',
+    letterSpacing: '0%',
+    textTransform: 'capitalize',
+    color: '#0F253A',
+    textAlign: 'center',
+    margin: '8px 0 8px 0',
+  };
+
+  const sunburstTitleStyle = {
+    fontFamily: 'Open Sans',
+    fontWeight: 400,
+    fontStyle: 'normal',
+    fontSize: '16px',
+    lineHeight: '107%',
+    letterSpacing: '0%',
+    textTransform: 'capitalize',
+    color: '#0F253A',
+    textAlign: 'center',
+    width: '100%',
+    margin: '40px 0 8px 0',
+    padding: '0 16px',
   };
 
   return (
@@ -217,14 +240,15 @@ const WidgetView = ({
               <Grid key={index} item lg={4} md={6} sm={12} xs={12}>
                 <Widget
                   header={(
-                    <Typography size="md" weight="normal" family="Nunito" color="lochmara">
+                    <div style={sunburstTitleStyle}>
                       {widget.title}
-                    </Typography>
+                    </div>
                   )}
                   bodyClass={classes.fullHeightBody}
                   className={classes.card}
                   bottomDivider
                   customBackGround
+                  noPaddedTitle
                   data={dataset}
                   chartType={widget.type}
                   sliceTitle={widget.sliceTitle}
@@ -240,36 +264,36 @@ const WidgetView = ({
         <Grid container spacing={2} style={{ marginTop: 24 }}>
           {/* Participants: Age of Enrollment (left) */}
           {processedAgeData && processedAgeData.length > 0 && (
-            <Grid item lg={4} md={4} sm={12} xs={12}>
+            <Grid item lg={4} md={6} sm={12} xs={12}>
               <BarChartV2
                 chartData={processedAgeData}
                 chartTitle="Age at Enrollment"
                 titleStyle={barChartTitleStyle}
-                chartwidth={320}
+                // chartwidth={320}
                 barWidth={30}
               />
             </Grid>
           )}
           {/* Participants: Races (middle) */}
           {processedRaceData && processedRaceData.length > 0 && (
-            <Grid item lg={4} md={4} sm={12} xs={12}>
+            <Grid item lg={4} md={6} sm={12} xs={12}>
               <BarChartV2
                 chartData={processedRaceData}
                 chartTitle="Race"
                 titleStyle={barChartTitleStyle}
-                chartwidth={280}
+                // chartwidth={320}
                 barWidth={55}
               />
             </Grid>
           )}
           {/* Participants: Sex (right) */}
           {processedSexData && processedSexData.length > 0 && (
-            <Grid item lg={4} md={4} sm={12} xs={12}>
+            <Grid item lg={4} md={6} sm={12} xs={12}>
               <BarChartV2
                 chartData={processedSexData}
                 chartTitle="Sex"
                 titleStyle={barChartTitleStyle}
-                chartwidth={280}
+                // chartwidth={320}
               />
             </Grid>
           )}

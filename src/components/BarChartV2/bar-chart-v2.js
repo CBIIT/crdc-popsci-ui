@@ -34,7 +34,8 @@ const styles = theme => ({
     width: '100%',
     overflowY: 'hidden',
     display: 'flex',
-    justifyContent: 'left',
+    justifyContent: 'flex-start',
+    minWidth: '320px', // Ensure minimum width for proper display
   },
 });
 
@@ -90,6 +91,7 @@ const BarChartV2 = ({
   classes,
   chartwidth = 300,
   barWidth = 50,
+  titleStyle = {},
 }) => {
   const chartWrapperRef = useRef(null);
 
@@ -101,7 +103,7 @@ const BarChartV2 = ({
   return (
     <div className={classes.container}>
       <div>
-        <h3 className={classes.title}>
+        <h3 className={classes.title} style={{...titleStyle}}>
           {"Participants: " + chartTitle}
         </h3>
       </div>
