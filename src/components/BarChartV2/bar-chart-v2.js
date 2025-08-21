@@ -98,8 +98,10 @@ const BarChartV2 = ({
   const sortedData = sortChartDataAlpha(chartData);
   const calculatedWidth = sortedData.length > Math.min(chartwidth/barWidth) ? sortedData.length * barWidth : chartwidth;
   console.log('width: ', calculatedWidth, sortedData.length);
-  // const chartWidth = Math.min(calculatedWidth, 320);
-
+  
+  // Determine if chart should be centered (when width is 300px or less)
+  const shouldflexchart = calculatedWidth >= 320;
+  
   return (
     <div className={classes.container}>
       <div>
@@ -110,7 +112,11 @@ const BarChartV2 = ({
       <div
         className={classes.chartWrapper}
         ref={chartWrapperRef}
-        style={{ overflowX: 'auto', width: '100%' }}
+        style={{ 
+          overflowX: 'auto', 
+          width: '100%',
+          justifyContent: shouldflexchart ? 'flex-start' : 'center',
+        }}
       >
         <BarChart
           width={calculatedWidth}
