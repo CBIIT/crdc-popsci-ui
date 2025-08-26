@@ -15,22 +15,22 @@ const ChartSection = ({ classes, data }) => {
       <Grid container spacing={4}>
         {participant_count_by_age && participant_count_by_age.length > 0 && (
           <Grid item xs={12} sm={12} md={12} lg={6}>
-            <BarChartV2 chartData={participant_count_by_age} chartTitle="Age of Enrollment" />
+            <BarChartV2 chartData={participant_count_by_age} chartTitle="Age of Enrollment" chartwidth={280} barWidth={30}/>
           </Grid>
         )}
         {participant_races && participant_races.length > 0 && (
           <Grid item xs={12} sm={12} md={12} lg={6}>
-            <BarChartV2 chartData={participant_races} chartTitle="Race" />
+            <BarChartV2 chartData={participant_races} chartTitle="Race" chartwidth={280} barWidth={50}/>
           </Grid>
         )}
         {participant_ethnicities && participant_ethnicities.length > 0 && (
           <Grid item xs={12} sm={12} md={12} lg={6}>
-            <BarChartV2 chartData={participant_ethnicities} chartTitle="Ethnicity" />
+            <BarChartV2 chartData={participant_ethnicities} chartTitle="Ethnicity" chartwidth={280} />
           </Grid>
         )}
         {participant_sexes && participant_sexes.length > 0 && (
           <Grid item xs={12} sm={12} md={12} lg={6}>
-            <BarChartV2 chartData={participant_sexes} chartTitle="Sex" />
+            <BarChartV2 chartData={participant_sexes} chartTitle="Sex" chartwidth={280} />
           </Grid>
         )}
       </Grid>

@@ -24,6 +24,7 @@ const styles = theme => ({
     color: '#4B4B4B',
     fontSize: '16px',
     lineHeight: '22px',
+    textAlign: 'center',
     whiteSpace: 'nowrap',
     width: '100%',
     position: 'relative',
@@ -33,7 +34,8 @@ const styles = theme => ({
     width: '100%',
     overflowY: 'hidden',
     display: 'flex',
-    justifyContent: 'left',
+    justifyContent: 'flex-start',
+    minWidth: '320px', // Ensure minimum width for proper display
   },
 });
 
@@ -86,31 +88,38 @@ function sortChartDataAlpha(data) {
 const BarChartV2 = ({
   chartData,
   chartTitle,
-  titleStyle = {textAlign: 'center'},
   classes,
+  chartwidth = 300,
+  barWidth = 50,
+  titleStyle = {},
 }) => {
   const chartWrapperRef = useRef(null);
 
   const sortedData = sortChartDataAlpha(chartData);
-  const chartWidth = sortedData.length > 5 ? sortedData.length * 55 : 280;
-
+  const calculatedWidth = sortedData.length > Math.min(chartwidth/barWidth) ? sortedData.length * barWidth : chartwidth;
+  console.log('width: ', calculatedWidth, sortedData.length);
+  
+  // Determine if chart should be centered (when width is 300px or less)
+  const shouldflexchart = calculatedWidth >= 320;
+  
   return (
     <div className={classes.container}>
-      <div style={{ width: '100%' }}>
-        <h3 
-          className={classes.title} 
-          style={{...titleStyle}}
-        >
+      <div>
+        <h3 className={classes.title} style={{...titleStyle}}>
           {"Participants: " + chartTitle}
         </h3>
       </div>
       <div
         className={classes.chartWrapper}
         ref={chartWrapperRef}
-        style={{ overflowX: 'auto', width: '100%' }}
+        style={{ 
+          overflowX: 'auto', 
+          width: '100%',
+          justifyContent: shouldflexchart ? 'flex-start' : 'center',
+        }}
       >
         <BarChart
-          width={chartWidth}
+          width={calculatedWidth}
           height={280}
           data={sortedData}
         >
@@ -121,6 +130,7 @@ const BarChartV2 = ({
             height={60}
             interval={0}
           />
+          <Tooltip content={<CustomTooltip />} />
           <Bar dataKey="subjects">
             {sortedData.map((_entry, index) => (
               <Cell
@@ -131,8 +141,8 @@ const BarChartV2 = ({
           </Bar>
           <YAxis 
             tick={{ fontSize: 12, fontFamily: 'Open Sans', fill: '#666666' }}
+            width={50}
           />
-          <Tooltip content={<CustomTooltip />} />
         </BarChart>
       </div>
     </div>
