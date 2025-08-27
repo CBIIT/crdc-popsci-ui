@@ -3,6 +3,8 @@ import twitterIcon from '../assets/footer/Twitter_Logo.svg';
 import facebookIcon from '../assets/footer/Facebook_Logo.svg';
 import youtubeIcon from '../assets/footer/Youtube_Logo.svg';
 import linkedInIcon from '../assets/footer/LinkedIn_Logo.svg';
+import env from '../utils/env';
+
 // footerLogoImage ideal image size 310x80 px
 
 export default {
@@ -36,15 +38,15 @@ export default {
       items: [
         {
           text: 'Release Notes',
-          link: 'https://github.com/CBIIT/crdc-ctdc-starter-kit/releases',
+          link: 'https://github.com/CBIIT/crdc-popsci-starter-kit/releases',
         },
         {
-          text: 'FE Version: v1.0.1',
-          link: '',
+          text: `FE Version: ${env.REACT_APP_FE_VERSION || '2.0.0'}`,
+          // link: '',
         },
         {
-          text: 'BE Version: v1.0.0',
-          link: '',
+          text: `BE Version: ${env.REACT_APP_BE_VERSION || '2.0.0'}`,
+          // link: '',
         },
       ],
     },
