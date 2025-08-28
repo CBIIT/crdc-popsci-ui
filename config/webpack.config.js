@@ -380,6 +380,14 @@ module.exports = function(webpackEnv) {
                     { helpers: true },
                   ],
                 ],
+                plugins: [
+                  // Added class properties transform for packages that need it
+                  require.resolve('@babel/plugin-proposal-class-properties'),
+                  // Added nullish coalescing operator transform
+                  require.resolve('@babel/plugin-proposal-nullish-coalescing-operator'),
+                  // Added optional chaining support
+                  require.resolve('@babel/plugin-proposal-optional-chaining'),
+                ],
                 cacheDirectory: true,
                 cacheCompression: isEnvProduction,
 
