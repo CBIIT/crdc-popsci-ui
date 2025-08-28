@@ -380,6 +380,10 @@ module.exports = function(webpackEnv) {
                     { helpers: true },
                   ],
                 ],
+                plugins: [
+                  // Added class properties transform for packages that need it
+                  require.resolve('@babel/plugin-proposal-class-properties'),
+                ],
                 cacheDirectory: true,
                 cacheCompression: isEnvProduction,
 
