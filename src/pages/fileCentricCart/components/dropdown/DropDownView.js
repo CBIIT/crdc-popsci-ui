@@ -72,8 +72,8 @@ const DropDownView = ({ classes, filesId = [], allFiles }) => {
       first: allFiles ? filesId.length : selectedRows.length
     },
     skip: allFiles ? !filesId : !selectedRows,
-    onCompleted: ({ filesInList }) => { 
-      setManifestData(filesInList); // Store raw data for manifest generation
+    onCompleted: ({ studyFiles }) => {
+      setManifestData(studyFiles); // Store raw data for manifest generation
     }
   })
 

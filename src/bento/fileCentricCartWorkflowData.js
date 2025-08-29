@@ -99,58 +99,56 @@ export const manifestData = {
 
 // --------------- GraphQL query --------------
 export const GET_MY_CART_DATA_QUERY = gql`
-  query filesInList(
+  query studyFiles(
     $data_file_uuid: [String],
     $offset: Int = 0,
-    $first: Int = 10,
-    $order_by:String ="data_file_name",
+    $first: Int = 1000,
+    $order_by:String = "data_file_name",
     $sort_direction:String="asc"
-  ){
-    filesInList(
+  ) {
+    studyFiles(
       data_file_uuid: $data_file_uuid,
       offset: $offset,
       first: $first,
       order_by: $order_by,
       sort_direction: $sort_direction
-    ){
-       data_file_uuid
-        data_file_name
-        data_file_type
-        data_file_description
-        data_file_format
-        data_file_size
-        data_file_location
-        data_file_access_control
-        data_file_signed_url
-   }
+    ) {
+      data_file_uuid
+      data_file_name
+      data_file_type
+      data_file_description
+      data_file_format
+      data_volume # data_file_size
+      data_file_access_control
+    }
   }
 `;
 
-export const GET_MY_CART_DATA_QUERY_DESC = gql` query filesInList(
-  $data_file_uuid: [String],
-  $offset: Int = 0,
-  $first: Int = 10,
-  $order_by:String ="data_file_name",
-  $sort_direction:String="desc"
-){
-  filesInList(
-    data_file_uuid: $data_file_uuid,
-    offset: $offset,
-    first: $first,
-    order_by: $order_by,
-    sort_direction: $sort_direction
-  ){
-        data_file_uuid
-        data_file_name
-        data_file_type
-        data_file_description
-        data_file_format
-        data_file_size
-        data_file_access_control
-        data_file_location
-        data_file_signed_url
- }
-}`;
+export const GET_MY_CART_DATA_QUERY_DESC = gql`
+  query studyFiles(
+    $data_file_uuid: [String],
+    $offset: Int = 0,
+    $first: Int = 1000,
+    $order_by:String ="data_file_name",
+    $sort_direction:String="desc"
+  ) {
+    studyFiles(
+      data_file_uuid: $data_file_uuid,
+      offset: $offset,
+      first: $first,
+      order_by: $order_by,
+      sort_direction: $sort_direction
+    ) {
+      data_file_uuid
+      data_file_name
+      data_file_type
+      data_file_description
+      data_file_format
+      data_volume # data_file_size
+      data_file_access_control
+    }
+  }
+`;
 
 // --------------- File table configuration --------------
 
@@ -162,22 +160,17 @@ export const table = {
   // 'asc' or 'desc'
   api: GET_MY_CART_DATA_QUERY,
   defaultSortDirection: 'asc',
-  paginationAPIField: 'filesInList',
-  paginationAPIFieldDesc: 'filesInList',
+  paginationAPIField: 'studyFiles',
+  paginationAPIFieldDesc: 'studyFiles',
   dataKey:'data_file_uuid',
   tableDownloadCSV: customMyFilesTabDownloadCSV,
-  objectKey: 'filesInList',
+  objectKey: 'studyFiles',
   extendedViewConfig: {
     pagination: true,
     manageViewColumns: true, //{ title: "View Columns" },
     download: true,
   },
   columns: [
-     {
-          cellType: cellTypes.CHECKBOX,
-          display: true,
-          role: cellTypes.CHECKBOX,
-        },
         {
           dataField: 'data_file_name',
           header: 'File Name',
@@ -214,7 +207,7 @@ export const table = {
           role: cellTypes.DISPLAY,
         },
         {
-          dataField: 'data_file_size',
+          dataField: 'data_volume',
           header: 'Size',
           display: true,
           tooltipText: 'sort',
