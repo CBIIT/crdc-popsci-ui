@@ -167,7 +167,7 @@ export const table = {
   objectKey: 'studyFiles',
   extendedViewConfig: {
     pagination: true,
-    manageViewColumns: true, //{ title: "View Columns" },
+    manageViewColumns: { title: "View Columns" },
     download: true,
   },
   columns: [
@@ -176,7 +176,6 @@ export const table = {
           header: 'File Name',
           display: true,
           tooltipText: 'sort',
-          role: cellTypes.DISPLAY,
         },
         {
           dataField: 'data_file_type',
