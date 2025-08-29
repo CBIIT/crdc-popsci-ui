@@ -169,6 +169,9 @@ export const table = {
     pagination: true,
     manageViewColumns: { title: "View Columns" },
     download: true,
+    download: {
+      downloadFileName: "PSDC_My_Files_download",
+    },
   },
   columns: [
         {
