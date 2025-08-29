@@ -266,8 +266,8 @@ export const DASHBOARD_QUERY_NEW = gql`
       }   
     }
     
-    # Global Stats
-    globalStatsBar(
+    # Widget - Studies: Participant Count
+    participantCountWidget: globalStatsBar(
       study_short_name: $study_short_name
       study_type: $study_type
       study_design: $study_design
@@ -288,29 +288,46 @@ export const DASHBOARD_QUERY_NEW = gql`
       study_short_name
       number_of_participants
     }
-    studyDemographics(
+    # Widget - Studies: Cancer Type Count
+    cancerTypeCountWidget: globalStatsBar(
       study_short_name: $study_short_name
-      )
-    {
-    study_short_name
+      study_type: $study_type
+      study_design: $study_design
+      enrollment_beginning_year: $enrollment_beginning_year
+      enrollment_ending_year: $enrollment_ending_year
+      study_beginning_year: $study_beginning_year
+      study_ending_year: $study_ending_year
+      number_of_participants: $number_of_participants
+      cancer_diagnosis_primary_site_list: $cancer_diagnosis_primary_site_list
+      study_country: $study_country
+      biospecimen_collection: $biospecimen_collection
+      study_participant_maximum_age: $study_participant_maximum_age
+      study_participant_minimum_age: $study_participant_minimum_age
+      race: $race
+      ethnicity: $ethnicity
+      sex: $sex
+    ){
+      study_short_name
+      cancer_type_count
+    }
 
-    participant_races{
-      group
-      subjects
-        __typename
+    studyDemographics(study_short_name: $study_short_name) {
+      study_short_name
+
+      participant_races{
+        group
+        subjects
+      }
+      participant_sexes{
+        group
+        subjects
+      }
+      participant_count_by_age{
+        group
+        subjects
+      }
     }
-    participant_sexes{
-      group
-      subjects
-        __typename
-    }
-    participant_count_by_age{
-      group
-      subjects
-        __typename
-    }
-    __typename
-  }
+
     minMaxBoundQuery {
       number_of_participant_lower_bound
       number_of_participant_upper_bound

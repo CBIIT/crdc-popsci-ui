@@ -282,7 +282,7 @@ export const widgetConfig = [
     type: 'donut',
     title: 'Studies: Participant Count',
     sliceTitle: "Participants",
-    dataName: 'globalStatsBar',
+    dataName: 'participantCountWidget',
   },
   {
     type: 'donut',
@@ -294,6 +294,6 @@ export const widgetConfig = [
     type: 'donut',
     title: 'Studies: Cancer Type Count',
     sliceTitle: "Cancer Types",
-    dataName: 'neoplasmCountByStudy',
+    dataName: 'cancerTypeCountWidget',
   }
 ];

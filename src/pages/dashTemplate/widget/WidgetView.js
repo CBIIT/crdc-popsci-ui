@@ -88,10 +88,12 @@ const WidgetView = ({
       functions: {
         mapData: (data) => {
           if (data.number_of_participants) return { name: data.study_short_name, value: data.number_of_participants }
+          if (data.cancer_type_count) return { name: data.study_short_name, value: data.cancer_type_count }
           return { name: data.group, value: data.subjects }
         },
         mapDatasetObject: (data) => {
           if (data.number_of_participants) return { name: data.study_short_name, value: data.number_of_participants }
+          if (data.cancer_type_count) return { name: data.study_short_name, value: data.cancer_type_count }
           return { name: data.group, value: data.subjects }
         },
         renderActiveShape: (props) => {
