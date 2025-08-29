@@ -14,7 +14,7 @@ import { useQuery } from '@apollo/client';
 import axios from 'axios';
 import { noop } from 'lodash';
 import { CartContext } from '@bento-core/cart';
-import { TableContext, ToolTip as Tooltip } from '../../../../bento-core';
+import { ToolTip as Tooltip } from '../../../../bento-core';
 import styles from './DropDownStyle';
 import {
   GET_MY_CART_DATA_QUERY,
@@ -39,10 +39,9 @@ const DOWNLOAD_FILE_MANIFEST = 'Download File Manifest';
 
 const TOOLTIP_CONTENT = {
   EMPTY_CART: 'Add some files to the cart to get started.',
-  NO_SELECTED_ROWS: 'Select at least one file from the table below.',
 };
 
-const DropDownView = ({ classes, filesId = [], allFiles }) => {
+const DropDownView = ({ classes, filesId = [] }) => {
   const [open, setOpen] = useState(false);
   const [manifestData, setManifestData] = useState([]);
   const [manifestString, setManifestString] = useState('');
@@ -51,27 +50,20 @@ const DropDownView = ({ classes, filesId = [], allFiles }) => {
   const anchorRef = React.useRef(null);
 
   // Context
-  const { context: tableContext } = useContext(TableContext);
-  const { selectedRows = [], } = tableContext;
   const { context: cartContext } = useContext(CartContext);
   const { cart: { comment = '' } = {} } = cartContext; // { cart: {comment: "", manifestData: {...}, queryVariables: {data_file_uuid: [...]}, table:{...} }}
 
   // Derived States
   const isCartEmpty = useMemo(() => filesId.length === 0, [filesId]);
-  const noSelectedRows = useMemo(() => selectedRows.length === 0, [selectedRows]);
-  const isDropDownDisabled = useMemo(() => (allFiles ? isCartEmpty : noSelectedRows), [
-    allFiles,
-    isCartEmpty,
-    noSelectedRows,
-  ]);
+  const isDropDownDisabled = useMemo(() => isCartEmpty, [isCartEmpty]);
 
   // Fetch Manifest Data
   useQuery(GET_MY_CART_DATA_QUERY, {
     variables: {
-      data_file_uuid: allFiles ? filesId : selectedRows,
-      first: allFiles ? filesId.length : selectedRows.length
+      data_file_uuid: filesId,
+      first: filesId.length
     },
-    skip: allFiles ? !filesId : !selectedRows,
+    skip: !filesId.length,
     onCompleted: ({ studyFiles }) => {
       setManifestData(studyFiles); // Store raw data for manifest generation
     }
@@ -95,20 +87,15 @@ const DropDownView = ({ classes, filesId = [], allFiles }) => {
     }
   }, [manifestData, comment]);
 
+  // Generate Manifest String/CSV
   useEffect(() => {
     setOpen(false);
-  }, [selectedRows]);
+  }, []);
 
   // Tooltip Titles
   const dropDownTooltipTitle = useMemo(() => {
-    if (allFiles) return isCartEmpty ? TOOLTIP_CONTENT.EMPTY_CART : '';
-
-    return isCartEmpty 
-            ? TOOLTIP_CONTENT.EMPTY_CART 
-            : noSelectedRows 
-              ? TOOLTIP_CONTENT.NO_SELECTED_ROWS : ""
-  
-  }, [allFiles, isCartEmpty, noSelectedRows]);
+    return isCartEmpty ? TOOLTIP_CONTENT.EMPTY_CART : '';
+  }, [isCartEmpty]);
 
   const exportToCGCTooltipTitle = useMemo(() => {
     if (isDropDownDisabled) {
@@ -357,7 +344,6 @@ const DropDownView = ({ classes, filesId = [], allFiles }) => {
         onClose={handleDownloadFileManifestDialogClose}
         open={downloadFileManifestDialogOpen}
         filesId={filesId}
-        allFiles={allFiles}
       />
     </>
   );

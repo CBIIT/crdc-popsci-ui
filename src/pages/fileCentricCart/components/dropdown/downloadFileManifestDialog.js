@@ -82,7 +82,6 @@ const DownloadFileManifestDialog = React.forwardRef(({
   selectedValue, 
   open, 
   filesId,
-  allFiles,
 }, ref) => {
   const [comment, setComment] = useState('');
   // eslint-disable-next-line no-unused-vars
@@ -102,18 +101,16 @@ const DownloadFileManifestDialog = React.forwardRef(({
     setComment(event.target.value);
   };
 
-  // download all or selected files
+  // download all files
   const tableContext = useContext(TableContext);
   const { context } = tableContext;
 
   const client = useApolloClient();
   async function downloadSCSVFile() {
-    const { selectedFileIds = [] } = context;
-    const downloadFilesId = allFiles ? filesId : selectedFileIds;
     const result = await client.query({
       query: GET_MY_CART_DATA_QUERY,
       variables: {
-        data_file_uuid: downloadFilesId,
+        data_file_uuid: filesId,
       },
     }).then((response) => response.data.createManifest);
     downloadCsvString(result, myFilesPageData.manifestFileName)
