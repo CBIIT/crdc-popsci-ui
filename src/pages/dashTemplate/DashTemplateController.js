@@ -30,7 +30,7 @@ const useDashData = (states) => {
     fetchDashData(client, activeFilters).then((result) => {
       if (result.searchStudies) {
         // Calculate global stats - number_of_participants
-        const numberOfParticipantsGlobalStats = calculateStatsTotals(result?.globalStatsBar || []);
+        const numberOfParticipantsGlobalStats = calculateStatsTotals(result?.participantCountWidgetAndStats || []);
 
         // Update slider data for different types
         const enrollmentPeriod = updateSliderData(result.searchStudies, result.minMaxBoundQuery, 'enrollmentPeriod', true)
@@ -40,7 +40,7 @@ const useDashData = (states) => {
 
         // Sort widget data
         sortWidgetDataByKey(result?.searchStudies?.studyCountByStudyDesign, 'group')
-        sortWidgetDataByKey(result?.participantCountWidget, 'study_short_name')
+        sortWidgetDataByKey(result?.participantCountWidgetAndStats, 'study_short_name')
         sortWidgetDataByKey(result?.cancerTypeCountWidget, 'study_short_name')
         sortWidgetDataByKey(result?.studyDemographics?.number_of_participants, 'group')
 
@@ -49,7 +49,7 @@ const useDashData = (states) => {
           const updatedData = {
             ...result.searchStudies, // All other Facet and widget
 
-            participantCountWidget: result.participantCountWidget, // Used to populate "Studies: Participant Count" widget data
+            participantCountWidgetAndStats: result.participantCountWidgetAndStats, // Used to populate "Studies: Participant Count" widget data
             cancerTypeCountWidget: result.cancerTypeCountWidget, // Used to populate "Studies: Cancer Type Count" widget data
 
             studyDemographics: result.studyDemographics, // Used to populate barchart widget data
