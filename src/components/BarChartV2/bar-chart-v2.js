@@ -99,7 +99,6 @@ const BarChartV2 = ({
   const calculatedWidth = sortedData.length > Math.min(chartwidth/barWidth) ? sortedData.length * barWidth : chartwidth;
   console.log('width: ', calculatedWidth, sortedData.length);
   
-  // Determine if chart should be centered (when width is 300px or less)
   const shouldflexchart = calculatedWidth >= 320;
   
   return (
@@ -131,7 +130,7 @@ const BarChartV2 = ({
             interval={0}
           />
           <Tooltip content={<CustomTooltip />} />
-          <Bar dataKey="subjects">
+          <Bar dataKey="subjects" maxBarSize={70}>
             {sortedData.map((_entry, index) => (
               <Cell
                 key={`cell-${_entry.group}`}
