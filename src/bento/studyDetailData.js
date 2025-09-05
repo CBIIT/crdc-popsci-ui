@@ -35,10 +35,24 @@ export const externalIcon = externalLinkIcon;
 export const previousPageIcon = previousIcon;
 
 export const GET_STUDY_DETAIL_DATA_QUERY = gql`
-  query study($study_short_name: [String]) {
+  query study(
+    $study_short_name: [String],
+    
+    $offset: Int,
+    $first: Int,
+    $order_by: String,
+    $sort_direction: String,
+  ) {
     
     ## Data for Cancer Types tab
-    primarySiteMorphology(study_short_name: $study_short_name) {
+    primarySiteMorphology(
+      study_short_name: $study_short_name
+      
+      first: $first
+      offset: $offset
+      order_by: $order_by
+      sort_direction: $sort_direction
+    ) {
       study_short_name,
       cancer_diagnosis_disease_morphology_collection {
         group
@@ -52,7 +66,15 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
     }
 
     # Study detail data for Demographics tab
-    studyDemographics(study_short_name: $study_short_name) {
+    studyDemographics(
+      study_short_name: $study_short_name
+      
+      # TODO: Needs to be added
+      # first: $first
+      # offset: $offset
+      # order_by: $order_by
+      # sort_direction: $sort_direction
+    ) {
       study_short_name
       number_of_participants
 
@@ -85,7 +107,15 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
       } 
     }
 
-    dataCollectionPage(study_short_name: $study_short_name) {
+    dataCollectionPage(
+      study_short_name: $study_short_name
+
+      # TODO: Needs to be added
+      # first: $first
+      # offset: $offset
+      # order_by: $order_by
+      # sort_direction: $sort_direction
+    ) {
       study_short_name
       data_collection {
         data_collection_category
@@ -93,7 +123,15 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
       }
     }
 
-    studyGeneral(study_short_name: $study_short_name) {
+    studyGeneral(
+      study_short_name: $study_short_name
+      
+      # TODO: Needs to be added
+      # first: $first
+      # offset: $offset
+      # order_by: $order_by
+      # sort_direction: $sort_direction
+    ) {
       study_short_name
 
       personnel {
@@ -122,7 +160,14 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
       }
     }
 
-    studyFiles( study_short_name: $study_short_name) {
+    studyFiles(
+      study_short_name: $study_short_name
+
+      first: $first
+      offset: $offset
+      order_by: $order_by
+      sort_direction: $sort_direction
+    ) {
       data_file_uuid
       data_file_name
       data_file_type
@@ -132,7 +177,15 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
       data_file_access_control
     }
 
-    tabStudy(study_short_name: $study_short_name) {
+    tabStudy(
+      study_short_name: $study_short_name
+      
+      # TODO: Needs to be added
+      # first: $first
+      # offset: $offset
+      # order_by: $order_by
+      # sort_direction: $sort_direction
+    ) {
       study_name
       study_short_name
       study_id
@@ -163,11 +216,21 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
     }
 
     # Stats Bar property
-    globalStatsBar(study_short_name: $study_short_name) {
+    globalStatsBar(
+      study_short_name: $study_short_name
+
+      # TODO: Needs to be added
+      # first: $first
+      # offset: $offset
+      # order_by: $order_by
+      # sort_direction: $sort_direction
+    ) {
       study_short_name
       number_of_participants
     }
-    searchStudies(study_short_name: $study_short_name) {
+    searchStudies(
+      study_short_name: $study_short_name
+    ) {
       dataVolume
       numberOfStudies
       numberOfDataCollectionCatagory
@@ -178,42 +241,6 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
   }
 `;
 
-export const GET_STUDY_DETAIL_DEMOGRAPHIC_DATA_QUERY = gql`
-query studyDemo($study_short_name: [String]) {
-  studyDemographics(study_short_name: $study_short_name) {
-    number_of_participants
-    
-    participant_age_range
-    participant_maximum_age # PARTICIPANT AGE RANGE (years)
-    participant_minimum_age # PARTICIPANT AGE RANGE (years)
-    participant_mean_age # MEAN PARTICIPANT AGE (years)
-    participant_median_age # MEDIAN PARTICIPANT AGE (years)
-    
-    #Participants: Age at Enrollment
-    participant_age_at_enrollment{
-      group
-      subjects
-    }
-
-    # PARTICIPANT_RACES
-    participant_races {
-      group
-      subjects
-    }
-    # PARTICIPANT ETHNICITIES
-    participant_ethnicities {
-      group
-      subjects
-    }
-    # PARTICIPANT SEXES
-    participant_sexes {
-      group
-      subjects
-    } 
-  }
-  
-}
-`;
 
 // --------------- Tabs Table configuration --------------
 export const studyPersonnelTableConfig = {

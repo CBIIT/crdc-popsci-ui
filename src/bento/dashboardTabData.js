@@ -267,7 +267,7 @@ export const DASHBOARD_QUERY_NEW = gql`
     }
     
     # Widget - Studies: Participant Count
-    participantCountWidget: globalStatsBar(
+    participantCountWidgetAndStats: globalStatsBar(
       study_short_name: $study_short_name
       study_type: $study_type
       study_design: $study_design

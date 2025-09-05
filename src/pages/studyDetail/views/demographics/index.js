@@ -1,25 +1,15 @@
 import React from 'react';
 import { Grid, Typography, withStyles, useMediaQuery, CircularProgress } from '@material-ui/core';
-import { GET_STUDY_DETAIL_DEMOGRAPHIC_DATA_QUERY } from '../../../../bento/studyDetailData';
 import ThemeProvider from './themeConfig';
 import StatsSection from './components/StatsSection';
 import ChartSection from './components/ChartSection';
 import { capitalizeWordsExcept } from '../../common/utils';
-import { useMockQuery } from '../../../../utils/useMockQuery';
 import ErrorMessage from '../../../../components/ErrorMessage/ErrorMessage';
 
-const Demographics = ({ classes, data, studyShortName }) => {
-  // Mock Demographics Data
-  const { loading, error, mockData } = useMockQuery({
-    query: GET_STUDY_DETAIL_DEMOGRAPHIC_DATA_QUERY,
-    variables: { study_short_name: [studyShortName] },
-    selector: d => d.studyDemographics?.[0]
-  });
+const Demographics = ({ classes, data }) => {
 
   const isUnder800px = useMediaQuery('(max-width:800px)'); // Check if screen width is under 800px
 
-  if (loading) return <CircularProgress />;
-  if (error) return (<ErrorMessage message={`Error loading demographics tab. Error: ${error}`} />)
   if (!data || (typeof data === 'object' && Object.keys(data).length === 0)) {
     return (
       <div className={classes.page}>
@@ -58,13 +48,13 @@ const Demographics = ({ classes, data, studyShortName }) => {
       <div className={classes.page}>
         <Grid container spacing={3} className={classes.container}>
           <Grid item xs={12} sm={6} className={classes.section}>
-            <StatsSection data={processedData} mockData={mockData} />
+            <StatsSection data={processedData} />
           </Grid>
 
           {!isUnder800px && <div className={classes.divider} />}
 
           <Grid item xs={12} sm={6} className={classes.charts}>
-            <ChartSection data={processedData} mockData={mockData} />
+            <ChartSection data={processedData} />
           </Grid>
         </Grid>
       </div>

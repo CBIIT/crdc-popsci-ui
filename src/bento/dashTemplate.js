@@ -282,7 +282,7 @@ export const widgetConfig = [
     type: 'donut',
     title: 'Studies: Participant Count',
     sliceTitle: "Participants",
-    dataName: 'participantCountWidget',
+    dataName: 'participantCountWidgetAndStats',
   },
   {
     type: 'donut',

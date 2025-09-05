@@ -10,9 +10,8 @@ const StudyDetailController =  ({ match }) => {
   const { loading, error, data } = useQuery(GET_STUDY_DETAIL_DATA_QUERY, {
     variables: { 
       study_short_name: [match.params.id],
-      first: 0,
-      offset: 10,
-      order_by: 'study_short_name',
+      first: 1000,
+      offset: 0,
       sort_direction: 'ASC'
     },
   });
