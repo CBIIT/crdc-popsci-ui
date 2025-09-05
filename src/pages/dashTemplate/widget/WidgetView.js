@@ -11,7 +11,6 @@ import { WidgetGenerator } from '@bento-core/widgets';
 import styles from './WidgetStyle';
 import { widgetConfig } from '../../../bento/dashTemplate';
 import colors from '../../../utils/colors';
-import { Typography } from '../../../components/Wrappers/Wrappers';
 import BarChartV2 from '../../../components/BarChartV2/bar-chart-v2';
 import { formatWidgetData } from './WidgetUtils';
 import sunburstStyle from './SunburstStyle'
@@ -55,7 +54,11 @@ const WidgetView = ({
           });
         }
       });
-    
+
+    if (Object.keys(counts).length === 0) {
+      counts[DEFAULT_VALUE] = 0;
+    }
+
     return Object.entries(counts).map(([group, count]) => ({
       group: capitalizeWordsExcept(group, ['or', 'and']),
       subjects: count
@@ -88,16 +91,18 @@ const WidgetView = ({
       functions: {
         mapData: (data) => {
           if (data.number_of_participants) return { name: data.study_short_name, value: data.number_of_participants }
+          if (data.cancer_type_count) return { name: data.study_short_name, value: data.cancer_type_count }
           return { name: data.group, value: data.subjects }
         },
         mapDatasetObject: (data) => {
           if (data.number_of_participants) return { name: data.study_short_name, value: data.number_of_participants }
+          if (data.cancer_type_count) return { name: data.study_short_name, value: data.cancer_type_count }
           return { name: data.group, value: data.subjects }
         },
         renderActiveShape: (props) => {
           const {
             cx, cy, innerRadius, outerRadius, startAngle, endAngle,
-            fill, payload, value, textColor, fontSize, fontWeight, fontFamily,
+            fill, payload, value, textColor, fontSize, /* fontWeight, */ fontFamily,
             titleLocation, titleAlignment, sliceTitle, totalCount, showTotalCount, textOverflowLength,
           } = props;
     
@@ -229,10 +234,8 @@ const WidgetView = ({
       <Collapse in={collapse} className={classes.backgroundWidgets}>
         <Grid container>
           {widgetConfig.slice(0, 6).map((widget, index) => {
-            const dataset = displayWidgets[widget.dataName];
-            if (!dataset || dataset.length === 0) {
-              return <></>;
-            }
+            const dataset = displayWidgets[widget.dataName] || [];
+
             if (widget.type === 'sunburst' && (!dataset.children || !dataset.children.length)) {
               return <></>;
             }
@@ -263,40 +266,34 @@ const WidgetView = ({
         </Grid>
         <Grid container spacing={2} style={{ marginTop: 24 }}>
           {/* Participants: Age of Enrollment (left) */}
-          {processedAgeData && processedAgeData.length > 0 && (
-            <Grid item lg={4} md={6} sm={12} xs={12}>
-              <BarChartV2
-                chartData={processedAgeData}
-                chartTitle="Age at Enrollment"
-                titleStyle={barChartTitleStyle}
-                // chartwidth={320}
-                barWidth={30}
-              />
-            </Grid>
-          )}
+          <Grid item lg={4} md={6} sm={12} xs={12}>
+            <BarChartV2
+              chartData={processedAgeData}
+              chartTitle="Age at Enrollment"
+              titleStyle={barChartTitleStyle}
+              // chartwidth={320}
+              barWidth={30}
+            />
+          </Grid>
           {/* Participants: Races (middle) */}
-          {processedRaceData && processedRaceData.length > 0 && (
-            <Grid item lg={4} md={6} sm={12} xs={12}>
-              <BarChartV2
-                chartData={processedRaceData}
-                chartTitle="Race"
-                titleStyle={barChartTitleStyle}
-                // chartwidth={320}
-                barWidth={55}
-              />
-            </Grid>
-          )}
+          <Grid item lg={4} md={6} sm={12} xs={12}>
+            <BarChartV2
+              chartData={processedRaceData}
+              chartTitle="Race"
+              titleStyle={barChartTitleStyle}
+              // chartwidth={320}
+              barWidth={55}
+            />
+          </Grid>
           {/* Participants: Sex (right) */}
-          {processedSexData && processedSexData.length > 0 && (
-            <Grid item lg={4} md={6} sm={12} xs={12}>
-              <BarChartV2
-                chartData={processedSexData}
-                chartTitle="Sex"
-                titleStyle={barChartTitleStyle}
-                // chartwidth={320}
-              />
-            </Grid>
-          )}
+          <Grid item lg={4} md={6} sm={12} xs={12}>
+            <BarChartV2
+              chartData={processedSexData}
+              chartTitle="Sex"
+              titleStyle={barChartTitleStyle}
+              // chartwidth={320}
+            />
+          </Grid>
         </Grid>
       </Collapse>
     </>
