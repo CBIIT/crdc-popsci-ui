@@ -57,7 +57,7 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false, studyS
   const processedTabs = [
     { index: 0, label: 'Overview', content: <Overview data={studyGeneral || {}}  />},
     { index: 1, label: 'Cancer Types', content: <CancerTypes data={primarySiteMorphology || {}} /> },
-    { index: 2, label: 'Demographics', content: <Demographics data={studyDemographics || {}} studyShortName={studyShortName} /> },
+    { index: 2, label: 'Demographics', content: <Demographics data={studyDemographics || {}} /> },
     { index: 3, label: 'Data Collected' ,content: <DataCollection data={data?.dataCollectionPage[0].data_collection || {}} /> },
     { index: 4, label: 'Countries and States',content: <Country data={studyGeneral || {}} /> },
     { index: 5, label: 'Publications', content: <Publications data={studyGeneral || {}} /> },

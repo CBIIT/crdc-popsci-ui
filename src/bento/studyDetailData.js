@@ -178,42 +178,6 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
   }
 `;
 
-export const GET_STUDY_DETAIL_DEMOGRAPHIC_DATA_QUERY = gql`
-query studyDemo($study_short_name: [String]) {
-  studyDemographics(study_short_name: $study_short_name) {
-    number_of_participants
-    
-    participant_age_range
-    participant_maximum_age # PARTICIPANT AGE RANGE (years)
-    participant_minimum_age # PARTICIPANT AGE RANGE (years)
-    participant_mean_age # MEAN PARTICIPANT AGE (years)
-    participant_median_age # MEDIAN PARTICIPANT AGE (years)
-    
-    #Participants: Age at Enrollment
-    participant_age_at_enrollment{
-      group
-      subjects
-    }
-
-    # PARTICIPANT_RACES
-    participant_races {
-      group
-      subjects
-    }
-    # PARTICIPANT ETHNICITIES
-    participant_ethnicities {
-      group
-      subjects
-    }
-    # PARTICIPANT SEXES
-    participant_sexes {
-      group
-      subjects
-    } 
-  }
-  
-}
-`;
 
 // --------------- Tabs Table configuration --------------
 export const studyPersonnelTableConfig = {
@@ -402,7 +366,7 @@ export const studyDataFileTableConfig = {
         openAccessIcon: directDownloadIcon,
         controlledAccessIcon: cloudOnlyAccessIcon,
       },
-      tooltipText: 'sort',
+      tooltipText: 'none',
       role: cellTypes.DISPLAY,
     },
 
