@@ -366,7 +366,7 @@ export const studyDataFileTableConfig = {
         openAccessIcon: directDownloadIcon,
         controlledAccessIcon: cloudOnlyAccessIcon,
       },
-      tooltipText: 'none',
+      tooltipText: 'sort',
       role: cellTypes.DISPLAY,
     },
 
