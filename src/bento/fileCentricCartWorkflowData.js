@@ -80,11 +80,12 @@ export const USER_COMMENT = "User_Comment";
 
 export const manifestData = {
   keysToInclude: [
-    'data_file_name',   // ('name' - 1/4 required fields)
-    'drs_uri',          // ('drs_uri' - 2/4 required fields)
-    'data_file_uuid', // ('study_short_name' - 3/4 required fields)
-    'data_file_checksum_value',       // ('participant_id' - 4/4 required fields)
+    'data_file_name',
+    'drs_uri',
+    'data_file_uuid', 
+    'data_file_checksum_value',   
     'study_short_name',
+    'data_file_description',
     'User_Comment'
   ],
   header: [
@@ -93,6 +94,7 @@ export const manifestData = {
     'File UUID',
     'Md5sum',
     'Study Acronym',
+    'File Description',
     'User Comment'
   ],
 };
@@ -120,7 +122,10 @@ export const GET_MY_CART_DATA_QUERY = gql`
       data_file_format
       data_volume # data_file_size
       data_file_access_control
+
       drs_uri
+      data_file_checksum_value
+      study_short_name
     }
   }
 `;
@@ -147,12 +152,15 @@ export const GET_MY_CART_DATA_QUERY_DESC = gql`
       data_file_format
       data_volume # data_file_size
       data_file_access_control
+
       drs_uri
+      data_file_checksum_value
+      study_short_name
     }
   }
 `;
 
-// Function to be used in React components with Apollo client access
+// Custom function used to download the Cart Table
 export const createDownloadTableFunction = (client, filterItems) => () => {
   const queryVariables = {
     ...filterItems,
@@ -172,7 +180,7 @@ export const createDownloadTableFunction = (client, filterItems) => () => {
         downloadJson(
           result.data[table.objectKey],
           "",
-          "PSDC_My_Files_download",
+          table?.extendedViewConfig?.download?.downloadFileName || "PSDC_My_Files_download",
           {
             keysToInclude: ['data_file_name', 'data_file_type', 'data_file_description', 'data_file_format', 'data_volume', 'data_file_access_control', 'data_file_access_control'],
             header: ['File Name', 'File Type', 'Description', 'Format', 'Size', 'Access Control', 'File Delivery'],
@@ -200,7 +208,6 @@ export const table = {
   extendedViewConfig: {
     pagination: true,
     manageViewColumns: { title: "View Columns" },
-    download: true,
     download: {
     // tableDownloadCSV: customMyFilesTabDownloadCSV,
       downloadFileName: "PSDC_My_Files_download",
