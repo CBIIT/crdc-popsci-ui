@@ -21,14 +21,6 @@ export default {
       title: 'More Information',
       items: [
         {
-          text: 'Population Sciences Help Desk',
-          link: '/support',
-        },
-        {
-          text: 'About Population Sciences',
-          link: '/purpose',
-        },
-        {
           text: 'CRDC',
           link: 'https://datacommons.cancer.gov',
         },
