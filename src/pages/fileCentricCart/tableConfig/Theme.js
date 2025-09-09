@@ -56,10 +56,15 @@ export const tblHeader = {
       wordWrap: 'break-word',
       "&.data_file_format":{
         maxWidth: '127px',
-    },
+      },
       '&.del_all_row': {
         minWidth: '150px',
-        cursor: 'pointer',
+        button: {
+          cursor: 'pointer',
+        },
+      },
+      '&._fileDelivery': {
+        pointerEvents: "none",
       },
     },
   },

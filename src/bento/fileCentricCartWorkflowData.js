@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { cellTypes, dataFormatTypes } from '@bento-core/table';
+import { cellTypes, dataFormatTypes, headerTypes } from '@bento-core/table';
 import { types } from '@bento-core/paginated-table';
 import { customMyFilesTabDownloadCSV } from './tableDownloadCSV';
 import cartPageIcon from '../assets/cart/cartPageIcon.svg'
@@ -9,7 +9,7 @@ import lockedPadlockIcon from '../assets/study/lockedPadlockIcon.svg';
 import directDownloadIcon from '../assets/study/directDownloadIcon.svg';
 import cloudOnlyAccessIcon from '../assets/study/cloudOnlyAccessIcon.svg';
 import CustomFooterMessage from '../pages/fileCentricCart/tableConfig/CustomFooterMessage';
-
+import { downloadJson } from '../pages/fileCentricCart/utils';
 
 export const getManifestFileSignedUrlEndPoint = 'get-manifest-file-signed-url'
 export const navBarCartData = {
@@ -80,11 +80,12 @@ export const USER_COMMENT = "User_Comment";
 
 export const manifestData = {
   keysToInclude: [
-    'data_file_name',   // ('name' - 1/4 required fields)
-    'drs_uri',          // ('drs_uri' - 2/4 required fields)
-    'data_file_uuid', // ('study_short_name' - 3/4 required fields)
-    'data_file_checksum_value',       // ('participant_id' - 4/4 required fields)
+    'data_file_name',
+    'drs_uri',
+    'data_file_uuid', 
+    'data_file_checksum_value',   
     'study_short_name',
+    'data_file_description',
     'User_Comment'
   ],
   header: [
@@ -93,6 +94,7 @@ export const manifestData = {
     'File UUID',
     'Md5sum',
     'Study Acronym',
+    'File Description',
     'User Comment'
   ],
 };
@@ -102,55 +104,91 @@ export const GET_MY_CART_DATA_QUERY = gql`
   query filesInList(
     $data_file_uuid: [String],
     $offset: Int = 0,
-    $first: Int = 10,
-    $order_by:String ="data_file_name",
+    $first: Int = 1000,
+    $order_by:String = "data_file_name",
     $sort_direction:String="asc"
-  ){
+  ) {
     filesInList(
       data_file_uuid: $data_file_uuid,
       offset: $offset,
       first: $first,
       order_by: $order_by,
       sort_direction: $sort_direction
-    ){
-       data_file_uuid
-        data_file_name
-        data_file_type
-        data_file_description
-        data_file_format
-        data_file_size
-        data_file_location
-        data_file_access_control
-        data_file_signed_url
-   }
+    ) {
+      data_file_uuid
+      data_file_name
+      data_file_type
+      data_file_description
+      data_file_format
+      data_volume # data_file_size
+      data_file_access_control
+
+      drs_uri
+      data_file_checksum_value
+      study_short_name
+    }
   }
 `;
 
-export const GET_MY_CART_DATA_QUERY_DESC = gql` query filesInList(
-  $data_file_uuid: [String],
-  $offset: Int = 0,
-  $first: Int = 10,
-  $order_by:String ="data_file_name",
-  $sort_direction:String="desc"
-){
-  filesInList(
-    data_file_uuid: $data_file_uuid,
-    offset: $offset,
-    first: $first,
-    order_by: $order_by,
-    sort_direction: $sort_direction
-  ){
-        data_file_uuid
-        data_file_name
-        data_file_type
-        data_file_description
-        data_file_format
-        data_file_size
-        data_file_access_control
-        data_file_location
-        data_file_signed_url
- }
-}`;
+export const GET_MY_CART_DATA_QUERY_DESC = gql`
+  query filesInList(
+    $data_file_uuid: [String],
+    $offset: Int = 0,
+    $first: Int = 1000,
+    $order_by:String ="data_file_name",
+    $sort_direction:String="desc"
+  ) {
+    filesInList(
+      data_file_uuid: $data_file_uuid,
+      offset: $offset,
+      first: $first,
+      order_by: $order_by,
+      sort_direction: $sort_direction
+    ) {
+      data_file_uuid
+      data_file_name
+      data_file_type
+      data_file_description
+      data_file_format
+      data_volume # data_file_size
+      data_file_access_control
+
+      drs_uri
+      data_file_checksum_value
+      study_short_name
+    }
+  }
+`;
+
+// Custom function used to download the Cart Table
+export const createDownloadTableFunction = (client, filterItems) => () => {
+  const queryVariables = {
+    ...filterItems,
+    offset: 0,
+    first: 10000
+  };
+  
+  return client
+    .query({
+      query: GET_MY_CART_DATA_QUERY,
+      variables: {
+        ...queryVariables,
+      },
+    })
+    .then((result) => {
+      if (result.data[table.objectKey]) {
+        downloadJson(
+          result.data[table.objectKey],
+          "",
+          table?.extendedViewConfig?.download?.downloadFileName || "PSDC_My_Files_download",
+          {
+            keysToInclude: ['data_file_name', 'data_file_type', 'data_file_description', 'data_file_format', 'data_volume', 'data_file_access_control', 'data_file_access_control'],
+            header: ['File Name', 'File Type', 'Description', 'Format', 'Size', 'Access Control', 'File Delivery'],
+          }
+        );
+      }
+    });
+};
 
 // --------------- File table configuration --------------
 
@@ -165,37 +203,29 @@ export const table = {
   paginationAPIField: 'filesInList',
   paginationAPIFieldDesc: 'filesInList',
   dataKey:'data_file_uuid',
-  tableDownloadCSV: customMyFilesTabDownloadCSV,
   objectKey: 'filesInList',
+
   extendedViewConfig: {
     pagination: true,
-    manageViewColumns: true, //{ title: "View Columns" },
-    download: true,
+    manageViewColumns: { title: "View Columns" },
+    download: {
+    // tableDownloadCSV: customMyFilesTabDownloadCSV,
+      downloadFileName: "PSDC_My_Files_download",
+      // This function should be replaced in React component with createDownloadTableFunction(client)
+      downloadTable: null
+    },
   },
   columns: [
-     {
-          cellType: cellTypes.CHECKBOX,
-          display: true,
-          role: cellTypes.CHECKBOX,
-        },
         {
           dataField: 'data_file_name',
           header: 'File Name',
           display: true,
           tooltipText: 'sort',
-          role: cellTypes.DISPLAY,
         },
         {
           dataField: 'data_file_type',
           header: 'File Type',
           display: true,
-          tooltipText: 'sort',
-          role: cellTypes.DISPLAY,
-        },
-        {
-          dataField: 'association',
-          header: 'Association',
-          display: false,
           tooltipText: 'sort',
           role: cellTypes.DISPLAY,
         },
@@ -214,7 +244,7 @@ export const table = {
           role: cellTypes.DISPLAY,
         },
         {
-          dataField: 'data_file_size',
+          dataField: 'data_volume',
           header: 'Size',
           display: true,
           tooltipText: 'sort',
@@ -239,7 +269,7 @@ export const table = {
               role: cellTypes.DISPLAY,
         },
         {
-              dataField: 'data_file_access_control', // This need to left empty if no data need to be displayed before file download icon
+              dataField: '_fileDelivery',
               header: 'File Delivery',
               display: true,
               cellType: cellTypes.CUSTOM_ELEM,
@@ -249,14 +279,19 @@ export const table = {
                 controlledAccessTooltip: 'This file must be accessed via the Cloud',
                 openAccessIcon: directDownloadIcon,
                 controlledAccessIcon: cloudOnlyAccessIcon,
+                dataField: 'data_file_access_control'
               },
               tooltipText: 'sort',
               role: cellTypes.DISPLAY,
         },
         {
+          // cellType: cellTypes.CUSTOM_ELEM,
+          // headerType: headerTypes.CUSTOM_ELEM,
+          
           cellType: cellTypes.DELETE,
           headerType: cellTypes.DELETE,
           display: true,
+
         },
         // {
         //      dataField: 'data_file_uuid', // This need to left empty if no data need to be displayed before file download icon
@@ -291,7 +326,7 @@ export const table = {
         //   },
   ],
   tableMsg: {
-    noMatch: 'No files have been added to the cart',
+    noMatch: 'Your cart is currently empty',
   },
 };
 

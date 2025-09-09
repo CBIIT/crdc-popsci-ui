@@ -3,10 +3,6 @@ import {
   Grid,
   withStyles,
   Button,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
-  FormControl,
 } from '@material-ui/core';
 import axios from 'axios';
 import styles from './HeaderStyle';
@@ -26,15 +22,6 @@ const HeaderView = ({
   const [displayReadMe, setDisplayReadMe] = useState(false);
   const [content, setContent] = useState(undefined);
 
-  // if allFile radio button is true download all file with Download manifest btn
-  const [allFiles, setAllFiles] = useState(true);
-
-
-  const handleRadioChange = (event) => {
-    const isAllSelected = event.target.value === 'true';
-    setAllFiles(isAllSelected);
-  };
-
   return (
     <HeaderThemeprovider>
       <div className={classes.cartHeader}>
@@ -50,33 +37,9 @@ const HeaderView = ({
       </div>
 
       <Grid container alignItems="center" justifyContent="flex-end" xs={12} md={12} lg={12} className={classes.actionBtn}>
-        <FormControl>
-          <RadioGroup
-            row
-            aria-labelledby="row-radio-label"
-            name="selectAll"
-            value={allFiles}
-            onChange={handleRadioChange}
-          >
-          <FormControlLabel
-            value={true}
-            control={
-              <Radio />
-            }
-            label="All Files"
-          />
-          <FormControlLabel
-            value={false}
-            control={<Radio />} 
-            className="selectFilesBtn"
-            label="Selected Files"
-          />
-        </RadioGroup>
-      </FormControl>
-      <DropDownView
-        filesId={filesId} 
-        allFiles={allFiles}
-      /> 
+        <DropDownView
+          filesId={filesId} 
+        /> 
       </Grid>
     </HeaderThemeprovider>
   );

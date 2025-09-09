@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Grid, withStyles } from '@material-ui/core';
 import { TableContext, TableView } from '@bento-core/paginated-table';
-import { configColumn } from './tableConfig/Column';
+import { configColumn, useDownloadTableFunction } from './tableConfig/Column';
 import { themeConfig } from './tableConfig/Theme';
 import styles from './CartStyle';
 import CartWrapper from './CartWrapper';
@@ -14,19 +14,22 @@ const CartView = (props) => {
     tblRows = [],
     isServer = true,
     filesId = [],
+    deleteCartFile
   } = props;
+  
+  const variables = {};
+  variables.data_file_uuid = filesId;
 
   // access table state
   const tableContext = useContext(TableContext);
   const { context } = tableContext;
- const accessTypes = ["Open Access", "Controlled Access"];
+
+  // Get download table function with Apollo client
+  const downloadTable = useDownloadTableFunction(variables);
 
   const [isUpdated,setIsUpdated] = useState(false);
   props ={ ...props, removeCheck: () => {setIsUpdated(true)}}
-  const data_file_with_access = tblRows.map(item => ({
-    ...item,
-    data_file_access_control: item.data_file_access_control || accessTypes[Math.floor(Math.random() * accessTypes.length)] || "Unknown Access"
-  }));
+
   /**
   * configure table state
   */
@@ -35,7 +38,7 @@ const CartView = (props) => {
     title: 'myFiles',
     query: config.api,
     dataKey: config.dataKey,
-    columns: configColumn({ columns: config.columns, ...props }),
+    columns: configColumn({ columns: config.columns, downloadTable, ...props }),
     selectedRows: [],
     tableMsg: config.tableMsg,
     paginationAPIField: config.paginationAPIField,
@@ -43,12 +46,17 @@ const CartView = (props) => {
     sortOrder: config.defaultSortDirection,
     rowsPerPage: 10,
     page: 0,
-    extendedViewConfig: config.extendedViewConfig,
+    extendedViewConfig: {
+      ...config.extendedViewConfig,
+      download: {
+        ...config.extendedViewConfig?.download,
+        downloadTable: downloadTable
+      }
+    },
   });
   
   
-  const variables = {};
-  variables.data_file_uuid = filesId;
+
   return (
     <Grid container className={classes.myFilesContainer}>
       
@@ -66,7 +74,7 @@ const CartView = (props) => {
               themeConfig={themeConfig}
               queryVariables={variables}
               totalRowCount={filesId.length}
-              tblRows={data_file_with_access}
+              tblRows={tblRows}
               server={isServer}
               paginationOptions={paginationOptions(context, config)}
             />
