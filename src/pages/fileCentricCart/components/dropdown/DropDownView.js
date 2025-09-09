@@ -17,6 +17,7 @@ import { CartContext } from '@bento-core/cart';
 import { ToolTip as Tooltip } from '../../../../bento-core';
 import styles from './DropDownStyle';
 import {
+  table,
   GET_MY_CART_DATA_QUERY,
   myFilesPageData,
   manifestData as manifestDataConfig,
@@ -64,8 +65,8 @@ const DropDownView = ({ classes, filesId = [] }) => {
       first: filesId.length
     },
     skip: !filesId.length,
-    onCompleted: ({ studyFiles }) => {
-      setManifestData(studyFiles); // Store raw data for manifest generation
+    onCompleted: (data) => {
+      setManifestData(data[table.objectKey]); // Store raw data for manifest generation
     }
   })
 

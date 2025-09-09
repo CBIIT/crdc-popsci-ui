@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Grid, withStyles } from '@material-ui/core';
 import { TableContext, TableView } from '@bento-core/paginated-table';
-import { configColumn } from './tableConfig/Column';
+import { configColumn, useDownloadTableFunction } from './tableConfig/Column';
 import { themeConfig } from './tableConfig/Theme';
 import styles from './CartStyle';
 import CartWrapper from './CartWrapper';
@@ -14,11 +14,18 @@ const CartView = (props) => {
     tblRows = [],
     isServer = true,
     filesId = [],
+    deleteCartFile
   } = props;
+  
+  const variables = {};
+  variables.data_file_uuid = filesId;
 
   // access table state
   const tableContext = useContext(TableContext);
   const { context } = tableContext;
+
+  // Get download table function with Apollo client
+  const downloadTable = useDownloadTableFunction(variables);
 
   const [isUpdated,setIsUpdated] = useState(false);
   props ={ ...props, removeCheck: () => {setIsUpdated(true)}}
@@ -31,7 +38,7 @@ const CartView = (props) => {
     title: 'myFiles',
     query: config.api,
     dataKey: config.dataKey,
-    columns: configColumn({ columns: config.columns, ...props }),
+    columns: configColumn({ columns: config.columns, downloadTable, ...props }),
     selectedRows: [],
     tableMsg: config.tableMsg,
     paginationAPIField: config.paginationAPIField,
@@ -39,12 +46,17 @@ const CartView = (props) => {
     sortOrder: config.defaultSortDirection,
     rowsPerPage: 10,
     page: 0,
-    extendedViewConfig: config.extendedViewConfig,
+    extendedViewConfig: {
+      ...config.extendedViewConfig,
+      download: {
+        ...config.extendedViewConfig?.download,
+        downloadTable: downloadTable
+      }
+    },
   });
   
   
-  const variables = {};
-  variables.data_file_uuid = filesId;
+
   return (
     <Grid container className={classes.myFilesContainer}>
       

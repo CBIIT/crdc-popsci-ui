@@ -1,8 +1,10 @@
 import React from 'react';
 import { cellTypes, headerTypes } from '@bento-core/table';
 import { Typography } from '@material-ui/core';
+import { useApolloClient } from '@apollo/client';
 import CustomHeaderRemover from './CustomHeaderRemover';
 import IconCell from '../../studyDetail/views/studyFiles/tableConfig/IconCell';
+import { createDownloadTableFunction } from '../../../bento/fileCentricCartWorkflowData';
 
 export const CustomHeaderCellView = (props) => {
   const {
@@ -61,7 +63,7 @@ export const CustomCellView = (props) => {
     return renderIconCell('accessControl');
   }
 
-  if (fileDelivery && dataField === "data_file_access_control") {
+  if (fileDelivery) {
     return renderIconCell('fileDelivery');
   }
 
@@ -77,6 +79,14 @@ export const CustomCellView = (props) => {
   return null;
 };
 
+/**
+* Create download table function with Apollo client
+* @returns download table function
+*/
+export const useDownloadTableFunction = (filterItems) => {
+  const client = useApolloClient();
+  return createDownloadTableFunction(client, filterItems);
+};
 
 /**
 * set column configuration
@@ -85,9 +95,9 @@ export const CustomCellView = (props) => {
 */
 export const configColumn = ({
   columns,
-  deleteAllFiles,
+  deleteAllFiles, 
   deleteCartFile,
-  removeCheck
+  removeCheck,
 }) => {
   /**
   * display columns as configuration
