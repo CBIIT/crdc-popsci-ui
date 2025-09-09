@@ -60,7 +60,7 @@ const CustomTooltip = ({ active, payload, label }) => {
     padding: '10px',
     borderRadius: '5px',
     overflowWrap: 'break-word',
-    maxWidth: '160px',
+    maxWidth: '170px',
   };
 
   if (active && payload && payload.length) {
