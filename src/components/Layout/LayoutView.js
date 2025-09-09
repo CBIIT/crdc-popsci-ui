@@ -71,7 +71,7 @@ const Layout = ({ classes, isSidebarOpened }) => {
               <Route exact path="/fileCentricCart" component={CartView} />
 
            
-              {/* END: Private Routes */}
+              {/* END: Private Routes 
               {aboutPageRoutes.map(
                 (aboutPageRoute, index) => (
                   <Route
@@ -81,6 +81,7 @@ const Layout = ({ classes, isSidebarOpened }) => {
                   />
                 ),
               )}
+                */}
               <LoginRoute path="/user/login" component={Login} />
               <Route component={Error} />
           </Switch>
