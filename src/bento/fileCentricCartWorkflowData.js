@@ -195,15 +195,12 @@ export const table = {
   paginationAPIField: 'filesInList',
   paginationAPIFieldDesc: 'filesInList',
   dataKey:'data_file_uuid',
-  tableDownloadCSV: customMyFilesTabDownloadCSV,
   objectKey: 'filesInList',
-    download: true,
 
   extendedViewConfig: {
     pagination: true,
     manageViewColumns: { title: "View Columns" },
     download: true,
-    tableDownloadCSV: customMyFilesTabDownloadCSV,
     download: {
     // tableDownloadCSV: customMyFilesTabDownloadCSV,
       downloadFileName: "PSDC_My_Files_download",
