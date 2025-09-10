@@ -107,6 +107,7 @@ const WidgetView = ({
           } = props;
     
           const isCapital = String(payload.name).toUpperCase() === String(payload.name);
+          // eslint-disable-next-line no-unused-vars
           const overflowLength = isCapital ? textOverflowLength : textOverflowLength + 10;
     
           const labelX = (titleAlignment === 'center') ? cx : (titleAlignment === 'left') ? 0 : cx * 2;
@@ -116,8 +117,8 @@ const WidgetView = ({
     
           return (
             <g>
-              <text x={labelX} y={labelY} dy={0} textAnchor={(titleAlignment === 'center') ? 'middle' : undefined} fill={'#0F253A'} fontSize={'16px'} fontWeight={'normal'} fontFamily={'Nunito'} cursor="text">
-                {String(payload.name).length > overflowLength ? `${String(payload.name).substring(0, overflowLength)}...` : payload.name}
+              <text x={labelX} y={labelY} dy={0} textAnchor={(titleAlignment === 'center') ? 'middle' : undefined} fill={'#0F253A'} fontSize={'16px'} fontWeight={'normal'} fontFamily={'Nunito'} cursor="text" overflow="visible">
+                {String(payload.name)}
                 <title>{payload.name}</title>
               </text>
               <text x={cx} y={cy} dy={0} textAnchor="middle" fill={textColor} fontSize={fontSize || '12px'} fontWeight="bold" fontFamily={fontFamily || 'Nunito'}>
