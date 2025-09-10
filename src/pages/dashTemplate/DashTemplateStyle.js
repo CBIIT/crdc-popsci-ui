@@ -8,6 +8,11 @@ export default (theme) => ({
     margin: 'auto',
     padding: '0 32px',
   },
+  widgetsContainer: {
+    "& svg.recharts-surface, & .MuiPaper-root": {
+      overflow: "visible",
+    }
+  },
   sideBar: {
     minWidth: '285px',
     maxHeight: '1300px',
