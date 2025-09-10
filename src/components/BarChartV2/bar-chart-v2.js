@@ -153,7 +153,7 @@ const BarChartV2 = ({
           </Bar>
           <YAxis 
             tick={{ fontSize: 12, fontFamily: 'Open Sans', fill: '#666666' }}
-            width={50}
+            width={45}
           />
         </BarChart>
       </div>
