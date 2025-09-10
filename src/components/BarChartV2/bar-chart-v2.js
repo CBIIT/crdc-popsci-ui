@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { withStyles } from '@material-ui/core';
 import {
   BarChart,
@@ -35,7 +35,7 @@ const styles = theme => ({
     overflowY: 'hidden',
     display: 'flex',
     justifyContent: 'flex-start',
-    minWidth: '320px', // Ensure minimum width for proper display
+    minWidth: '320px',
   },
 });
 
@@ -93,17 +93,30 @@ const BarChartV2 = ({
   barWidth = 50,
   titleStyle = {},
 }) => {
-  const chartWrapperRef = useRef(null);
+  const containerRef = useRef(null);
+  const [containerWidth, setContainerWidth] = useState(0);
+
+  useEffect(() => {
+    const updateContainerWidth = () => {
+      if (containerRef.current) {
+        const width = containerRef.current.getBoundingClientRect().width;
+        setContainerWidth(width);
+      }
+    };
+
+    updateContainerWidth();
+    window.addEventListener('resize', updateContainerWidth);
+    
+    return () => window.removeEventListener('resize', updateContainerWidth);
+  }, []);
 
   const sortedData = sortChartDataAlpha(chartData);
   const calculatedWidth = sortedData.length > Math.min(chartwidth/barWidth) ? sortedData.length * barWidth : chartwidth;
-  console.log('width: ', calculatedWidth, sortedData.length);
-  
-  // Determine if chart should be centered (when width is 300px or less)
-  const shouldflexchart = calculatedWidth >= 320;
+
+  const hasOverflow = calculatedWidth > containerWidth; 
   
   return (
-    <div className={classes.container}>
+    <div className={classes.container} ref={containerRef}>
       <div>
         <h3 className={classes.title} style={{...titleStyle}}>
           {"Participants: " + chartTitle}
@@ -111,11 +124,10 @@ const BarChartV2 = ({
       </div>
       <div
         className={classes.chartWrapper}
-        ref={chartWrapperRef}
         style={{ 
           overflowX: 'auto', 
           width: '100%',
-          justifyContent: shouldflexchart ? 'flex-start' : 'center',
+          justifyContent: hasOverflow ? 'flex-start' : 'center',
         }}
       >
         <BarChart
