@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { withStyles } from '@material-ui/core';
 import {
   BarChart,
@@ -17,6 +17,8 @@ const styles = theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     width: '100%',
+    maxWidth: '320px',
+    margin: '0 auto',
   },
   title: {
     fontFamily: 'Open Sans',
@@ -29,13 +31,20 @@ const styles = theme => ({
     width: '100%',
     position: 'relative',
     left: '7px',
+    marginBottom: '10px',
   },
   chartWrapper: {
     width: '100%',
     overflowY: 'hidden',
     display: 'flex',
-    justifyContent: 'flex-start',
-    minWidth: '320px', // Ensure minimum width for proper display
+    justifyContent: 'center',
+    minWidth: '320px',
+    marginTop: '10px'
+  },
+  dividerLine: {
+    width: '180px',
+    borderBottom: '6px solid #E2E7EC',
+    alignSelf: 'center',
   },
 });
 
@@ -60,7 +69,7 @@ const CustomTooltip = ({ active, payload, label }) => {
     padding: '10px',
     borderRadius: '5px',
     overflowWrap: 'break-word',
-    maxWidth: '170px',
+    maxWidth: '160px',
   };
 
   if (active && payload && payload.length) {
@@ -92,30 +101,72 @@ const BarChartV2 = ({
   chartwidth = 300,
   barWidth = 50,
   titleStyle = {},
+  fromChartSection = false,
 }) => {
-  const chartWrapperRef = useRef(null);
+  const containerRef = useRef(null);
+  const [containerWidth, setContainerWidth] = useState(fromChartSection ? 320 : 0);
+
+  useEffect(() => {
+    // Inject scrollbar styles
+    const styleId = 'barchart-scrollbar-styles';
+    let existingStyle = document.getElementById(styleId);
+    
+    if (!existingStyle) {
+      const style = document.createElement('style');
+      style.id = styleId;
+      style.innerHTML = `
+        .barchart-scrollbar::-webkit-scrollbar {
+          height: 6px;
+        }
+        .barchart-scrollbar::-webkit-scrollbar-thumb {
+          background: #c7c7c7ff;
+          border-radius: 2px;
+          border: none;
+          box-shadow: none;
+          outline: none;
+        }
+        .barchart-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: #a8a8a8;
+        }
+      `;
+      document.head.appendChild(style);
+    }
+  }, []);
+
+  useEffect(() => {
+    const updateContainerWidth = () => {
+      if (containerRef.current) {
+        const width = containerRef.current.getBoundingClientRect().width;
+        setContainerWidth(width);
+      }
+    };
+
+    updateContainerWidth();
+    window.addEventListener('resize', updateContainerWidth);
+    
+    return () => window.removeEventListener('resize', updateContainerWidth);
+  }, []);
 
   const sortedData = sortChartDataAlpha(chartData);
   const calculatedWidth = sortedData.length > Math.min(chartwidth/barWidth) ? sortedData.length * barWidth : chartwidth;
-  console.log('width: ', calculatedWidth, sortedData.length);
-  
-  // Determine if chart should be centered (when width is 300px or less)
-  const shouldflexchart = calculatedWidth >= 320;
+
+  // Ensure a minimum effective container width of 320 when rendered in ChartSection
+  const effectiveContainerWidth = fromChartSection ? Math.max(containerWidth, 320) : containerWidth;
+  const hasOverflow = calculatedWidth > effectiveContainerWidth; 
   
   return (
-    <div className={classes.container}>
+    <div className={classes.container} ref={containerRef}>
       <div>
         <h3 className={classes.title} style={{...titleStyle}}>
           {"Participants: " + chartTitle}
         </h3>
       </div>
       <div
-        className={classes.chartWrapper}
-        ref={chartWrapperRef}
+        className={`${classes.chartWrapper} barchart-scrollbar`}
         style={{ 
           overflowX: 'auto', 
           width: '100%',
-          justifyContent: shouldflexchart ? 'flex-start' : 'center',
+          justifyContent: hasOverflow ? 'flex-start' : 'center',
         }}
       >
         <BarChart
@@ -131,7 +182,7 @@ const BarChartV2 = ({
             interval={0}
           />
           <Tooltip content={<CustomTooltip />} />
-          <Bar dataKey="subjects">
+          <Bar dataKey="subjects" maxBarSize={60}>
             {sortedData.map((_entry, index) => (
               <Cell
                 key={`cell-${_entry.group}`}
@@ -141,10 +192,12 @@ const BarChartV2 = ({
           </Bar>
           <YAxis 
             tick={{ fontSize: 12, fontFamily: 'Open Sans', fill: '#666666' }}
-            width={50}
+            width={45}
           />
         </BarChart>
       </div>
+  {/* Divider only shown when there is no horizontal scrollbar */}
+  {!hasOverflow && <div className={classes.dividerLine} role="presentation" />}
     </div>
   );
 };
