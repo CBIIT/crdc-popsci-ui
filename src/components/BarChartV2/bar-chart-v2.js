@@ -39,6 +39,7 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'center',
     minWidth: '320px',
+    marginTop: '10px'
   },
   dividerLine: {
     width: '180px',

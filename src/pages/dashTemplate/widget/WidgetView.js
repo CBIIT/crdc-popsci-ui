@@ -173,7 +173,7 @@ const WidgetView = ({
     return sunburstTitle;
   };
 
-  const sunburstTitleStyle = {
+  const widgetTitleStyle = {
     fontFamily: 'Open Sans',
     fontWeight: 400,
     fontStyle: 'normal',
@@ -230,7 +230,7 @@ const WidgetView = ({
               <Grid key={index} item lg={4} md={6} sm={12} xs={12}>
                 <Widget
                   header={(
-                    <div style={sunburstTitleStyle}>
+                    <div style={widgetTitleStyle}>
                       {widget.title}
                     </div>
                   )}
@@ -255,7 +255,7 @@ const WidgetView = ({
             <BarChartV2
               chartData={processedAgeData}
               chartTitle="Age at Enrollment"
-              titleStyle={sunburstTitleStyle}
+              titleStyle={widgetTitleStyle}
               // chartwidth={320}
               barWidth={30}
             />
@@ -265,7 +265,7 @@ const WidgetView = ({
             <BarChartV2
               chartData={processedRaceData}
               chartTitle="Race"
-              titleStyle={sunburstTitleStyle}
+              titleStyle={widgetTitleStyle}
               // chartwidth={320}
               barWidth={55}
             />
@@ -275,7 +275,7 @@ const WidgetView = ({
             <BarChartV2
               chartData={processedSexData}
               chartTitle="Sex"
-              titleStyle={sunburstTitleStyle}
+              titleStyle={widgetTitleStyle}
               // chartwidth={320}
             />
           </Grid>
