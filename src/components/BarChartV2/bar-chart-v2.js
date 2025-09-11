@@ -17,6 +17,8 @@ const styles = theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     width: '100%',
+    maxWidth: '320px',
+    margin: '0 auto',
   },
   title: {
     fontFamily: 'Open Sans',
@@ -34,7 +36,7 @@ const styles = theme => ({
     width: '100%',
     overflowY: 'hidden',
     display: 'flex',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     minWidth: '320px',
   },
 });
@@ -97,6 +99,38 @@ const BarChartV2 = ({
   const [containerWidth, setContainerWidth] = useState(0);
 
   useEffect(() => {
+    // Inject scrollbar styles
+    const styleId = 'barchart-scrollbar-styles';
+    let existingStyle = document.getElementById(styleId);
+    
+    if (!existingStyle) {
+      const style = document.createElement('style');
+      style.id = styleId;
+      style.innerHTML = `
+        .barchart-scrollbar::-webkit-scrollbar {
+          height: 5px;
+        }
+        .barchart-scrollbar::-webkit-scrollbar-track {
+          background: rgba(0,0,0,0);
+          box-shadow: none;
+          border: none;
+        }
+        .barchart-scrollbar::-webkit-scrollbar-thumb {
+          background: #EDEDED;
+          border-radius: 2px;
+          border: none;
+          box-shadow: none;
+          outline: none;
+        }
+        .barchart-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: #a8a8a8;
+        }
+      `;
+      document.head.appendChild(style);
+    }
+  }, []);
+
+  useEffect(() => {
     const updateContainerWidth = () => {
       if (containerRef.current) {
         const width = containerRef.current.getBoundingClientRect().width;
@@ -117,13 +151,13 @@ const BarChartV2 = ({
   
   return (
     <div className={classes.container} ref={containerRef}>
-      <div>
+      <div style={{ marginBottom: '10px' }}>
         <h3 className={classes.title} style={{...titleStyle}}>
           {"Participants: " + chartTitle}
         </h3>
       </div>
       <div
-        className={classes.chartWrapper}
+        className={`${classes.chartWrapper} barchart-scrollbar`}
         style={{ 
           overflowX: 'auto', 
           width: '100%',
