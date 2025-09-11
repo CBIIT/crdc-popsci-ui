@@ -172,19 +172,6 @@ const WidgetView = ({
     }
     return sunburstTitle;
   };
-  
-  const barChartTitleStyle = {
-    fontFamily: 'Open Sans',
-    fontWeight: 400,
-    fontStyle: 'normal',
-    fontSize: '16px',
-    lineHeight: '107%',
-    letterSpacing: '0%',
-    textTransform: 'capitalize',
-    color: '#0F253A',
-    textAlign: 'center',
-    margin: '8px 0 8px 0',
-  };
 
   const sunburstTitleStyle = {
     fontFamily: 'Open Sans',
@@ -263,14 +250,12 @@ const WidgetView = ({
               </Grid>
             );
           })}
-        </Grid>
-        <Grid container spacing={2} style={{ marginTop: 24 }}>
           {/* Participants: Age of Enrollment (left) */}
           <Grid item lg={4} md={6} sm={12} xs={12}>
             <BarChartV2
               chartData={processedAgeData}
               chartTitle="Age at Enrollment"
-              titleStyle={barChartTitleStyle}
+              titleStyle={sunburstTitleStyle}
               // chartwidth={320}
               barWidth={30}
             />
@@ -280,7 +265,7 @@ const WidgetView = ({
             <BarChartV2
               chartData={processedRaceData}
               chartTitle="Race"
-              titleStyle={barChartTitleStyle}
+              titleStyle={sunburstTitleStyle}
               // chartwidth={320}
               barWidth={55}
             />
@@ -290,7 +275,7 @@ const WidgetView = ({
             <BarChartV2
               chartData={processedSexData}
               chartTitle="Sex"
-              titleStyle={barChartTitleStyle}
+              titleStyle={sunburstTitleStyle}
               // chartwidth={320}
             />
           </Grid>

@@ -31,6 +31,7 @@ const styles = theme => ({
     width: '100%',
     position: 'relative',
     left: '7px',
+    marginBottom: '10px',
   },
   chartWrapper: {
     width: '100%',
@@ -38,6 +39,11 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'center',
     minWidth: '320px',
+  },
+  dividerLine: {
+    width: '180px',
+    borderBottom: '6px solid #E2E7EC',
+    alignSelf: 'center',
   },
 });
 
@@ -94,9 +100,10 @@ const BarChartV2 = ({
   chartwidth = 300,
   barWidth = 50,
   titleStyle = {},
+  fromChartSection = false,
 }) => {
   const containerRef = useRef(null);
-  const [containerWidth, setContainerWidth] = useState(0);
+  const [containerWidth, setContainerWidth] = useState(fromChartSection ? 320 : 0);
 
   useEffect(() => {
     // Inject scrollbar styles
@@ -108,15 +115,13 @@ const BarChartV2 = ({
       style.id = styleId;
       style.innerHTML = `
         .barchart-scrollbar::-webkit-scrollbar {
-          height: 5px;
+          height: 6px;
         }
         .barchart-scrollbar::-webkit-scrollbar-track {
-          background: rgba(0,0,0,0);
-          box-shadow: none;
-          border: none;
+
         }
         .barchart-scrollbar::-webkit-scrollbar-thumb {
-          background: #EDEDED;
+          background: #c7c7c7ff;
           border-radius: 2px;
           border: none;
           box-shadow: none;
@@ -147,11 +152,13 @@ const BarChartV2 = ({
   const sortedData = sortChartDataAlpha(chartData);
   const calculatedWidth = sortedData.length > Math.min(chartwidth/barWidth) ? sortedData.length * barWidth : chartwidth;
 
-  const hasOverflow = calculatedWidth > containerWidth; 
+  // Ensure a minimum effective container width of 320 when rendered in ChartSection
+  const effectiveContainerWidth = fromChartSection ? Math.max(containerWidth, 320) : containerWidth;
+  const hasOverflow = calculatedWidth > effectiveContainerWidth; 
   
   return (
     <div className={classes.container} ref={containerRef}>
-      <div style={{ marginBottom: '10px' }}>
+      <div>
         <h3 className={classes.title} style={{...titleStyle}}>
           {"Participants: " + chartTitle}
         </h3>
@@ -177,7 +184,7 @@ const BarChartV2 = ({
             interval={0}
           />
           <Tooltip content={<CustomTooltip />} />
-          <Bar dataKey="subjects">
+          <Bar dataKey="subjects" maxBarSize={60}>
             {sortedData.map((_entry, index) => (
               <Cell
                 key={`cell-${_entry.group}`}
@@ -191,6 +198,8 @@ const BarChartV2 = ({
           />
         </BarChart>
       </div>
+  {/* Divider only shown when there is no horizontal scrollbar */}
+  {!hasOverflow && <div className={classes.dividerLine} role="presentation" />}
     </div>
   );
 };
