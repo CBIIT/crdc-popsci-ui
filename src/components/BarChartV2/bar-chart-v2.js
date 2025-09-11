@@ -118,9 +118,6 @@ const BarChartV2 = ({
         .barchart-scrollbar::-webkit-scrollbar {
           height: 6px;
         }
-        .barchart-scrollbar::-webkit-scrollbar-track {
-
-        }
         .barchart-scrollbar::-webkit-scrollbar-thumb {
           background: #c7c7c7ff;
           border-radius: 2px;
