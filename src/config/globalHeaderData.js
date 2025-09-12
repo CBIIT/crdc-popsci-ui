@@ -57,6 +57,12 @@ export const navbarSublists = {
       link: '/analyze_data',
       id: 'navbar-dropdown-item-analyze-data',
       className: 'navMobileSubItem',
+    },
+    {
+      name: 'Support',
+      link: '/support',
+      id: 'navbar-dropdown-item-support',
+      className: 'navMobileSubItem',
     }
   ],
 };
