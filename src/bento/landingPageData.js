@@ -37,9 +37,9 @@ export const landingPageData = {
   tile3: {
     alt: '',
     img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/requestAccessImage.png',
-   titleText: 'Analyze Data',
+    titleText: 'Analyze Data',
     descriptionText: 'The Seven Bridges Cancer Genomics Cloud (SB-CGC), powered by Velsera, collaborates with the PSDC to facilitate access to its data for analysis. ',
-   callToActionText: 'Read More',
+    callToActionText: 'Read More',
     callToActionLink: '/analyze_data', // Link to the Request Access Page
   },
   tile4: {
