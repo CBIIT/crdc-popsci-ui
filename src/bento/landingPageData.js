@@ -29,7 +29,7 @@ export const landingPageData = {
   tile2: {
     alt: '',
     img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/TrialsImage.png',
-     titleText: 'Access Data',
+    titleText: 'Access Data',
     descriptionText: 'PSDC hosts both open and controlled access data, accessible for analysis and download through the Seven Bridges Cancer Genomics Cloud.',
        callToActionText: 'Read More',
     callToActionLink: '/access_data', // This links to the Programs Listing Page.
