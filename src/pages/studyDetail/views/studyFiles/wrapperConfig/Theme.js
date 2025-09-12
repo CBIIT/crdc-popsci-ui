@@ -123,6 +123,11 @@ export const customTheme = {
       justifyContent: 'center',
     },
   },
+  MuiSnackbar: {
+    root: {
+      zIndex: 3000,
+    }
+  }
 };
 
 export const themeConfig = {
