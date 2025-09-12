@@ -24,7 +24,7 @@ export const landingPageData = {
     titleText: 'About the Population Science Data Commons (PSDC)',
     descriptionText: 'Population science research aims to understand the causes and distribution of cancer in populations, monitor and explain cancer trends across different groups defined by geography or demographics, and support the development and implementation of broad-based interventions.The PSDC manages, houses, and shares data from various NCI-funded research programs and awards, including the Cancer Epidemiology Cohorts (CECs), supported by the NCI’s Division of Cancer Control and Population Sciences (DCCPS).',
     callToActionText: 'Read More',
-    callToActionLink: '/explore', // This links to the "About" static page.
+    callToActionLink: '/about', // This links to the "About" static page.
   },
   tile2: {
     alt: '',
@@ -32,7 +32,7 @@ export const landingPageData = {
      titleText: 'Access Data',
     descriptionText: 'PSDC hosts both open and controlled access data, accessible for analysis and download through the Seven Bridges Cancer Genomics Cloud.',
        callToActionText: 'Read More',
-    callToActionLink: '/', // This links to the Programs Listing Page.
+    callToActionLink: '/access_data', // This links to the Programs Listing Page.
   },
   tile3: {
     alt: '',
@@ -40,7 +40,7 @@ export const landingPageData = {
    titleText: 'Analyze Data',
     descriptionText: 'The Seven Bridges Cancer Genomics Cloud (SB-CGC), powered by Velsera, collaborates with the PSDC to facilitate access to its data for analysis. ',
    callToActionText: 'Read More',
-    callToActionLink: '/', // Link to the Request Access Page
+    callToActionLink: '/analyze_data', // Link to the Request Access Page
   },
   tile4: {
     alt: '',

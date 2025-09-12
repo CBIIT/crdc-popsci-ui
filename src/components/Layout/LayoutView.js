@@ -70,8 +70,6 @@ const Layout = ({ classes, isSidebarOpened }) => {
               <Route path="/graphql" component={GraphqlClient} />
               <Route exact path="/fileCentricCart" component={CartView} />
 
-           
-              {/* END: Private Routes 
               {aboutPageRoutes.map(
                 (aboutPageRoute, index) => (
                   <Route
@@ -81,7 +79,7 @@ const Layout = ({ classes, isSidebarOpened }) => {
                   />
                 ),
               )}
-                */}
+               
               <LoginRoute path="/user/login" component={Login} />
               <Route component={Error} />
           </Switch>
