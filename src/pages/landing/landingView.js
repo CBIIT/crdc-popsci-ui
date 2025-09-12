@@ -159,9 +159,12 @@ const LandingView = ({ classes, statsData }) => (
                 <div className={classes.mountainMeadowContentHeader} id="tile4_title">
                   {landingPageData.tile4.titleText}
                 </div>
-                <div className={classes.mountainMeadowContent} id="tile4_description">
-                  {landingPageData.tile4.descriptionText}
-                </div>
+                <div
+                  className={classes.mountainMeadowContent}
+                  id="tile4_description"
+                  // Rendering trusted HTML from data source
+                  dangerouslySetInnerHTML={{ __html: landingPageData.tile4.descriptionText }}
+                />
               </div>
             </div>
           </div>
@@ -617,6 +620,18 @@ const styles = (theme) => ({
       height: 'auto',
       width: '100%',
       paddingBottom: '20px',
+    },
+    '& a, & a:visited': {
+      color: 'inherit',
+      textDecoration: 'none',
+      fontFamily: 'inherit',
+      fontSize: 'inherit',
+      fontWeight: 'inherit',
+    },
+    '& a:hover, & a:focus, & a:active': {
+      color: 'inherit',
+      textDecoration: 'none',
+      outline: 'none',
     },
   },
   mountainMeadowIcon: {
