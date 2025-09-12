@@ -143,8 +143,10 @@ export default () => ({
     border: '1px solid #818181',
     boxShadow: '0px 4px 4px 0px #00000040',
 
-    maxWidth: '270px',
-    height: '32px',
+    whiteSpace: 'nowrap',
+    width: '270px',
+    maxWidth: 'none',
+    minHeight: '32px',
     padding: '6px 10px'
   },
   customArrow: {},
