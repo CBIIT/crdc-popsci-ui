@@ -21,6 +21,14 @@ export default {
       title: 'More Information',
       items: [
         {
+          text: 'PSDC Help Desk ',
+          link: '/support',
+        },
+        {
+          text: 'About PSDC ',
+          link: '/about',
+        },
+        {
           text: 'CRDC',
           link: 'https://datacommons.cancer.gov',
         },
