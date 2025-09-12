@@ -28,34 +28,43 @@ export const tblHeader = {
   },
   MuiTableSortLabel: {
     root: {
-      color: '#323232',
       position: 'relative',
-      fontSize: '16px',
-      fontFamily: 'Roboto, Lato Regular, Raleway, sans-serif',
-      fontWeight: 400,
+
+      fontFamily: 'Open Sans',
+      fontWeight: 700,
+
+      fontStyle: 'normal',
+      fontSize: '15px',
+      color: '#0F253A',
       letterSpacing: '0.06em',
-      textDecoration: 'none',
       maxWidth: '220px',
       wordWrap: 'break-word',
       lineHeight: '16px',
+
       textAlign: 'left',
-      "&.data_file_format":{
-          maxWidth:'194px',
-      },
-      '&:hover': {
-        color: '#13344A',
-      },
+  
+  
     },
+    active: {
+      color: '#0F253A !important',
+    }
   },
   MuiTableCell: {
     root: {
-      padding: '0px 0px 0px 25px',
+      padding: '0px 0px 0px 32px',
       paddingRight: '5px',
-      color: 'red',
       maxWidth: '220px',
       wordWrap: 'break-word',
+
       "&.data_file_format":{
-        maxWidth: '127px',
+        // maxWidth: '1207px',
+        // width: '1207px',
+      },
+      "&.data_file_name": {
+        minWidth: '294px',
+      },
+      "&.data_file_description": {
+        minWidth: '294px',
       },
       '&.del_all_row': {
         minWidth: '150px',
@@ -70,9 +79,9 @@ export const tblHeader = {
   },
   MuiTableRow: {
     root: {
-      height: '40px',
-      borderTop: '3px solid #0E6292',
-      borderBottom: '3px solid #0E6292',
+      height: '52px',
+      borderTop: '3px solid #1E66A4',
+      borderBottom: '3px solid #1E66A4',
     },
   },
 
@@ -140,7 +149,7 @@ export const extendedView = {
     MuiTablePagination: {
       root: {
         paddingRight: '0px',
-        borderTop: '3px solid #0E6292',
+        borderTop: '3px solid #1E66A4',
       },
     },
   },
@@ -157,12 +166,12 @@ export const tblPgn = {
   MuiTablePagination: {
     root: {
       paddingRight: '0px',
-      borderTop: '3px solid #e7e5e5',
+      borderTop: '3px solid #1E66A4',
       borderBottom: '3px solid #e7e5e5',
-      marginBottom: '26px'
+      marginBottom: '30px'
     },
     toolbar: {
-      minHeight: '45px',
+      minHeight: '42px',
     },
   },
 };
@@ -186,14 +195,16 @@ export const tblBody = {
       lineHeight: '24px',
       textAlign: 'left',
 
+      height: '52px',
+
       backgroundColor: 'transparent !important',
-      '&:nth-child(even) td': {
-        color: '#323232',
-        background: '#F2F2F2',
-      },
       '&:nth-child(odd) td': {
-        color: '#323232',
-        background: '#fff',
+        color: '#4B4B4B',
+        background: '#F4F4F4',
+      },
+      '&:nth-child(even) td': {
+        color: '#4B4B4B',
+        background: '#FFFFFF',
       },
     }
   },
@@ -204,15 +215,13 @@ export const tblBody = {
       borderBottom: 'none',
       maxWidth: '220px',
       wordWrap: 'break-word',
-      paddingTop: '10px !important',
-      paddingBottom: '10px !important',
-      minHeight: '24px !important',
-      "&.data_file_format":{
-        maxWidth: '194px',
-    },
-    "&.delete_row":{
-      paddingLeft: '52px'
-    },
+      // paddingTop: '10px !important',
+      // paddingBottom: '10px !important',
+      // minHeight: '24px !important',
+      // maxHeight: '59px',
+      "&.delete_row":{
+        paddingLeft: '52px'
+      },
       '&.file_name': {
         '& p': {
           lineBreak: 'anywhere',
@@ -223,7 +232,7 @@ export const tblBody = {
     },
     root: {
       minHeight: '0px !important',
-      padding: '0px 0px 0px 25px',
+      padding: '0px 0px 0px 32px',
       paddingRight: '20px',
       color: '#004C73',
       borderBottom: 'none',
@@ -234,6 +243,11 @@ export const tblBody = {
     
   },
 
+  MuiIcon: {
+    root: {
+      fontSize: '0px'
+    }
+  }
 };
 
 export const tblContainer = {
@@ -253,14 +267,11 @@ export const tblContainer = {
       display: 'table',
       borderSpacing: '0',
       borderCollapse: 'collapse',
-      "&.data_file_format":{
-        maxWidth: '194px',
-    },
-    "&.delete_row":{
-      justifyContent: 'center',
-      alignItems: 'center',
-      display: 'flex',
-    },
+      "&.delete_row":{
+        justifyContent: 'center',
+        alignItems: 'center',
+        display: 'flex',
+      },
     },
   },
 };
