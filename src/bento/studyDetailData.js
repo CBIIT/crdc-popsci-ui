@@ -9,6 +9,7 @@ import lockedPadlockIcon from '../assets/study/lockedPadlockIcon.svg';
 import directDownloadIcon from '../assets/study/directDownloadIcon.svg';
 import cloudOnlyAccessIcon from '../assets/study/cloudOnlyAccessIcon.svg';
 import questionMarkCircle from '../assets/Question_Mark_Circle.svg';
+import { downloadJson } from '../pages/fileCentricCart/utils';
 
 // --------------- Tooltip configuration --------------
 export const tooltipContentForSelectedFile = {
@@ -335,6 +336,38 @@ export const GET_ALL_FILE_IDS_FOR_FILES = gql`
   }
 `;
 
+// Custom function used to download the Cart Table
+export const createDownloadTableFunction = (client, filterItems) => () => {
+  const queryVariables = {
+    ...filterItems,
+    offset: 0,
+    first: 10000
+  };
+  
+  return client
+    .query({
+      query: GET_STUDY_DETAIL_DATA_QUERY,
+      variables: {
+        ...queryVariables,
+      },
+    })
+    .then((result) => {
+      if (result.data[studyDataFileTableConfig.objectKey]) {
+        downloadJson(
+          result.data[studyDataFileTableConfig.objectKey],
+          "",
+          studyDataFileTableConfig?.extendedViewConfig?.download?.downloadFileName || "PSDC_My_Files_download",
+          {
+            keysToInclude: ['data_file_name', 'data_file_type', 'data_file_description', 'data_file_format', 'data_volume', 'data_file_access_control', 'data_file_access_control'],
+            header: ['File Name', 'File Type', 'Description', 'Format', 'Size', 'Access Control', 'File Delivery'],
+          }
+        );
+      }
+    });
+};
+
+
+
 // --------------- Tabs Table configuration --------------
 export const studyDataFileTableConfig = {
   name: 'DataFiles',
@@ -345,11 +378,17 @@ export const studyDataFileTableConfig = {
   defaultSortDirection: 'asc',
   tableID: 'study_files_tab_table',
   id: 'study_files_tab',
+   objectKey: 'studyFiles',
 
   extendedViewConfig: {
     pagination: true, // Top pagination: true || false
     manageViewColumns: { title: "View Columns" },
-    download: { downloadCsv: "Download Table Contents As CSV", downloadFileName: "Study_Files_download",},
+    download: { 
+      downloadCsv: "Download Table Contents As CSV",
+      downloadFileName: "PSDC_Study_Files_download",
+      // This function should be replaced in React component with createDownloadTableFunction(client)
+      downloadTable: null
+    },
   },
   columns: [
     {
@@ -418,7 +457,7 @@ export const studyDataFileTableConfig = {
       role: cellTypes.DISPLAY,
     },
     {
-      dataField: 'data_file_access_control', // This need to left empty if no data need to be displayed before file download icon
+      dataField: '_fileDelivery', // This need to left empty if no data need to be displayed before file download icon
       header: 'File Delivery',
       display: true,
       cellType: cellTypes.CUSTOM_ELEM,
@@ -428,6 +467,7 @@ export const studyDataFileTableConfig = {
         controlledAccessTooltip: 'Available only via the Cloud; add to cart using checkbox',
         openAccessIcon: directDownloadIcon,
         controlledAccessIcon: cloudOnlyAccessIcon,
+        dataField: 'data_file_access_control'
       },
       tooltipText: 'sort',
       role: cellTypes.DISPLAY,
