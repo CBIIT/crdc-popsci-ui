@@ -401,7 +401,6 @@ export const studyDataFileTableConfig = {
       header: 'File Name',
       display: true,
       tooltipText: 'sort',
-      role: cellTypes.DISPLAY,
     },
     {
       dataField: 'data_file_type',
