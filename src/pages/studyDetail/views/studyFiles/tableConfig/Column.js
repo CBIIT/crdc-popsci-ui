@@ -45,7 +45,7 @@ export const CustomCellView = (props) => {
     return renderIconCell('accessControl');
   }
 
-  if (fileDelivery) {
+  if (fileDelivery && dataField === "_fileDelivery") {
     return renderIconCell('fileDelivery');
   }
 
