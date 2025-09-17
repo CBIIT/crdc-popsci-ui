@@ -67,7 +67,6 @@ const StudyPersonnel = (props) => {
     tableMsg: config.tableMsg,
     sortBy: config.defaultSortField,
     sortOrder: config.defaultSortDirection,
-    extendedViewConfig: config.extendedViewConfig,
     extendedViewConfig: {
       ...config.extendedViewConfig,
       download: {
