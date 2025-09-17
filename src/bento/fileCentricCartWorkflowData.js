@@ -291,7 +291,8 @@ export const table = {
           cellType: cellTypes.DELETE,
           headerType: cellTypes.DELETE,
           display: true,
-
+          cancelText: "Cancel",
+          okText: "Ok"
         },
         // {
         //      dataField: 'data_file_uuid', // This need to left empty if no data need to be displayed before file download icon
