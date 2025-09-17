@@ -118,11 +118,6 @@ export const configColumn = ({
         customColHeaderRender: (toggleDisplay) => (
           <CustomHeaderCellView openDialogBox={toggleDisplay} {...column} />
         ),
-        customModalMessage: (count) => (
-          <>
-            {count} {' '} File(s) will be removed from your cart
-          </>
-        ),
       };
     }
     return column;
