@@ -349,7 +349,7 @@ export const studyDataFileTableConfig = {
   extendedViewConfig: {
     pagination: true, // Top pagination: true || false
     manageViewColumns: { title: "View Columns" },
-    download: { downloadCsv: "Download Table Contents As CSV", downloadFileName: "Study_Files_download",},
+    download: { downloadCsv: "Download Table Contents As CSV", downloadFileName: "PSDC_Study_Files",},
   },
   columns: [
     {
