@@ -2,6 +2,8 @@ import React from 'react';
 import { Typography } from '@material-ui/core';
 import { cellTypes, headerTypes } from '@bento-core/table';
 import IconCell from './IconCell';
+import { useApolloClient } from '@apollo/client';
+import { createDownloadTableFunction } from '../../../../../bento/studyDetailData';
 
 // Helper component for custom cell rendering
 export const CustomCellView = (props) => {
@@ -43,7 +45,7 @@ export const CustomCellView = (props) => {
     return renderIconCell('accessControl');
   }
 
-  if (fileDelivery && dataField === "data_file_access_control") {
+  if (fileDelivery && dataField === "_fileDelivery") {
     return renderIconCell('fileDelivery');
   }
 
@@ -77,6 +79,15 @@ export const CustomHeaderCellView = (props) => {
   return <> {header}</>
 }
 
+
+/**
+* Create download table function with Apollo client
+* @returns download table function
+*/
+export const useDownloadTableFunction = (filterItems) => {
+  const client = useApolloClient();
+  return createDownloadTableFunction(client, filterItems);
+};
 
 /**
   * Configure columns with custom cell and header renderers.

@@ -8,7 +8,7 @@ import {
 
 import { studyDataFileTableConfig } from '../../../../bento/studyDetailData';
 import { themeConfig } from './tableConfig/Theme';
-import { configColumn } from './tableConfig/Column';
+import { configColumn, useDownloadTableFunction } from './tableConfig/Column';
 import { configWrapper, wrapperConfig } from "./wrapperConfig/Wrapper";
 import { customTheme } from "./wrapperConfig/Theme";
 
@@ -18,6 +18,12 @@ import styles from './tableStyle';
 const StudyPersonnel = (props) => {
   const config = studyDataFileTableConfig;
   const { data, classes, studyShortName } = props;
+
+
+  const variables = {};
+
+  // Get download table function with Apollo client
+  const downloadTable = useDownloadTableFunction(variables);
 
   /**
     * initialize state for useReducer
@@ -61,7 +67,13 @@ const StudyPersonnel = (props) => {
     tableMsg: config.tableMsg,
     sortBy: config.defaultSortField,
     sortOrder: config.defaultSortDirection,
-    extendedViewConfig: config.extendedViewConfig,
+    extendedViewConfig: {
+      ...config.extendedViewConfig,
+      download: {
+        ...config.extendedViewConfig?.download,
+        downloadTable: downloadTable
+      }
+    },
     rowsPerPage: 10,
     page: 0,
   });

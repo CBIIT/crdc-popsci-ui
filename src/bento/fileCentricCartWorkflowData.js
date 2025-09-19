@@ -209,10 +209,10 @@ export const table = {
     pagination: true,
     manageViewColumns: { title: "View Columns" },
     download: {
-    // tableDownloadCSV: customMyFilesTabDownloadCSV,
-      downloadFileName: "PSDC_My_Files",
+      downloadFileName: "PSDC_My_Files_download",
+      downloadCsv: "Download Table Contents As CSV",
       // This function should be replaced in React component with createDownloadTableFunction(client)
-      downloadTable: null
+      downloadTable: null,
     },
   },
   columns: [

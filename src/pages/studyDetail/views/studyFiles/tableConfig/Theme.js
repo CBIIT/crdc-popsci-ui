@@ -28,6 +28,10 @@ export const tblHeader = {
   MuiTableCell: {
     root: {
       padding: '0px 33px 0px 7px',
+
+      '&._fileDelivery': {
+        pointerEvents: 'none',
+      },
     },
     paddingCheckbox: {
       padding: '0px !important',
