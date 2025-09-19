@@ -14,7 +14,7 @@ const CartView = (props) => {
     tblRows = [],
     isServer = true,
     filesId = [],
-    deleteCartFile
+    // deleteCartFile
   } = props;
   
   const variables = {};

@@ -35,7 +35,7 @@ const HeaderView = ({ classes, filesId }) => {
             &nbsp;<ExternalLinkIcon className={classes.externalLinkIcon} />{" "}
             account, select Export to CGC. To analyze files, select and remove unwanted files, 
             select Download File Manifest, and upload the resulting manifest file to your{" "}
-            <a href="https://www.velsera.com/seven-bridges-cancer-genomics-cloud" target="_blank" rel="noopener noreferrer" style={{ color: "#005D85" }}>
+            <a href="https://www.cancergenomicscloud.org/" target="_blank" rel="noopener noreferrer" style={{ color: "#005D85" }}>
               Velsera Seven Bridges Cancer Genomics Cloud
             </a>
             &nbsp;<ExternalLinkIcon className={classes.externalLinkIcon} />{" "}

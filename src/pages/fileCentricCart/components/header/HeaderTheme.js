@@ -65,16 +65,20 @@ export default ({
       },
       MuiMenuItem: {
         root: {
-          border: '2px solid #004D73',
+          backgroundColor: '#ffffff',
+          color: '#000000',
+          border: '1px solid #14616A',
           borderTop: '0px',
+          maxHeight: '41px',
 
           '&.downloadManifestBtn': {
             borderTop: '0px',
-            borderBottomRightRadius: '10px',
-            borderBottomLeftRadius: '10px',
+            borderBottomRightRadius: '18px',
+            borderBottomLeftRadius: '18px',
           },
           '&:hover': {
-            backgroundColor: '#C4DEEA',
+            backgroundColor: '#D9EAEC',
+            color: '#14616A'
           },
         }
         

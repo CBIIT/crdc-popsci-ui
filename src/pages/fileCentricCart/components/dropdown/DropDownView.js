@@ -8,6 +8,7 @@ import {
   Button,
   Grow,
   Paper,
+  Grid,
 } from '@material-ui/core';
 import clsx from 'clsx';
 import { useQuery } from '@apollo/client';
@@ -99,47 +100,39 @@ const DropDownView = ({ classes, filesId = [] }) => {
   }, [isCartEmpty]);
 
   const exportToCGCTooltipTitle = useMemo(() => {
-    if (isDropDownDisabled) {
       return (
         <span>
-          Files in the cart can be easily exported into the{' '}
+          Click this link to go to your{' '}
           <a
             href="https://www.cancergenomicscloud.org/"
             target="_blank"
             rel="noreferrer"
-            style={{ color: '#165F83', textDecoration: 'underline'}}
+            style={{ color: '#005D85', textDecoration: 'underline'}}
           >
             Cancer Genomics Cloud
           </a>{' '}
           <img className={classes.linkIcon} src={linkIcon} alt="linkIcon" />
-          {'.'}
+          account for cloud access.
         </span>
       );
-    }
-    return '';
   }, [isDropDownDisabled]);
 
   const downloadFileManifestTooltipTitle = useMemo(() => {
-    if (isDropDownDisabled) {
-      return (
-        <span>
-        Files in the cart can be downloaded as a file manifest with{' '}
+    return (
+      <span>
+        To access and analyze files: select and remove unwanted files, click the “Download File Manifest” button, and upload the resulting Manifest file to your{' '}
         <a
-          href="https://www.ga4gh.org/product/data-repository-service-drs/"
+          href="https://www.cancergenomicscloud.org/"
           target="_blank"
           rel="noreferrer"
           style={{ color: '#165F83', textDecoration: 'underline'}}
         >
-          DRS 
+          Velsera Seven Bridges Cancer Genomics Cloud 
         </a>{' '}
         <img className={classes.linkIcon} src={linkIcon} alt="linkIcon" />{' '}
-        identifiers and other useful metadata.
+        account for cloud access.
       </span>
-      
-
-      );
-    }
-    return '';
+    );
   }, [isDropDownDisabled]);
 
   const handleToggle = () => setOpen((prevOpen) => !prevOpen);
@@ -237,18 +230,21 @@ const DropDownView = ({ classes, filesId = [] }) => {
             placement="left"
             classes={{tooltip: classes.menuItemTooltip, arrow: classes.arrow}} 
           >
-          <span style={{ cursor: isDropDownDisabled && 'not-allowed'}} onClick={() => {
-            if (isDropDownDisabled) {
-               return noop()
-            };
-
-            initiateDownload(EXPORT_TO_CANCER_GENOMICS_CLOUD);
-            setOpen(false);
-            }}
-          >
-            <span className={classes.cgcLabal}>{EXPORT_TO_CANCER_GENOMICS_CLOUD}</span>
-            <img className={classes.cgcIcon} src={cgcIcon} alt="icon" />
-          </span>
+            <Grid container alignItems='center' style={{ cursor: isDropDownDisabled && 'not-allowed'}} onClick={() => {
+              if (isDropDownDisabled) {
+                return noop()
+              };
+              initiateDownload(EXPORT_TO_CANCER_GENOMICS_CLOUD);
+              setOpen(false);
+              }}
+            >
+              <Grid item xs className={classes.dropDownLabel}>
+                Export to<br />Cancer Genomics Cloud
+              </Grid>
+              <Grid item>
+                <img className={classes.cgcIcon} src={cgcIcon} alt="icon" />
+              </Grid>
+            </Grid>
           </Tooltip>
         </MenuItem> 
         <MenuItem style={{ cursor: isDropDownDisabled && 'not-allowed'}} className="downloadManifestBtn">
@@ -259,17 +255,17 @@ const DropDownView = ({ classes, filesId = [] }) => {
             placement="left"
             classes={{tooltip: classes.menuItemTooltip, arrow: classes.arrow}} 
           >
-            <span onClick={() => {
+            <Grid container onClick={() => {
                 if(isDropDownDisabled) {
                     return noop()
                 }
                 initiateDownload(DOWNLOAD_FILE_MANIFEST)
             }}>
-              <span className={classes.fileManifestLabal}>
-                {DOWNLOAD_FILE_MANIFEST}
-              </span>
-              <img className={classes.downloadFileIcon} src={dfmIcon} alt="icon"/>
-            </span>
+              <Grid item xs className={classes.dropDownLabel}>Download<br/>File Manifest</Grid>
+              <Grid item>
+                <img className={classes.downloadFileIcon} src={dfmIcon} alt="icon"/>
+              </Grid>
+            </Grid>
           </Tooltip>
         </MenuItem>
       </Fragment>
@@ -316,12 +312,12 @@ const DropDownView = ({ classes, filesId = [] }) => {
           role={undefined}
           transition
           disablePortal
-          style={{zIndex: 99999}}
+          style={{zIndex: 99999,}}
         >
           {({ TransitionProps, placement }) => (
             <Grow
               {...TransitionProps}
-              style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+              style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom', position: 'relative'}}
             >
               <Paper className={classes.dropdownPaper}>
                 <ClickAwayListener onClickAway={handleClose}>
