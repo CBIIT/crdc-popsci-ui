@@ -153,7 +153,7 @@ export default () => ({
     verticalAlign: 'middle', // Aligns the icon with text
   },
   downloadFileIcon: {
-    margin: '3px 2px 0px 0px',
+    margin: '3px 2px 0 0',
     float: 'right',
   },
 });
