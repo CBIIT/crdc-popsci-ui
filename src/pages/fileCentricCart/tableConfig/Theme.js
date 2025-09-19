@@ -57,8 +57,6 @@ export const tblHeader = {
       wordWrap: 'break-word',
 
       "&.data_file_format":{
-        // maxWidth: '1207px',
-        // width: '1207px',
       },
       "&.data_file_name": {
         minWidth: '294px',
