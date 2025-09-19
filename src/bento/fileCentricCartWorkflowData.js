@@ -176,12 +176,19 @@ export const createDownloadTableFunction = (client, filterItems) => () => {
     })
     .then((result) => {
       if (result.data[table.objectKey]) {
+        // POPSCI-375: Inject a consistent _fileDelivery field for all files to indicate delivery method
+        const files = result.data[table.objectKey];
+        if (Array.isArray(files)) {
+          files.forEach((file) => {
+            file._fileDelivery = "Access via Cloud";
+          });
+        }
         downloadJson(
           result.data[table.objectKey],
           "",
           table?.extendedViewConfig?.download?.downloadFileName || "PSDC_My_Files_download",
           {
-            keysToInclude: ['data_file_name', 'data_file_type', 'data_file_description', 'data_file_format', 'data_volume', 'data_file_access_control', 'data_file_access_control'],
+            keysToInclude: ['data_file_name', 'data_file_type', 'data_file_description', 'data_file_format', 'data_volume', 'data_file_access_control', '_fileDelivery'],
             header: ['File Name', 'File Type', 'Description', 'Format', 'Size', 'Access Control', 'File Delivery'],
           }
         );
