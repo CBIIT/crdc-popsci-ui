@@ -1,14 +1,13 @@
 import gql from 'graphql-tag';
-import { cellTypes, dataFormatTypes, headerTypes } from '@bento-core/table';
+import { cellTypes, dataFormatTypes } from '@bento-core/table';
 import { types } from '@bento-core/paginated-table';
-import { customMyFilesTabDownloadCSV } from './tableDownloadCSV';
 import cartPageIcon from '../assets/cart/cartPageIcon.svg'
 import openPadlockIcon from '../assets/study/openPadlockIcon.svg';
 import lockedPadlockIcon from '../assets/study/lockedPadlockIcon.svg';
 
 import directDownloadIcon from '../assets/study/directDownloadIcon.svg';
 import cloudOnlyAccessIcon from '../assets/study/cloudOnlyAccessIcon.svg';
-import CustomFooterMessage from '../pages/fileCentricCart/tableConfig/CustomFooterMessage';
+// import CustomFooterMessage from '../pages/fileCentricCart/tableConfig/CustomFooterMessage';
 import { downloadJson } from '../pages/fileCentricCart/utils';
 
 export const getManifestFileSignedUrlEndPoint = 'get-manifest-file-signed-url'
@@ -46,17 +45,17 @@ export const myFilesPageData = {
       container: 'paginatedTable',
       paginatedTable: true,
     },
-    {
-      container: 'instruction',
-      clsName: 'container_footer',
-      items: [
-        {
-          clsName: 'text_instruction',
-          type: types.CUSTOM_ELEM,
-          customViewElem: CustomFooterMessage,
-        }
-      ],
-    },
+    // {
+    //   container: 'instruction',
+    //   clsName: 'container_footer',
+    //   items: [
+    //     {
+    //       clsName: 'text_instruction',
+    //       type: types.CUSTOM_ELEM,
+    //       customViewElem: CustomFooterMessage,
+    //     }
+    //   ],
+    // },
     {
       container: 'buttons',
       size: 'xl',

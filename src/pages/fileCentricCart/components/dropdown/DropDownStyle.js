@@ -1,5 +1,5 @@
 export const DROP_DOWN_WIDTH = '250px';
-const BLUE = '#004D73';
+const BLUE = '#487D83';
 const WHITE = '#FFFFFF'
 const EXPORT_AND_DOWNLOAD_BTN_HEIGHT = '46px';
 const commonTooltipStyle = {

@@ -67,10 +67,8 @@ export const tblHeader = {
         minWidth: '294px',
       },
       '&.del_all_row': {
-        minWidth: '150px',
-        button: {
-          cursor: 'pointer',
-        },
+        paddingRight: '32px !important',
+        textAlign: 'center',
       },
       '&._fileDelivery': {
         pointerEvents: "none",
@@ -148,20 +146,32 @@ export const extendedView = {
   tblTopPgn: {
     MuiTablePagination: {
       root: {
-        paddingRight: '0px',
+        paddingRight: '20px',
         borderTop: '3px solid #1E66A4',
       },
+      toolbar: {
+        minHeight: '42px',
+        maxHeight: '42px',
+      }
     },
+    
   },
   MuiToolbar: {
     root: {
       alignItems: 'center',
       justifyContent: 'flex-end',
       paddingRight: '0px !important',
+      position: 'relative !important',
+
+      '&.downloadAndColumnView': {
+        maxHeight: '30px',
+        minHeight: '30px',
+        marginRight: '20px'
+      },
     },
   },
 };
-
+// Bottom Pagination
 export const tblPgn = {
   MuiTablePagination: {
     root: {
@@ -172,6 +182,7 @@ export const tblPgn = {
     },
     toolbar: {
       minHeight: '42px',
+      paddingRight: '20px'
     },
   },
 };
@@ -220,7 +231,9 @@ export const tblBody = {
       // minHeight: '24px !important',
       // maxHeight: '59px',
       "&.delete_row":{
-        paddingLeft: '52px'
+        paddingLeft: '32px',
+        paddingRight: '32px',
+        textAlign: 'center',
       },
       '&.file_name': {
         '& p': {
@@ -232,8 +245,8 @@ export const tblBody = {
     },
     root: {
       minHeight: '0px !important',
-      padding: '0px 0px 0px 32px',
-      paddingRight: '20px',
+      padding: '0px 32px 0px 32px',
+      // paddingRight: '20px',
       color: '#004C73',
       borderBottom: 'none',
     },
