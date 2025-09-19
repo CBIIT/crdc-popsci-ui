@@ -43,7 +43,7 @@ export default () => ({
     color: '#27424E',
     fontWeight: 700,
     fontStyle: 'Bold',
-    fontSize: 16,
+    fontSize: '16px',
     leadingTrim: 'NONE',
     lineHeight: '130%',
     letterSpacing: '-1%',
