@@ -5,7 +5,7 @@ import { customTheme } from './wrapperConfig/Theme';
 import {
   myFilesPageData, table, manifestData,
 } from '../../bento/fileCentricCartWorkflowData';
-import CustomToolTipContent from './tooltip/customToolTipContent';
+// import CustomToolTipContent from './tooltip/customToolTipContent';
 
 const Header = ({
   children,
