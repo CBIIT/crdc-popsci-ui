@@ -180,7 +180,7 @@ export const createDownloadTableFunction = (client, filterItems) => () => {
         downloadJson(
           result.data[table.objectKey],
           "",
-          table?.extendedViewConfig?.download?.downloadFileName || "PSDC_My_Files_download",
+          table?.extendedViewConfig?.download?.downloadFileName || "PSDC_My_Files",
           {
             keysToInclude: ['data_file_name', 'data_file_type', 'data_file_description', 'data_file_format', 'data_volume', 'data_file_access_control', 'data_file_access_control'],
             header: ['File Name', 'File Type', 'Description', 'Format', 'Size', 'Access Control', 'File Delivery'],
@@ -209,8 +209,8 @@ export const table = {
     pagination: true,
     manageViewColumns: { title: "View Columns" },
     download: {
-      downloadCsv: "Download Table Contents As CSV",
       downloadFileName: "PSDC_My_Files_download",
+      downloadCsv: "Download Table Contents As CSV",
       // This function should be replaced in React component with createDownloadTableFunction(client)
       downloadTable: null,
     },
@@ -291,7 +291,8 @@ export const table = {
           cellType: cellTypes.DELETE,
           headerType: cellTypes.DELETE,
           display: true,
-
+          cancelText: "Cancel",
+          okText: "Ok"
         },
         // {
         //      dataField: 'data_file_uuid', // This need to left empty if no data need to be displayed before file download icon
