@@ -874,7 +874,7 @@ export const tabContainers = [
       },
       download: {
         downloadCsv: "Download Table Contents As CSV",
-        downloadFileName: "PSDC_Studies",
+        downloadFileName: "PSDC_Studies_download",
       },
     },
     columns: [
