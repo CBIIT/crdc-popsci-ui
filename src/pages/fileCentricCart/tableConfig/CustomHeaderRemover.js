@@ -33,6 +33,7 @@ const CustomHeaderRemove = ({
     </Tooltip>
   </div>
 );
+  const updatedFilesId = reduxFilesId || [];
 
 const styles = () => ({
   removeBtn: {

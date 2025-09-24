@@ -71,7 +71,7 @@ export const customTheme = {
           margin: '10px 5px',
         },
         '& textarea.manifest_comments': {
-          color: '#FFFFFF',
+          color: '#000000',
           border: '1px solid #707070',
           height: '96px',
           resize: 'none',
