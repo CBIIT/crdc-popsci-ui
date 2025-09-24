@@ -164,11 +164,6 @@ export function generateDownloadConfig(columns) {
   return { keysToInclude, header };
 }
 
-
-
-
-
-
 /*
 export const downloadJsonV2 = (tableData, comments, fileName, manifestData) => {
   const payload = tableData.map((el) => ({
