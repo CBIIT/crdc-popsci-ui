@@ -1,28 +1,79 @@
 export const tblHeader = {
+  MuiDialog: {
+    paper: {
+      width: '400px',
+
+      height: '210px',
+      textAlign: 'center',
+      backgroundColor: '#FFFFFF !important',
+      backdropFilter: 'blur(4px)',
+      padding: '50px 38px',
+      color: '#000000',
+      borderRadius: '0px'
+    },
+  },
+  MuiDialogContent: {
+    root: {
+      padding: '0px',
+      '&:first-child': {
+        paddingTop: '0px',
+      },
+    },
+  },
+  MuiDialogContentText: {
+    root: {
+      fontFamily: 'Open Sans',
+      fontWeight: 400,
+      fontSize: '14px',
+      lineHeight: '130%',
+      letterSpacing: 0,
+      textAlign: 'center',
+      color: '#000000'
+    }
+  },
+  MuiDialogActions: {
+    root: {
+      padding: '0px',
+      justifyContent: 'center',
+      '&.actionsWrapper': {
+        padding: '0px',
+        flexDirection: 'row-reverse !important', // reverse direction
+        gap: '0px 15px'
+      }
+    },
+  },
+
   MuiButton: {
     text: {
       padding: '10px 16px',
     },
     root: {
-      color: '#fff',
+      fontFamily: 'Raleway',
+      fontWeight: 700,
       fontSize: '14px',
-      marginTop: '6px',
-      fontFamily: 'Lato',
-      borderRadius: '10px',
-      marginBottom: '10px',
+      lineHeight: '16px',
+      letterSpacing: '2%',
+      textAlign: 'center',
+      verticalAlign: 'middle',
       textTransform: 'uppercase',
-      width: '133px',
+      padding: '12px 24px',
+      color: '#FFFFFF',
+      
       '&.okBtn': {
+        backgroundColor: '#0C534C',
+        borderRadius: '30px',
+
         width: '133px',
         height: '45px',
         cursor: 'pointer',
-        background: '#3E74B6',
       },
       '&.cancelBtn': {
+        backgroundColor: '#4F5D69',
+        borderRadius: '30px',
+
         width: '133px',
         height: '45px',
         cursor: 'pointer',
-        background: '#4F5D69',
       },
     },
   },
@@ -111,30 +162,6 @@ export const tblHeader = {
       '&.del_all_row_btn': {
         alignSelf: 'center',
         margin: '0px',
-      },
-    },
-  },
-  MuiTypography: {
-    root: {
-      color: '#A61401',
-      '&.del_all_row_tooltip': {
-        width: '110px',
-        border: '2px solid #A61401',
-        minHeight: '24px !important',
-        padding: '5px 10px',
-        fontSize: '12px',
-        background: '#fff',
-        textAlign: 'center',
-        fontWeight: '500',
-        borderRadius: '7px',
-      },
-      '&.del_all_row_text': {
-        float: 'left',
-        fontSize: '11pt',
-        textAlign: 'center',
-        fontWeight: 'bold',
-        fontFamily: 'Lato Regular, Raleway, sans-serif',
-        // lineHeight: '47px',
       },
     },
   },
