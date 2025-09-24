@@ -12,7 +12,7 @@ import TextField from '@material-ui/core/TextField';
 import CloseIcon from '@material-ui/icons/Close';
 import DownloadFileManifestIcon from '../../assets/dwnldFileManifest.svg';
 import { GET_MY_CART_DATA_QUERY, myFilesPageData } from '../../../../bento/fileCentricCartWorkflowData';
-import { downloadCsvString } from '../../utils';
+import { downloadCsvString } from '../../../../utils/fileDownload';
 import { TableContext } from '../../../../bento-core';
 
 const useStyles = makeStyles({

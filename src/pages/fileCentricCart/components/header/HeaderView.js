@@ -24,26 +24,27 @@ const HeaderView = ({ classes, filesId }) => {
         </Grid>
       </Grid>
 
-      <Grid container alignItems="center" justifyContent="space-between" xs={12} md={12} lg={12} className={classes.headerInstructionAndActionBtn}>
+      <Grid container justifyContent="space-between" xs={12} md={12} lg={12} className={classes.headerInstructionAndActionBtn}>
         <Grid item xs className={classes.descriptionContainer} >
           <span className={classes.descriptionTitle}>Instructions:</span>
           <p className={classes.descriptionText}>
-            To analyze files within your{" "}
-            <a href="https://www.cancergenomicscloud.org" target="_blank" rel="noopener noreferrer" style={{ color: "#005D85" }}>
-              Cancer Genomics Cloud
-            </a>
-            &nbsp;<ExternalLinkIcon className={classes.externalLinkIcon} />{" "}
-            account, select Export to CGC. To analyze files, select and remove unwanted files, 
-            select Download File Manifest, and upload the resulting manifest file to your{" "}
-            <a href="https://www.cancergenomicscloud.org/" target="_blank" rel="noopener noreferrer" style={{ color: "#005D85" }}>
+
+            To immediately access and analyze files using your{' '}
+            <a href="https://www.cancergenomicscloud.org/" target="_blank" rel="noopener noreferrer" style={{ color: "#005D85", textDecoration: 'underline'}}>
               Velsera Seven Bridges Cancer Genomics Cloud
             </a>
-            &nbsp;<ExternalLinkIcon className={classes.externalLinkIcon} />{" "}
-            account.
+            &nbsp;<ExternalLinkIcon className={classes.externalLinkIcon} width={12} height={12} />{' '}
+            account, first remove any unwanted files, and then simply select the{' '}
+            <span className={classes.keyword}>Export to CGC</span> option under{' '}
+            <span className={classes.keyword}>Export and Download</span>.
+            Alternatively, to save your file set and analyze files of interest at a more convenient time, remove any unwanted files, select the{' '}
+            <span className={classes.keyword}>Download Manifest</span> option under{' '}
+            <span className={classes.keyword}>Export and Download</span>, and upload the resulting{' '}
+            <span className={classes.keyword}>File Manifest</span> to your account at the appropriate time.
           </p>
         </Grid>
 
-        <Grid item>
+        <Grid item style={{paddingTop: '14px'}}>
           <DropDownView filesId={filesId} />
         </Grid>
       </Grid>
