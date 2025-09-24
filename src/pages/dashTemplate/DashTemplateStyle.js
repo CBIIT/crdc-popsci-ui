@@ -14,7 +14,9 @@ export default (theme) => ({
     }
   },
   sideBar: {
-    minWidth: '285px',
+    width: '285px',
+    flex: '0 0 285px',
+    boxSizing: 'border-box',
     maxHeight: '1300px',
     overflowX: 'hidden',
     backgroundColor: 'transparent',
@@ -40,7 +42,7 @@ export default (theme) => ({
     },
   },
   rightContent: {
-    width: 'calc(100% - 275px)',
+    flex: 1,
     position: 'relative',
     marginLeft: '25px',
   },

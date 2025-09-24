@@ -173,6 +173,7 @@ const BarChartV2 = ({
           width={calculatedWidth}
           height={280}
           data={sortedData}
+          margin={{right: -5}}
         >
           {/* <CartesianGrid strokeDasharray="3 3" /> */}
           <XAxis 
