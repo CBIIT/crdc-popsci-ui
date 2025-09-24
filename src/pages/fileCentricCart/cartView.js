@@ -24,7 +24,7 @@ const CartView = (props) => {
   const tableContext = useContext(TableContext);
   const { context } = tableContext;
 
-  // Get download table function with Apollo client
+  // Get the custom download table function
   const downloadTable = useDownloadTableFunction(variables);
 
   const [isUpdated,setIsUpdated] = useState(false);

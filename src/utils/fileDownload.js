@@ -1,11 +1,11 @@
 /*eslint-disable*/
-import JSZip from 'jszip';
-import { USER_COMMENT } from '../../bento/fileCentricCartWorkflowData';
+import JSZip from "jszip";
+import { USER_COMMENT } from "../bento/fileCentricCartWorkflowData";
 /*
 import { saveAs } from 'file-saver';
 import { json2csv } from 'json-2-csv'; */
 
-export function createFileName(fileName, format = '.csv', applyFormat=true) {
+export function createFileName(fileName, format = ".csv", applyFormat = true) {
   const date = new Date();
 
   const padZero = (value) => (value < 10 ? `0${value}` : value);
@@ -20,26 +20,27 @@ export function createFileName(fileName, format = '.csv', applyFormat=true) {
   const todaysDate = `${yyyy}-${mm}-${dd}`;
   const time = `${hours}-${minutes}-${seconds}`;
 
-  return `${fileName} ${todaysDate} ${time}${applyFormat ? format : ''}`;
+  return `${fileName} ${todaysDate} ${time}${applyFormat ? format : ""}`;
 }
 
 export const downloadCsvString = (csvString, fileName) => {
-    const ensureCsvExtension = (name) => name.toLowerCase().endsWith('.csv') ? name : `${name}.csv`;
-    
-    const blob = new Blob([csvString], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
+  const ensureCsvExtension = (name) =>
+    name.toLowerCase().endsWith(".csv") ? name : `${name}.csv`;
 
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = ensureCsvExtension(fileName);
-    document.body.appendChild(link);
-    link.click();
+  const blob = new Blob([csvString], { type: "text/csv" });
+  const url = URL.createObjectURL(blob);
 
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url); 
-}
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = ensureCsvExtension(fileName);
+  document.body.appendChild(link);
+  link.click();
 
-export function convertToCSV(jsonse, comments="", keysToInclude, header) {
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+};
+
+export function convertToCSV(jsonse, comments = "", keysToInclude, header, columns = []) {
   const objArray = typeof jsonse !== "object" ? JSON.parse(jsonse) : jsonse;
 
   // Validate header and keysToInclude
@@ -49,9 +50,18 @@ export function convertToCSV(jsonse, comments="", keysToInclude, header) {
   if (!Array.isArray(keysToInclude) || keysToInclude.length === 0) {
     throw new Error("Keys to include must be a non-empty array.");
   }
+
+  // Create a map of column configurations by dataField for quick lookup
+  const columnMap = {};
+  columns.forEach((column) => {
+    if (column.dataField) {
+      columnMap[column.dataField] = column;
+    }
+  });
+
   // Start with the header row
   let csvString = header.join(",") + "\r\n";
-  
+
   // Check if comments are not empty
   const hasValidComments = comments && comments.length > 0;
 
@@ -60,13 +70,23 @@ export function convertToCSV(jsonse, comments="", keysToInclude, header) {
       .map((keyName) => {
         let fieldValue = entry[keyName];
 
-          // Add comments to the first data row
+        // Add comments to the first data row
         if (index === 0 && keyName === USER_COMMENT && hasValidComments) {
           let formattedComments = comments.replace(/"/g, '""');
           if (formattedComments.search(/("|,|\n)/g) >= 0) {
             formattedComments = `"${formattedComments}"`;
           }
           return formattedComments;
+        }
+
+        // Apply custom download render if it exists for this column
+        const column = columnMap[keyName];
+        if (
+          column &&
+          column._customDownloadRender &&
+          typeof column._customDownloadRender === "function"
+        ) {
+          fieldValue = column._customDownloadRender(fieldValue);
         }
 
         // Check if the field value is a string and contains characters that need to be escaped.
@@ -79,7 +99,9 @@ export function convertToCSV(jsonse, comments="", keysToInclude, header) {
         }
 
         // Return the field value or an empty string for null/undefined
-        return fieldValue !== null && fieldValue !== undefined ? fieldValue : "";
+        return fieldValue !== null && fieldValue !== undefined
+          ? fieldValue
+          : "";
       })
       .join(","); // Join all fields for the row with commas
 
@@ -90,19 +112,63 @@ export function convertToCSV(jsonse, comments="", keysToInclude, header) {
   return csvString;
 }
 
-export function downloadJson(tableData, comments, fileName, manifestData) {
+export function downloadJson(
+  tableData,
+  comments,
+  fileName,
+  manifestData,
+  columns = []
+) {
   const jsonse = JSON.stringify(tableData);
-  const csv = convertToCSV(jsonse, comments, manifestData.keysToInclude, manifestData.header);
-  const exportData = new Blob([`\uFEFF${csv}`], { type: 'text/csv;charset=utf-8' });
+  const csv = convertToCSV(
+    jsonse,
+    comments,
+    manifestData.keysToInclude,
+    manifestData.header,
+    columns
+  );
+  const exportData = new Blob([`\uFEFF${csv}`], {
+    type: "text/csv;charset=utf-8",
+  });
   const JsonURL = window.URL.createObjectURL(exportData);
-  let tempLink = '';
-  tempLink = document.createElement('a');
-  tempLink.setAttribute('href', JsonURL);
-  tempLink.setAttribute('download', createFileName(fileName));
+  let tempLink = "";
+  tempLink = document.createElement("a");
+  tempLink.setAttribute("href", JsonURL);
+  tempLink.setAttribute("download", createFileName(fileName));
   document.body.appendChild(tempLink);
   tempLink.click();
   document.body.removeChild(tempLink);
 }
+
+/**
+ * Generates download configuration from table columns
+ * Filters out non-downloadable columns and creates keysToInclude and header arrays
+ * @param {Array} columns - Table column configuration array
+ * @returns {Object} - Object with keysToInclude and header arrays
+ */
+export function generateDownloadConfig(columns) {
+  // Import cellTypes dynamically to avoid circular dependencies
+  const { cellTypes } = require("@bento-core/table");
+
+  const downloadableColumns = columns.filter(
+    (column) =>
+      column.dataField &&
+      column.display !== false &&
+      column.cellType !== cellTypes.DELETE &&
+      column.headerType !== cellTypes.DELETE
+  );
+
+  const keysToInclude = downloadableColumns.map((column) => column.dataField);
+  const header = downloadableColumns.map((column) => column.header);
+
+  return { keysToInclude, header };
+}
+
+
+
+
+
+
 /*
 export const downloadJsonV2 = (tableData, comments, fileName, manifestData) => {
   const payload = tableData.map((el) => ({
@@ -139,7 +205,7 @@ export const downloadAndZipJson = (dataArray, setLoading, studyCode) => {
     const jsonse = JSON.stringify(dataObj.node);
     const csv = convertToCSV(jsonse,
       dataObj.comments,
-      dataObj.metadata.keysToInclude, dataObj.metadata.header);
+      dataObj.metadata.keysToInclude, dataObj.metadata.header, dataObj.columns || []);
     processedFiles.push({
       name: createFileName(`${dataObj.fileName}`),
       content: csv,

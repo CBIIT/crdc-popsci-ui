@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { cellTypes, dataFormatTypes } from '@bento-core/table';
+import { cellTypes, dataFormatTypes, formatBytes } from '@bento-core/table';
 import { types } from '@bento-core/paginated-table';
 import cartPageIcon from '../assets/cart/cartPageIcon.svg'
 import openPadlockIcon from '../assets/study/openPadlockIcon.svg';
@@ -8,7 +8,7 @@ import lockedPadlockIcon from '../assets/study/lockedPadlockIcon.svg';
 import directDownloadIcon from '../assets/study/directDownloadIcon.svg';
 import cloudOnlyAccessIcon from '../assets/study/cloudOnlyAccessIcon.svg';
 // import CustomFooterMessage from '../pages/fileCentricCart/tableConfig/CustomFooterMessage';
-import { downloadJson } from '../pages/fileCentricCart/utils';
+import { generateDownloadConfig, downloadJson } from '../utils/fileDownload';
 
 export const getManifestFileSignedUrlEndPoint = 'get-manifest-file-signed-url'
 export const navBarCartData = {
@@ -79,8 +79,9 @@ export const USER_COMMENT = "User_Comment";
 
 export const manifestData = {
   keysToInclude: [
-    'data_file_name',
     'drs_uri',
+
+    'data_file_name',
     'data_file_uuid', 
     'data_file_checksum_value',   
     'study_short_name',
@@ -88,8 +89,9 @@ export const manifestData = {
     'User_Comment'
   ],
   header: [
-    'name',
     'drs_uri',
+
+    'name',
     'File UUID',
     'Md5sum',
     'Study Acronym',
@@ -161,37 +163,17 @@ export const GET_MY_CART_DATA_QUERY_DESC = gql`
 
 // Custom function used to download the Cart Table
 export const createDownloadTableFunction = (client, filterItems) => () => {
-  const queryVariables = {
-    ...filterItems,
-    offset: 0,
-    first: 10000
-  };
-  
+  const queryVariables = { ...filterItems, offset: 0, first: 10000 };
+
   return client
-    .query({
-      query: GET_MY_CART_DATA_QUERY,
-      variables: {
-        ...queryVariables,
-      },
-    })
+    .query({ query: GET_MY_CART_DATA_QUERY, variables: { ...queryVariables } })
     .then((result) => {
       if (result.data[table.objectKey]) {
-        // POPSCI-375: Inject a consistent _fileDelivery field for all files to indicate delivery method
-        const files = result.data[table.objectKey];
-        if (Array.isArray(files)) {
-          files.forEach((file) => {
-            file._fileDelivery = "Access via Cloud";
-          });
-        }
-        downloadJson(
-          result.data[table.objectKey],
-          "",
-          table?.extendedViewConfig?.download?.downloadFileName || "PSDC_My_Files_download",
-          {
-            keysToInclude: ['data_file_name', 'data_file_type', 'data_file_description', 'data_file_format', 'data_volume', 'data_file_access_control', '_fileDelivery'],
-            header: ['File Name', 'File Type', 'Description', 'Format', 'Size', 'Access Control', 'File Delivery'],
-          }
-        );
+        
+        // Generate keysToInclude and header from table columns configuration
+        const { keysToInclude, header } = generateDownloadConfig(table.columns);
+        
+        downloadJson( result.data[table.objectKey], "", table?.extendedViewConfig?.download?.downloadFileName || "PSDC_My_Files_download", { keysToInclude, header }, table.columns);
       }
     });
 };
@@ -258,6 +240,8 @@ export const table = {
     
           dataFormatType: dataFormatTypes.FORMAT_BYTES,
           cellType: cellTypes.FORMAT_DATA,
+
+          _customDownloadRender: (cellData) => formatBytes(cellData), // Include if custom rendering is needed for download
         },
         {
               dataField: 'data_file_access_control', // This need to left empty if no data need to be displayed before file download icon
@@ -289,6 +273,8 @@ export const table = {
               },
               tooltipText: 'sort',
               role: cellTypes.DISPLAY,
+              // POPSCI-375: Inject a consistent _fileDelivery field for all files to indicate delivery method
+              _customDownloadRender: () => "Access via Cloud",
         },
         {
           // cellType: cellTypes.CUSTOM_ELEM,
@@ -336,4 +322,3 @@ export const table = {
     noMatch: 'Your cart is currently empty',
   },
 };
-
