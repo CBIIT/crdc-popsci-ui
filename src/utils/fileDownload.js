@@ -1,6 +1,7 @@
 /*eslint-disable*/
 import JSZip from "jszip";
 import { USER_COMMENT } from "../bento/fileCentricCartWorkflowData";
+import { cellTypes } from "@bento-core/table";
 /*
 import { saveAs } from 'file-saver';
 import { json2csv } from 'json-2-csv'; */
@@ -147,9 +148,6 @@ export function downloadJson(
  * @returns {Object} - Object with keysToInclude and header arrays
  */
 export function generateDownloadConfig(columns) {
-  // Import cellTypes dynamically to avoid circular dependencies
-  const { cellTypes } = require("@bento-core/table");
-
   const downloadableColumns = columns.filter(
     (column) =>
       column.dataField &&
