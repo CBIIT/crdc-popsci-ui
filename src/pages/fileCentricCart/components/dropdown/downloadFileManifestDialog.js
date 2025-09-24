@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useApolloClient } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -13,7 +13,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import DownloadFileManifestIcon from '../../assets/dwnldFileManifest.svg';
 import { GET_MY_CART_DATA_QUERY, myFilesPageData } from '../../../../bento/fileCentricCartWorkflowData';
 import { downloadCsvString } from '../../../../utils/fileDownload';
-import { TableContext } from '../../../../bento-core';
+// import { TableContext } from '../../../../bento-core';
 
 const useStyles = makeStyles({
   dialogContainer: {
@@ -102,8 +102,8 @@ const DownloadFileManifestDialog = React.forwardRef(({
   };
 
   // download all files
-  const tableContext = useContext(TableContext);
-  const { context } = tableContext;
+  // const tableContext = useContext(TableContext);
+  // const { context } = tableContext;
 
   const client = useApolloClient();
   async function downloadSCSVFile() {
