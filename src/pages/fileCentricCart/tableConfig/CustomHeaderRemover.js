@@ -1,39 +1,32 @@
-import React from 'react';
-import {
-  Button,
-  makeStyles,
-  Tooltip,
-  withStyles,
-} from '@material-ui/core';
+import React from "react";
+import { Button, Tooltip, withStyles } from "@material-ui/core";
+import { useSelector } from "react-redux";
 
-const useStyles = makeStyles((theme) => ({
-  customTooltip: {
-    borderRadius: '5px',
-    textAlign: 'center',
-    fontSize:'14px',
-    backgroundColor: 'white !important',
-    color:'#C33B27 !important',
-    border: '2px solid #C33B27 !important',
-  },
-}));
-const CustomHeaderRemove = ({
-  openDialogBox,
-  classes: {
-    removeBtn,
-  },
-}) => (
-  <div>
-    <Tooltip  classes={{tooltip: useStyles().customTooltip}} title="Remove all items in cart" arrow>
-      <Button
-        classes={{ root: removeBtn }}
-        onClick={openDialogBox}
-      >
-        Clear Cart
-      </Button>
-    </Tooltip>
-  </div>
-);
+const CustomHeaderRemove = ({ openDialogBox, classes }) => {
+  // Get filesId directly from Redux state
+  const reduxFilesId = useSelector((state) => state.cartReducer.filesId);
+
+  // Use Redux filesId as primary source, with fallbacks
   const updatedFilesId = reduxFilesId || [];
+
+  return (
+    <div>
+      <Tooltip
+        classes={{ tooltip: classes.customTooltip }}
+        title="Remove all items in cart"
+        arrow
+      >
+        <Button
+          classes={{ root: classes.removeBtn }}
+          onClick={openDialogBox}
+          disabled={updatedFilesId?.length === 0}
+        >
+          Clear Cart
+        </Button>
+      </Tooltip>
+    </div>
+  );
+};
 
 const styles = () => ({
   removeBtn: {
