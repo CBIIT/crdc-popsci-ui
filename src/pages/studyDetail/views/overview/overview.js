@@ -4,7 +4,7 @@ import {
   withStyles,
 } from '@material-ui/core';
 import OverviewThemeProvider from './overviewThemeConfig';
-import { externalIcon } from '../../../../bento/studyDetailData';
+import ExternalLinkIcon from '../../../../utils/ExternalLinkIcon';
 import {cn } from '@bento-core/util';
 import StudyPersonnel from './StudyPersonnel';
 import styles from './overviewStyle';
@@ -104,15 +104,6 @@ const Overview = ({ classes, data, }) => {
   );
 };
 
-const ExternalLinkIcon = ({ classes }) => (
-  <img
-    src={externalIcon}
-    width={14}
-    height={14}
-    className={classes.externalLinkIcon}
-    alt="outbound website icon"
-  />
-);
 
 const AssociatedLinks = ({ sortedLinks, classes }) => {
   if (sortedLinks.length === 0) {
@@ -135,7 +126,7 @@ const AssociatedLinks = ({ sortedLinks, classes }) => {
       >
         {link?.associated_link_name}
       </a>
-      &nbsp;<ExternalLinkIcon classes={classes} /> <br />
+      &nbsp;<ExternalLinkIcon className={classes.externalLinkIcon} /> <br />
     </Grid>
   ));
 };

@@ -14,7 +14,7 @@ const CartView = (props) => {
     tblRows = [],
     isServer = true,
     filesId = [],
-    deleteCartFile
+    // deleteCartFile
   } = props;
   
   const variables = {};
@@ -24,7 +24,7 @@ const CartView = (props) => {
   const tableContext = useContext(TableContext);
   const { context } = tableContext;
 
-  // Get download table function with Apollo client
+  // Get the custom download table function
   const downloadTable = useDownloadTableFunction(variables);
 
   const [isUpdated,setIsUpdated] = useState(false);
@@ -59,27 +59,27 @@ const CartView = (props) => {
 
   return (
     <Grid container className={classes.myFilesContainer}>
-      
       <Grid item xs={12}>
-        <div className={classes.myFilesWrapper}>
-          <CartWrapper
-            classes={classes}
+        <HeaderView filesId={filesId} />
+      </Grid>
+
+      <Grid item xs={12} className={classes.myFilesWrapper}>
+        <CartWrapper
+          classes={classes}
+          queryVariables={variables}
+          totalRowCount={filesId.length}
+        >
+          <TableView
+            initState={initTblState}
+            checkedItemReset={isUpdated}
+            themeConfig={themeConfig}
             queryVariables={variables}
             totalRowCount={filesId.length}
-          >
-            <HeaderView filesId={filesId} />
-            <TableView
-              initState={initTblState}
-              checkedItemReset={isUpdated}
-              themeConfig={themeConfig}
-              queryVariables={variables}
-              totalRowCount={filesId.length}
-              tblRows={tblRows}
-              server={isServer}
-              paginationOptions={paginationOptions(context, config)}
-            />
-          </CartWrapper>
-        </div>
+            tblRows={tblRows}
+            server={isServer}
+            paginationOptions={paginationOptions(context, config)}
+          />
+        </CartWrapper>
       </Grid>
     </Grid>
   );

@@ -9,6 +9,7 @@ import { Button } from '../../components/Wrappers/Wrappers';
 import { landingPageData } from '../../bento/landingPageData';
 import icon from '../../assets/landing/LP_ReadMore.svg';
 import iconAbout from '../../assets/landing/LP_About_Fullarticle.Arrow.svg';
+import externalLinkIcon from '../../components/About/assets/About-ExternalIcon.svg'
 
 const LandingView = ({ classes, statsData }) => (
   <div className={classes.page}>
@@ -159,12 +160,21 @@ const LandingView = ({ classes, statsData }) => (
                 <div className={classes.mountainMeadowContentHeader} id="tile4_title">
                   {landingPageData.tile4.titleText}
                 </div>
-                <div
-                  className={classes.mountainMeadowContent}
-                  id="tile4_description"
-                  // Rendering trusted HTML from data source
-                  dangerouslySetInnerHTML={{ __html: landingPageData.tile4.descriptionText }}
-                />
+                <div className={classes.mountainMeadowContentWrapper}>
+                  <div
+                    className={classes.mountainMeadowContent}
+                    id="tile4_description"
+                    // Rendering trusted HTML from data source
+                    dangerouslySetInnerHTML={{
+                      __html: landingPageData.tile4.descriptionText,
+                    }}
+                  />
+                  <img
+                    src={externalLinkIcon}
+                    className={classes.externalLinkIcon}
+                    alt="outbounnd web site icon"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -597,6 +607,11 @@ const styles = (theme) => ({
     color: '#fff',
     textTransform: 'uppercase',
   },
+  externalLinkIcon: {
+    margin: '0px 0px 0px 2px',
+    padding: '0px 2px 3px 3px',
+    verticalAlign: 'sub',
+  },
   mountainMeadowContentHeader: {
     color: '#033D6F',
     fontFamily: 'Lato',
@@ -609,7 +624,11 @@ const styles = (theme) => ({
       lineHeight: '30px',
     },
   },
+  mountainMeadowContentWrapper: {
+    maxWidth: '230px',
+  },
   mountainMeadowContent: {
+    display: 'inline',
     height: '143px',
     width: '230px',
     color: '#010101',
@@ -622,16 +641,15 @@ const styles = (theme) => ({
       paddingBottom: '20px',
     },
     '& a, & a:visited': {
-      color: 'inherit',
-      textDecoration: 'none',
+      color: '#274FA6',
+      fontWeight: 'bold',
       fontFamily: 'inherit',
       fontSize: 'inherit',
-      fontWeight: 'inherit',
+      textDecoration: 'none'
     },
     '& a:hover, & a:focus, & a:active': {
-      color: 'inherit',
-      textDecoration: 'none',
       outline: 'none',
+      textDecoration: 'underline',
     },
   },
   mountainMeadowIcon: {
