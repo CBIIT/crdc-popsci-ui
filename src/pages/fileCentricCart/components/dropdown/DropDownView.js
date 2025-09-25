@@ -26,12 +26,11 @@ import {
 } from '../../../../bento/fileCentricCartWorkflowData';
 import env from '../../../../utils/env';
 import DownloadFileManifestDialog from './downloadFileManifestDialog';
-import { convertToCSV, createFileName, downloadCsvString } from '../../utils';
+import { convertToCSV, createFileName, downloadCsvString } from '../../../../utils/fileDownload';
 
 import cgcIcon from '../../assets/exportToCancerGenomicsCloudIcon.svg';
 import dfmIcon from '../../assets/downloadFileManifestIcon.svg';
 
-import linkIcon from '../../assets/linkIcon.svg';
 import arrowDownSvg from '../../assets/arrowDown.svg';
 import arrowUpSvg from '../../assets/arrowUp.svg';
 
@@ -41,6 +40,8 @@ const DOWNLOAD_FILE_MANIFEST = 'Download File Manifest';
 
 const TOOLTIP_CONTENT = {
   EMPTY_CART: 'Add some files to the cart to get started.',
+  EXPORT_TO_CGC: "For immediate analysis, export files directly to your Cancer Genomics Cloud account.",
+  DOWNLOAD_FILE_MANIFEST: "For future analysis, create a File Manifest and upload it into your CGC account at the appropriate time."
 };
 
 const DropDownView = ({ classes, filesId = [] }) => {
@@ -99,41 +100,7 @@ const DropDownView = ({ classes, filesId = [] }) => {
     return isCartEmpty ? TOOLTIP_CONTENT.EMPTY_CART : '';
   }, [isCartEmpty]);
 
-  const exportToCGCTooltipTitle = useMemo(() => {
-      return (
-        <span>
-          Click this link to go to your{' '}
-          <a
-            href="https://www.cancergenomicscloud.org/"
-            target="_blank"
-            rel="noreferrer"
-            style={{ color: '#005D85', textDecoration: 'underline'}}
-          >
-            Cancer Genomics Cloud
-          </a>{' '}
-          <img className={classes.linkIcon} src={linkIcon} alt="linkIcon" />
-          account for cloud access.
-        </span>
-      );
-  }, [isDropDownDisabled]);
-
-  const downloadFileManifestTooltipTitle = useMemo(() => {
-    return (
-      <span>
-        To access and analyze files: select and remove unwanted files, click the “Download File Manifest” button, and upload the resulting Manifest file to your{' '}
-        <a
-          href="https://www.cancergenomicscloud.org/"
-          target="_blank"
-          rel="noreferrer"
-          style={{ color: '#165F83', textDecoration: 'underline'}}
-        >
-          Velsera Seven Bridges Cancer Genomics Cloud 
-        </a>{' '}
-        <img className={classes.linkIcon} src={linkIcon} alt="linkIcon" />{' '}
-        account for cloud access.
-      </span>
-    );
-  }, [isDropDownDisabled]);
+  
 
   const handleToggle = () => setOpen((prevOpen) => !prevOpen);
   const handleClose = (event) => {
@@ -226,7 +193,7 @@ const DropDownView = ({ classes, filesId = [] }) => {
           <Tooltip
             arrow
             interactive
-            title={exportToCGCTooltipTitle}
+            title={TOOLTIP_CONTENT.EXPORT_TO_CGC}
             placement="left"
             classes={{tooltip: classes.menuItemTooltip, arrow: classes.arrow}} 
           >
@@ -251,7 +218,7 @@ const DropDownView = ({ classes, filesId = [] }) => {
           <Tooltip
             arrow
             interactive
-            title={downloadFileManifestTooltipTitle}
+            title={TOOLTIP_CONTENT.DOWNLOAD_FILE_MANIFEST}
             placement="left"
             classes={{tooltip: classes.menuItemTooltip, arrow: classes.arrow}} 
           >
@@ -287,8 +254,9 @@ const DropDownView = ({ classes, filesId = [] }) => {
               // disabled={isDropDownDisabled}
               classes={{
                 root: clsx({
-                  [classes.availableDownloadDropdownBtnIsOpen]: open,
-                  [classes.availableDownloadDropdownBtn]: !open,
+                  [classes.availableDownloadDropdownBtnIsOpen]: !isDropDownDisabled && open,
+                  [classes.availableDownloadDropdownBtn]: isDropDownDisabled === false && !open,
+                  [classes.disabledDownloadDropdownBtnIsOpen]: isDropDownDisabled && open,
                   [classes.disableDropDownBtn]: isDropDownDisabled
                 }),
                 label: classes.availableDownloadDropdownBtnLabel,

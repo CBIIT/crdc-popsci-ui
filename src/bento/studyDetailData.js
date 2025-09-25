@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { cellTypes, dataFormatTypes } from '@bento-core/table';
+import { cellTypes, dataFormatTypes, formatBytes } from '@bento-core/table';
 import studyHeaderIcon from '../assets/study/studyHeaderIcon.svg'
 import externalLinkIcon from '../assets/externalLinkIcon.svg'
 import previousIcon from '../assets/study/previousIcon.svg';
@@ -9,7 +9,7 @@ import lockedPadlockIcon from '../assets/study/lockedPadlockIcon.svg';
 import directDownloadIcon from '../assets/study/directDownloadIcon.svg';
 import cloudOnlyAccessIcon from '../assets/study/cloudOnlyAccessIcon.svg';
 import questionMarkCircle from '../assets/Question_Mark_Circle.svg';
-import { downloadJson } from '../pages/fileCentricCart/utils';
+import { generateDownloadConfig, downloadJson } from '../utils/fileDownload';
 
 // --------------- Tooltip configuration --------------
 export const tooltipContentForSelectedFile = {
@@ -336,39 +336,20 @@ export const GET_ALL_FILE_IDS_FOR_FILES = gql`
   }
 `;
 
-// Custom function used to download the Cart Table
+// Custom function used to download the Study Files Table
 export const createDownloadTableFunction = (client, filterItems) => () => {
-  const queryVariables = {
-    ...filterItems,
-    offset: 0,
-    first: 10000
-  };
+  const table = studyDataFileTableConfig;
+  const queryVariables = { ...filterItems, offset: 0, first: 10000 };
   
   return client
-    .query({
-      query: GET_STUDY_DETAIL_DATA_QUERY,
-      variables: {
-        ...queryVariables,
-      },
-    })
+    .query({ query: GET_STUDY_DETAIL_DATA_QUERY, variables: { ...queryVariables } })
     .then((result) => {
-      if (result.data[studyDataFileTableConfig.objectKey]) {
-        // POPSCI-375: Inject a consistent _fileDelivery field for all files to indicate delivery method
-        const files = result.data[studyDataFileTableConfig.objectKey];
-        if (Array.isArray(files)) {
-          files.forEach((file) => {
-            file._fileDelivery = "Access via Cloud";
-          });
-        }
-        downloadJson(
-          result.data[studyDataFileTableConfig.objectKey],
-          "",
-          studyDataFileTableConfig?.extendedViewConfig?.download?.downloadFileName || "PSDC_My_Files_download",
-          {
-            keysToInclude: ['data_file_name', 'data_file_type', 'data_file_description', 'data_file_format', 'data_volume', 'data_file_access_control', '_fileDelivery'],
-            header: ['File Name', 'File Type', 'Description', 'Format', 'Size', 'Access Control', 'File Delivery'],
-          }
-        );
+      if (result.data[table.objectKey]) {
+
+        // Generate keysToInclude and header from table columns configuration
+        const { keysToInclude, header } = generateDownloadConfig(table.columns);
+
+        downloadJson( result.data[table.objectKey], "", table?.extendedViewConfig?.download?.downloadFileName || "PSDC_Study_Files_download", { keysToInclude, header }, table.columns);
       }
     });
 };
@@ -446,6 +427,7 @@ export const studyDataFileTableConfig = {
 
       dataFormatType: dataFormatTypes.FORMAT_BYTES,
       cellType: cellTypes.FORMAT_DATA,
+      _customDownloadRender: (cellData) => formatBytes(cellData), // Include if custom rendering is needed for download
     },
     {
       dataField: 'data_file_access_control', // This need to left empty if no data need to be displayed before file download icon
@@ -477,6 +459,9 @@ export const studyDataFileTableConfig = {
       },
       tooltipText: 'sort',
       role: cellTypes.DISPLAY,
+
+      // POPSCI-375: Inject a consistent _fileDelivery field for all files to indicate delivery method
+      _customDownloadRender: () => "Access via Cloud",
     },
 
   ],

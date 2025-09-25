@@ -21,8 +21,9 @@ const StudyPersonnel = (props) => {
 
 
   const variables = {};
+  variables.study_short_name = studyShortName;
 
-  // Get download table function with Apollo client
+  // Get the custom download table function
   const downloadTable = useDownloadTableFunction(variables);
 
   /**

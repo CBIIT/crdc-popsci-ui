@@ -93,7 +93,7 @@ export const customTheme = {
   },
   MuiDialog: {
     paper: {
-      width: '573px',
+      width: '400px',
       height: '206px',
       textAlign: 'center',
       backgroundColor: '#fff !important',
@@ -108,7 +108,8 @@ export const customTheme = {
       backdropFilter: 'blur(4px)',
 
       padding: '50px 38px',
-      margin: '0px'
+      margin: '0px',
+      borderRadius: '0px'
     },
   },
   MuiDialogContent: {

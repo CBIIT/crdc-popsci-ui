@@ -15,13 +15,26 @@ const commonTooltipStyle = {
   backgroundColor: '#FFFFFF !important',
   color: '#595959',
   border: '1px solid #818181 !important',
-  minWidth: '282px',
-  maxWidth: '382px',
+  borderRadius: '10px',
+  minWidth: '250px',
+  maxWidth: '311px',
 
   textAlign: 'left',
   padding: '12px',
 
   boxShadow: '0px 4px 4px 0px #00000040',
+}
+
+const commonDownloadDropdownBtnStyle = {
+  color: '#ffffff',
+  borderTopRightRadius: '18px',
+  borderTopLeftRadius: '18px',
+  borderBottomRightRadius: '0px',
+  borderBottomLeftRadius: '0px',
+
+  width: DROP_DOWN_WIDTH,
+  boxShadow: 'none',
+  textWrap: 'nowrap',
 }
 
 export default () => ({
@@ -30,8 +43,29 @@ export default () => ({
     maxHeight: EXPORT_AND_DOWNLOAD_BTN_HEIGHT
   },
   disableDropDownBtn: {
-    opacity: '0.5',
     cursor: 'not-allowed',
+    backgroundColor: '#487D8380',
+    '&:hover': {
+      backgroundColor: '#487D8380',
+      boxShadow: 'none',
+    },
+
+    color: '#ffffff',
+    border: `1px solid ${MAIN_BUTTON_COLOR}`,
+    borderRadius: '30px',
+
+    width: DROP_DOWN_WIDTH,
+    boxShadow: 'none',
+    textWrap: 'nowrap',
+  },
+  disabledDownloadDropdownBtnIsOpen: {
+    ...commonDownloadDropdownBtnStyle,
+
+    backgroundColor: '#487D8380',
+    '&:hover': {
+      backgroundColor: '#487D8380',
+      boxShadow: 'none',
+    },
   },
   availableDownloadDropdownBtn: {
     backgroundColor: MAIN_BUTTON_COLOR,
@@ -48,16 +82,9 @@ export default () => ({
     },
   },
   availableDownloadDropdownBtnIsOpen: {
-    backgroundColor: DROP_DOWN_OPEN,
-    color: '#ffffff',
-    borderTopRightRadius: '18px',
-    borderTopLeftRadius: '18px',
-    borderBottomRightRadius: '0px',
-    borderBottomLeftRadius: '0px',
+    ...commonDownloadDropdownBtnStyle,
 
-    width: DROP_DOWN_WIDTH,
-    boxShadow: 'none',
-    textWrap: 'nowrap',
+    backgroundColor: DROP_DOWN_OPEN,
     '&:hover': {
       backgroundColor: DROP_DOWN_OPEN,
       boxShadow: 'none',
@@ -99,8 +126,8 @@ export default () => ({
     left: '1px',
     maxWidth: '500px',
     borderRadius: '0px',
-    borderBottomRightRadius: '10px',
-    borderBottomLeftRadius: '10px',
+    borderBottomRightRadius: '18px',
+    borderBottomLeftRadius: '18px',
     zIndex: 100,
   },
   endIcon: {

@@ -33,18 +33,18 @@ export default () => ({
   },
   headerInstructionAndActionBtn: {
     padding: '21px 32px 12px 32px',
+    gap: '0px 30px',
   },
   descriptionContainer: {
     maxWidth: '1020px',
     fontFamily: 'Open Sans',
-
+    fontSize: '16px',
+    color: '#4B4B4B'
   },
   descriptionTitle: {
     color: '#27424E',
     fontWeight: 700,
-    fontStyle: 'Bold',
     fontSize: '16px',
-    leadingTrim: 'NONE',
     lineHeight: '130%',
     letterSpacing: '-1%',
     textTransform: 'uppercase', 
@@ -55,5 +55,13 @@ export default () => ({
     letterSpacing: '0px',
     margin: '0px'
   },
+  externalLinkIcon: {
+    verticalAlign: 'middle'
+  },
+  keyword: {
+    color: '#488400',
+    fontFamily: 'Open Sans',
+    fontWeight: 500
+  }
 });
 
