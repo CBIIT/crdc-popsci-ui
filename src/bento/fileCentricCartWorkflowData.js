@@ -79,9 +79,8 @@ export const USER_COMMENT = "User_Comment";
 
 export const manifestData = {
   keysToInclude: [
-    'drs_uri',
-
     'data_file_name',
+    'drs_uri',
     'data_file_uuid', 
     'data_file_checksum_value',   
     'study_short_name',
@@ -89,9 +88,8 @@ export const manifestData = {
     'User_Comment'
   ],
   header: [
-    'drs_uri',
-
     'name',
+    'drs_uri',
     'File UUID',
     'Md5sum',
     'Study Acronym',
