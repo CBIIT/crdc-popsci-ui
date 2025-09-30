@@ -76,8 +76,6 @@ export default function PortalTooltip({
     Math.min(window.innerHeight - padding - estHeight,         // not below viewport
              mouse.y - 24)                                      // lift above cursor
   );
-  console.log("|||: Tooltip: ", { left, top, mouse, payload, value });
-
   // ---- Render via React Portal ----
   // Instead of rendering inside the <svg>, this creates a floating <div>
   // directly under <body>. That means it won't get clipped by parent
