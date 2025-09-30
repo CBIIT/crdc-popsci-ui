@@ -90,7 +90,7 @@ export default function PortalTooltip({
         maxWidth,           // match tooltip width
         background: '#fff',          // white background
         border: '1px solid #ccc',    // subtle border
-        borderRadius: 5,               // rounded corners
+        borderRadius: '5px',               // rounded corners
         padding: 10,                   // inner spacing
         overflowWrap: 'break-word',    // wrap long group names
         pointerEvents: 'none',         // don't block mouse interactions
