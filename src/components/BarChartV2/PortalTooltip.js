@@ -87,7 +87,7 @@ export default function PortalTooltip({
         left,                          // computed horizontal position
         top,                           // computed vertical position
         zIndex: 9999,                  // sit above everything else
-        maxWidth: maxWidth,           // match tooltip width
+        maxWidth,           // match tooltip width
         background: '#fff',          // white background
         border: '1px solid #ccc',    // subtle border
         borderRadius: 5,               // rounded corners
