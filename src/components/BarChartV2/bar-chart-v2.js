@@ -10,6 +10,7 @@ import {
   Text,
   Tooltip
 } from 'recharts';
+import PortalTooltip from './PortalTooltip';
 
 const styles = theme => ({
   container: {
@@ -102,6 +103,7 @@ const BarChartV2 = ({
   barWidth = 50,
   titleStyle = {},
   fromChartSection = false,
+  usePortalTooltip = true,
 }) => {
   const containerRef = useRef(null);
   const [containerWidth, setContainerWidth] = useState(fromChartSection ? 320 : 0);
@@ -181,7 +183,16 @@ const BarChartV2 = ({
             height={60}
             interval={0}
           />
-          <Tooltip content={<CustomTooltip />} />
+          <Tooltip
+            content={
+              usePortalTooltip
+                ? <PortalTooltip maxWidth={160} offset={12} padding={8} estHeight={72} />
+                : <CustomTooltip />
+            }
+            // Recharts always renders an internal wrapper <div> for the tooltip.
+            // Hide that wrapper ONLY when using the portal variant to avoid double tooltips.
+            wrapperStyle={usePortalTooltip ? { visibility: 'hidden' } : undefined}
+          />
           <Bar dataKey="subjects" maxBarSize={60}>
             {sortedData.map((_entry, index) => (
               <Cell
