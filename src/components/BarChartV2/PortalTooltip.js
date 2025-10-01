@@ -44,8 +44,7 @@ export default function PortalTooltip({
 
   // Attach listener only when tooltip is active; bind to chartAreaRef if provided
   useEffect(() => {
-    if (!active) return;
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined' || !active) return;
 
     const targetEl = eventTarget?.current || window;
 
