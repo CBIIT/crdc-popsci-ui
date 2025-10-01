@@ -106,6 +106,7 @@ const BarChartV2 = ({
   usePortalTooltip = true,
 }) => {
   const containerRef = useRef(null);
+  const chartAreaRef = useRef(null); // listens only over the scrollable chart area
   const [containerWidth, setContainerWidth] = useState(fromChartSection ? 320 : 0);
 
   useEffect(() => {
@@ -170,6 +171,7 @@ const BarChartV2 = ({
           width: '100%',
           justifyContent: hasOverflow ? 'flex-start' : 'center',
         }}
+        ref={chartAreaRef} // attaching ref to the interactive scroll wrapper
       >
         <BarChart
           width={calculatedWidth}
@@ -186,7 +188,7 @@ const BarChartV2 = ({
           <Tooltip
             content={
               usePortalTooltip
-                ? <PortalTooltip maxWidth={160} offset={12} padding={8} estHeight={72} />
+                ? <PortalTooltip eventTarget={chartAreaRef} maxWidth={160} offset={12} padding={8} estHeight={72} />
                 : <CustomTooltip />
             }
             // Recharts always renders an internal wrapper <div> for the tooltip.

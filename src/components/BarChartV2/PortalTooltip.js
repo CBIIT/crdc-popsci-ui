@@ -19,6 +19,10 @@
  * - Smart enough to flip to the left side if you’re near the right edge of the viewport.
  * - Clamps vertically so it won’t overflow above/below the window.
  * - Still shows the same content (Group + Participants) as CustomTooltip.
+ *
+ * Implementation note:
+ * - The pointermove listener is now bound to the chart’s scrollable wrapper (chartAreaRef) if provided,
+ *   otherwise it falls back to window. This scopes tracking to the interactive area.
  */
 
 import React, { useEffect, useState } from 'react';
@@ -28,7 +32,7 @@ export default function PortalTooltip({
   active,
   payload,
   label,
-
+  eventTarget,
   // optional tuning props to control tooltip layout
   maxWidth = 160,   // match tooltip maxWidth
   offset = 12,      // distance (px) from the cursor
@@ -38,16 +42,26 @@ export default function PortalTooltip({
   // Track the current mouse position so we can place tooltip relative to it
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
 
+  // Attach listener only when tooltip is active; bind to chartAreaRef if provided
   useEffect(() => {
-    // Update mouse position whenever the cursor moves
-    const onMove = (e) => setMouse({ x: e.clientX, y: e.clientY });
+    if (!active) return;
+    if (typeof window === 'undefined') return;
 
-    // Attach listener on mount
-    window.addEventListener('mousemove', onMove, { passive: true });
+    const targetEl = eventTarget?.current || window;
 
-    // Cleanup listener on unmount
-    return () => window.removeEventListener('mousemove', onMove);
-  }, []);
+    // Use pointermove to cover mouse/pen/touch; falls back to clientX/clientY
+    const onMove = (e) =>
+      setMouse({
+        x: (typeof e.clientX === 'number') ? e.clientX : 0,
+        y: (typeof e.clientY === 'number') ? e.clientY : 0,
+      });
+
+    targetEl.addEventListener('pointermove', onMove, { passive: true });
+
+    return () => {
+      targetEl.removeEventListener('pointermove', onMove);
+    };
+  }, [active, eventTarget]);
 
   // Recharts passes these props: only show tooltip when hovering a bar
   if (!active || !payload?.length) return null;
@@ -56,7 +70,6 @@ export default function PortalTooltip({
   const value = payload[0]?.value != null ? payload[0].value.toLocaleString() : '';
 
   // ---- Horizontal positioning logic ----
-
   // Space available to the right of the cursor
   const roomOnRight = window.innerWidth - mouse.x - padding;
 
@@ -69,13 +82,13 @@ export default function PortalTooltip({
     : Math.max(padding, mouse.x - maxWidth - offset);                    // place on left
 
   // ---- Vertical positioning logic ----
-
   // Calculate `top` position: slightly above cursor, but clamped inside viewport
   const top = Math.max(
-    padding,                                                    // not above viewport
-    Math.min(window.innerHeight - padding - estHeight,         // not below viewport
-             mouse.y - 24)                                      // lift above cursor
+    padding,                                                     // not above viewport
+    Math.min(window.innerHeight - padding - estHeight,           // not below viewport
+             mouse.y - 24)                                       // lift above cursor
   );
+
   // ---- Render via React Portal ----
   // Instead of rendering inside the <svg>, this creates a floating <div>
   // directly under <body>. That means it won't get clipped by parent
@@ -87,10 +100,10 @@ export default function PortalTooltip({
         left,                          // computed horizontal position
         top,                           // computed vertical position
         zIndex: 9999,                  // sit above everything else
-        maxWidth,           // match tooltip width
-        background: '#fff',          // white background
-        border: '1px solid #ccc',    // subtle border
-        borderRadius: '5px',               // rounded corners
+        maxWidth,                      // match tooltip width
+        background: '#fff',            // white background
+        border: '1px solid #ccc',      // subtle border
+        borderRadius: '5px',           // rounded corners
         padding: 10,                   // inner spacing
         overflowWrap: 'break-word',    // wrap long group names
         pointerEvents: 'none',         // don't block mouse interactions
