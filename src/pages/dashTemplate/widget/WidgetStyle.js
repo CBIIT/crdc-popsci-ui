@@ -85,6 +85,10 @@ const styles = (theme) => ({
     border: '0.5px solid #B4B4B4',
   padding: '10px 20px 50px 20px',
     boxSizing: 'border-box',
+    '@media (min-width: 1430px)': {
+      paddingLeft: 30,
+      paddingRight: 30,
+    },
     '@media (min-width: 670px)': {
       paddingLeft: 20,
       paddingRight: 20,
@@ -97,10 +101,7 @@ const styles = (theme) => ({
       paddingLeft: 12,
       paddingRight: 12,
     },
-    '@media (min-width: 1430px)': {
-      paddingLeft: 30,
-      paddingRight: 30,
-    },
+    
   },
   sideBar: {
     width: '250px',
