@@ -101,7 +101,6 @@ const styles = (theme) => ({
       paddingLeft: 12,
       paddingRight: 12,
     },
-    
   },
   sideBar: {
     width: '250px',
