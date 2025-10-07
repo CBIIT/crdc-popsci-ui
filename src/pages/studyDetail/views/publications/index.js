@@ -148,7 +148,7 @@ const CustomCard = ({ classes, publication_title, authorship, year_of_publicatio
       </Grid>
       <Grid item sm={7} md={7} >
         <Typography className={classes.content} variant="body2">
-          {pubmed_id && parseInt(pubmed_id) > 0 ? (
+          {Number(pubmed_id) > 0 ? (
             <Link className={classes.link} href={`https://pubmed.ncbi.nlm.nih.gov/${pubmed_id}`} target="_blank" rel="noopener noreferrer">{pubmed_id}<StyledExternalLinkIcon/> </Link>
           ) : null}
         </Typography>
