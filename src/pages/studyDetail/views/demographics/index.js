@@ -1,10 +1,9 @@
 import React from 'react';
-import { Grid, Typography, withStyles, useMediaQuery, CircularProgress } from '@material-ui/core';
+import { Grid, Typography, withStyles, useMediaQuery } from '@material-ui/core';
 import ThemeProvider from './themeConfig';
 import StatsSection from './components/StatsSection';
 import ChartSection from './components/ChartSection';
 import { capitalizeWordsExcept } from '../../common/utils';
-import ErrorMessage from '../../../../components/ErrorMessage/ErrorMessage';
 
 const Demographics = ({ classes, data }) => {
 

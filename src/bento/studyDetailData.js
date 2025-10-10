@@ -195,8 +195,10 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
       study_design
       enrollment_beginning_year
       enrollment_ending_year
+      enrollment_period # "enrollment_beginning_year - enrollment_ending_year"
       study_beginning_year
       study_ending_year
+      study_period # "study_beginning_year - study_ending_year"
       biospecimen_collection
       study_status
       participant_age_range

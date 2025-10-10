@@ -14,10 +14,8 @@ const Overview = ({ classes, data, }) => {
   const {
     study_description,
     study_design,
-    enrollment_beginning_year,
-    enrollment_ending_year,
-    study_beginning_year,
-    study_ending_year,
+    enrollment_period,
+    study_period,
     biospecimen_collection,
     study_status,
     dbgap_accession_id,
@@ -38,9 +36,6 @@ const Overview = ({ classes, data, }) => {
   );
 
   const sortedLinks = [...associated_links].sort((a, b) => customSorting(a.associated_link_record_id, b.associated_link_record_id));
-
-  const enrollmenPeriod = `${enrollment_beginning_year} - ${enrollment_ending_year}`;
-  const studyPeriod = `${study_beginning_year} - ${study_ending_year}`;
 
   return (
     <OverviewThemeProvider>
@@ -65,8 +60,8 @@ const Overview = ({ classes, data, }) => {
             <Grid container direction="column" className={classes.rightInnerContainer}>
             
               {renderInfo('STUDY DESIGN', study_design)}
-              {renderInfo('ENROLLMENT PERIOD', enrollmenPeriod)}
-              {renderInfo('STUDY PERIOD', studyPeriod)}
+              {renderInfo('ENROLLMENT PERIOD', enrollment_period)}
+              {renderInfo('STUDY PERIOD', study_period)}
               {renderInfo('BIOSPECIMEN COLLECTION', biospecimen_collection)} {/* TODO: check => Biospecimen or Biospecimens and Collected or Collection */}
               {renderInfo('STATUS', study_status)}
               {renderInfo('dbGaP ID', dbgap_accession_id)}
