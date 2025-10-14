@@ -29,7 +29,7 @@ export const tooltipContent = {
 
 export const facetSectionTooltip = {
   src: questionMarkCircle,
-  alt: 'Count details tooltip',
+  alt: 'tooltip',
   tooltipText: 'All counts reflect the number of studies',
 }
 

@@ -46,6 +46,18 @@ const tblBody = {
       '&.acl': {
         textAlign: 'center',
       },
+      '&.study_short_name .LINK': {
+        textDecoration: 'underline',
+
+        '& p': {
+          color: '#005D85',
+          textDecoration: 'none',
+          fontWeight: 600,
+          fontFamily: 'Open Sans',
+          fontSize: '16px',
+          letterSpacing: '-0.02em',
+        }
+      }
     },
   },
 }
