@@ -134,6 +134,7 @@ const BentoFacetFilter = ({
           className={classes.customButton}
           classes={{ root: classes.clearAllButtonRoot }}
           style={{ border: `1px solid ${borderColor}` }}
+          aria-label="Clear all filtered selections"
         >
           <svg 
             className={classes.resetIcon}
@@ -151,7 +152,7 @@ const BentoFacetFilter = ({
             />
           </svg>
         </Button>
-        <span className={disable ? classes.resetTextDisabled : classes.resetText}>
+        <span className={disable ? classes.resetTextDisabled : classes.resetText} aria-disabled={disable}>
           Clear all filtered selections
         </span>
       </div>
@@ -193,7 +194,7 @@ const BentoFacetFilter = ({
           className={hasArrowDropDownIcon ? classes.customExpansionPanelSummaryRoot : classes.customExpansionPanelSummaryRoot2}
         >
           <div className={classes.sectionSummaryTextContainer}>
-            <div className={classes.sectionSummaryTitle}>
+            <h3 className={classes.sectionSummaryTitle}>
               {name}
               <ToolTip
                 classes={{ tooltip: classes.customTooltip, arrow: classes.customArrow }}
@@ -203,7 +204,7 @@ const BentoFacetFilter = ({
               >
                 <img src={facetSectionTooltip.src} alt={facetSectionTooltip.alt} className={classes.icon}/>
               </ToolTip>
-            </div>
+            </h3>
             {hasSearch && (
               <div className={classes.findCaseButton} onClick={toggleSearch}>
                 <img src="https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/FacetLocalFindSearchIcon.svg" className={classes.findCaseIcon} alt="search" />
