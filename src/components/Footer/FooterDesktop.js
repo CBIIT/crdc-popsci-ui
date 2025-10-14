@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useTheme } from '../ThemeContext'
 import themes from '../../themes/index';
 
-const FooterStyled = styled.footer`
+const FooterStyled = styled.div`
   background-color: #1B496E;
   border-top: 1px solid #6C727B;
   bottom: 0;
@@ -276,7 +276,7 @@ const FooterDesktop = () => {
   };
   return (
     <>
-      <FooterStyled role="contentinfo">
+      <FooterStyled>
         <FooterContainer theme={theme}>
           <FooterLinksContainer>
             {
