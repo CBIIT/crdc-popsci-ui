@@ -39,7 +39,7 @@ const SearchBar = (props) => {
   return (
     <SearchBarContainer>
       <label htmlFor="global_search_input" style={{ visibility: 'hidden' }}>
-        Search CTDC
+        Search PSDC
       </label>
       {!location.pathname.match('/search') && <SearchBar clearable={true}/>}
     </SearchBarContainer>
