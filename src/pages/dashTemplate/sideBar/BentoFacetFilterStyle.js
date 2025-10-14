@@ -121,6 +121,16 @@ export default () => ({
   },
   sectionSummaryTitle: {
     position: 'relative', // So the icon can be positioned relative to this container
+    cursor: "pointer",
+    userSelect: "none",
+    color: "#000000",
+    fontSize: "18.5px",
+    fontFamily: "Poppins, Open Sans",
+    fontWeight: 500,
+    lineHeight: "19.71px",
+    letterSpacing: "-0.02em",
+    boxSizing: "inherit",
+    margin: 0,
   },
   icon: {
     position: 'absolute',
