@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import {
   Button,
   Collapse,
-  FormControlLabel,
   Grid,
   withStyles,
 } from '@material-ui/core';
@@ -194,13 +193,11 @@ const WidgetView = ({
       <div className={classes.widgetsCollapse}>
         <div className={classes.floatLeft} />
         <div className={classes.floatRight}>
-          <FormControlLabel
-            control={(
-              <Button className={classes.customButton} onClick={handleChange}>
-                {collapse ? 'COLLAPSE VIEW' : 'OPEN VIEW'}
-              </Button>
-            )}
-          />
+          <div className={classes.toggleWrapper}>
+            <Button className={classes.customButton} onClick={handleChange}>
+              {collapse ? 'COLLAPSE VIEW' : 'OPEN VIEW'}
+            </Button>
+          </div>
           {/*
           Hidding Dark Mode
           <Switch
