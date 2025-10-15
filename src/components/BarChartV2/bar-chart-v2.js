@@ -158,7 +158,7 @@ const BarChartV2 = ({
   const hasOverflow = calculatedWidth > effectiveContainerWidth; 
   
   return (
-    <div className={classes.container} ref={containerRef}>
+    <div className={classes.container} ref={containerRef} aria-label="Bar Chart">
       <div>
         <h3 className={classes.title} style={{...titleStyle}}>
           {"Participants: " + chartTitle}
@@ -177,6 +177,7 @@ const BarChartV2 = ({
           width={calculatedWidth}
           height={280}
           data={sortedData}
+          tabIndex={0}
         >
           {/* <CartesianGrid strokeDasharray="3 3" /> */}
           <XAxis 
