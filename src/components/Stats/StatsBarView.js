@@ -158,6 +158,7 @@ const styles = () => ({
     // height: props.styles.global.height ? props.styles.global.height : '47px',
     margin: '0 auto',
     ...props.styles.box,
+    overflow: 'auto',
   }),
   statTitle: (props) => ((props.styles.global && props.styles.global.horizontalStyle) ? {
     float: props.styles.statTitle ? props.styles.statTitle.float ? props.styles.statTitle.float : 'left' : 'left',

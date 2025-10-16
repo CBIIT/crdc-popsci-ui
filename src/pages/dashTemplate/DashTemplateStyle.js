@@ -11,7 +11,8 @@ export default (theme) => ({
   widgetsContainer: {
     "& svg.recharts-surface, & .MuiPaper-root": {
       overflow: "visible",
-    }
+    },
+    overflow: 'auto',
   },
   sideBar: {
     width: '285px',
