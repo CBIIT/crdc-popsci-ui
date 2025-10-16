@@ -42,7 +42,7 @@ export default (theme) => ({
     },
   },
   rightContent: {
-    flex: 1,
+    width: 'calc(100% - 285px)',
     position: 'relative',
     marginLeft: '25px',
   },
