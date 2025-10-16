@@ -16,11 +16,10 @@ const LandingView = ({ classes, statsData }) => (
     <div className={classes.heroSection}>
       <div className={classes.heroContent}>
         <Grid container direction="row" justifyContent='center' alignItems='flex-start' className={classes.heroImage}>
-          <Grid 
-            item 
-            className={classes.popPieChartImage} 
-            aria-label={landingPageData.landingPageHero.alt}
-            role="img"
+          <img
+            src={landingPageData.landingPageHero.img}
+            alt={landingPageData.landingPageHero.alt}
+            className={classes.popPieChartImage}
           />
           <Grid className={classes.heroTextContainer}>
             <div className={classes.heroTextWrapper}>
