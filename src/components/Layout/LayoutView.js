@@ -17,7 +17,7 @@ import Login from '../../pages/login';
 // import ProfileController from '../../pages/profile/profileController';
 import OverlayWindow from '../OverlayWindow/OverlayWindow';
 import AUTH_MIDDLEWARE_CONFIG from '../Auth/authMiddlewareConfig';
-import AuthSessionTimeoutController from '../SessionTimeout/SessionTimeoutController';
+// import AuthSessionTimeoutController from '../SessionTimeout/SessionTimeoutController';
 import { AuthenticationMiddlewareGenerator } from '@bento-core/authentication';
 import UnderDev from '../../pages/error/Development';
 import Notifactions from '../Notifications/NotifactionView';
@@ -45,7 +45,7 @@ const Layout = ({ classes, isSidebarOpened }) => {
     <HashRouter>
       <>
         <Notifactions />
-        <AuthSessionTimeoutController />
+        {/* <AuthSessionTimeoutController /> */}
         <Header />
         <OverlayWindow />
         {/* Reminder: Ajay need to replace the ICDC with env variable and
