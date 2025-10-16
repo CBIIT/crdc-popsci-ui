@@ -4,7 +4,7 @@ import FooterDesktop from './FooterDesktop';
 import FooterTablet from './FooterTablet';
 import FooterMobile from './FooterMobile';
 
-const FooterContainer = styled.div`
+const FooterContainer = styled.footer`
  @media (min-width: 1024px) {
     .desktop {
       display: block;
@@ -43,7 +43,7 @@ const FooterContainer = styled.div`
 `;
 
 const Footer = () => (
-  <FooterContainer>
+  <FooterContainer role="contentinfo" aria-label="Footer">
     <div className="desktop">
       <FooterDesktop />
     </div>
