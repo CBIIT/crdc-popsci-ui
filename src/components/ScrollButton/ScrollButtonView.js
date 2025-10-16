@@ -28,6 +28,8 @@ const ScrollButton = () => {
       onClick={onClickScrollToTop}
       id="stt"
       className={scroll < 200 || location.pathname === '/explore' ? "hidden" : "visible"}
+      aria-label="Scroll back to top"
+      role="button"
     >
       <span id="stt-span">BACK TO TOP</span>
     </div>

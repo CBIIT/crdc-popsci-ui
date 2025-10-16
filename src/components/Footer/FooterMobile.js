@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import FooterData from '../../config/globalFooterData';
 import { Link } from 'react-router-dom';
 
-const FooterStyled = styled.footer`
+const FooterStyled = styled.div`
   background-color: #1B496E;
   bottom: 0;
   width: 100%;
@@ -341,7 +341,7 @@ const FooterMobile = () => {
 
   return (
     <>
-      <FooterStyled role="contentinfo">
+      <FooterStyled>
         <FooterContainer>
           <FooterLinksContainer>
             {

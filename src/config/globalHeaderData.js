@@ -9,7 +9,7 @@ export const headerData = {
   globalHeaderLogo: Logo,
   globalHeaderLogoSmall: LogoSmall,
   globalHeaderLogoLink: '/',
-  globalHeaderLogoAltText: 'Portal Logo',
+  globalHeaderLogoAltText: 'National Cancer Institute Population Sciences logo',
   globalHeaderSearchIcon: searchbarIcon,
   globalHeaderSearchIconAltText: 'search Icon',
   usaFlagSmall,

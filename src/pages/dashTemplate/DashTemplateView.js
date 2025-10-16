@@ -14,6 +14,8 @@ const DashTemplate = ({
   tabIndex=0,
 }) => (
   <div className={classes.dashboardContainer}>
+    <h1 className={classes.visuallyHidden}>Dashboard</h1>
+    <h2 className={classes.visuallyHidden}>Explore</h2>
     <StatsView data={dashData} />
     <div>
       <div className={classes.content}>
