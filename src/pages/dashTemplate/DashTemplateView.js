@@ -6,6 +6,7 @@ import WidgetView from './widget/WidgetView';
 import StatsView from '../../components/Stats/StatsView';
 import TabsView from './tabs/TabsView';
 import QueryBarView from './filterQueryBar/QueryBarView';
+import DashThemeProvider from './DashThemeConfig';
 
 const DashTemplate = ({
   classes,
@@ -13,34 +14,36 @@ const DashTemplate = ({
   activeFilters,
   tabIndex=0,
 }) => (
-  <div className={classes.dashboardContainer}>
-    <h1 className={classes.visuallyHidden}>Dashboard</h1>
-    <h2 className={classes.visuallyHidden}>Explore</h2>
-    <StatsView data={dashData} />
-    <div>
-      <div className={classes.content}>
-        <div className={classes.sideBar}>
-          <BentoFacetFilter
-            searchData={dashData}
-            activeFilters={activeFilters}
-          />
-        </div>
-        <div className={classes.rightContent}>
-          <div className={classes.widgetsContainer}>
-            <QueryBarView data={dashData} />
-            <WidgetView
-              data={dashData}
-            />
-            <TabsView
-              dashboardStats={dashData}
+  <DashThemeProvider>
+    <main className={classes.dashboardContainer}>
+      <h1 className={classes.visuallyHidden}>Dashboard</h1>
+      <h2 className={classes.visuallyHidden}>Explore</h2>
+      <StatsView data={dashData} />
+      <div>
+        <div className={classes.content}>
+          <div className={classes.sideBar}>
+            <BentoFacetFilter
+              searchData={dashData}
               activeFilters={activeFilters}
-              tabIndex={tabIndex}
             />
+          </div>
+          <div className={classes.rightContent}>
+            <div className={classes.widgetsContainer}>
+              <QueryBarView data={dashData} />
+              <WidgetView
+                data={dashData}
+              />
+              <TabsView
+                dashboardStats={dashData}
+                activeFilters={activeFilters}
+                tabIndex={tabIndex}
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
+    </main>
+  </DashThemeProvider>
 );
 
 export default withStyles(styles)(DashTemplate);
