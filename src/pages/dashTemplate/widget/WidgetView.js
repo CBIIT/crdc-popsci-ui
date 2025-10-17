@@ -225,7 +225,7 @@ const WidgetView = ({
               return <></>;
             }
             return (
-              <Grid key={index} item className={classes.widgetGridItem}>
+              <Grid key={index} item lg={4} md={6} sm={12} xs={12}>
                 <Widget
                   header={(
                     <div style={widgetTitleStyle}>
@@ -249,7 +249,7 @@ const WidgetView = ({
             );
           })}
           {/* Participants: Age of Enrollment (left) */}
-          <Grid item className={classes.widgetGridItem}>
+          <Grid item lg={4} md={6} sm={12} xs={12}>
             <BarChartV2
               chartData={processedAgeData}
               chartTitle="Age at Enrollment"
@@ -259,7 +259,7 @@ const WidgetView = ({
             />
           </Grid>
           {/* Participants: Races (middle) */}
-          <Grid item className={classes.widgetGridItem}>
+          <Grid item lg={4} md={6} sm={12} xs={12}>
             <BarChartV2
               chartData={processedRaceData}
               chartTitle="Race"
@@ -269,7 +269,7 @@ const WidgetView = ({
             />
           </Grid>
           {/* Participants: Sex (right) */}
-          <Grid item className={classes.widgetGridItem}>
+          <Grid item lg={4} md={6} sm={12} xs={12}>
             <BarChartV2
               chartData={processedSexData}
               chartTitle="Sex"

@@ -16,7 +16,7 @@ export const headerData = {
   usaFlagSmallAltText: 'usaFlagSmall',
 };
 
-export const navMobileList = [
+export const navDesktopList = [
   {
     name: 'Home',
     link: '/',
@@ -34,6 +34,16 @@ export const navMobileList = [
     link: '',
     id: 'navbar-dropdown-about',
     className: 'navMobileItem clickable',
+  },
+];
+
+export const navMobileList = [
+  ...navDesktopList,
+  {
+    name: 'Cart',
+    link: '/fileCentricCart',
+    id: 'navbar-dropdown-cart',
+    className: 'navMobileItem',
   },
 ];
 

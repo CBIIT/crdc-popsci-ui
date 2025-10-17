@@ -1,3 +1,5 @@
+const SIDEBAR_WIDTH = '285px';
+
 export default (theme) => ({
   dashboardContainer: {
     backgroundColor: '#FFFFFF',
@@ -11,11 +13,12 @@ export default (theme) => ({
   widgetsContainer: {
     "& svg.recharts-surface, & .MuiPaper-root": {
       overflow: "visible",
-    }
+    },
+    overflow: 'auto',
   },
   sideBar: {
-    width: '285px',
-    flex: '0 0 285px',
+    width: SIDEBAR_WIDTH,
+    flex: `0 0 ${SIDEBAR_WIDTH}`,
     boxSizing: 'border-box',
     maxHeight: '1300px',
     overflowX: 'hidden',
@@ -42,7 +45,7 @@ export default (theme) => ({
     },
   },
   rightContent: {
-    flex: 1,
+    width: `calc(100% - ${SIDEBAR_WIDTH})`,
     position: 'relative',
     marginLeft: '25px',
   },
