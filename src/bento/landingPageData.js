@@ -44,7 +44,7 @@ export const landingPageData = {
   },
   tile4: {
     alt: 'Abstract image of hand holding 2 dimensional images of people',
-    img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/CasesImage.png',
+    img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/Popsci_Cases.png',
     titleText: 'Submit Data',
   descriptionText: 'Data submission to PSDC will open in early 2026.  To discuss submitting data before then, contact the CRDC Help Desk at <a href="mailto:NCICRDC@mail.nih.gov">NCICRDC@mail.nih.gov</a>',
   },
