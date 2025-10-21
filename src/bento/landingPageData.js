@@ -16,7 +16,7 @@ export const landingPageData = {
   callToActionLink: '/explore',
   landingPageHero: {
     alt: 'Laptop with image of a crowd of people overlayed with medical research related iconography',
-    img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/popsci/popsci/images/icons/png/widget.png',
+    img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/widget.png',
   },
   tile1: {
     alt: 'Male and female researcher looking over data on a computer screen in a lab',
