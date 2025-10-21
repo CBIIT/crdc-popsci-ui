@@ -16,15 +16,19 @@ const LandingView = ({ classes, statsData }) => (
     <div className={classes.heroSection}>
       <div className={classes.heroContent}>
         <Grid container direction="row" justifyContent='center' alignItems='flex-start' className={classes.heroImage}>
-          <Grid item className={classes.popPieChartImage} />
+          <img
+            src={landingPageData.landingPageHero.img}
+            alt={landingPageData.landingPageHero.alt}
+            className={classes.popPieChartImage}
+          />
           <Grid className={classes.heroTextContainer}>
             <div className={classes.heroTextWrapper}>
               <div className={classes.headerTitle1}>
                 { landingPageData.callToActionTitle }
               </div>
-              <div className={classes.headerTitle2}>
+              <h1 className={classes.headerTitle2}>
                 {landingPageData.callToActionTitle2}
-              </div>
+              </h1>
               <div className={classes.headerContent}>
                 { landingPageData.callToActionDescription}
               </div>
@@ -55,7 +59,7 @@ const LandingView = ({ classes, statsData }) => (
                   id="tile1_image"
                 />
               </div>
-              <div className={classes.DCWords} id="tile1_title">
+              <h2 className={classes.DCWords} id="tile1_title">
                 {/* // TODO:- Create new function
                 landingPageData.tile1.titleText.match(/\b(\w+)\b/g).map((word) => (
                   <>
@@ -66,7 +70,7 @@ const LandingView = ({ classes, statsData }) => (
                 About <br/>
                 Population Science <br />
                 Data Common <br/>
-              </div>
+              </h2>
               <div className={classes.aboutContent} id="tile1_description">
                 {landingPageData.tile1.descriptionText}
               </div>
@@ -97,9 +101,9 @@ const LandingView = ({ classes, statsData }) => (
                   />
                 </div>
                 <div className={classes.content}>
-                  <div className={classes.contentHeader} id="tile2_title">
+                  <h3 className={classes.contentHeader} id="tile2_title">
                     {landingPageData.tile2.titleText}
-                  </div>
+                  </h3>
                   <div className={classes.contentContainer} id="tile2_description">
                     {landingPageData.tile2.descriptionText}
                   </div>
@@ -125,14 +129,14 @@ const LandingView = ({ classes, statsData }) => (
                   <img
                     className={classes.image}
                     src={landingPageData.tile3.img}
-                    alt={landingPageData.tile3.src}
+                    alt={landingPageData.tile3.alt}
                     id="tile3_image"
                   />
                 </div>
                 <div className={classes.content}>
-                  <div className={classes.contentHeader} id="tile3_title">
+                  <h3 className={classes.contentHeader} id="tile3_title">
                     {landingPageData.tile3.titleText}
-                  </div>
+                  </h3>
                   <div className={classes.contentContainer} id="tile3_description">
                     {landingPageData.tile3.descriptionText}
                   </div>
@@ -157,9 +161,9 @@ const LandingView = ({ classes, statsData }) => (
             </div>
             <div className={classes.contentRightBottom}>
               <div className={classes.cases} id="tile4_image">
-                <div className={classes.mountainMeadowContentHeader} id="tile4_title">
+                <h3 className={classes.mountainMeadowContentHeader} id="tile4_title">
                   {landingPageData.tile4.titleText}
-                </div>
+                </h3>
                 <div className={classes.mountainMeadowContentWrapper}>
                   <div
                     className={classes.mountainMeadowContent}
@@ -314,6 +318,10 @@ const styles = (theme) => ({
     letterSpacing: '-0.02em',
     textAlign:'center',
     width: '500px',
+    margin: 0,
+    padding: '10px 0 0 0',
+    border: 0,
+    display: 'block',
     [theme.breakpoints.down('sm')]: {
       fontSize: '40px',
       width: '100%',
@@ -381,6 +389,9 @@ const styles = (theme) => ({
     letterSpacing: '-0.02em',
     padding: '30px 23px 30px 30px',
     fontFamily: 'Poppins',
+    margin: 0,
+    border: 0,
+    display: 'block',
   },
   landingContainer: {
     alignItems: 'center',
@@ -487,6 +498,9 @@ const styles = (theme) => ({
     fontWeight: 'bold',
     lineHeight: '27px',
     padding: '10px 0',
+    margin: 0,
+    border: 0,
+    display: 'block',
     [theme.breakpoints.down('sm')]: {
       fontSize: '24px',
       lineHeight: '30px',
@@ -619,6 +633,9 @@ const styles = (theme) => ({
     fontWeight: 'bold',
     lineHeight: '32px',
     padding: '15px 0',
+    margin: 0,
+    border: 0,
+    display: 'block',
     [theme.breakpoints.down('sm')]: {
       fontSize: '24px',
       lineHeight: '30px',

@@ -1,6 +1,7 @@
 - page: '/about'
   title: "About the Population Science Data Commons (PSDC)"
   primaryContentImage: https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/homeImageforAboutCard.png
+  primaryContentImageAlt: "Male and female researcher looking over data on a computer screen in a lab"
   content:
     - paragraph: "Population science research aims to understand the causes and distribution of cancer in populations, monitor and explain cancer trends across different groups defined by geography or demographics, and support the development and implementation of broad-based interventions.    "
     - paragraph: "     "
@@ -12,6 +13,7 @@
 - page: '/access_data'
   title: "Access Data"
   primaryContentImage: https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/TrialsImage.png
+  primaryContentImageAlt: "Abstract image of network data"
   content:
     - paragraph: "PSDC hosts both open and controlled access data, accessible for analysis and download through the Seven Bridges Cancer Genomics Cloud"
     - paragraph: "The PSDC portal provides faceted searching for studies of interest using various parameters, including study name, design, enrollment period, number of participants, cancer types, and the presence or absence of demographics such as age at enrollment, race, ethnicity, and sex. "
@@ -20,10 +22,12 @@
 - page: '/analyze_data'
   title: "Analyze Data"
   primaryContentImage: https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/requestAccessImage.png
+  primaryContentImageAlt: "image of person using laptop with national cancer institute website displayed on laptop"
   content:
      - paragraph: "The Seven Bridges Cancer Genomics Cloud (SB-CGC), powered by Velsera, collaborates with the PSDC to facilitate access to its data for analysis. SB-CGC offers secure personal workspaces on the AWS cloud platform as well as publicly available analytical tools shared by the research community. Users create a manifest of files of interest through the PSDC portal and, with one click, can access those files for analysis within the secure SB-CGC environment. Users also have the option of downloading data to their local environment from the SB-CGC platform.  Learn more about working within the $$[Seven Bridges Cancer Genomics Cloud](https://datacommons.cancer.gov/analytical-resource/seven-bridges-cancer-genomics-cloud-developed-velsera#)$$(SB-CGC) environment." 
 - page: '/support'
   title: "Support"
   primaryContentImage: https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/icdc/aboutPages/About_Support.jpeg
+  primaryContentImageAlt: "Abstract representation of hand interacting with holographic cloud button"
   content:
      - paragraph: "Please direct questions, comments, or concerns to $$[NCICRDC@mail.nih.gov](NCICRDC@mail.nih.gov)$$."

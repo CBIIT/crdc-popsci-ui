@@ -15,11 +15,11 @@ export const landingPageData = {
   },
   callToActionLink: '/explore',
   landingPageHero: {
-    alt: 'Alt tag1',
-    img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/popsci/popsci/images/icons/png/widget.png',
+    alt: 'Laptop with image of a crowd of people overlayed with medical research related iconography',
+    img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/widget.png',
   },
   tile1: {
-    alt: '',
+    alt: 'Male and female researcher looking over data on a computer screen in a lab',
     img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/homeImageforAboutCard.png',
     titleText: 'About the Population Science Data Commons (PSDC)',
     descriptionText: 'Population science research aims to understand the causes and distribution of cancer in populations, monitor and explain cancer trends across different groups defined by geography or demographics, and support the development and implementation of broad-based interventions. The PSDC manages, houses, and shares data from various NCI-funded research programs and awards, including the Cancer Epidemiology Cohorts (CECs), supported by the NCI’s Division of Cancer Control and Population Sciences (DCCPS).',
@@ -27,7 +27,7 @@ export const landingPageData = {
     callToActionLink: '/about', // This links to the "About" static page.
   },
   tile2: {
-    alt: '',
+    alt: 'Abstract image of network data',
     img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/TrialsImage.png',
     titleText: 'Access Data',
     descriptionText: 'PSDC hosts both open and controlled access data, accessible for analysis and download through the Seven Bridges Cancer Genomics Cloud.',
@@ -35,7 +35,7 @@ export const landingPageData = {
     callToActionLink: '/access_data', // This links to the Programs Listing Page.
   },
   tile3: {
-    alt: '',
+    alt: 'Image of person using laptop with national cancer institute website displayed on laptop',
     img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/requestAccessImage.png',
     titleText: 'Analyze Data',
     descriptionText: 'The Seven Bridges Cancer Genomics Cloud (SB-CGC), powered by Velsera, collaborates with the PSDC to facilitate access to its data for analysis. ',
@@ -43,8 +43,8 @@ export const landingPageData = {
     callToActionLink: '/analyze_data', // Link to the Request Access Page
   },
   tile4: {
-    alt: '',
-    img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/CasesImage.png',
+    alt: 'Abstract image of hand holding 2 dimensional images of people',
+    img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/Popsci_Cases.png',
     titleText: 'Submit Data',
   descriptionText: 'Data submission to PSDC will open in early 2026.  To discuss submitting data before then, contact the CRDC Help Desk at <a href="mailto:NCICRDC@mail.nih.gov">NCICRDC@mail.nih.gov</a>',
   },

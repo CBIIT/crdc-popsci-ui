@@ -17,7 +17,7 @@ const AboutBody = ({ classes, data, externalIconImage }) => {
 
   return (
     <>
-      <div className={classes.container}>
+      <main className={classes.container}>
         <Grid container spacing={16} direction="row" className={classes.aboutSection}>
           {data.imageLocation === 'left'
             && (
@@ -267,7 +267,7 @@ const AboutBody = ({ classes, data, externalIconImage }) => {
               </Grid>
             )}
         </Grid>
-      </div>
+      </main>
       {data.secondaryZoomImageTitle
         && <div className={classes.secondayTitle}>{data.secondaryZoomImageTitle}</div>}
       {data.secondaryImage && <XoomInOut>{data.secondaryImageData}</XoomInOut>}

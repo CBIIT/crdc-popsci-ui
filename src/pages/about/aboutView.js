@@ -11,12 +11,16 @@ const AboutView = ({ classes, data }) => {
 
   return (
     <>
-      <Stats />
-      <AboutHeader title={data.title} />
+      <section aria-label="Statistics" role="region">
+        <Stats />
+      </section>
+      <section aria-label="Page header">
+        <AboutHeader title={data.title} />
+      </section>
       <AboutBody data={{
           fontFamily: '"Lato Regular", "Open Sans", sans-serif',
           lineHeight: '25px',
-          image: getImage(data.primaryContentImage, data.title),
+          image: getImage(data.primaryContentImage, data.primaryContentImageAlt || data.title),
           imageLocation: 'left',
           title: data.title ? data.title : '',
           content: data.content ? data.content : '',
