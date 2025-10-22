@@ -116,10 +116,10 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false, studyS
               </span>
             </div>
 
-            <div className={classes.headerStudyName}>
-              <span style={{verticalAlign: 'bottom'}}>
+            <div>
+              <h2 className={classes.headerStudyName} style={{verticalAlign: 'bottom'}}>
                 {studyGeneral.study_name}
-              </span>
+              </h2>
             </div>
           </div>
 
