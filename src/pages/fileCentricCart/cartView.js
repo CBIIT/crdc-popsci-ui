@@ -57,36 +57,6 @@ const CartView = (props) => {
     return () => clearTimeout(timer);
   }, [tblRows, isUpdated]); // Re-run when table data changes
 
-  // // Add scope attribute to delete column header for accessibility compliance
-  // useEffect(() => {
-  //   const addScopeToDeleteHeader = () => {
-  //     // Find the delete column header and add scope attribute
-  //     const deleteHeaders = document.querySelectorAll('th:has(button), th[class*="del_all_row"], th[data-testid*="delete"]');
-  //     deleteHeaders.forEach(header => {
-  //       if (!header.getAttribute('scope')) {
-  //         header.setAttribute('scope', 'col');
-  //       }
-  //     });
-
-  //     // Alternative approach: find by button content
-  //     const clearCartButtons = document.querySelectorAll('button');
-  //     clearCartButtons.forEach(button => {
-  //       if (button.textContent && button.textContent.includes('Clear Cart')) {
-  //         const thElement = button.closest('th');
-  //         if (thElement && !thElement.getAttribute('scope')) {
-  //           thElement.setAttribute('scope', 'col');
-  //         }
-  //       }
-  //     });
-  //   };
-
-  //   // Run immediately and after a short delay to catch dynamic content
-  //   addScopeToDeleteHeader();
-  //   const timer = setTimeout(addScopeToDeleteHeader, 100);
-
-  //   return () => clearTimeout(timer);
-  // }, [filesId, isUpdated]);
-
   // Add proper label for textarea accessibility compliance
   useEffect(() => {
     const addLabelToTextarea = () => {
