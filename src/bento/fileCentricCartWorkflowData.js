@@ -65,6 +65,7 @@ export const myFilesPageData = {
           clsName: 'manifest_comments',
           type: types.TEXT_INPUT,
           placeholder: 'User Comment',
+          label: 'User Comments',
         }
       ],
     },
