@@ -30,49 +30,62 @@ const CartView = (props) => {
   const [isUpdated,setIsUpdated] = useState(false);
   props ={ ...props, removeCheck: () => {setIsUpdated(true)}}
 
-  // Add accessibility labels to delete buttons after table renders
+  // Add accessibility labels to delete buttons and remove scope attributes after table renders
   useEffect(() => {
-    const addAriaLabelsToDeleteButtons = () => {
-      const deleteButtons = document.querySelectorAll('.del_row_btn:not([aria-label]), .del_row_btn[aria-label=""]');
+    const updateDeleteButtons = () => {
+      const deleteButtons = document.querySelectorAll('.del_row_btn');
       deleteButtons.forEach((button) => {
-        button.setAttribute('aria-label', 'Delete file from cart');
+        // Add aria-label if missing or empty
+        if (!button.getAttribute('aria-label') || button.getAttribute('aria-label') === '') {
+          button.setAttribute('aria-label', 'Delete file from cart');
+        }
+        // Remove scope attribute if present (scope is for table headers, not buttons)
+        if (button.hasAttribute('scope')) {
+          button.removeAttribute('scope');
+        }
+        
+        // Also remove scope from parent td element (scope should only be on th elements)
+        const parentCell = button.closest('td');
+        if (parentCell && parentCell.hasAttribute('scope')) {
+          parentCell.removeAttribute('scope');
+        }
       });
     };
 
-    // Small delay to let table render, then add labels
-    const timer = setTimeout(addAriaLabelsToDeleteButtons, 100);
+    // Small delay to let table render, then update buttons
+    const timer = setTimeout(updateDeleteButtons, 50);
     return () => clearTimeout(timer);
   }, [tblRows, isUpdated]); // Re-run when table data changes
 
-  // Add scope attribute to delete column header for accessibility compliance
-  useEffect(() => {
-    const addScopeToDeleteHeader = () => {
-      // Find the delete column header and add scope attribute
-      const deleteHeaders = document.querySelectorAll('th:has(button), th[class*="del_all_row"], th[data-testid*="delete"]');
-      deleteHeaders.forEach(header => {
-        if (!header.getAttribute('scope')) {
-          header.setAttribute('scope', 'col');
-        }
-      });
+  // // Add scope attribute to delete column header for accessibility compliance
+  // useEffect(() => {
+  //   const addScopeToDeleteHeader = () => {
+  //     // Find the delete column header and add scope attribute
+  //     const deleteHeaders = document.querySelectorAll('th:has(button), th[class*="del_all_row"], th[data-testid*="delete"]');
+  //     deleteHeaders.forEach(header => {
+  //       if (!header.getAttribute('scope')) {
+  //         header.setAttribute('scope', 'col');
+  //       }
+  //     });
 
-      // Alternative approach: find by button content
-      const clearCartButtons = document.querySelectorAll('button');
-      clearCartButtons.forEach(button => {
-        if (button.textContent && button.textContent.includes('Clear Cart')) {
-          const thElement = button.closest('th');
-          if (thElement && !thElement.getAttribute('scope')) {
-            thElement.setAttribute('scope', 'col');
-          }
-        }
-      });
-    };
+  //     // Alternative approach: find by button content
+  //     const clearCartButtons = document.querySelectorAll('button');
+  //     clearCartButtons.forEach(button => {
+  //       if (button.textContent && button.textContent.includes('Clear Cart')) {
+  //         const thElement = button.closest('th');
+  //         if (thElement && !thElement.getAttribute('scope')) {
+  //           thElement.setAttribute('scope', 'col');
+  //         }
+  //       }
+  //     });
+  //   };
 
-    // Run immediately and after a short delay to catch dynamic content
-    addScopeToDeleteHeader();
-    const timer = setTimeout(addScopeToDeleteHeader, 100);
+  //   // Run immediately and after a short delay to catch dynamic content
+  //   addScopeToDeleteHeader();
+  //   const timer = setTimeout(addScopeToDeleteHeader, 100);
 
-    return () => clearTimeout(timer);
-  }, [filesId, isUpdated]);
+  //   return () => clearTimeout(timer);
+  // }, [filesId, isUpdated]);
 
   // Add proper label for textarea accessibility compliance
   useEffect(() => {
