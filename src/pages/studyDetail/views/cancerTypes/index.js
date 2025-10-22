@@ -273,7 +273,7 @@ const CancerTypes = ({ classes, data }) => {
                 
                 {/* Responsive list */}
                 <Grid item xs={12} className={classes.mainValue}>
-                  <div ref={scrollRef} className={classes.columnsContainer}>
+                  <div ref={scrollRef} className={classes.columnsContainer} tabIndex={0}>
                     <ResponsiveColumnList
                       classes={classes}
                       items={cancerTypesTerms}

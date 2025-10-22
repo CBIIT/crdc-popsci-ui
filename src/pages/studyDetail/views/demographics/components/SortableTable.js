@@ -57,7 +57,7 @@ function SortableTable({
       {/* Section header: title, grouped sort buttons, and optional caption */}
       <Box className={classes.sectionHeaderBox}>
         <Box alignItems="center" display="flex" flexDirection="row">
-          <Typography variant="h5" className={classes.sectionTitle}>
+          <Typography variant="h3" className={classes.sectionTitle}>
             {sectionTitle}
           </Typography>
           {/* Group sort buttons so they wrap together */}
@@ -81,7 +81,10 @@ function SortableTable({
         <Table>
           <TableHead>
             <TableRow className={classes.headRow}>
-              <TableCell component="td"/> {/* Empty header for the group column */}
+              {/*  <TableCell component="td"/> Empty header for the group column */}
+              <TableCell component="th" scope="col" className={classes.visuallyHidden}>
+                {sectionTitle}
+              </TableCell>
               <TableCell className={classes.headerCountCell}>
                 Participant&nbsp;Count
               </TableCell>
@@ -164,6 +167,17 @@ const useStyles = makeStyles(theme => ({
       borderTop: 'none',
       borderBottom: 'none',
     },
+  },
+  visuallyHidden: {
+    border: 0,
+    clip: 'rect(0 0 0 0)',
+    height: 1,
+    margin: -1,
+    overflow: 'hidden',
+    padding: 0,
+    position: 'absolute',
+    width: 1,
+    whiteSpace: 'nowrap',
   },
   headerCountCell: {
     width: '150px',

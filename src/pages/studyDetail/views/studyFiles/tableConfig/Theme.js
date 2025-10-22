@@ -44,9 +44,9 @@ export const tblHeader = {
     },
   },
   MuiCheckbox: {
-    color: '#969696',
+    color: '#8C8C8C',
     colorPrimary: {
-      color: '#969696',
+      color: '#8C8C8C',
       '&.Mui-checked': {
         color: '#6D5F5B'
       }
@@ -115,7 +115,7 @@ const tblBody = {
   },
   MuiCheckbox: {
     colorSecondary: {
-      color: '#969696',
+      color: '#8C8C8C',
       '&.Mui-checked': {
         color: '#6D5F5B'
       }

@@ -86,6 +86,7 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false, studyS
 
   return (
     <StudyThemeProvider>
+
       <Snackbar
         snackbarState={snackbarState}
         closeSnack={closeSnack}
@@ -93,10 +94,9 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false, studyS
         // classes={classes}
       />
 
-      {/* <Stats /> */ }
-      <StatsView data={statsbarData} />
+            <StatsView data={statsbarData} />
 
-      <div className={classes.container}>
+      <main className={classes.container}>
         <div className={classes.breadCrumb}>
           <CustomBreadcrumb separator=">" data={breadCrumbJson} />
         </div>
@@ -110,16 +110,16 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false, studyS
             <div className={classes.headerMainTitle}>
               <span>
                 Study:
-                <span className={classes.headerStudyShortName}>
+                <h1 className={classes.headerStudyShortName}>
                    {studyGeneral.study_short_name }
-                </span>
+                </h1>
               </span>
             </div>
 
-            <div className={classes.headerStudyName}>
-              <span style={{verticalAlign: 'bottom'}}>
+            <div>
+              <h2 className={classes.headerStudyName} style={{verticalAlign: 'bottom'}}>
                 {studyGeneral.study_name}
-              </span>
+              </h2>
             </div>
           </div>
 
@@ -150,7 +150,7 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false, studyS
             {processedTab.content}
           </TabContentWrapper>
         ))}
-      </div>
+      </main>
     </StudyThemeProvider>
   );
 };
