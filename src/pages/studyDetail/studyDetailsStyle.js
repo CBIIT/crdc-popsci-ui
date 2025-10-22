@@ -32,41 +32,41 @@ export default (theme) => ({
     display: 'flex',
     marginTop: '19px',
   },
-headerMainTitle: {
-  fontFamily: 'Poppins',
-  fontSize: '26px',
-  fontWeight: 300,
-  lineHeight: '27.7px',
-  letterSpacing: '-0.02em',
-  borderRight: '1px solid #FFFFFF',
-  color: '#FFFFFF',
-  width: '260px',
-  
-  // Add these properties to keep content on same line
-  display: 'flex',
-  alignItems: 'center',
-  whiteSpace: 'nowrap',
-  
-  // Ensure the span containing "Study:" and h1 stays together
-  '& span': {
+  headerMainTitle: {
+    fontFamily: 'Poppins',
+    fontSize: '26px',
+    fontWeight: 300,
+    lineHeight: '27.7px',
+    letterSpacing: '-0.02em',
+    borderRight: '1px solid #FFFFFF',
+    color: '#FFFFFF',
+    width: '260px',
+    
+    // Add these properties to keep content on same line
     display: 'flex',
     alignItems: 'center',
     whiteSpace: 'nowrap',
+    
+    // Ensure the span containing "Study:" and h1 stays together
+    '& span': {
+      display: 'flex',
+      alignItems: 'center',
+      whiteSpace: 'nowrap',
+    },
   },
-},
-headerStudyShortName: {
-  fontSize: '26px',
-  fontWeight: 600,
-  lineHeight: '24.36px',
-  letterSpacing: '0.01em',
-  margin: '0px',
-  display: 'inline-block',
-  paddingLeft: '14px',
-  
-  // Prevent text wrapping
-  whiteSpace: 'nowrap',
-  overflow: 'hidden',
-},
+  headerStudyShortName: {
+    fontSize: '26px',
+    fontWeight: 600,
+    lineHeight: '24.36px',
+    letterSpacing: '0.01em',
+    margin: '0px',
+    display: 'inline-block',
+    paddingLeft: '14px',
+    
+    // Prevent text wrapping
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+  },
   headerStudyName: {
     margin: '0px',
     fontFamily: 'Open Sans',
@@ -96,7 +96,6 @@ headerStudyShortName: {
     textAlign: 'center',
     minWidth: 'fit-content',
     width: 'fit-content',
-
   },
   numOfparticipantsText: {
     color: '#AEFAFF',
