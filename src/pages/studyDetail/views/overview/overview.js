@@ -43,7 +43,7 @@ const Overview = ({ classes, data, }) => {
         <Grid container>
           {/* Left Container Detail */}
           <Grid item xs={12} sm={6} className={cn(classes.borderRight, classes.detailContainerLeft)}>
-            <div className={classes.scrollDiv}>
+            <div className={classes.scrollDiv} tabIndex={0}>
               <Grid container direction="column" className={classes.leftInnerContainer} >
                 <Grid item xs={12} className={classes.mainLabel}>
                   <span>Description</span>
