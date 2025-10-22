@@ -32,27 +32,43 @@ export default (theme) => ({
     display: 'flex',
     marginTop: '19px',
   },
-  headerMainTitle: {
-    fontFamily: 'Poppins',
-    fontSize: '26px',
-    fontWeight: 300,
-    lineHeight: '27.7px',
-    letterSpacing: '-0.02em',
-    borderRight: '1px solid #FFFFFF',
-
-    color: '#FFFFFF',
-    width: '260px',
+headerMainTitle: {
+  fontFamily: 'Poppins',
+  fontSize: '26px',
+  fontWeight: 300,
+  lineHeight: '27.7px',
+  letterSpacing: '-0.02em',
+  borderRight: '1px solid #FFFFFF',
+  color: '#FFFFFF',
+  width: '260px',
+  
+  // Add these properties to keep content on same line
+  display: 'flex',
+  alignItems: 'center',
+  whiteSpace: 'nowrap',
+  
+  // Ensure the span containing "Study:" and h1 stays together
+  '& span': {
+    display: 'flex',
+    alignItems: 'center',
+    whiteSpace: 'nowrap',
   },
-  headerStudyShortName: {
-    fontSize: '26px',
-    fontWeight: 600,
-    lineHeight: '24.36px',
-    letterSpacing: '0.01em',
-    margin: '0px',
-    display: 'inline-block',
-    paddingLeft: '14px',
-  },
+},
+headerStudyShortName: {
+  fontSize: '26px',
+  fontWeight: 600,
+  lineHeight: '24.36px',
+  letterSpacing: '0.01em',
+  margin: '0px',
+  display: 'inline-block',
+  paddingLeft: '14px',
+  
+  // Prevent text wrapping
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+},
   headerStudyName: {
+    margin: '0px',
     fontFamily: 'Open Sans',
     fontSize: '15px',
     fontWeight: 400,
@@ -126,7 +142,6 @@ export default (theme) => ({
     size: '12px',
     lineHeight: '23px',
     maxWidth: `${theme?.custom?.maxContentWidth || '1440px'}`,
-    minWidth: '1109px',
   },
 
   /********           Smaller Screen Style              ********/
@@ -135,14 +150,14 @@ export default (theme) => ({
     headerMainTitle: {
       width: 'fit-content',
       paddingRight: '10px',
-
+      minWidth: 'max-content', // Ensures it doesn't shrink below content width
     },
     headerStudyName: {
       whiteSpace: 'wrap',
     },
   },
 
-  '@media (max-width: 950px)': {
+  '@media (max-width: 1200px)': {
     tabContainer: {
       paddingLeft: '24px',
       paddingRight: '24px',
