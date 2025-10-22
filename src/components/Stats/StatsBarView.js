@@ -121,7 +121,7 @@ const StatsBar = ({
 
   return (
     <>
-      <div className={classes.statsSection}>
+      <div className={classes.statsSection} role="region" aria-label="Global statistics">
         <div className={classes.box}>
           {truncatedListOfStats.map((stat, index) => (
             <StatsBarGroup

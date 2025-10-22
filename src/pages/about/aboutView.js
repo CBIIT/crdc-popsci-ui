@@ -11,9 +11,7 @@ const AboutView = ({ classes, data }) => {
 
   return (
     <>
-      <section aria-label="Statistics" role="region">
-        <Stats />
-      </section>
+      <Stats />
       <section aria-label="Page header">
         <AboutHeader title={data.title} />
       </section>

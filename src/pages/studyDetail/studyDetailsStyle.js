@@ -48,7 +48,8 @@ export default (theme) => ({
     fontWeight: 600,
     lineHeight: '24.36px',
     letterSpacing: '0.01em',
-
+    margin: '0px',
+    display: 'inline-block',
     paddingLeft: '14px',
   },
   headerStudyName: {
