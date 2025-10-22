@@ -79,7 +79,6 @@ const CartView = (props) => {
     const addLabelToTextarea = () => {
       const textarea = document.querySelector('textarea.manifest_comments, textarea[id="multiline-user-coments"]');
       if (textarea) {
-        // Option 1: Simple title attribute approach
         if (!textarea.getAttribute('title') && !textarea.getAttribute('aria-label')) {
           textarea.setAttribute('title', 'User Comments');
           textarea.setAttribute('aria-label', 'User Comments');
