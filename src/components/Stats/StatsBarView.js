@@ -122,7 +122,7 @@ const StatsBar = ({
   return (
     <>
       <div className={classes.statsSection} role="region" aria-label="Global statistics">
-        <div className={classes.box}>
+        <div className={classes.box} tabIndex={0}>
           {truncatedListOfStats.map((stat, index) => (
             <StatsBarGroup
               key={stat.statTitle}
