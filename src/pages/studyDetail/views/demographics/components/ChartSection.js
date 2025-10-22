@@ -1,6 +1,7 @@
 import React from 'react';
 import { withStyles, Grid } from '@material-ui/core';
 import BarChartV2 from '../../../../../components/BarChartV2/bar-chart-v2';
+import { useHideRechartsSpan } from '../../../../../hooks/useHideRechartsSpan';
 
 const ChartSection = ({ classes, data }) => {
   const {
@@ -9,6 +10,8 @@ const ChartSection = ({ classes, data }) => {
     participant_ethnicities,
     participant_sexes,
   } = data
+
+  useHideRechartsSpan()
 
   return (
     <Grid className={classes.chartSection}>

@@ -7,13 +7,17 @@ import StatsView from '../../components/Stats/StatsView';
 import TabsView from './tabs/TabsView';
 import QueryBarView from './filterQueryBar/QueryBarView';
 import DashThemeProvider from './DashThemeConfig';
+import { useHideRechartsSpan } from '../../hooks/useHideRechartsSpan';
 
 const DashTemplate = ({
   classes,
   dashData,
   activeFilters,
   tabIndex=0,
-}) => (
+}) => {
+    useHideRechartsSpan();
+
+  return (
   <DashThemeProvider>
     <main className={classes.dashboardContainer}>
       <h1 className={classes.visuallyHidden}>Dashboard</h1>
@@ -44,6 +48,6 @@ const DashTemplate = ({
       </div>
     </main>
   </DashThemeProvider>
-);
+)};
 
 export default withStyles(styles)(DashTemplate);
