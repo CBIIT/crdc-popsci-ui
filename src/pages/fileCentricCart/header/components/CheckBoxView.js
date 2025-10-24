@@ -18,9 +18,9 @@ const CheckboxView = ({
           indeterminate={includeSelectedIds}
           checked={includeSelectedIds}
           onChange={(event) => toggleSelectAll(event, Ids, includeSelectedIds)}
+          inputProps={{ 'aria-label': 'Select all rows' }}
         />
       )}
-      aria-label="Select all rows"
     />
   </TableCell>
 );
