@@ -23,7 +23,7 @@ const ActionHeaderCell = ({
     );
   }
 
-  if (headerTypes.DELETE ===  headerType) {
+  if (headerTypes.DELETE === headerType) {
     return (
       <DeleteCellView
         rows={rows}
