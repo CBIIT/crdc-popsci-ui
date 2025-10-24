@@ -46,8 +46,8 @@ const CustomTableHeader = ({
         <TableRow>
           {
             displayColunms.map((column) => {
-              const { cellType } = column;
-              const isActionCell = actionCellTypes.includes(cellType) || false;
+              const { headerType } = column;
+              const isActionCell = actionCellTypes.includes(headerType) || false;
 
               if (isActionCell) {
                 return (

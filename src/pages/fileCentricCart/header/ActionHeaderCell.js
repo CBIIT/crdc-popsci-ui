@@ -1,6 +1,5 @@
 import React from 'react';
-// import { cellTypes } from '../util/Types';
-import { cellTypes } from '../../../bento-core'
+import { headerTypes } from '../../../bento-core'
 import CheckboxView from './components/CheckBoxView';
 import DeleteCellView from './components/DeleteCellView';
 
@@ -12,9 +11,9 @@ const ActionHeaderCell = ({
   rows,
   column,
 }) => {
-  const { cellType } = column;
+  const { headerType } = column;
 
-  if (cellTypes.CHECKBOX === cellType) {
+  if (headerTypes.CHECKBOX === headerType) {
     return (
       <CheckboxView
         includeSelectedIds={includeSelectedIds}
@@ -24,7 +23,7 @@ const ActionHeaderCell = ({
     );
   }
 
-  if (cellTypes.DELETE === cellType) {
+  if (headerTypes.DELETE ===  headerType) {
     return (
       <DeleteCellView
         rows={rows}
