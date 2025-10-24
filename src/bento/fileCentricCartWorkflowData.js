@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { cellTypes, dataFormatTypes, formatBytes } from '@bento-core/table';
+import { cellTypes, dataFormatTypes, formatBytes, headerTypes } from '@bento-core/table';
 import { types } from '@bento-core/paginated-table';
 import cartPageIcon from '../assets/cart/cartPageIcon.svg'
 import openPadlockIcon from '../assets/study/openPadlockIcon.svg';
@@ -275,14 +275,12 @@ export const table = {
               _customDownloadRender: () => "Access via Cloud",
         },
         {
-          // cellType: cellTypes.CUSTOM_ELEM,
-          // headerType: headerTypes.CUSTOM_ELEM,
-          
-          cellType: cellTypes.DELETE,
-          headerType: cellTypes.DELETE,
+          cellType: cellTypes.CUSTOM_ELEM,
+          headerType: headerTypes.DELETE,
+          _customActionLabel: "Delete_File",
           display: true,
           cancelText: "Cancel",
-          okText: "Ok"
+          okText: "Ok",
         },
         // {
         //      dataField: 'data_file_uuid', // This need to left empty if no data need to be displayed before file download icon

@@ -5,18 +5,21 @@ import { useApolloClient } from '@apollo/client';
 import CustomHeaderRemover from './CustomHeaderRemover';
 import IconCell from '../../studyDetail/views/studyFiles/tableConfig/IconCell';
 import { createDownloadTableFunction } from '../../../bento/fileCentricCartWorkflowData';
+import DeleteButton from './DeleteButton';
 
 export const CustomHeaderCellView = (props) => {
   const {
     dataField,
     openDialogBox,
-    cellType,
+    headerType,
   } = props;
-  switch (dataField || cellType) {
+  switch (dataField || headerType) {
     case headerTypes.DELETE:
       return (
         <CustomHeaderRemover openDialogBox={openDialogBox} />
       );
+    // You can add for more cases like "case headerTypes.CUSTOM_ELEM:"
+    
     default:
       return (<></>);
   }
@@ -31,6 +34,7 @@ export const CustomCellView = (props) => {
     displayEmpty,
     dataField,
     customCellProps,
+    _customActionLabel,
   } = props;
 
   // Helper to render IconCell for access control/file delivery
@@ -65,6 +69,10 @@ export const CustomCellView = (props) => {
 
   if (fileDelivery) {
     return renderIconCell('fileDelivery');
+  }
+  
+  if (_customActionLabel === "Delete_File") {
+    return <DeleteButton {...props} />;
   }
 
   if (typeof displayEmpty === "boolean") {
@@ -108,16 +116,14 @@ export const configColumn = ({
     if (column.cellType === cellTypes.CUSTOM_ELEM) {
       return {
         ...column,
-        customCellRender: (props) => <CustomCellView {...props} />,
+        cellEventHandler: deleteCartFile,
+        customCellRender: (props) => <CustomCellView {...props} deleteCartFile={deleteCartFile} />,
       };
     }
     if (column.cellType === cellTypes.DELETE) {
       return {
         ...column,
         cellEventHandler: deleteCartFile,
-        customColHeaderRender: (toggleDisplay) => (
-          <CustomHeaderCellView openDialogBox={toggleDisplay} {...column} />
-        ),
       };
     }
     return column;
@@ -130,6 +136,7 @@ export const configColumn = ({
     if (column.headerType === headerTypes.CUSTOM_ELEM) {
       return {
         ...column,
+        // Use For Deleting Column but still shows the header
         customColHeaderRender: (props) => <CustomHeaderCellView {...props} />,
       };
     }
@@ -141,6 +148,9 @@ export const configColumn = ({
       return {
         ...column,
         headerEventHandler: ()=>{ removeCheck(); deleteAllFiles() },
+        customColHeaderRender: (toggleDisplay) => (
+          <CustomHeaderCellView openDialogBox={toggleDisplay} {...column} />
+        ),
       };
     }
     return column;
