@@ -85,9 +85,7 @@ const CartView = (props) => {
     <main role="main" aria-label="Cart page main content">
       <Grid container className={classes.myFilesContainer}>
         <Grid item xs={12}>
-          <section role="region" aria-labelledby="cart-page-title">
-            <HeaderView filesId={filesId} />
-          </section>
+          <HeaderView filesId={filesId} />
         </Grid>
 
         <Grid item xs={12} className={classes.myFilesWrapper}>
