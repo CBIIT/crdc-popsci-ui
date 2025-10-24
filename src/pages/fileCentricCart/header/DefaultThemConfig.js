@@ -120,7 +120,6 @@ const defaultTheme = () => ({
       },
     },
     tooltip: {
-      // backgroundColor: 'none',
     },
   },
   MuiDialog: {
