@@ -32,33 +32,6 @@ const CartView = (props) => {
   const [isUpdated,setIsUpdated] = useState(false);
   props ={ ...props, removeCheck: () => {setIsUpdated(true)}}
 
-  // Add accessibility labels to delete buttons and remove scope attributes after table renders
-  useEffect(() => {
-    const updateDeleteButtons = () => {
-      const deleteButtons = document.querySelectorAll('.del_row_btn');
-      deleteButtons.forEach((button) => {
-        // Add aria-label if missing or empty
-        if (!button.getAttribute('aria-label') || button.getAttribute('aria-label') === '') {
-          button.setAttribute('aria-label', 'Delete file from cart');
-        }
-        // Remove scope attribute if present (scope is for table headers, not buttons)
-        if (button.hasAttribute('scope')) {
-          button.removeAttribute('scope');
-        }
-        
-        // Also remove scope from parent td element (scope should only be on th elements)
-        const parentCell = button.closest('td');
-        if (parentCell && parentCell.hasAttribute('scope')) {
-          parentCell.removeAttribute('scope');
-        }
-      });
-    };
-
-    // Small delay to let table render, then update buttons
-    const timer = setTimeout(updateDeleteButtons, 50);
-    return () => clearTimeout(timer);
-  }, [tblRows, isUpdated]); // Re-run when table data changes
-
   // Add proper label for textarea accessibility compliance
   useEffect(() => {
     const addLabelToTextarea = () => {
