@@ -6,7 +6,6 @@ import WidgetView from './widget/WidgetView';
 import StatsView from '../../components/Stats/StatsView';
 import TabsView from './tabs/TabsView';
 import QueryBarView from './filterQueryBar/QueryBarView';
-import DashThemeProvider from './DashThemeConfig';
 import { useHideRechartsSpan } from '../../hooks/useHideRechartsSpan';
 
 const DashTemplate = ({
@@ -18,7 +17,6 @@ const DashTemplate = ({
     useHideRechartsSpan();
 
   return (
-  <DashThemeProvider>
     <main className={classes.dashboardContainer}>
       <h1 className={classes.visuallyHidden}>Dashboard</h1>
       <h2 className={classes.visuallyHidden}>Explore</h2>
@@ -47,7 +45,6 @@ const DashTemplate = ({
         </div>
       </div>
     </main>
-  </DashThemeProvider>
 )};
 
 export default withStyles(styles)(DashTemplate);
