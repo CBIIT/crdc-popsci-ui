@@ -12,6 +12,10 @@ const theme = {
     MuiIconButton: {
       root: {
         padding: "0",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
         "&:hover": {
           backgroundColor: "transparent",
         },
@@ -24,7 +28,10 @@ const theme = {
   },
 };
 
-const DeleteButton = ({ row, onDeleteRow, deleteCartFile }) => {
+const DeleteButton = (props) => {
+  const { data_file_uuid, onDeleteRow, deleteCartFile } = props
+  const row = { data_file_uuid };
+
   const delIcon = (
     <Icon>
       <img alt="delete" src={deleteIcon} />
@@ -40,7 +47,7 @@ const DeleteButton = ({ row, onDeleteRow, deleteCartFile }) => {
           e.stopPropagation();
           deleteCartFile(row, onDeleteRow);
         }}
-        aria-label="delete"
+        aria-label="Remove File"
       >
         {delIcon}
       </IconButton>

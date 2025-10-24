@@ -20,13 +20,13 @@ const HeaderView = ({ classes, filesId }) => {
           />
         </Grid>
         <Grid item xs>
-          <h4 className={classes.cartHeaderLabel}>Cart:&nbsp;&nbsp;<span className={classes.cartHeaderSubLabel}>Selected Files</span> </h4>
+          <h1 id="cart-page-title" className={classes.cartHeaderLabel}>Cart:&nbsp;&nbsp;<span className={classes.cartHeaderSubLabel}>Selected Files</span> </h1>
         </Grid>
       </Grid>
 
       <Grid container justifyContent="space-between" xs={12} md={12} lg={12} className={classes.headerInstructionAndActionBtn}>
-        <Grid item xs className={classes.descriptionContainer} >
-          <span className={classes.descriptionTitle}>Instructions:</span>
+        <Grid item xs className={classes.descriptionContainer} role="region" aria-labelledby="instructions-heading">
+          <h2 id="instructions-heading" className={classes.descriptionTitle}>Instructions:</h2>
           <p className={classes.descriptionText}>
 
             To immediately access and analyze files using your{' '}
@@ -44,7 +44,7 @@ const HeaderView = ({ classes, filesId }) => {
           </p>
         </Grid>
 
-        <Grid item style={{paddingTop: '14px'}}>
+        <Grid item style={{paddingTop: '14px'}} role="region" aria-label="Export and download actions">
           <DropDownView filesId={filesId} />
         </Grid>
       </Grid>
