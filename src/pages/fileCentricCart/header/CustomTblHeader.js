@@ -86,7 +86,7 @@ CustomTableHeader.propTypes = {
   table: PropTypes.objectOf(PropTypes.object).isRequired,
   rows: PropTypes.arrayOf(PropTypes.object).isRequired,
   toggleSelectAll: PropTypes.func.isRequired,
-  sortByColumn: PropTypes.string.isRequired,
+  sortByColumn: PropTypes.func.isRequired,
 };
 
 export default CustomTableHeader;
