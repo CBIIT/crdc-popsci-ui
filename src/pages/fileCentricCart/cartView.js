@@ -7,6 +7,8 @@ import styles from './CartStyle';
 import CartWrapper from './CartWrapper';
 import {paginationOptions} from './tableConfig/PaginationOptions';
 import HeaderView from './components/header/HeaderView';
+import CustomTableHeader from './header/CustomTblHeader';
+
 const CartView = (props) => {
   const {
     classes,
@@ -131,6 +133,7 @@ const CartView = (props) => {
                 tblRows={tblRows}
                 server={isServer}
                 paginationOptions={paginationOptions(context, config)}
+                customTableHeader={CustomTableHeader}
               />
             </CartWrapper>
           </section>
