@@ -160,6 +160,13 @@ const LandingView = ({ classes, statsData }) => (
 
             </div>
             <div className={classes.contentRightBottom}>
+              {/* Hidden accessible image for screen readers */}
+              <img
+                src={landingPageData.tile4.img}
+                alt={landingPageData.tile4.alt}
+                className={classes.accessibleHiddenImage}
+                aria-hidden="false"
+              />
               <div className={classes.cases} id="tile4_image">
                 <h3 className={classes.mountainMeadowContentHeader} id="tile4_title">
                   {landingPageData.tile4.titleText}
