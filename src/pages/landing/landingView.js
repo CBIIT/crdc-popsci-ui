@@ -160,6 +160,11 @@ const LandingView = ({ classes, statsData }) => (
 
             </div>
             <div className={classes.contentRightBottom}>
+              <img
+                src={landingPageData.tile4.img}
+                alt={landingPageData.tile4.alt}
+                className={classes.tile4BackgroundImage}
+              />
               <div className={classes.cases} id="tile4_image">
                 <h3 className={classes.mountainMeadowContentHeader} id="tile4_title">
                   {landingPageData.tile4.titleText}
@@ -556,21 +561,32 @@ const styles = (theme) => ({
   },
 
   contentRightBottom: {
+    position: 'relative',
     float: 'left',
     width: '597px',
     background: '#fff',
-    backgroundImage: `url(${landingPageData.tile4.img})`,
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
     [theme.breakpoints.down('sm')]: {
       float: 'none',
       width: '100%',
       minHeight: '340px',
-      backgroundPosition: 'center',
       marginTop: '10px',
     },
   },
+  tile4BackgroundImage: {
+    width: '100%',
+    height: '403px',
+    objectFit: 'cover',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    zIndex: 1,
+    [theme.breakpoints.down('sm')]: {
+      height: '340px',
+    },
+  },
   cases: {
+    position: 'relative',
+    zIndex: 2,
     height: '403px',
     paddingLeft: '340px',
     paddingTop: '70px',
