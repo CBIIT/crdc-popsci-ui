@@ -100,7 +100,6 @@ export const customTheme = {
 
       fontFamily: 'Open Sans',
       fontWeight: 400,
-      fontStyle: 'Regular',
       fontSize: '14px',
       lineHeight: '130%',
       letterSpacing: 0,

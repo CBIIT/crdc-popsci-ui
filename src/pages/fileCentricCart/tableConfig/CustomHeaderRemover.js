@@ -35,9 +35,8 @@ const styles = () => ({
 
     fontFamily: 'Nunito',
     fontWeight: '400',
-    fontStyle: 'Regular',
+    
     fontSize: '14px',
-    leadingTrim: 'NONE',
     lineHeight: '17px',
     letterSpacing: '0%',
 
@@ -61,7 +60,6 @@ const styles = () => ({
     fontWeight: 700,
     fontStyle: 'Bold',
     fontSize: '14px',
-    leadingTrim: 'NONE',
     lineHeight: '100%',
     letterSpacing: 0,
     textAlign: 'center',

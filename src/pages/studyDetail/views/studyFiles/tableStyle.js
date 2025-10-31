@@ -103,9 +103,7 @@ export default () => ({
 
     fontFamily: 'Nunito',
     fontWeight: '400',
-    fontStyle: 'Regular',
     fontSize: '14px',
-    leadingTrim: 'NONE',
     lineHeight: '17px',
     letterSpacing: '0%',
 
