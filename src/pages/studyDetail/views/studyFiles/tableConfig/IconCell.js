@@ -10,7 +10,7 @@ const IconCell = ({
   iconSrc = '',
   showToolTip = true,
   onAction,
-  tooltipPlacement='bottom'
+  tooltipPlacement='top'
 }) => {
 
   const handleAction = () => {
@@ -68,6 +68,9 @@ const styles = () => ({
 
     border: '1px solid #818181',
     boxShadow: '0px 4px 4px 0px #00000040',
+
+    // Remove any default margins that might add space
+    margin: '0 !important',
   },
   customArrow: {
   },

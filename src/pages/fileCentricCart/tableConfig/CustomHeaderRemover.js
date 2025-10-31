@@ -12,9 +12,8 @@ const CustomHeaderRemove = ({ openDialogBox, classes }) => {
   return (
     <div>
       <Tooltip
-        classes={{ tooltip: classes.customTooltip }}
+        classes={{ root: classes.customTooltip, tooltip: classes.customTooltip }}
         title="Remove all items in cart"
-        arrow
       >
         <Button
           classes={{ root: classes.removeBtn }}
@@ -29,6 +28,34 @@ const CustomHeaderRemove = ({ openDialogBox, classes }) => {
 };
 
 const styles = () => ({
+  customTooltip: {
+    backgroundColor: '#ffffff !important',
+    color: '#595959 !important',
+    textAlign: 'left',
+
+    fontFamily: 'Nunito',
+    fontWeight: '400',
+    fontStyle: 'Regular',
+    fontSize: '14px',
+    leadingTrim: 'NONE',
+    lineHeight: '17px',
+    letterSpacing: '0%',
+
+    maxWidth: '400px',
+    minHeight: '29px',
+    gap: '10px',
+    paddingTop: '6px',
+    paddingRight: '12px',
+    paddingBottom: '6px',
+    paddingLeft: '12px',
+    borderRadius: '8px',
+    borderWidth: '1px',
+
+    border: '1px solid #818181 !important',
+    boxShadow: '0px 4px 4px 0px #00000040 !important',
+
+    margin: '5px !important',
+  },
   removeBtn: {
     fontFamily: 'Open Sans',
     fontWeight: 700,
