@@ -85,7 +85,6 @@ export const customTheme = {
         '& textarea.manifest_comments::placeholder': {
           fontFamily: 'Open Sans',
           fontWeight: 400,
-          fontStyle: 'Regular',
           fontSize: '16px',
           lineHeight: '100%',
           letterSpacing: '0%',

@@ -89,7 +89,7 @@ const CartView = (props) => {
         </Grid>
 
         <Grid item xs={12} className={classes.myFilesWrapper}>
-          <section role="region" aria-label="Cart items table">
+          <section aria-label="Cart items table">
             <CartWrapper
               classes={classes}
               queryVariables={variables}
