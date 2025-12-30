@@ -33,6 +33,9 @@ yarn-debug.log*
 yarn-error.log*
 error.log
 
+# Ignore test coverage
+coverage/
+
 # Ignore sensitive or private information
 secret.key
 private.pem
@@ -55,7 +58,6 @@ config.ini
 npm-debug.log
 yarn-error.log
 yarn.lock
-package-lock.json
 yarn-error.log
 bower_components/
 *.pid
