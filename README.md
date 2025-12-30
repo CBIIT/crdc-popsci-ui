@@ -1,4 +1,5 @@
 # CRDC Population Sciences
+[![Coverage Status](https://coveralls.io/repos/github/CBIIT/crdc-popsci-ui/badge.svg)](https://coveralls.io/github/CBIIT/crdc-popsci-ui)
 
 CRDC Population Sciences is a React application designed to provide a user-friendly interface for accessing and managing data using various technologies and tools. This project utilizes React v17, Material-UI v4, React Router DOM, GraphQL, and Apollo.
 
