@@ -55,7 +55,6 @@ config.ini
 npm-debug.log
 yarn-error.log
 yarn.lock
-package-lock.json
 yarn-error.log
 bower_components/
 *.pid
