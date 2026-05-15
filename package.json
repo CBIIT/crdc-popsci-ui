@@ -108,7 +108,7 @@
     "workbox-webpack-plugin": "3.6.3"
   },
   "scripts": {
-    "start": "CI=false && PORT=3010 NODE_OPTIONS=--openssl-legacy-provider node scripts/start.js",
+    "start": "CI=false && NODE_OPTIONS=--openssl-legacy-provider node scripts/start.js",
     "build": "CI=false && NODE_OPTIONS='--max-old-space-size=4096 --openssl-legacy-provider' node scripts/build.js",
     "test": "node scripts/test.js",
     "test:ci": "TZ=UTC CI=true node scripts/test.js --passWithNoTests --coverage --maxWorkers=2",
