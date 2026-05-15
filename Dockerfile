@@ -2,11 +2,9 @@ FROM node:20-alpine3.21 AS build
 
 WORKDIR /usr/src/app
 
-COPY package.json package-lock.json ./
+COPY . .
 
 RUN NODE_OPTIONS="--max-old-space-size=4096" npm install --legacy-peer-deps
-
-COPY . .
 
 RUN NODE_OPTIONS="--max-old-space-size=4096" npm run build
 
