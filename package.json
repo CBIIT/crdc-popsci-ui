@@ -3,10 +3,10 @@
   "name": "crdc-popsci-ui",
   "version": "2.0.1",
   "private": true,
-   "engines": {
-      "node": "^20.0.0",
-      "npm": "^10.0.0"
-    },
+  "engines": {
+    "node": "^20.0.0",
+    "npm": "^10.0.0"
+  },
   "dependencies": {
     "@apollo/client": "^3.6.9",
     "@apollo/react-components": "^4.0.0",
