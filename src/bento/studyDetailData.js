@@ -134,6 +134,7 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
       # sort_direction: $sort_direction
     ) {
       study_short_name
+      study_id
 
       personnel {
         person_first_name
