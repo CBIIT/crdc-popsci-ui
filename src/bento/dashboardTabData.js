@@ -6,6 +6,7 @@ import downloadSuccess from '../assets/dash/downloadSuccess.svg'
 import downloadLock from '../assets/dash/downloadLock.svg'
 import previewLarge from '../assets/dash/previewLarge.svg'
 import questionMarkCircle from '../assets/dash/questionMarkCircle.svg'
+import { generateDownloadConfig, downloadJson } from '../utils/fileDownload';
 
 // --------------- Tooltip configuration --------------
 export const tooltipContent = {
@@ -855,6 +856,36 @@ export const GET_FILE_IDS_FROM_FILE_NAME = gql`
           file_id
       }
   }`;
+
+// Custom function used to download the Dashboard tab table
+export const createDownloadTableFunction = (
+  client,
+  filterItems,
+  tableConfig,
+  getColumns
+) => () => {
+  const resolvedFilters = typeof filterItems === 'function' ? filterItems() : filterItems;
+  const queryVariables = { ...(resolvedFilters || {}), offset: 0, first: 10000 };
+
+  return client
+    .query({ query: tableConfig.api, variables: { ...queryVariables } })
+    .then((result) => {
+      if (result.data[tableConfig.paginationAPIField]) {
+        const columns = typeof getColumns === 'function' ? getColumns() : tableConfig.columns;
+        const { keysToInclude, header } = generateDownloadConfig(columns || []);
+
+        if (keysToInclude.length && header.length) {
+          downloadJson(
+            result.data[tableConfig.paginationAPIField],
+            '',
+            tableConfig?.extendedViewConfig?.download?.downloadFileName || 'PSDC_Studies_download',
+            { keysToInclude, header },
+            columns || []
+          );
+        }
+      }
+    });
+};
 
 // --------------- Tabs Table configuration --------------
 export const tabContainers = [

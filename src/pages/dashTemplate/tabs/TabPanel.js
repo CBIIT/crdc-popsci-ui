@@ -1,14 +1,21 @@
-import React from 'react';
+import React, {
+  useContext,
+  useEffect,
+  useRef,
+} from 'react';
 import { Grid, withStyles } from '@material-ui/core';
+import { useApolloClient } from '@apollo/client';
 import { 
+  TableContext,
   TableContextProvider,
   TableView,
 } from '@bento-core/paginated-table';
 import styles from './TabStyle';
 import { themeConfig } from './tableConfig/Theme';
 import { configColumn } from './tableConfig/Column';
+import { createDownloadTableFunction } from '../../../bento/dashboardTabData';
 
-const TabView = (props) => {
+const TabViewContent = (props) => {
   /**
   * initialize state for useReducer
   * @param {*} initailState
@@ -20,6 +27,44 @@ const TabView = (props) => {
     activeFilters,
     activeTab,
   } = props;
+
+  const client = useApolloClient();
+  const tableContext = useContext(TableContext);
+  const { context } = tableContext;
+  const tableColumnsRef = useRef(configColumn(config.columns));
+  const activeFiltersRef = useRef(activeFilters);
+  const downloadTableRef = useRef(null);
+
+  useEffect(() => {
+    activeFiltersRef.current = activeFilters;
+  }, [activeFilters]);
+
+  useEffect(() => {
+    if (context?.columns) {
+      tableColumnsRef.current = context.columns;
+    }
+  }, [context?.columns]);
+
+  if (!downloadTableRef.current && config?.extendedViewConfig?.download) {
+    downloadTableRef.current = createDownloadTableFunction(
+      client,
+      () => activeFiltersRef.current,
+      config,
+      () => tableColumnsRef.current
+    );
+  }
+
+  const columns = configColumn(config.columns);
+  const extendedViewConfig = config?.extendedViewConfig?.download
+    ? {
+      ...config.extendedViewConfig,
+      download: {
+        ...config.extendedViewConfig.download,
+        downloadTable: downloadTableRef.current,
+      },
+    }
+    : config.extendedViewConfig;
+
   /*
   * useReducer table state
   * paginated table update data when state change
@@ -49,13 +94,13 @@ const TabView = (props) => {
     query: config.api,
     paginationAPIField: config.paginationAPIField,
     dataKey: config.dataKey,
-    columns: configColumn(config.columns),
+    columns,
     count: dashboardStats[config.count],
     selectedRows: [],
     tableMsg: config.tableMsg,
     sortBy: config.defaultSortField,
     sortOrder: config.defaultSortDirection,
-    extendedViewConfig: config.extendedViewConfig,
+    extendedViewConfig,
     rowsPerPage: 10,
     page: 0,
   });
@@ -76,5 +121,11 @@ const TabView = (props) => {
     </TableContextProvider>
   );
 };
+
+const TabView = (props) => (
+  <TableContextProvider>
+    <TabViewContent {...props} />
+  </TableContextProvider>
+);
 
 export default withStyles(styles)(TabView);
