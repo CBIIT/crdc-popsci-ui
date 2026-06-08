@@ -26,6 +26,7 @@ import store from '../../../store';
 import { facetsConfig, facetSectionVariables } from '../../../bento/dashTemplate';
 import { facetSectionTooltip } from '../../../bento/dashboardTabData';
 import FacetFilterThemeProvider from './FilterThemeConfig';
+import { getFacetViewDataProps } from './facetViewUtils';
 import styles from './BentoFacetFilterStyle';
 import {
   getAllSubjectIds, getAllIds,
@@ -239,6 +240,7 @@ const BentoFacetFilter = ({
               style={{ fontSize: 26 }}
             />
           )}
+          {...getFacetViewDataProps(facet)}
           id={facet.label}
           className={classes.customExpansionPanelSummaryRootView}
         >
@@ -258,7 +260,7 @@ const BentoFacetFilter = ({
   };
 
   return (
-    <div>
+    <div className={classes.root}>
       <FacetFilterThemeProvider>
         <ClearAllFiltersBtn
           Component={CustomClearAllFiltersBtn}

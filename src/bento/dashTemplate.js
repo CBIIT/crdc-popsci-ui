@@ -75,6 +75,7 @@ export const facetsConfig = [
     sort_type: sortType.ALPHABET,
     show: true,
     defaultValue: DEFAULT_VALUE,
+    hideCountSort: true,
     customCount: () => '', // Hide Study Acronym facet count
   },
   {

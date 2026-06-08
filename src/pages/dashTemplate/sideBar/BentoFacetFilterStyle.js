@@ -1,4 +1,9 @@
 export default () => ({
+  root: {
+    '& [data-hide-count-sort="true"] + div > span:nth-of-type(3)': {
+      display: 'none',
+    },
+  },
   // Clear Facet
   clearAllButtonRoot: {
     margin: 'auto',
