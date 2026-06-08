@@ -1,4 +1,5 @@
 import React from 'react';
+import { useApolloClient } from '@apollo/client';
 import { Grid, withStyles } from '@material-ui/core';
 import { 
   TableContextProvider,
@@ -7,6 +8,7 @@ import {
 import styles from './TabStyle';
 import { themeConfig } from './tableConfig/Theme';
 import { configColumn } from './tableConfig/Column';
+import { downloadJson, generateDownloadConfig } from '../../../utils/fileDownload';
 
 const TabView = (props) => {
   /**
@@ -20,6 +22,42 @@ const TabView = (props) => {
     activeFilters,
     activeTab,
   } = props;
+  const client = useApolloClient();
+  const extendedViewConfig = React.useMemo(() => {
+   if (!config.extendedViewConfig?.download) {
+     return config.extendedViewConfig;
+   }
+
+   return {
+     ...config.extendedViewConfig,
+     download: {
+       ...config.extendedViewConfig.download,
+       downloadTable: () => client
+         .query({
+           query: config.api,
+           variables: {
+             ...activeFilters,
+             offset: 0,
+             first: 10000,
+             order_by: config.defaultSortField,
+             sort_direction: config.defaultSortDirection,
+           },
+         })
+         .then((result) => {
+           const rows = result.data[config.paginationAPIField] || [];
+           const { keysToInclude, header } = generateDownloadConfig(config.columns);
+
+           downloadJson(
+             rows,
+             '',
+             config?.extendedViewConfig?.download?.downloadFileName || 'PSDC_Studies_download',
+             { keysToInclude, header },
+             config.columns,
+           );
+         }),
+     },
+   };
+  }, [activeFilters, client, config]);
   /*
   * useReducer table state
   * paginated table update data when state change
@@ -55,7 +93,7 @@ const TabView = (props) => {
     tableMsg: config.tableMsg,
     sortBy: config.defaultSortField,
     sortOrder: config.defaultSortDirection,
-    extendedViewConfig: config.extendedViewConfig,
+    extendedViewConfig,
     rowsPerPage: 10,
     page: 0,
   });
