@@ -1,4 +1,4 @@
-import { getFilters } from "@bento-core/facet-filter";
+import { getFilters } from '../../bento-core/facet-filter';
 
 export const sortWidgetDataByKey = (array = [], key='group') => {
 	return array.sort((a, b) => {
