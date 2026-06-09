@@ -115,16 +115,18 @@ const FacetView = ({
                 >
                   Sort alphabetically
                 </span>
-                <span
-                  className={clsx(classes.sortGroupItemCounts, {
-                    [classes.highlight]: sortBy === sortType.NUMERIC,
-                  })}
-                  onClick={() => {
-                    onSortFacet(sortType.NUMERIC);
-                  }}
-                >
-                  Sort by count
-                </span>
+                {(!facet.customCount || facet.customCount(0) !== '') && (
+                  <span
+                    className={clsx(classes.sortGroupItemCounts, {
+                      [classes.highlight]: sortBy === sortType.NUMERIC,
+                    })}
+                    onClick={() => {
+                      onSortFacet(sortType.NUMERIC);
+                    }}
+                  >
+                    Sort by count
+                  </span>
+                )}
               </>
             )}
           </div>
