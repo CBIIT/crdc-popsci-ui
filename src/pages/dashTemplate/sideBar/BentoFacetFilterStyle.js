@@ -1,6 +1,8 @@
+import { HIDE_COUNT_SORT_SELECTOR } from './facetViewUtils';
+
 export default () => ({
   root: {
-    '& [data-hide-count-sort="true"] + div > span:nth-of-type(3)': {
+    [`& ${HIDE_COUNT_SORT_SELECTOR}`]: {
       display: 'none',
     },
   },
