@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { Grid, withStyles } from '@material-ui/core';
-import { useQuery } from '@apollo/client';
+import { useApolloClient, useQuery } from '@apollo/client';
 import { 
   TableContextProvider,
   TableView,
@@ -8,6 +8,7 @@ import {
 import styles from './TabStyle';
 import { themeConfig } from './tableConfig/Theme';
 import { configColumn } from './tableConfig/Column';
+import { downloadJson, generateDownloadConfig } from '../../../utils/fileDownload';
 import DataCollected from '../../studyDetail/views/data_collection/data_collection.json';
 
 /**
@@ -42,6 +43,42 @@ const TabView = (props) => {
     activeFilters,
     activeTab,
   } = props;
+  const client = useApolloClient();
+  const extendedViewConfig = useMemo(() => {
+    if (!config.extendedViewConfig?.download) {
+      return config.extendedViewConfig;
+    }
+
+    return {
+      ...config.extendedViewConfig,
+      download: {
+        ...config.extendedViewConfig.download,
+        downloadTable: () => client
+          .query({
+            query: config.api,
+            variables: {
+              ...activeFilters,
+              offset: 0,
+              first: 10000,
+              order_by: config.defaultSortField,
+              sort_direction: config.defaultSortDirection,
+            },
+          })
+          .then((result) => {
+            const rows = result.data[config.paginationAPIField] || [];
+            const { keysToInclude, header } = generateDownloadConfig(config.columns);
+
+            downloadJson(
+              rows,
+              '',
+              config?.extendedViewConfig?.download?.downloadFileName || 'PSDC_Studies_download',
+              { keysToInclude, header },
+              config.columns,
+            );
+          }),
+      },
+    };
+  }, [activeFilters, client, config]);
 
   // Check if any column uses isDataCateColumn (needs client-side sort for correct behavior)
   const hasDataCategoryColumn = useMemo(
@@ -75,7 +112,6 @@ const TabView = (props) => {
       _dataCategoryCount: computeDataCategoryCount(row.data_collection || []),
     }));
   }, [hasDataCategoryColumn, allRowsData, config.paginationAPIField]);
-
   /*
   * useReducer table state
   * paginated table update data when state change
@@ -111,7 +147,7 @@ const TabView = (props) => {
     tableMsg: config.tableMsg,
     sortBy: config.defaultSortField,
     sortOrder: config.defaultSortDirection,
-    extendedViewConfig: config.extendedViewConfig,
+    extendedViewConfig,
     rowsPerPage: 10,
     page: 0,
   });
