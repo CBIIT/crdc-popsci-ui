@@ -87,7 +87,7 @@ export function convertToCSV(jsonse, comments = "", keysToInclude, header, colum
           column._customDownloadRender &&
           typeof column._customDownloadRender === "function"
         ) {
-          fieldValue = column._customDownloadRender(fieldValue);
+          fieldValue = column._customDownloadRender(fieldValue, entry);
         }
 
         // Check if the field value is a string and contains characters that need to be escaped.
