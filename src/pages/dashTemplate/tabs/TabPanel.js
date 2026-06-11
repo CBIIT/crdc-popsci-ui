@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Grid, withStyles } from '@material-ui/core';
+import { useQuery } from '@apollo/client';
 import { 
   TableContextProvider,
   TableView,
@@ -7,6 +8,27 @@ import {
 import styles from './TabStyle';
 import { themeConfig } from './tableConfig/Theme';
 import { configColumn } from './tableConfig/Column';
+import DataCollected from '../../studyDetail/views/data_collection/data_collection.json';
+
+/**
+ * Compute the count of non-zero data collection categories for a study row.
+ * This enables client-side sorting for the "Data Categories" column.
+ */
+const computeDataCategoryCount = (dataCollection = []) => {
+  let nonZeroCount = 0;
+  DataCollected.data_collected.forEach((category) => {
+    const categoryName = Object.keys(category)[0];
+    category[categoryName].forEach((item) => {
+      const matchingData = dataCollection.find(
+        (d) => d.data_collection_category === item,
+      );
+      if (matchingData && matchingData.data_collection_category_annotation_count > 0) {
+        nonZeroCount += 1;
+      }
+    });
+  });
+  return nonZeroCount;
+};
 
 const TabView = (props) => {
   /**
@@ -20,6 +42,40 @@ const TabView = (props) => {
     activeFilters,
     activeTab,
   } = props;
+
+  // Check if any column uses isDataCateColumn (needs client-side sort for correct behavior)
+  const hasDataCategoryColumn = useMemo(
+    () => config.columns.some((col) => col.isDataCateColumn),
+    [config.columns],
+  );
+
+  /*
+   * When the tab has a "Data Categories" column, we fetch all rows at once and
+   * sort client-side.  The server cannot sort by the nested `data_collection`
+   * array field, so client-side sorting is required to honour the user's sort
+   * choice.
+   */
+  const { data: allRowsData } = useQuery(config.api, {
+    variables: {
+      ...activeFilters,
+      first: 10000,
+      offset: 0,
+      order_by: config.defaultSortField,
+      sort_direction: config.defaultSortDirection,
+    },
+    skip: !activeTab || !hasDataCategoryColumn,
+  });
+
+  // Add the pre-computed count to every row so the ClientController can sort by it.
+  const tblRows = useMemo(() => {
+    if (!hasDataCategoryColumn || !allRowsData) return [];
+    const rows = allRowsData[config.paginationAPIField] || [];
+    return rows.map((row) => ({
+      ...row,
+      _dataCategoryCount: computeDataCategoryCount(row.data_collection || []),
+    }));
+  }, [hasDataCategoryColumn, allRowsData, config.paginationAPIField]);
+
   /*
   * useReducer table state
   * paginated table update data when state change
@@ -59,6 +115,25 @@ const TabView = (props) => {
     rowsPerPage: 10,
     page: 0,
   });
+
+  if (hasDataCategoryColumn) {
+    return (
+      <TableContextProvider>
+        <Grid container>
+          <Grid item xs={12} id={config.tableID}>
+            <TableView
+              initState={initTblState}
+              themeConfig={themeConfig}
+              server={false}
+              tblRows={tblRows}
+              totalRowCount={dashboardStats[config.count]}
+              activeTab={activeTab}
+            />
+          </Grid>
+        </Grid>
+      </TableContextProvider>
+    );
+  }
 
   return (
     <TableContextProvider>

@@ -930,7 +930,7 @@ export const tabContainers = [
         tooltipText: 'sort',
       },
       {
-        dataField: 'data_collection',
+        dataField: '_dataCategoryCount',
         header: 'Data Categories',
         display: true,
         tooltipText: 'sort',
