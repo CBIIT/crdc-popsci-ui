@@ -937,7 +937,7 @@ export const tabContainers = [
         tooltipText: 'sort',
         isDataCateColumn: true,
         cellType: cellTypes.CUSTOM_ELEM,
-        _customDownloadRender: formatDataCategoriesSummary,
+        _customDownloadRender: (_, row) => formatDataCategoriesSummary(row?.data_collection),
         dataCateColumnProps:{
           dataField: 'data_collection'
         }
