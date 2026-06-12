@@ -9,7 +9,6 @@ import { Button } from '../../components/Wrappers/Wrappers';
 import { landingPageData } from '../../bento/landingPageData';
 import icon from '../../assets/landing/LP_ReadMore.svg';
 import iconAbout from '../../assets/landing/LP_About_Fullarticle.Arrow.svg';
-import externalLinkIcon from '../../components/About/assets/About-ExternalIcon.svg'
 
 const LandingView = ({ classes, statsData }) => (
   <div className={classes.page}>
@@ -60,15 +59,10 @@ const LandingView = ({ classes, statsData }) => (
                 />
               </div>
               <h2 className={classes.DCWords} id="tile1_title">
-                {/* // TODO:- Create new function
-                landingPageData.tile1.titleText.match(/\b(\w+)\b/g).map((word) => (
-                  <>
-                    {word}
-                    <br />
-                  </>
-                ))*/}
                 About <br/>
-                Population Science <br />
+                Population<br/>
+           
+                Science <br />
                 Data Common <br/>
               </h2>
               <div className={classes.aboutContent} id="tile1_description">
@@ -177,11 +171,6 @@ const LandingView = ({ classes, statsData }) => (
                     dangerouslySetInnerHTML={{
                       __html: landingPageData.tile4.descriptionText,
                     }}
-                  />
-                  <img
-                    src={externalLinkIcon}
-                    className={classes.externalLinkIcon}
-                    alt="outbounnd web site icon"
                   />
                 </div>
               </div>
@@ -376,7 +365,7 @@ const styles = (theme) => ({
   },
 
   aboutImage: {
-    width: '297px',
+    width: '315px',
     height: '249px',
     padding: '14px',
   },
@@ -384,15 +373,15 @@ const styles = (theme) => ({
     height: '249px',
   },
   DCWords: {
-    height: '144px',
+    height: '210px',
     background: '#480B5E',
     color: '#FFFFFF',
-    fontSize: '26px',
+    fontSize: '30px',
     fontWeight: 300,
     textTransform: 'capitalize',
-    lineHeight: '27.7px',
+    lineHeight: '33px',
     letterSpacing: '-0.02em',
-    padding: '30px 23px 30px 30px',
+    padding: '40px 23px 30px 30px',
     fontFamily: 'Poppins',
     margin: 0,
     border: 0,
@@ -419,14 +408,14 @@ const styles = (theme) => ({
     },
   },
   about: {
-    width: '300px',
+    width: '315px',
     backgroundColor: '#E0DBD3',
     [theme.breakpoints.down('sm')]: {
       width: '100%',
     },
   },
   image: {
-    width: '293px',
+    width: '315px',
     height: '249px',
     [theme.breakpoints.down('sm')]: {
       width: '100%',
@@ -435,8 +424,8 @@ const styles = (theme) => ({
   },
   aboutContent: {
     background: '#E0DBD3',
-    minHeight: '372px',
-    width: '300px',
+    minHeight: '392px',
+    width: '315px',
     padding: '30px 30px 32px 30px',
     color: '#000000',
     fontFamily: 'Nunito',
@@ -563,7 +552,7 @@ const styles = (theme) => ({
   contentRightBottom: {
     position: 'relative',
     float: 'left',
-    width: '597px',
+    width: '640px',
     background: '#fff',
     [theme.breakpoints.down('sm')]: {
       float: 'none',
@@ -574,7 +563,7 @@ const styles = (theme) => ({
   },
   tile4BackgroundImage: {
     width: '100%',
-    height: '403px',
+    height: '403px', // 370px
     objectFit: 'cover',
     position: 'absolute',
     top: 0,
