@@ -59,25 +59,6 @@ jobs:
       run: |
         docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
 
-    - name: Set Trivy exit code
-      run: |
-        if  [[ ${{ inputs.fail_on_trivy_scan }} == true ]];
-        then
-          echo 'TRIVY_EXIT_CODE=1' >> $GITHUB_ENV
-        else
-          echo 'TRIVY_EXIT_CODE=0' >> $GITHUB_ENV
-        fi
-
-    - name: Run Trivy vulnerability scanner
-      id: trivy-scan
-      uses: aquasecurity/trivy-action@b2933f565dbc598b29947660e66259e3c7bc8561
-      with:
-        image-ref: '${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}'
-        format: 'table'
-        exit-code: '${{ env.TRIVY_EXIT_CODE }}'
-        ignore-unfixed: true
-        severity: 'MEDIUM,HIGH,CRITICAL'
-
     - name: Run ClamAV virus scanner
       run: |
         # Export the container filesystem to a temporary directory for scanning
@@ -111,6 +92,59 @@ jobs:
           --exclude-dir="^/sys" \
           /tmp/image-scan
       continue-on-error: false
+
+    - name: Set Trivy exit code
+      run: |
+        if  [[ ${{ inputs.fail_on_trivy_scan }} == true ]];
+        then
+          echo 'TRIVY_EXIT_CODE=1' >> $GITHUB_ENV
+        else
+          echo 'TRIVY_EXIT_CODE=0' >> $GITHUB_ENV
+        fi
+
+    - name: Run Trivy vulnerability scanner
+      id: trivy-scan
+      uses: aquasecurity/trivy-action@b2933f565dbc598b29947660e66259e3c7bc8561
+      with:
+        image-ref: '${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}'
+        format: 'table'
+        exit-code: '${{ env.TRIVY_EXIT_CODE }}'
+        ignore-unfixed: true
+        severity: 'MEDIUM,HIGH,CRITICAL'
+
+    # - name: Run ClamAV virus scanner
+    #   run: |
+    #     # Export the container filesystem to a temporary directory for scanning
+    #     docker save $ECR_REPOSITORY:$IMAGE_TAG | docker run --rm -i \
+    #       -v /tmp/image-scan:/scan-target \
+    #       alpine sh -c "
+    #         cat > /tmp/image.tar &&
+    #         mkdir -p /scan-target &&
+    #         cd /scan-target &&
+    #         tar xf /tmp/image.tar
+    #       "
+
+    #     # Install ClamAV
+    #     sudo apt-get update -qq
+    #     sudo apt-get install -y clamav clamav-freshclam
+
+    #     # Stop the service if running to unlock the DB
+    #     sudo systemctl stop clamav-freshclam 2>/dev/null || true
+
+    #     # Update virus definitions
+    #     sudo freshclam
+
+    #     # Scan the unpacked image layers
+    #     clamscan \
+    #       --recursive \
+    #       --infected \
+    #       --detect-pua=yes \
+    #       --max-filesize=500M \
+    #       --max-scansize=1G \
+    #       --exclude-dir="^/proc" \
+    #       --exclude-dir="^/sys" \
+    #       /tmp/image-scan
+    #   continue-on-error: false
     
     - name: AWS OIDC Authentication
       uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502
