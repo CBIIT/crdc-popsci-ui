@@ -62,7 +62,7 @@ jobs:
     - name: Run ClamAV virus scanner
       run: |
         # Export the container filesystem to a temporary directory for scanning
-        docker save $ECR_REPOSITORY:$IMAGE_TAG | docker run --rm -i \
+        docker save ${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }} | docker run --rm -i \
           -v /tmp/image-scan:/scan-target \
           alpine sh -c "
             cat > /tmp/image.tar &&
