@@ -79,6 +79,7 @@ jobs:
         severity: 'MEDIUM,HIGH,CRITICAL'
 
     - name: Run ClamAV virus scanner
+      id: clamav-scan
       run: |
         # Install ClamAV
         sudo apt-get update -qq
