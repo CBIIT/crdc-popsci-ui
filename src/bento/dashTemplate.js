@@ -1,5 +1,5 @@
 import React from 'react';
-import { sortType, InputTypes } from '@bento-core/facet-filter';
+import { sortType, InputTypes } from '../bento-core/facet-filter';
 import { DEFAULT_VALUE } from './siteWideConfig';
 import reset_icon from '../assets/dash/resetIcon.svg'
 import { Box, Typography } from '@material-ui/core';

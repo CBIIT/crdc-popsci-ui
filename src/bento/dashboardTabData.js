@@ -6,6 +6,7 @@ import downloadSuccess from '../assets/dash/downloadSuccess.svg'
 import downloadLock from '../assets/dash/downloadLock.svg'
 import previewLarge from '../assets/dash/previewLarge.svg'
 import questionMarkCircle from '../assets/dash/questionMarkCircle.svg'
+import { formatDataCategoriesSummary } from '../pages/dashTemplate/tabs/tableConfig/dataCategories';
 
 // --------------- Tooltip configuration --------------
 export const tooltipContent = {
@@ -930,12 +931,13 @@ export const tabContainers = [
         tooltipText: 'sort',
       },
       {
-        dataField: 'data_collection',
+        dataField: '_dataCategoryCount',
         header: 'Data Categories',
         display: true,
         tooltipText: 'sort',
         isDataCateColumn: true,
         cellType: cellTypes.CUSTOM_ELEM,
+        _customDownloadRender: (_, row) => formatDataCategoriesSummary(row?.data_collection),
         dataCateColumnProps:{
           dataField: 'data_collection'
         }
