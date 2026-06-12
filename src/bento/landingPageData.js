@@ -46,7 +46,7 @@ export const landingPageData = {
     alt: 'Abstract image of hand holding 2 dimensional images of people',
     img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/Popsci_Cases.png',
     titleText: 'Submit Data',
-  descriptionText: 'To get started with a submission please submit a request on the <a href="https://datacommons.cancer.gov/submit">CRDC Submission Portal</a> ',
+  descriptionText: 'To get started with a submission please submit a request on the <a href="https://datacommons.cancer.gov/submit" target="_blank">CRDC Submission Portal</a> ',
   },
 };
 
