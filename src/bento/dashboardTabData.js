@@ -904,30 +904,35 @@ export const tabContainers = [
         header: 'Enrollment Period',
         display: true,
         tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
       },
       {
         dataField: 'study_period',
         header: 'Study Period',
         display: true,
         tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
       },
       {
         dataField: 'study_design',
         header: 'Study Design',
         display: true,
         tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
       },
       {
         dataField: 'study_status',
         header: 'Study Status',
         display: true,
         tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
       },
       {
         dataField: 'primary_diagnosis_disease_count',
         header: 'Cancer Types',
         display: true,
         tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
       },
       {
         dataField: '_dataCategoryCount',
@@ -936,6 +941,7 @@ export const tabContainers = [
         tooltipText: 'sort',
         isDataCateColumn: true,
         cellType: cellTypes.CUSTOM_ELEM,
+        role: cellTypes.DISPLAY,
         _customDownloadRender: (_, row) => formatDataCategoriesSummary(row?.data_collection),
         dataCateColumnProps:{
           dataField: 'data_collection'
@@ -946,12 +952,14 @@ export const tabContainers = [
         header: 'Biospecimens',
         display: true,
         tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
       },
       {
         dataField: 'participant_age_range',
         header: 'Enrollment Age',
         display: true,
         tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
       },
       {
         dataField: 'number_of_participants',
