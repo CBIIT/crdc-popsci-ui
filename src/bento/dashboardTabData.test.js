@@ -1,4 +1,5 @@
 import { tabContainers } from './dashboardTabData';
+import { cellTypes } from '@bento-core/table';
 
 describe('dashboardTabData', () => {
   it('keeps protected studies columns out of View Columns while remaining visible', () => {
@@ -8,7 +9,7 @@ describe('dashboardTabData', () => {
     protectedHeaders.forEach((header) => {
       const column = studiesTab.columns.find((col) => col.header === header);
       expect(column.display).toBe(true);
-      expect(column.viewColumns).toBe(false);
+      expect(column.role).not.toBe(cellTypes.DISPLAY);
     });
   });
 });
