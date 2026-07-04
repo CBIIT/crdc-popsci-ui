@@ -121,6 +121,7 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
       data_collection {
         data_collection_category
         data_collection_category_annotation_count
+        data_collection_category_assessed
       }
     }
 
