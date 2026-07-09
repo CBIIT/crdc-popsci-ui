@@ -1,8 +1,9 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import FooterData from '../../config/globalFooterData';
+import { Link } from 'react-router-dom';
 
-const FooterStyled = styled.footer`
+const FooterStyled = styled.div`
   background-color: #1B496E;
   bottom: 0;
   width: 100%;
@@ -21,7 +22,7 @@ const FooterContainer = styled.div`
 const FooterEmailSignupContainer = styled.form`
   padding: 1rem 1rem 2rem 1rem;
   .signUpTitle {
-    font-family: poppins;
+    font-family: 'Poppins';
     font-weight: 700;
     font-size: 22.88px;
     line-height: 34px;
@@ -30,7 +31,7 @@ const FooterEmailSignupContainer = styled.form`
   }
 
   .enterTitle {
-    font-family: Open Sans;
+    font-family: 'Open Sans';
     font-weight: 400;
     font-size: 16px;
     line-height: 22px;
@@ -55,7 +56,7 @@ const FooterEmailSignupContainer = styled.form`
     border-radius: 8px;
     border: 0;
     padding: 9px 16px;
-    font-family: Open Sans;
+    font-family: 'Open Sans';
     font-weight: 700;
     font-size: 16px;
     line-height: 22px;
@@ -118,6 +119,18 @@ const FooterLinksContainer = styled.div`
   .footItemLink:hover {
     text-decoration: underline;
   }
+  .footItemText {
+    font-family: Open Sans;
+    color: #FFFFFF;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+  }
+  
+  .footItemText:hover {
+    text-decoration: none !important;
+  }
+
 
   .dropbtn {
     display:flex;
@@ -149,7 +162,7 @@ const FooterLinksContainer = styled.div`
     z-index: 1;
   }
 
-  .dropdown-content a {
+  .dropdown-content a, span{
     color: white;
     padding: 0 0 1rem 1rem;
     text-decoration: none;
@@ -328,7 +341,7 @@ const FooterMobile = () => {
 
   return (
     <>
-      <FooterStyled role="contentinfo">
+      <FooterStyled>
         <FooterContainer>
           <FooterLinksContainer>
             {
@@ -347,9 +360,11 @@ const FooterMobile = () => {
                         linkItem.items.map((item, itemidx) => {
                           const itemkey = `item_${itemidx}`;
                           return (
-                            item.link.includes('http')
-                              ? <a className="footItemLink" key={itemkey} href={item.link} target="_blank" rel="noopener noreferrer">{item.text}</a>
-                              : <a className="footItemLink" key={itemkey} href={item.link}>{item.text}</a>
+                            item.link
+                              ? item.link.includes('http')
+                                ? <a className="footItemLink" key={itemkey} href={item.link} target="_blank" rel="noopener noreferrer">{item.text}</a>
+                                : <Link className="footItemLink" key={itemkey} to={item.link}>{item.text}</Link>
+                              : <span className="footItemText" key={itemkey}>{item.text}</span>
                           );
                         })
                       }

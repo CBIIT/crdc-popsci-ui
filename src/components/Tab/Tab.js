@@ -42,6 +42,9 @@ const TabItems = ({
         value={currentTab}
         TabIndicatorProps={{ style: { background: 'none' } }}
         orientation={orientation}
+        variant="scrollable"
+        scrollButtons="auto"
+        allowScrollButtonsMobile
       >
         {TABs}
       </Tabs>

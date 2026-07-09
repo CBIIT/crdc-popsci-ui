@@ -9,14 +9,14 @@ export const headerData = {
   globalHeaderLogo: Logo,
   globalHeaderLogoSmall: LogoSmall,
   globalHeaderLogoLink: '/',
-  globalHeaderLogoAltText: 'Portal Logo',
+  globalHeaderLogoAltText: 'National Cancer Institute Population Sciences logo',
   globalHeaderSearchIcon: searchbarIcon,
   globalHeaderSearchIconAltText: 'search Icon',
   usaFlagSmall,
   usaFlagSmallAltText: 'usaFlagSmall',
 };
 
-export const navMobileList = [
+export const navDesktopList = [
   {
     name: 'Home',
     link: '/',
@@ -29,21 +29,49 @@ export const navMobileList = [
     id: 'navbar-link-explore',
     className: 'navMobileItem',
   },
-  // {
-  //   name: 'About',
-  //   link: '',
-  //   id: 'navbar-dropdown-about',
-  //   className: 'navMobileItem clickable',
-  // },
+  {
+    name: 'About',
+    link: '',
+    id: 'navbar-dropdown-about',
+    className: 'navMobileItem clickable',
+  },
+];
+
+export const navMobileList = [
+  ...navDesktopList,
+  {
+    name: 'Cart',
+    link: '/fileCentricCart',
+    id: 'navbar-dropdown-cart',
+    className: 'navMobileItem',
+  },
 ];
 
 export const navbarSublists = {
   // Example of how to do a navMobileSubTitle and subtext
   About: [
     {
-      name: 'Purpose',
-      link: '/purpose',
-      id: 'navbar-dropdown-item-purpose',
+      name: 'About',
+      link: '/about',
+      id: 'navbar-dropdown-item-about',
+      className: 'navMobileSubItem',
+    },
+    {
+      name: 'Access Data',
+      link: '/access_data',
+      id: 'navbar-dropdown-item-access-data',
+      className: 'navMobileSubItem',
+    },
+    {
+      name: 'Analyze Data',
+      link: '/analyze_data',
+      id: 'navbar-dropdown-item-analyze-data',
+      className: 'navMobileSubItem',
+    },
+    {
+      name: 'Support',
+      link: '/support',
+      id: 'navbar-dropdown-item-support',
       className: 'navMobileSubItem',
     }
   ],

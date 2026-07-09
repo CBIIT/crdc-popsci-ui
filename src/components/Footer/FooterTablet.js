@@ -1,8 +1,9 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import FooterData from '../../config/globalFooterData';
+import { Link } from 'react-router-dom';
 
-const FooterStyled = styled.footer`
+const FooterStyled = styled.div`
   background-color: #1B496E;
   border-top: 1px solid #6C727B;
   bottom: 0;
@@ -123,6 +124,14 @@ const FooterLinksContainer = styled.div`
 
   .footItemLink:hover {
     text-decoration: underline;
+  }
+  
+  .footItemText {
+    font-family: Open Sans;
+    color: #FFFFFF;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
   }
 `;
 
@@ -278,7 +287,7 @@ const FooterTablet = () => {
   };
   return (
     <>
-      <FooterStyled role="contentinfo">
+      <FooterStyled>
         <FooterContainer>
           <FooterLinksContainer>
             {
@@ -293,9 +302,11 @@ const FooterTablet = () => {
                         return (
                           <div className="footItemSubtitle" key={itemkey}>
                             {
-                              item.link.includes('http')
-                                ? <a className="footItemLink" href={item.link} target="_blank" rel="noopener noreferrer">{item.text}</a>
-                                : <a className="footItemLink" href={item.link}>{item.text}</a>
+                              item.link 
+                                ? item.link.includes('http') 
+                                  ? <a className="footItemLink" href={item.link} target="_blank" rel="noopener noreferrer">{item.text}</a>
+                                  : <Link className="footItemLink" to={item.link}>{item.text}</Link>
+                                : <span className="footItemText">{item.text} </span>
                             }
                           </div>
                         );

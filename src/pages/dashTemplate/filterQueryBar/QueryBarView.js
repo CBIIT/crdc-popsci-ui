@@ -74,6 +74,23 @@ const QueryBarView = ({ data, statusReducer, localFind }) => {
         overflowY: 'auto',
         border: '1px solid #D4D6D7'
       },
+      clearQueryButton: {
+        margin: '1px',
+        marginLeft: -6,
+        fontWeight: 600,
+        fontSize: '13px',
+        color: '#fff',
+        borderRadius: '15px',
+        fontFamily: 'Nunito',
+        boxSizing: 'border-box',
+        backgroundColor: '#646464',
+        textTransform: 'capitalize',
+        border: '1px solid #B4B4B4',
+        padding: '1px 5px 0px 6px',
+        '&:hover': {
+          backgroundColor: '#646464',
+        },
+      }
     }
   });
 

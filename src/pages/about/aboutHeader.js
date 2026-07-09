@@ -5,7 +5,7 @@ const AboutHeader = ({ classes, title }) => (
   <div className={classes.container}>
     <div className={classes.header}>
       <div className={classes.slope} />
-      <div className={classes.slope2}><span className={classes.slope2Text}>{title}</span></div>
+      <div className={classes.slope2}><h1 className={classes.slope2Text}>{title}</h1></div>
     </div>
   </div>
 );
@@ -24,6 +24,10 @@ const styles = () => ({
     fontWeight: 'bold',
     letterSpacing: '0.025em',
     lineHeight: '65px',
+    margin: 0,
+    padding: 0,
+    border: 0,
+    display: 'inline',
   },
   slope: {
     background: '#087CA5',

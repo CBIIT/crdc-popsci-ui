@@ -44,15 +44,15 @@ const Header = () => {
   const path = useLocation().pathname;
   
   return (
-    <HeaderBanner role="banner">
+    <HeaderBanner>
       <HeaderContainer theme={theme}>
         <Logo />
         <div className="headerLowerContainer">
           { path !== "/sitesearch" && <div className="searchBarArea"><SearchBar /></div> }
         </div>
       </HeaderContainer>
-   
-      <div className="navbarContainer"><NavBar /></div>
+
+      <nav className="navbarContainer" role="navigation" aria-label="Primary Navigation"><NavBar /></nav>
       <div className="shadow"> </div>
     </HeaderBanner>
   );

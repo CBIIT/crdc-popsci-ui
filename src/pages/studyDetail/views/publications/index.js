@@ -88,75 +88,70 @@ const CustomCard = ({ classes, publication_title, authorship, year_of_publicatio
       {publication_title}
     </Typography>
     <Grid container>
-       <Grid item sm={4} md={4} >
-           <Typography className={classes.content} variant="body2">
-        <span className={classes.label}>AUTHORSHIP</span>: 
-      </Typography>
+      <Grid item sm={4} md={4} >
+        <Typography className={classes.content} variant="body2">
+          <span className={classes.label}>AUTHORSHIP</span>: 
+        </Typography>
+      </Grid>
+      <Grid item sm={7} md={7} >
+        <Typography className={classes.content} variant="body2">
+          {authorship || ''}
+        </Typography>
+      </Grid>
+    </Grid>
+
+    <Grid container>
+      <Grid item sm={4} md={4} >
+        <Typography className={classes.content} variant="body2">
+          <span className={classes.label}>YEAR OF PUBLICATION</span>: 
+        </Typography>
+      </Grid>
+      <Grid item sm={7} md={7} >
+        <Typography className={classes.content} variant="body2">
+          {year_of_publication || ''}
+        </Typography>
+      </Grid>
+    </Grid>
+
+    <Grid container>
+      <Grid item sm={4} md={4} >
+          <Typography className={classes.content} variant="body2">
+            <span className={classes.label}>JOURNAL</span>: 
+          </Typography>
       </Grid>
       <Grid item sm={7} md={7} >
          <Typography className={classes.content} variant="body2">
-        {authorship || ''}
-      </Typography>
+          {journal_citation || ''}
+        </Typography>
       </Grid>
     </Grid>
-
-     <Grid container>
-       <Grid item sm={4} md={4} >
-           <Typography className={classes.content} variant="body2">
-        <span className={classes.label}>YEAR OF PUBLICATION</span>: 
-      </Typography>
-      </Grid>
-       <Grid item sm={7} md={7} >
-         <Typography className={classes.content} variant="body2">
-        {year_of_publication || ''}
-      </Typography>
-      </Grid>
-    </Grid>
-
-     <Grid container>
-       <Grid item sm={4} md={4} >
-           <Typography className={classes.content} variant="body2">
-        <span className={classes.label}>JOURNAL</span>: 
-      </Typography>
-      </Grid>
-       <Grid item sm={7} md={7} >
-         <Typography className={classes.content} variant="body2">
-        {journal_citation || ''}
-      </Typography>
-      </Grid>
-    </Grid>
-
-       <Grid container>
-       <Grid item sm={4} md={4} >
-           <Typography className={classes.content} variant="body2">
-        <span className={classes.label}>DOI</span>: 
-      </Typography>
-      </Grid>
-       <Grid item sm={7} md={7} >
-         <Typography className={classes.content} variant="body2">
-         {digital_object_id ? (
-        <Link className={classes.link} href={`https://doi.org/${digital_object_id}`} target="_blank" rel="noopener noreferrer">{digital_object_id}<StyledExternalLinkIcon/> </Link>
-        ) : (
-          ''
-        )}
-      </Typography>
-      </Grid>
-    </Grid>
-
-      <Grid container>
+    <Grid container>
       <Grid item sm={4} md={4} >
-           <Typography className={classes.content} variant="body2">
-        <span className={classes.label}>PubMed ID</span>: 
-      </Typography>
+        <Typography className={classes.content} variant="body2">
+          <span className={classes.label}>DOI</span>: 
+        </Typography>
       </Grid>
-       <Grid item sm={7} md={7} >
-         <Typography className={classes.content} variant="body2">
-          {pubmed_id ? (
-        <Link className={classes.link} href={`https://pubmed.ncbi.nlm.nih.gov/${pubmed_id}`} target="_blank" rel="noopener noreferrer">{pubmed_id}<StyledExternalLinkIcon/> </Link>
-        ) : (
-          ''
-        )}
-      </Typography>
+      <Grid item sm={7} md={7} >
+        <Typography className={classes.content} variant="body2">
+          {digital_object_id ? (
+            <Link className={classes.link} href={`https://doi.org/${digital_object_id}`} target="_blank" rel="noopener noreferrer">{digital_object_id}<StyledExternalLinkIcon/> </Link>
+          ) : null}
+        </Typography>
+      </Grid>
+    </Grid>
+
+    <Grid container>
+      <Grid item sm={4} md={4} >
+        <Typography className={classes.content} variant="body2">
+          <span className={classes.label}>PubMed ID</span>: 
+        </Typography>
+      </Grid>
+      <Grid item sm={7} md={7} >
+        <Typography className={classes.content} variant="body2">
+          {Number(pubmed_id) > 0 ? (
+            <Link className={classes.link} href={`https://pubmed.ncbi.nlm.nih.gov/${pubmed_id}`} target="_blank" rel="noopener noreferrer">{pubmed_id}<StyledExternalLinkIcon/> </Link>
+          ) : null}
+        </Typography>
       </Grid>
     </Grid>
   </Grid>

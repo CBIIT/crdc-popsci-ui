@@ -1,3 +1,5 @@
+import { getFilters } from "@bento-core/facet-filter";
+
 export const sortWidgetDataByKey = (array = [], key='group') => {
 	return array.sort((a, b) => {
 		let valueA = a[key];
@@ -55,7 +57,7 @@ const boundMapping = {
 	The ideal solution will involve using `absoluteMinimum` and `absoluteMaximum` 
 	instead of fixed lower and upper bounds, allowing the slider to adjust dynamically.
 */
-export const updateSliderData = (searchStudiesData, minMaxBoundQuery, key) => {
+export const updateSliderData = (searchStudiesData, minMaxBoundQuery, key, limitUpperBoundToCurrentYear = false) => {
 	const minBoundKey = boundMapping[key].min;
 	const maxBoundKey = boundMapping[key].max;
 	
@@ -63,8 +65,11 @@ export const updateSliderData = (searchStudiesData, minMaxBoundQuery, key) => {
 	const { upperBound: absoluteMaximum, subjects: maxSubjects } = searchStudiesData?.[maxBoundKey] || {};
 
 	const lowerBound = minMaxBoundQuery?.[0]?.[boundMapping[key].lower] || absoluteMinimum;
-	const upperBound = minMaxBoundQuery?.[0]?.[boundMapping[key].upper] || absoluteMaximum;
+	let upperBound = minMaxBoundQuery?.[0]?.[boundMapping[key].upper] || absoluteMaximum;
 
+	if (limitUpperBoundToCurrentYear) {
+		if (upperBound > new Date().getFullYear()) upperBound = new Date().getFullYear()
+	}
 	return {
 		[key]: {
 			lowerBound,
@@ -72,4 +77,61 @@ export const updateSliderData = (searchStudiesData, minMaxBoundQuery, key) => {
 			subjects: Math.max(minSubjects || 0, maxSubjects || 0),
 		},
 	};
+};
+
+// Helper Function to prepare active filters for the query
+export const prepareActiveFilters = (filterState, localFindUpload, localFindAutocomplete, dashData) => {
+	const activeFilters = {
+	  ...getFilters(filterState),
+	  subject_ids: [
+		...(localFindUpload || []).map((obj) => obj.subject_id),
+		...(localFindAutocomplete || []).map((obj) => obj.title),
+	  ],
+	};
+  
+	/* 
+	  Apply additional filters based on the current dashboard data (dashData) and user filter selections. 
+	  The checks ensure that filters are only applied when they differ from the default dataset boundaries, 
+	  avoiding unnecessary filters.
+	*/
+	if (dashData) {
+  
+	  /*
+	  	Apply *** Enrollment Period *** filters
+	   	(enrollmentPeriodMin and enrollmentPeriodMax) => enrollmentPeriod
+	    enrollment_year => (enrollment_beginning_year and enrollment_ending_year)
+	  */
+	  if (filterState?.enrollment_year?.[0] > dashData?.enrollmentPeriod?.lowerBound) {
+		activeFilters.enrollment_beginning_year = filterState?.enrollment_year || [];
+	  }
+	  if (filterState?.enrollment_year?.[1] < dashData?.enrollmentPeriod?.upperBound) {
+		activeFilters.enrollment_ending_year = filterState?.enrollment_year || [];
+	  }
+  
+	  /*
+	  	Apply *** Study Period *** filters
+	   	(studyPeriodMin and studyPeriodMax) => studyPeriod
+	    study_year => (study_beginning_year and study_ending_year)
+	  */
+	  if (filterState?.study_year?.[0] > dashData?.studyPeriod?.lowerBound) {
+		activeFilters.study_beginning_year = filterState?.study_year || [];
+	  }
+	  if (filterState?.study_year?.[1] < dashData?.studyPeriod?.upperBound) {
+		activeFilters.study_ending_year = filterState?.study_year || [];
+	  }
+  
+	  /*
+	  	Apply *** Age at Enrollment *** filters
+	   	(participantAgeAtEnrollmentMin and participantAgeAtEnrollmentMax) => ageAtEnrollment
+	    study_participant_age => (study_participant_minimum_age and study_participant_maximum_age)
+	  */
+	  if ( filterState?.study_participant_age?.[0] > dashData?.ageAtEnrollment?.lowerBound) {
+		activeFilters.study_participant_minimum_age = filterState?.study_participant_age || [];
+	  }
+	  if ( filterState?.study_participant_age?.[1] < dashData?.ageAtEnrollment?.upperBound) {
+		activeFilters.study_participant_maximum_age = filterState?.study_participant_age || [];
+	  }
+	}
+  
+	return activeFilters;
 };

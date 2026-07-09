@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { useGlobal } from '../../Global/GlobalProvider';
 import { useAuth } from '../../Authentication';
 import CartContainer from '../../Cart/CartContainer';
-import { navMobileList, navbarSublists } from '../../../config/globalHeaderData';
+import { navDesktopList, navbarSublists } from '../../../config/globalHeaderData';
 import { useTheme } from '../../ThemeContext';
 import themes from '../../../themes/index';
 
@@ -369,7 +369,7 @@ const NavBar = () => {
   const [clickedTitle, setClickedTitle] = useState("");
   const dropdownSelection = useRef(null);
   const nameDropdownSelection = useRef(null);
-  const clickableObject = navMobileList.filter((item) => item.className === 'navMobileItem clickable');
+  const clickableObject = navDesktopList.filter((item) => item.className === 'navMobileItem clickable');
   const clickableTitle = clickableObject.map((item) => item.name);
   const displayName = authData.name || "N/A";
   const [isSignedIn, setIsSignedIn] = useState(authData.name?authData.isSignedIn:false);
@@ -430,7 +430,7 @@ const NavBar = () => {
       <NavContainer theme={theme}>
         <UlContainer>
           {
-            navMobileList.map((navMobileItem, idx) => {
+            navDesktopList.map((navMobileItem, idx) => {
               const navkey = `nav_${idx}`;
               return (
                 navMobileItem.className === 'navMobileItem'
@@ -488,6 +488,7 @@ const NavBar = () => {
               </CartSpan> 
               ):(
          <CartSpan>
+                <CartContainer />
         </CartSpan> 
         )}
       </NavContainer>

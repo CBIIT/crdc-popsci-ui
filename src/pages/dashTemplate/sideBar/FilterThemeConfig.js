@@ -136,7 +136,7 @@ const theme = {
       root: {
         // Target the space between group and subjects
         '&.filter_by_studies_md_space, &.filter_by_participants_md_space': {
-          display: 'none !important',
+          // display: 'none !important',
         },
       },
     },

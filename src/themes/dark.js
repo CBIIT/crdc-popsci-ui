@@ -26,7 +26,7 @@ const white = '#FFFFFF';
 
 export default {
   custom: {
-    maxContentWidth: '1440px',
+    maxContentWidth: '1900px',
     maxContent: 'white',
     bodyBackGround: '#FFFFFF',
     cardBackGround: '#f0f6f8',
@@ -35,7 +35,18 @@ export default {
     fontFamily: 'Lato,"Open Sans", sans-serif',
     fontFamilyRaleway: "'Raleway', sans-serif",
     drawerWidth: '240px',
-    widgetDivider: '#181918',
+    widgetDivider: '#181918',    
+    breakpoints: { 
+      values: {
+        xs: 0,
+        sm: 600,
+        md: 960,
+        lg: 1440,
+        xl: 1900,
+        customSm: 800, // Custom breakpoint for sm used for Studies page
+        customMd: 1100, // Custom breakpoint for md used for Studies page
+      },
+    },
   },
   palette: {
     primary: {

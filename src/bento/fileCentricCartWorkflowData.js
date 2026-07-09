@@ -1,10 +1,16 @@
 import gql from 'graphql-tag';
-import { cellTypes, dataFormatTypes } from '@bento-core/table';
-import { types, btnTypes } from '@bento-core/paginated-table';
-import { customMyFilesTabDownloadCSV } from './tableDownloadCSV';
-import CustomFooterMessage from '../pages/cart/tableConfig/CustomFooterMessage';
+import { cellTypes, dataFormatTypes, formatBytes, headerTypes } from '@bento-core/table';
+import { types } from '@bento-core/paginated-table';
 import cartPageIcon from '../assets/cart/cartPageIcon.svg'
+import openPadlockIcon from '../assets/study/openPadlockIcon.svg';
+import lockedPadlockIcon from '../assets/study/lockedPadlockIcon.svg';
 
+import directDownloadIcon from '../assets/study/directDownloadIcon.svg';
+import cloudOnlyAccessIcon from '../assets/study/cloudOnlyAccessIcon.svg';
+// import CustomFooterMessage from '../pages/fileCentricCart/tableConfig/CustomFooterMessage';
+import { generateDownloadConfig, downloadJson } from '../utils/fileDownload';
+
+export const getManifestFileSignedUrlEndPoint = 'get-manifest-file-signed-url'
 export const navBarCartData = {
   cartLabel: 'Cart',
   cartLink: '/fileCentricCart',
@@ -28,213 +34,147 @@ export const tooltipContent = {
   },
 };
 
-//BENTO-2455 Configuration set for Bento 4.0.
 export const myFilesPageData = {
-  manifestFileName: 'CTDC File Manifest',
+  manifestFileName: 'PSDC File Manifest',
   tooltipIcon: 'https://raw.githubusercontent.com/google/material-design-icons/master/src/action/help/materialicons/24px.svg',
   tooltipAlt: 'tooltip icon',
   tooltipMessage: 'To access and analyze files: select and remove unwanted files,  click the “Download Manifest” button, and upload the resulting Manifest file to your Seven Bridges Genomics account.',
   errorMessage: 'An error has occurred in loading CART',
   layout: [
     {
-      container: 'outer_layout',
+      container: 'paginatedTable',
+      paginatedTable: true,
+    },
+    // {
+    //   container: 'instruction',
+    //   clsName: 'container_footer',
+    //   items: [
+    //     {
+    //       clsName: 'text_instruction',
+    //       type: types.CUSTOM_ELEM,
+    //       customViewElem: CustomFooterMessage,
+    //     }
+    //   ],
+    // },
+    {
+      container: 'buttons',
       size: 'xl',
-      clsName: 'container_outer_layout',
+      clsName: 'container_footer',
       items: [
         {
-          clsName: 'cart_icon',
-          type: types.ICON,
-          src: cartPageIcon,
-          alt: 'CTDC MyFiles header logo',
-        },
-        {
-          clsName: 'cart_header_text',
-          text: 'Cart >',
-          type: types.TEXT,
-        },
-        {
-          clsName: 'cart_sel_files_text',
-          text: 'Selected Files',
-          type: types.TEXT,
-        },
+          clsName: 'manifest_comments',
+          type: types.TEXT_INPUT,
+          placeholder: 'User Comment',
+        }
       ],
     },
-  
-  {
-    container: 'paginatedTable',
-    paginatedTable: true,
-  },
-  {
-    container: 'buttons',
-    size: 'xl',
-    clsName: 'container_footer',
-    items: [{
-      clsName: 'manifest_comments',
-      type: types.CUSTOM_ELEM,
-      customViewElem: CustomFooterMessage,
-      text: 'To access and analyze files, select and remove unwanted files, click the "Download File Manifest" button, and upload the resulting manifest file to your Velsera Seven Bridges Cancer Genomics Cloud account. [Note "Velsera Seven Bridges Cancer Genomics Cloud account" should be hyperlinked to https://cgc-accounts.sbgenomics.com/auth/login?next=https%3A%2F%2Fcgc-accounts.sbgenomics.com%2F with external icon ]',
+  ],
 
-    },{
-      clsName: 'manifest_comments',
-      type: types.TEXT_INPUT,
-      placeholder: 'User Comment',
-    }],
-  },
-  {
-  container: 'buttons',
-  size: 'xl',
-  clsName: 'container_header',
-  items: [
-    {
-      title: 'Download File Manifest',
-      clsName: 'download_manifest',
-      type: types.BUTTON,
-      role: btnTypes.DOWNLOAD_MANIFEST,
-      btnType: btnTypes.DOWNLOAD_MANIFEST,
-      usePopup: false,
-      tooltipCofig: tooltipContent
-    }],
-},]
+  downButtonText: 'DOWNLOAD MANIFEST',
+  headerIconSrc: cartPageIcon,
+  headerIconAlt: 'PSDC Cart header logo',
 };
- 
+
+export const USER_COMMENT = "User_Comment";
+
 export const manifestData = {
-  keysToInclude: ['data_file_name', 'data_file_uuid','data_file_uuid', 'data_file_checksum_value','subject_id', 'parent_specimen_id', 'ctep_disease_term','meddra_disease_code', 'primary_disease_site','histology', 'stage_of_disease','tumor_grade', 'age_at_enrollment', 'sex', 'reported_gender', 'race','ethnicity','carcinogen_exposure','targeted_therapy','parent_specimen_id','anatomical_collection_site','tissue_category','assessment_timepoint','User_Comment'],
-  header: ['name', 'drs_uri' ,'File ID', 'Md5sum','Participant ID', 'Biospecimen ID', 'Diagnosis','MedDRA Disease Code', 'Primary Site','Histology', 'Stage of Disease', 'Tumor Grade', 'Age', 'Sex', 'Gender', 'Race', 'Ethnicity', 'Carcinogen Exposure', 'Targeted Therapy', 'Parent Biospecimen ID', 'Anatomical Collection Site','Tissue Category','Collection Timepoint','User Comment'],
+  keysToInclude: [
+    'data_file_name',
+    'drs_uri',
+    'data_file_uuid', 
+    'data_file_checksum_value',   
+    'study_short_name',
+    'data_file_description',
+    'User_Comment'
+  ],
+  header: [
+    'name',
+    'drs_uri',
+    'File UUID',
+    'Md5sum',
+    'Study Acronym',
+    'File Description',
+    'User Comment'
+  ],
 };
 
-// --------------- GraphQL query - Retrieve selected cases info --------------
+// --------------- GraphQL query --------------
 export const GET_MY_CART_DATA_QUERY = gql`
   query filesInList(
     $data_file_uuid: [String],
     $offset: Int = 0,
-    $first: Int = 10,
-    $order_by:String ="data_file_name",
+    $first: Int = 1000,
+    $order_by:String = "data_file_name",
     $sort_direction:String="asc"
-  ){
+  ) {
     filesInList(
       data_file_uuid: $data_file_uuid,
       offset: $offset,
       first: $first,
       order_by: $order_by,
       sort_direction: $sort_direction
-    ){ data_file_name
-      data_file_format
-      data_file_type
-      data_file_size
-      association
-      ctep_disease_term
-      meddra_disease_code
-      histology
-      data_file_description
-      subject_id
-      primary_disease_site
-      specimen_id
-      ctep_disease_term
+    ) {
       data_file_uuid
-      parent_specimen_id
-      stage_of_disease
-      tumor_grade
-      age_at_enrollment
-      sex
-      reported_gender
-      race
+      data_file_name
+      data_file_type
+      data_file_description
+      data_file_format
+      data_volume # data_file_size
+      data_file_access_control
+
+      drs_uri
       data_file_checksum_value
-      ethnicity
-      carcinogen_exposure
-      targeted_therapy
-      anatomical_collection_site
-      tissue_category
-      assessment_timepoint
-   }
+      study_short_name
+    }
   }
 `;
-export const GET_MY_CART_DATA_QUERY2 = gql`
-query fileOverview(
-  $data_file_uuid: [String]
-  $offset: Int = 0,
-  $first: Int = 10,
-  $order_by:String ="data_file_name",
-  $sort_direction:String="asc"
-){
-  fileOverview(
-    data_file_uuid: $data_file_uuid
-    offset: $offset,
+
+export const GET_MY_CART_DATA_QUERY_DESC = gql`
+  query filesInList(
+    $data_file_uuid: [String],
+    $offset: Int = 0,
+    $first: Int = 1000,
+    $order_by:String ="data_file_name",
+    $sort_direction:String="desc"
+  ) {
+    filesInList(
+      data_file_uuid: $data_file_uuid,
+      offset: $offset,
       first: $first,
       order_by: $order_by,
       sort_direction: $sort_direction
-  ){
-    data_file_name
-    data_file_format
-    data_file_type
-    data_file_size
-    association
-    data_file_description
-    subject_id
-    primary_disease_site
-    parent_specimen_id
-    specimen_id
-    ctep_disease_term
-    data_file_uuid
-    stage_of_disease
-    tumor_grade
-    age_at_enrollment
-    sex
-    reported_gender
-    race
-    data_file_checksum_value
-    ethnicity
-    carcinogen_exposure
-    targeted_therapy
-    anatomical_collection_site
-    tissue_category
-    assessment_timepoint
+    ) {
+      data_file_uuid
+      data_file_name
+      data_file_type
+      data_file_description
+      data_file_format
+      data_volume # data_file_size
+      data_file_access_control
+
+      drs_uri
+      data_file_checksum_value
+      study_short_name
+    }
   }
-}`;
+`;
 
+// Custom function used to download the Cart Table
+export const createDownloadTableFunction = (client, filterItems) => () => {
+  const queryVariables = { ...filterItems, offset: 0, first: 10000 };
 
-export const GET_MY_CART_DATA_QUERY_DESC = gql` query filesInList(
-  $data_file_uuid: [String],
-  $offset: Int = 0,
-  $first: Int = 10,
-  $order_by:String ="data_file_name",
-  $sort_direction:String="desc"
-){
-  filesInList(
-    data_file_uuid: $data_file_uuid,
-    offset: $offset,
-    first: $first,
-    order_by: $order_by,
-    sort_direction: $sort_direction
-  ){ data_file_name
-    data_file_format
-    data_file_type
-    data_file_size
-    association
-    data_file_description
-    subject_id
-    ctep_disease_term
-    meddra_disease_code
-    histology
-    parent_specimen_id
-    primary_disease_site
-    specimen_id
-    ctep_disease_term
-    data_file_uuid
-    stage_of_disease
-    tumor_grade
-    age_at_enrollment
-    sex
-    reported_gender
-    race
-    data_file_checksum_value
-    ethnicity
-    carcinogen_exposure
-    targeted_therapy
-    anatomical_collection_site
-    tissue_category
-    assessment_timepoint
- }
-}`;
+  return client
+    .query({ query: GET_MY_CART_DATA_QUERY, variables: { ...queryVariables } })
+    .then((result) => {
+      if (result.data[table.objectKey]) {
+        
+        // Generate keysToInclude and header from table columns configuration
+        const { keysToInclude, header } = generateDownloadConfig(table.columns);
+        
+        downloadJson( result.data[table.objectKey], "", table?.extendedViewConfig?.download?.downloadFileName || "PSDC_My_Files_download", { keysToInclude, header }, table.columns);
+      }
+    });
+};
 
 // --------------- File table configuration --------------
 
@@ -249,92 +189,132 @@ export const table = {
   paginationAPIField: 'filesInList',
   paginationAPIFieldDesc: 'filesInList',
   dataKey:'data_file_uuid',
-  tableDownloadCSV: customMyFilesTabDownloadCSV,
   objectKey: 'filesInList',
+
   extendedViewConfig: {
     pagination: true,
-    manageViewColumns: {
-      title: "View Columns"
-    },
+    manageViewColumns: { title: "View Columns" },
     download: {
+      downloadFileName: "PSDC_My_Files_download",
       downloadCsv: "Download Table Contents As CSV",
-      downloadFileName: "CTDC_My_Files_download",
-      // customDownload: true,
-      // ...customMyFilesTabDownloadCSV,
+      // This function should be replaced in React component with createDownloadTableFunction(client)
+      downloadTable: null,
     },
   },
   columns: [
-    {
-      cellType: cellTypes.CHECKBOX,
-      display: false,
-      role: cellTypes.CHECKBOX,
-    },
-    {
-      dataField: 'data_file_name',
-      header: 'File Name',
-      display: true,
-      tooltipText: 'sort',
-      role: cellTypes.DISPLAY,
-    },
-    {
-      dataField: 'data_file_format',
-      header: 'Format',
-      display: true,
-      tooltipText: 'sort',
-      role: cellTypes.DISPLAY,
-    },
-    {
-      dataField: 'data_file_type',
-      header: 'File Type',
-      display: true,
-      tooltipText: 'sort',
-      role: cellTypes.DISPLAY,
-    },
-    {
-      dataField: 'data_file_size',
-      header: 'Size',
-      display: true,
-      tooltipText: 'sort',
-      role: cellTypes.DISPLAY,
-      dataFormatType: dataFormatTypes.FORMAT_BYTES,
-      cellType: cellTypes.FORMAT_DATA,
-    },
-    {
-      dataField: 'data_file_description',
-      header: 'Description',
-      display: true,
-      tooltipText: 'sort',
-      role: cellTypes.DISPLAY,
-    },
-    {
-      dataField: 'specimen_id',
-      header: 'Biospecimen ID',
-      display: false,
-      tooltipText: 'sort',
-      role: cellTypes.DISPLAY,
-    },
-    {
-      dataField: 'parent_specimen_id',
-      header: 'Parent Biospecimen ID',
-      display: true,
-      tooltipText: 'sort',
-      role: cellTypes.DISPLAY,
-    },
-    {
-      dataField: 'subject_id',
-      header: 'Participant ID',
-      display: true,
-      tooltipText: 'sort',
-      role: cellTypes.DISPLAY,
-    },
-    {
-      cellType: cellTypes.DELETE,
-      headerType: cellTypes.DELETE,
-      display: true,
-    },
+        {
+          dataField: 'data_file_name',
+          header: 'File Name',
+          display: true,
+          tooltipText: 'sort',
+        },
+        {
+          dataField: 'data_file_type',
+          header: 'File Type',
+          display: true,
+          tooltipText: 'sort',
+          role: cellTypes.DISPLAY,
+        },
+        {
+          dataField: 'data_file_description',
+          header: 'Description',
+          display: true,
+          tooltipText: 'sort',
+          role: cellTypes.DISPLAY,
+        },
+        {
+          dataField: 'data_file_format',
+          header: 'Format',
+          display: true,
+          tooltipText: 'sort',
+          role: cellTypes.DISPLAY,
+        },
+        {
+          dataField: 'data_volume',
+          header: 'Size',
+          display: true,
+          tooltipText: 'sort',
+          role: cellTypes.DISPLAY,
+    
+          dataFormatType: dataFormatTypes.FORMAT_BYTES,
+          cellType: cellTypes.FORMAT_DATA,
+
+          _customDownloadRender: (cellData) => formatBytes(cellData), // Include if custom rendering is needed for download
+        },
+        {
+              dataField: 'data_file_access_control', // This need to left empty if no data need to be displayed before file download icon
+              header: 'Access Control',
+              display: true,
+              cellType: cellTypes.CUSTOM_ELEM,
+              accessControl: true,
+              customCellProps: {
+                openAccessTooltip: 'Open Access file',
+                controlledAccessTooltip: 'Controlled Access file',
+                openAccessIcon: openPadlockIcon,
+                controlledAccessIcon: lockedPadlockIcon
+              },
+              tooltipText: 'sort',
+              role: cellTypes.DISPLAY,
+        },
+        {
+              dataField: '_fileDelivery',
+              header: 'File Delivery',
+              display: true,
+              cellType: cellTypes.CUSTOM_ELEM,
+              fileDelivery: true,
+              customCellProps: {
+                openAccessTooltip: 'Open Access file',
+                controlledAccessTooltip: 'This file must be accessed via the Cloud',
+                openAccessIcon: directDownloadIcon,
+                controlledAccessIcon: cloudOnlyAccessIcon,
+                dataField: 'data_file_access_control'
+              },
+              tooltipText: 'sort',
+              role: cellTypes.DISPLAY,
+              // POPSCI-375: Inject a consistent _fileDelivery field for all files to indicate delivery method
+              _customDownloadRender: () => "Access via Cloud",
+        },
+        {
+          cellType: cellTypes.CUSTOM_ELEM,
+          headerType: headerTypes.DELETE,
+          _customActionLabel: "Delete_File",
+          display: true,
+          cancelText: "Cancel",
+          okText: "Ok",
+        },
+        // {
+        //      dataField: 'data_file_uuid', // This need to left empty if no data need to be displayed before file download icon
+        // header: 'File Delivery',
+        // display: true,
+        // cellType: cellTypes.CUSTOM_ELEM,
+        // downloadDocument: true, // To indicate that column is document donwload
+        // documentDownloadProps: {
+        //   // Max file size needs to bin Bytes to seperate two support file preview and download
+        //   maxFileSize: 80000000, // 10MB => 80,000,000 bits
+        //   // datafield where file file column exists in the table
+        //   fileSizeColumn: 'data_file_size',
+        //   // datafield where file file id exists in the table which is used to get file location
+        //   fileLocationColumn: 'data_file_uuid',
+        //   // datafield where file format exists in the table
+        //   fileFormatColumn: 'data_file_format',
+        //   // datafield where file case id exists in the table which is used to get file information
+        //   caseIdColumn: 'participant_id',
+        //   // datafield where file name exists
+        //   fileName: 'data_file_name',
+
+        //   // Case 1: Logged in and granted access, file size below {maxFileSize}
+        //   toolTipTextFileDownload: 'Download a copy of this file',
+        //   iconFileDownload: downloadSuccess,
+          
+        //   // Case 2: Not logged in or access not granted, file size below {maxFileSize}
+        //   iconUnauthenticated: downloadLock,
+        //   toolTipTextUnauthenticated: 'This file must be accessed via the Cloud',
+        // },
+        // tooltipText: 'sort',
+        // role: cellTypes.DISPLAY,
+        //   },
   ],
   tableMsg: {
-    noMatch: 'No files have been added to the cart',
+    noMatch: 'Your cart is currently empty',
   },
 };
-

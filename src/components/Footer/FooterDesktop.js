@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useTheme } from '../ThemeContext'
 import themes from '../../themes/index';
 
-const FooterStyled = styled.footer`
+const FooterStyled = styled.div`
   background-color: #1B496E;
   border-top: 1px solid #6C727B;
   bottom: 0;
@@ -126,6 +126,14 @@ const FooterLinksContainer = styled.div`
 
   .footItemLink:hover {
     text-decoration: underline;
+  }
+
+  .footItemText {
+    font-family: Open Sans;
+    color: #FFFFFF;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
   }
 `;
 
@@ -268,7 +276,7 @@ const FooterDesktop = () => {
   };
   return (
     <>
-      <FooterStyled role="contentinfo">
+      <FooterStyled>
         <FooterContainer theme={theme}>
           <FooterLinksContainer>
             {
@@ -283,10 +291,12 @@ const FooterDesktop = () => {
                                         return (
                                           <div className="footItemSubtitle" key={itemkey}>
                                             {
-                                                    item.link.includes('http')
-                                                    ? <a className="footItemLink" href={item.link} target="_blank" rel="noopener noreferrer">{item.text}</a>
-                                                    : <Link className="footItemLink" to={item.link}>{item.text}</Link>
-                                                }
+                                              item.link 
+                                                ? item.link.includes('http') 
+                                                  ? <a className="footItemLink" href={item.link} target="_blank" rel="noopener noreferrer">{item.text}</a>
+                                                  : <Link className="footItemLink" to={item.link}>{item.text}</Link>
+                                                : <span className="footItemText">{item.text} </span>
+                                            }
                                           </div>
                                         );
                                     })

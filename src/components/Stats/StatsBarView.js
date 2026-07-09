@@ -55,7 +55,10 @@ const StatsBar = ({
     title,
     titleId,
     val,
+    formatValue = (val) => val,
   }) => {
+    const formattedValue = formatValue(val) || 0;
+
     if (isTitleFirst) {
       return (
         <div>
@@ -63,7 +66,7 @@ const StatsBar = ({
             {title}
           </div>
           <div className={countClasses} id={countId}>
-            {val}
+            {formattedValue}
           </div>
         </div>
       );
@@ -72,7 +75,7 @@ const StatsBar = ({
     return (
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <div className={countClasses} id={countId}>
-          {val}
+          {formattedValue}
         </div>
         <div className={titleClasses} id={titleId}>
           {title || 0}
@@ -107,9 +110,10 @@ const StatsBar = ({
         <StatsBarTitleAndCount
           countId={countId}
           isTitleFirst={isTitleFirst}
-          title={stat.name}
+          title={stat.statTitle}
           titleId={titleId}
-          val={stat.val}
+          val={stat.val || 0}
+          formatValue={stat.formatValue}
         />
       </div>
     );
@@ -117,8 +121,8 @@ const StatsBar = ({
 
   return (
     <>
-      <div className={classes.statsSection}>
-        <div className={classes.box}>
+      <div className={classes.statsSection} role="region" aria-label="Global statistics">
+        <div className={classes.box} tabIndex={0}>
           {truncatedListOfStats.map((stat, index) => (
             <StatsBarGroup
               key={stat.statTitle}
@@ -154,6 +158,7 @@ const styles = () => ({
     // height: props.styles.global.height ? props.styles.global.height : '47px',
     margin: '0 auto',
     ...props.styles.box,
+    overflow: 'auto',
   }),
   statTitle: (props) => ((props.styles.global && props.styles.global.horizontalStyle) ? {
     float: props.styles.statTitle ? props.styles.statTitle.float ? props.styles.statTitle.float : 'left' : 'left',

@@ -83,7 +83,7 @@ const getCartLabel = (labelType) => {
                 borderRadius: '5px',
                 padding: '0px 5px 0px 15px',
               }}>
-              {props.numberOfFiles || 258}
+              {props.numberOfFiles || 0}
             </span>
           </span>
 

@@ -28,6 +28,10 @@ export const tblHeader = {
   MuiTableCell: {
     root: {
       padding: '0px 33px 0px 7px',
+
+      '&._fileDelivery': {
+        pointerEvents: 'none',
+      },
     },
     paddingCheckbox: {
       padding: '0px !important',
@@ -40,9 +44,9 @@ export const tblHeader = {
     },
   },
   MuiCheckbox: {
-    color: '#969696',
+    color: '#8C8C8C',
     colorPrimary: {
-      color: '#969696',
+      color: '#8C8C8C',
       '&.Mui-checked': {
         color: '#6D5F5B'
       }
@@ -100,31 +104,6 @@ const tblBody = {
 
       color: '#4B4B4B',
 
-      '&.data_file_name': {
-        width: '294px',
-      },
-      '&.data_file_type': {
-        width: '179px',
-      },
-      '&.association': {
-        width: '150px',
-      },
-      '&.data_file_description': {
-        minWidth: '280px',
-        width: '280px',
-      },
-      '&.data_file_format': {
-        width: '100px',
-      },
-      '&.data_file_signed_url': {
-        width: '70px',
-      },
-      '&.data_file_size': {
-        width: '70px',
-        paddingRight: '35px', // Align based on Footer Pagination 
-        whiteSpace: 'nowrap',
-
-      },
     },
   },
 
@@ -136,7 +115,7 @@ const tblBody = {
   },
   MuiCheckbox: {
     colorSecondary: {
-      color: '#969696',
+      color: '#8C8C8C',
       '&.Mui-checked': {
         color: '#6D5F5B'
       }

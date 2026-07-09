@@ -1,16 +1,29 @@
 import gql from 'graphql-tag';
+import { cellTypes, dataFormatTypes, formatBytes } from '@bento-core/table';
 import studyHeaderIcon from '../assets/study/studyHeaderIcon.svg'
 import externalLinkIcon from '../assets/externalLinkIcon.svg'
 import previousIcon from '../assets/study/previousIcon.svg';
-import { cellTypes, dataFormatTypes } from '@bento-core/table';
-import downloadSuccess from '../assets/dash/downloadSuccess.svg'
-import downloadLock from '../assets/dash/downloadLock.svg'
-import previewLarge from '../assets/dash/previewLarge.svg'
-// --------------- Tooltip configuration --------------
+import openPadlockIcon from '../assets/study/openPadlockIcon.svg';
+import lockedPadlockIcon from '../assets/study/lockedPadlockIcon.svg';
 
-export const tooltipContent = {
-  src: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/icdc/images/svgs/Tooltip.SpeechBubble.svg',
+import directDownloadIcon from '../assets/study/directDownloadIcon.svg';
+import cloudOnlyAccessIcon from '../assets/study/cloudOnlyAccessIcon.svg';
+import questionMarkCircle from '../assets/Question_Mark_Circle.svg';
+import { generateDownloadConfig, downloadJson } from '../utils/fileDownload';
+
+// --------------- Tooltip configuration --------------
+export const tooltipContentForSelectedFile = {
+  icon: questionMarkCircle,
   alt: 'tooltipIcon',
+  arrow: false,
+  DataFiles: 'Add selected files to My Files',
+};
+
+export const tooltipContentForAllFile = {
+  icon: questionMarkCircle,
+  alt: 'tooltipIcon',
+  arrow: false,
+  DataFiles: 'Add all files associated with this study to My Files'
 };
 
 export const title = {
@@ -23,9 +36,87 @@ export const externalIcon = externalLinkIcon;
 export const previousPageIcon = previousIcon;
 
 export const GET_STUDY_DETAIL_DATA_QUERY = gql`
-  query study($study_short_name: [String]) {
+  query study(
+    $study_short_name: [String],
+    
+    $offset: Int,
+    $first: Int,
+    $order_by: String,
+    $sort_direction: String,
+  ) {
+    
+    ## Data for Cancer Types tab
+    primarySiteMorphology(
+      study_short_name: $study_short_name
+      
+      first: $first
+      offset: $offset
+      order_by: $order_by
+      sort_direction: $sort_direction
+    ) {
+      study_short_name,
+      cancer_diagnosis_disease_morphology_collection {
+        group
+        group_code
+        subjects
+      }
+      cancer_diagnosis_primary_site_collection {
+        group
+        subjects
+      }
+    }
 
-    dataCollectionPage(study_short_name:$study_short_name) {
+    # Study detail data for Demographics tab
+    studyDemographics(
+      study_short_name: $study_short_name
+      
+      # TODO: Needs to be added
+      # first: $first
+      # offset: $offset
+      # order_by: $order_by
+      # sort_direction: $sort_direction
+    ) {
+      study_short_name
+      number_of_participants
+
+      participant_maximum_age # PARTICIPANT AGE RANGE (years)
+      participant_minimum_age # PARTICIPANT AGE RANGE (years)
+      participant_age_range # PARTICIPANT AGE RANGE (years)
+      participant_mean_age # MEAN PARTICIPANT AGE (years)
+      participant_median_age # MEDIAN PARTICIPANT AGE (years)
+      
+      # Participants: Age at Enrollment
+      participant_count_by_age {
+        group
+        subjects
+      }
+
+      # PARTICIPANT_RACES
+      participant_races {
+        group
+        subjects
+      }
+      # PARTICIPANT ETHNICITIES
+      participant_ethnicities {
+        group
+        subjects
+      }
+      # PARTICIPANT SEXES
+      participant_sexes {
+        group
+        subjects
+      } 
+    }
+
+    dataCollectionPage(
+      study_short_name: $study_short_name
+
+      # TODO: Needs to be added
+      # first: $first
+      # offset: $offset
+      # order_by: $order_by
+      # sort_direction: $sort_direction
+    ) {
       study_short_name
       data_collection {
         data_collection_category
@@ -33,7 +124,15 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
       }
     }
 
-    studyGeneral(study_short_name:$study_short_name) {
+    studyGeneral(
+      study_short_name: $study_short_name
+      
+      # TODO: Needs to be added
+      # first: $first
+      # offset: $offset
+      # order_by: $order_by
+      # sort_direction: $sort_direction
+    ) {
       study_short_name
 
       personnel {
@@ -55,18 +154,6 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
         publication_record_id
       }
 
-      data_file {
-        data_file_uuid
-        association
-        data_file_name
-        data_file_type
-        data_file_description
-        data_file_format
-        data_file_size
-        data_file_location
-        data_file_signed_url
-      }
-
       associated_links {
         associated_link_name
         associated_link_record_id
@@ -74,7 +161,32 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
       }
     }
 
-    tabStudy(study_short_name: $study_short_name) {
+    studyFiles(
+      study_short_name: $study_short_name
+
+      first: $first
+      offset: $offset
+      order_by: $order_by
+      sort_direction: $sort_direction
+    ) {
+      data_file_uuid
+      data_file_name
+      data_file_type
+      data_file_description
+      data_file_format
+      data_volume # data_file_size
+      data_file_access_control
+    }
+
+    tabStudy(
+      study_short_name: $study_short_name
+      
+      # TODO: Needs to be added
+      # first: $first
+      # offset: $offset
+      # order_by: $order_by
+      # sort_direction: $sort_direction
+    ) {
       study_name
       study_short_name
       study_id
@@ -83,10 +195,13 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
       study_design
       enrollment_beginning_year
       enrollment_ending_year
+      enrollment_period # "enrollment_beginning_year - enrollment_ending_year"
       study_beginning_year
       study_ending_year
+      study_period # "study_beginning_year - study_ending_year"
       biospecimen_collection
       study_status
+      participant_age_range
       dbgap_accession_id
       number_of_participants
       study_participant_maximum_age
@@ -95,25 +210,30 @@ export const GET_STUDY_DETAIL_DATA_QUERY = gql`
       race
       ethnicity
       sex
-      gender
-      races
-      ethnicities
-      sexes
-      genders
       study_country
       number_of_countries
       study_state_province_territory
       number_of_states_provinces_territories
-      primary_diagnosis_disease_term
+      primary_diagnosis_disease_term # To be replaced with cancer_diagnosis_primary_site_list
       primary_diagnosis_disease_count
     }
 
     # Stats Bar property
-    globalStatsBar(study_short_name: $study_short_name) {
+    globalStatsBar(
+      study_short_name: $study_short_name
+
+      # TODO: Needs to be added
+      # first: $first
+      # offset: $offset
+      # order_by: $order_by
+      # sort_direction: $sort_direction
+    ) {
       study_short_name
       number_of_participants
     }
-    searchStudies(study_short_name: $study_short_name) {
+    searchStudies(
+      study_short_name: $study_short_name
+    ) {
       dataVolume
       numberOfStudies
       numberOfDataCollectionCatagory
@@ -159,13 +279,6 @@ export const studyPersonnelTableConfig = {
       role: cellTypes.DISPLAY,
     },
     {
-      dataField: 'email_address',
-      header: 'Email Address',
-      display: true,
-      tooltipText: 'sort',
-      role: cellTypes.DISPLAY,
-    },
-    {
       dataField: 'person_role',
       header: 'Position or Role',
       display: true,
@@ -175,6 +288,76 @@ export const studyPersonnelTableConfig = {
   ],
 };
 
+
+// --------------- GraphQL Query - "ADD SELECTED FILES" under Study Files tab ---------------
+export const GET_FILE_IDS_FOR_SELECTED_FILES = gql`
+  query studyFiles(
+    $study_short_name: [String]
+    $data_file_uuid: [String]
+    $first: Int
+    $offset: Int
+    $order_by: String
+    $sort_direction: String
+  ) {
+    studyFiles(
+      study_short_name: $study_short_name
+      data_file_uuid: $data_file_uuid
+      first: $first
+      offset: $offset
+      order_by: $order_by
+      sort_direction: $sort_direction
+    ) {
+      data_file_name
+      data_file_uuid
+    }
+  }
+`;
+
+
+// --------------- GraphQL Query - "ADD ALL FILES" under Study Files tab ---------------
+export const GET_ALL_FILE_IDS_FOR_FILES = gql`
+  query studyFiles(
+    $study_short_name: [String]
+    $data_file_uuid: [String]
+    $first: Int
+    $offset: Int
+    $order_by: String
+    $sort_direction: String
+  ) {
+    studyFiles(
+      study_short_name: $study_short_name
+      data_file_uuid: $data_file_uuid
+      first: $first
+      offset: $offset
+      order_by: $order_by
+      sort_direction: $sort_direction
+    ) {
+      data_file_name
+      data_file_uuid
+    }
+  }
+`;
+
+// Custom function used to download the Study Files Table
+export const createDownloadTableFunction = (client, filterItems) => () => {
+  const table = studyDataFileTableConfig;
+  const queryVariables = { ...filterItems, offset: 0, first: 10000 };
+  
+  return client
+    .query({ query: GET_STUDY_DETAIL_DATA_QUERY, variables: { ...queryVariables } })
+    .then((result) => {
+      if (result.data[table.objectKey]) {
+
+        // Generate keysToInclude and header from table columns configuration
+        const { keysToInclude, header } = generateDownloadConfig(table.columns);
+
+        downloadJson( result.data[table.objectKey], "", table?.extendedViewConfig?.download?.downloadFileName || "PSDC_Study_Files_download", { keysToInclude, header }, table.columns);
+      }
+    });
+};
+
+
+
 // --------------- Tabs Table configuration --------------
 export const studyDataFileTableConfig = {
   name: 'DataFiles',
@@ -183,18 +366,24 @@ export const studyDataFileTableConfig = {
   dataKey: 'data_file_uuid',
   defaultSortField: 'data_file_name',
   defaultSortDirection: 'asc',
-  tableID: 'dataFile_table',
-  id: 'dataFile_table',
+  tableID: 'study_files_tab_table',
+  id: 'study_files_tab',
+   objectKey: 'studyFiles',
 
   extendedViewConfig: {
     pagination: true, // Top pagination: true || false
     manageViewColumns: { title: "View Columns" },
-    download: { downloadCsv: "Download Table Contents As CSV", downloadFileName: "Study_Files_download",},
+    download: { 
+      downloadCsv: "Download Table Contents As CSV",
+      downloadFileName: "PSDC_Study_Files_download",
+      // This function should be replaced in React component with createDownloadTableFunction(client)
+      downloadTable: null
+    },
   },
   columns: [
     {
       cellType: cellTypes.CHECKBOX,
-      display: false,
+      display: true,
       role: cellTypes.CHECKBOX,
     },
     {
@@ -202,7 +391,6 @@ export const studyDataFileTableConfig = {
       header: 'File Name',
       display: true,
       tooltipText: 'sort',
-      role: cellTypes.DISPLAY,
     },
     {
       dataField: 'data_file_type',
@@ -233,7 +421,7 @@ export const studyDataFileTableConfig = {
       role: cellTypes.DISPLAY,
     },
     {
-      dataField: 'data_file_size',
+      dataField: 'data_volume',
       header: 'Size',
       display: true,
       tooltipText: 'sort',
@@ -241,20 +429,57 @@ export const studyDataFileTableConfig = {
 
       dataFormatType: dataFormatTypes.FORMAT_BYTES,
       cellType: cellTypes.FORMAT_DATA,
+      _customDownloadRender: (cellData) => formatBytes(cellData), // Include if custom rendering is needed for download
     },
     {
-        dataField: 'data_file_signed_url', // This need to left empty if no data need to be displayed before file download icon
-        header: 'Access',
-        display: true,
-        cellType: cellTypes.CUSTOM_ELEM,
-        downloadDocument: true, // To indicate that column is document donwload
-        documentDownloadProps: {
-          dataField: 'data_file_signed_url',
-          toolTipTextFileDownload: 'Download a copy of this file',
-          iconFileDownload: downloadSuccess,
-        },
-        tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
+      dataField: 'data_file_access_control', // This need to left empty if no data need to be displayed before file download icon
+      header: 'Access Control',
+      display: true,
+      cellType: cellTypes.CUSTOM_ELEM,
+      accessControl: true,
+      customCellProps: {
+        openAccessTooltip: 'Open Access file',
+        controlledAccessTooltip: 'Controlled Access file',
+        openAccessIcon: openPadlockIcon,
+        controlledAccessIcon: lockedPadlockIcon
       },
+      tooltipText: 'sort',
+      role: cellTypes.DISPLAY,
+    },
+    {
+      dataField: '_fileDelivery', // This need to left empty if no data need to be displayed before file download icon
+      header: 'File Delivery',
+      display: true,
+      cellType: cellTypes.CUSTOM_ELEM,
+      fileDelivery: true,
+      customCellProps: {
+        openAccessTooltip: 'Download this file or add to cart using checkbox',
+        controlledAccessTooltip: 'Available only via the Cloud; add to cart using checkbox',
+        openAccessIcon: directDownloadIcon,
+        controlledAccessIcon: cloudOnlyAccessIcon,
+        dataField: 'data_file_access_control'
+      },
+      tooltipText: 'sort',
+      role: cellTypes.DISPLAY,
+
+      // POPSCI-375: Inject a consistent _fileDelivery field for all files to indicate delivery method
+      _customDownloadRender: () => "Access via Cloud",
+    },
+
   ],
+
+  selectableRows: true,
+  tableMsg: {
+    noMatch: 'No Matching Records Found',
+  },
+
+  addFilesRequestVariableKey: 'data_file_uuid',
+  
+  addFilesResponseKeys: ['studyFiles', 'data_file_uuid'],
+  addSelectedFilesQuery: GET_FILE_IDS_FOR_SELECTED_FILES,
+
+  addAllFilesResponseKeys: ['studyFiles', 'data_file_uuid'],
+  addAllFileQuery: GET_ALL_FILE_IDS_FOR_FILES,
 };
+
+

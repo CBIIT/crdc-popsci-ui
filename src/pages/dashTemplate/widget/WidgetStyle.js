@@ -68,7 +68,7 @@ const styles = (theme) => ({
     display: 'none',
     borderRadius: '0 0 18px 18px',
     minHeight: '20px',
-    fontSize: 8,
+    fontSize: 11,
     color: '#ffffff',
     textTransform: 'none',
     backgroundColor: '#566672',
@@ -79,11 +79,42 @@ const styles = (theme) => ({
       backgroundColor: '#566672',
     },
   },
+  toggleWrapper: {
+    fontSize: '0.875rem',
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontWeight: 400,
+    lineHeight: 1.43,
+    letterSpacing: '0.01071em',
+    boxSizing: 'inherit',
+    cursor: 'pointer',
+    display: 'inline-flex',
+    alignItems: 'center',
+    marginLeft: '-11px',
+    marginRight: '16px',
+    verticalAlign: 'middle',
+  },
   backgroundWidgets: {
     background: theme.palette.widgetBackground.main,
     margin: '30px 0px 10px 0',
     border: '0.5px solid #B4B4B4',
-    padding: '10px 20px 50px 20px',
+  padding: '10px 20px 50px 20px',
+    boxSizing: 'border-box',
+    '@media (min-width: 1430px)': {
+      paddingLeft: 30,
+      paddingRight: 30,
+    },
+    '@media (min-width: 670px)': {
+      paddingLeft: 20,
+      paddingRight: 20,
+    },
+    '@media (min-width: 384px) and (max-width: 669px)': {
+      paddingLeft: 16,
+      paddingRight: 16,
+    },
+    '@media (max-width: 383px)': {
+      paddingLeft: 12,
+      paddingRight: 12,
+    },
   },
   sideBar: {
     width: '250px',
@@ -115,7 +146,21 @@ const styles = (theme) => ({
     maxWidth: '200px',
     textAlign: 'center',
     margin: '0 auto',
-  }
+  },
+  widgetGridItem: {
+    boxSizing: 'border-box',
+    flexGrow: 0,
+    flexBasis: '100%',
+    maxWidth: '100%',
+    '@media (min-width: 670px)': {
+      flexBasis: '50%',
+      maxWidth: '50%',
+    },
+    '@media (min-width: 1430px)': {
+      flexBasis: '33.3333%',
+      maxWidth: '33.3333%',
+    },
+  },
 });
 
 export default styles;

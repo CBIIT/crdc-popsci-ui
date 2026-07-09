@@ -5,6 +5,7 @@ import { cellTypes, dataFormatTypes, headerTypes } from '@bento-core/table';
 import downloadSuccess from '../assets/dash/downloadSuccess.svg'
 import downloadLock from '../assets/dash/downloadLock.svg'
 import previewLarge from '../assets/dash/previewLarge.svg'
+import questionMarkCircle from '../assets/dash/questionMarkCircle.svg'
 
 // --------------- Tooltip configuration --------------
 export const tooltipContent = {
@@ -25,6 +26,12 @@ export const tooltipContent = {
   Biospecimens: 'Add filtered files associated with all biospecimens in the current results set to My Files',
   Files: 'Add all filtered files to My Files',
 };
+
+export const facetSectionTooltip = {
+  src: questionMarkCircle,
+  alt: 'tooltip',
+  tooltipText: 'All counts reflect the number of studies',
+}
 
 // --------------- Dahboard Table external link configuration --------------
 // Ideal size for externalLinkIcon is 16x16 px
@@ -82,15 +89,14 @@ export const DASHBOARD_QUERY_NEW = gql`
     $study_beginning_year: [Int]
     $study_ending_year: [Int]
     $number_of_participants: [Int]
-    $primary_diagnosis_disease_term: [String]
+    $cancer_diagnosis_primary_site_list: [String]
     $study_country: [String]
     $biospecimen_collection: [String]
     $study_participant_maximum_age: [Float]
     $study_participant_minimum_age: [Float]
-    $races: [String]
-    $ethnicities: [String]
-    $sexes: [String]
-    $genders: [String]
+    $race: [String]
+    $ethnicity: [String]
+    $sex: [String]
   ){
     searchStudies(
       study_short_name: $study_short_name
@@ -101,22 +107,21 @@ export const DASHBOARD_QUERY_NEW = gql`
       study_beginning_year: $study_beginning_year
       study_ending_year: $study_ending_year
       number_of_participants: $number_of_participants
-      primary_diagnosis_disease_term: $primary_diagnosis_disease_term
+      cancer_diagnosis_primary_site_list: $cancer_diagnosis_primary_site_list
       study_country: $study_country
       biospecimen_collection: $biospecimen_collection
       study_participant_maximum_age: $study_participant_maximum_age
       study_participant_minimum_age: $study_participant_minimum_age
-      races: $races
-      ethnicities: $ethnicities
-      sexes: $sexes
-      genders: $genders
+      race: $race
+      ethnicity: $ethnicity
+      sex: $sex
     ){  
       dataVolume
       numberOfStudies
       numberOfDataCollectionCatagory
       numberOfDiagnosis
       numberOfDataFiles
-
+ 
       # Study Acronym(study_short_name)
       studyCountByStudy{
         group
@@ -126,7 +131,7 @@ export const DASHBOARD_QUERY_NEW = gql`
         group
         subjects
       }
-
+ 
       # Study Type(study_type) - Hidden
       studyCountByStudyType{
         group
@@ -136,7 +141,7 @@ export const DASHBOARD_QUERY_NEW = gql`
         group
         subjects
       }
-
+ 
       # Study Design (study_design)
       studyCountByStudyDesign{
         group
@@ -146,7 +151,7 @@ export const DASHBOARD_QUERY_NEW = gql`
         group
         subjects
       }
-
+ 
       # Enrollment Period(enrollment_beginning_year, enrollment_ending_year)
       enrollmentPeriodMin{
         lowerBound
@@ -158,7 +163,7 @@ export const DASHBOARD_QUERY_NEW = gql`
         upperBound
         subjects
       }
-
+ 
       # Study Period (study_beginning_year, study_ending_year)
       studyPeriodMin{
         lowerBound
@@ -170,15 +175,15 @@ export const DASHBOARD_QUERY_NEW = gql`
         upperBound
         subjects
       }
-
+ 
       # Number of Participants (number_of_participants)
       studyCountByNumberOfParticipants{
         lowerBound
         upperBound
         subjects
       }
-
-      # Neoplasms (primary_diagnosis_disease_term)
+ 
+      # Cancer Types (cancer_diagnosis_primary_site_list)
       studyCountByNeoplasm{
         group
         subjects
@@ -187,7 +192,7 @@ export const DASHBOARD_QUERY_NEW = gql`
         group
         subjects
       }
-
+ 
       # Countries (study_country)
       studyCountByCountries{
         group
@@ -197,7 +202,7 @@ export const DASHBOARD_QUERY_NEW = gql`
         group
         subjects
       }
-
+ 
       # Biospecimen Collection (biospecimen_collection)
       studyCountByBiospecimenCollection{
         group
@@ -207,17 +212,17 @@ export const DASHBOARD_QUERY_NEW = gql`
         group
         subjects
       }
-
+ 
       # Data Collection Categories (data_collection_category): Will only be used for Widget for now
-      studyCountByDataCollection{
+      neoplasmCountByStudy{
         group
         subjects
       }
-      filterStudyCountByDataCollection{
+      filterNeoplasmCountByStudy{
         group
         subjects
       }
-
+ 
       # Age at Enrollment (study_participant_minimum_age, study_participant_maximum_age)
       participantAgeAtEnrollmentMin{
         lowerBound
@@ -229,8 +234,8 @@ export const DASHBOARD_QUERY_NEW = gql`
         upperBound
         subjects
       }
-
-      # Race Representation (race)
+ 
+      # Race (race)
       studyCountByRace{
         group
         subjects
@@ -239,8 +244,8 @@ export const DASHBOARD_QUERY_NEW = gql`
         group
         subjects
       }
-
-      # Ethnic Representation (ethnicity)
+ 
+      # Ethnicity (ethnicity)
       studyCountByEthnicity{
         group
         subjects
@@ -249,8 +254,8 @@ export const DASHBOARD_QUERY_NEW = gql`
         group
         subjects
       }
-
-      # Sex Representation (sex)
+ 
+      # Sex (sex)
       studyCountBySex{
         group
         subjects
@@ -258,21 +263,11 @@ export const DASHBOARD_QUERY_NEW = gql`
       filterStudyCountBySex{
         group
         subjects
-      }
-      
-      # Gender Representation (gender)
-      studyCountByGender{
-        group
-        subjects
-      }
-      filterStudyCountByGender{
-        group
-        subjects
-      }
+      }   
     }
     
-    # Global Stats
-    globalStatsBar(
+    # Widget - Studies: Participant Count
+    participantCountWidgetAndStats: globalStatsBar(
       study_short_name: $study_short_name
       study_type: $study_type
       study_design: $study_design
@@ -281,18 +276,56 @@ export const DASHBOARD_QUERY_NEW = gql`
       study_beginning_year: $study_beginning_year
       study_ending_year: $study_ending_year
       number_of_participants: $number_of_participants
-      primary_diagnosis_disease_term: $primary_diagnosis_disease_term
+      cancer_diagnosis_primary_site_list: $cancer_diagnosis_primary_site_list
       study_country: $study_country
       biospecimen_collection: $biospecimen_collection
       study_participant_maximum_age: $study_participant_maximum_age
       study_participant_minimum_age: $study_participant_minimum_age
-      races: $races
-      ethnicities: $ethnicities
-      sexes: $sexes
-      genders: $genders
+      race: $race
+      ethnicity: $ethnicity
+      sex: $sex
     ){
       study_short_name
       number_of_participants
+    }
+    # Widget - Studies: Cancer Type Count
+    cancerTypeCountWidget: globalStatsBar(
+      study_short_name: $study_short_name
+      study_type: $study_type
+      study_design: $study_design
+      enrollment_beginning_year: $enrollment_beginning_year
+      enrollment_ending_year: $enrollment_ending_year
+      study_beginning_year: $study_beginning_year
+      study_ending_year: $study_ending_year
+      number_of_participants: $number_of_participants
+      cancer_diagnosis_primary_site_list: $cancer_diagnosis_primary_site_list
+      study_country: $study_country
+      biospecimen_collection: $biospecimen_collection
+      study_participant_maximum_age: $study_participant_maximum_age
+      study_participant_minimum_age: $study_participant_minimum_age
+      race: $race
+      ethnicity: $ethnicity
+      sex: $sex
+    ){
+      study_short_name
+      cancer_type_count
+    }
+
+    studyDemographics(study_short_name: $study_short_name) {
+      study_short_name
+
+      participant_races{
+        group
+        subjects
+      }
+      participant_sexes{
+        group
+        subjects
+      }
+      participant_count_by_age{
+        group
+        subjects
+      }
     }
 
     minMaxBoundQuery {
@@ -301,7 +334,7 @@ export const DASHBOARD_QUERY_NEW = gql`
       
       enrollment_beginning_year_lower_bound
       enrollment_ending_year_upper_bound
-
+ 
       study_beginning_year_lower_bound
       study_ending_year_upper_bound
       
@@ -334,16 +367,11 @@ $study_participant_minimum_age: [Float],
 $race: [String],
 $ethnicity: [String],
 $sex: [String],
-$gender: [String],
-$races: [String],
-$ethnicities: [String],
-$sexes: [String],
-$genders: [String],
 $study_country: [String],
 $number_of_countries: [Int],
 $study_state_province_territory: [String],
 $number_of_states_provinces_territories: [Int],
-$primary_diagnosis_disease_term: [String],
+$cancer_diagnosis_primary_site_list: [String],
 $primary_diagnosis_disease_count: [Int],
 $first: Int,
 $offset: Int,
@@ -372,16 +400,11 @@ study_participant_minimum_age: $study_participant_minimum_age,
 race: $race,
 ethnicity: $ethnicity,
 sex: $sex,
-gender: $gender,
-races: $races,
-ethnicities: $ethnicities,
-sexes: $sexes,
-genders: $genders,
 study_country: $study_country,
 number_of_countries: $number_of_countries,
 study_state_province_territory: $study_state_province_territory,
 number_of_states_provinces_territories: $number_of_states_provinces_territories,
-primary_diagnosis_disease_term: $primary_diagnosis_disease_term,
+cancer_diagnosis_primary_site_list: $cancer_diagnosis_primary_site_list,
 primary_diagnosis_disease_count: $primary_diagnosis_disease_count,
 first: $first,
 offset: $offset,
@@ -408,20 +431,16 @@ sort_direction: $sort_direction
     race
     ethnicity
     sex
-    gender
-    races
-    ethnicities
-    sexes
-    genders
     study_country
     number_of_countries
     study_state_province_territory
     number_of_states_provinces_territories
-    primary_diagnosis_disease_term
-    primary_diagnosis_disease_count
     enrollment_period
+    participant_age_range
+    cancer_diagnosis_primary_site_list
+    primary_diagnosis_disease_count
     study_period
-    enrollment_age
+    
     data_collection{
         data_collection_category
         data_collection_category_annotation_count
@@ -430,10 +449,9 @@ sort_direction: $sort_direction
   }
   
 }
-
 `;
 
-// Query for Tab - Files Table
+// Query for Tab - Files Table -  (UNUSED; HERE FOR REFERENCE)
 export const GET_FILES_OVERVIEW_QUERY_ORIGINAL = gql`
 query fileOverview(
     $subject_ids: [String],
@@ -499,7 +517,7 @@ query fileOverview(
 }
 `;
 
-// --------------- GraphQL Query - Add Associated Files under Cases table to Cart ---------------
+// --------------- (UNUSED; HERE FOR REFERENCE) GraphQL Query - Add Associated Files under Cases table to Cart ---------------
 export const GET_ALL_FILEIDS_PARTICIPANTS_TAB_FOR_SELECT_ALL = gql`
 query participant_data_files(
   $subject_id: [String],
@@ -549,7 +567,7 @@ query participant_data_files(
 }
   `;
 
-// --------------- GraphQL Query - Add Associated Files under Biospecimens table to Cart ---------------
+// --------------- (UNUSED; HERE FOR REFERENCE) GraphQL Query - Add Associated Files under Biospecimens table to Cart ---------------
 export const GET_ALL_FILEIDS_BIOSPECIMENS_TAB_FOR_SELECT_ALL = gql`
 query biospecimenAddAllToCart(
   $subject_id: [String],
@@ -606,7 +624,7 @@ query biospecimenAddAllToCart(
 }
 `;
 
-// --------------- GraphQL Query - Add Associated Files under Files table to Cart ---------------
+// --------------- (UNUSED; HERE FOR REFERENCE) GraphQL Query - Add Associated Files under Files table to Cart ---------------
 export const GET_ALL_FILEIDS_FILES_TAB_FOR_SELECT_ALL = gql`
 query fileAddSelectedToCart(
   $data_file_uuid: [String],
@@ -657,7 +675,7 @@ query fileAddSelectedToCart(
 }
 `;
 
-// --------------- GraphQL Query - Add all files under Cases table to Cart ---------------
+// --------------- (UNUSED; HERE FOR REFERENCE) GraphQL Query - Add all files under Cases table to Cart ---------------
 export const GET_ALL_FILEIDS_FROM_PARTICIPANTS_TAB_FOR_ADD_ALL_CART = gql`
 query participant_data_files(
   $subject_id: [String],
@@ -706,7 +724,7 @@ query participant_data_files(
 }
 }`;
 
-// --------------- GraphQL Query - Add all files under Biospecimens table to Cart ---------------
+// --------------- (UNUSED; HERE FOR REFERENCE) GraphQL Query - Add all files under Biospecimens table to Cart ---------------
 export const GET_ALL_FILEIDS_FROM_BIOSPECIMENS_TAB_FOR_ADD_ALL_CART = gql`
   query biospecimenAddAllToCart(
     $subject_id: [String],
@@ -761,7 +779,7 @@ export const GET_ALL_FILEIDS_FROM_BIOSPECIMENS_TAB_FOR_ADD_ALL_CART = gql`
   }
 `;
 
-// --------------- GraphQL Query - Add all files under Files table to Cart ---------------
+// --------------- (UNUSED; HERE FOR REFERENCE) GraphQL Query - Add all files under Files table to Cart ---------------
 export const GET_ALL_FILEIDS_FROM_FILES_TAB_FOR_ADD_ALL_CART = gql`
 query fileAddAllToCart(
   $subject_id: [String],
@@ -810,7 +828,7 @@ query fileAddAllToCart(
 }
 `;
 
-// --------------- GraphQL query - Retrieve files tab details --------------
+// --------------- (UNUSED; HERE FOR REFERENCE) GraphQL query - Retrieve files tab details --------------
 export const GET_FILES_NAME_QUERY = gql`
 query fileOverview($file_ids: [String], $offset: Int = 0, $first: Int = 100000, $order_by:String ="file_name"){
   fileOverview(file_ids: $file_ids, offset: $offset,first: $first, order_by: $order_by) {
@@ -818,7 +836,7 @@ query fileOverview($file_ids: [String], $offset: Int = 0, $first: Int = 100000, 
   }
 }
   `;
-
+// (UNUSED; HERE FOR REFERENCE)
 export const GET_FILE_IDS_FROM_FILE_NAME = gql`
   query (
       $file_name: [String],
@@ -856,7 +874,7 @@ export const tabContainers = [
       },
       download: {
         downloadCsv: "Download Table Contents As CSV",
-        downloadFileName: "popsci_download",
+        downloadFileName: "PSDC_Studies_download",
       },
     },
     columns: [
@@ -907,7 +925,7 @@ export const tabContainers = [
       },
       {
         dataField: 'primary_diagnosis_disease_count',
-        header: 'Neoplasms',
+        header: 'Cancer Types',
         display: true,
         tooltipText: 'sort',
       },
@@ -929,7 +947,7 @@ export const tabContainers = [
         tooltipText: 'sort',
       },
       {
-        dataField: 'enrollment_age',
+        dataField: 'participant_age_range',
         header: 'Enrollment Age',
         display: true,
         tooltipText: 'sort',

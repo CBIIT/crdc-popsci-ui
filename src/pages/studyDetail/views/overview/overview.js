@@ -4,7 +4,7 @@ import {
   withStyles,
 } from '@material-ui/core';
 import OverviewThemeProvider from './overviewThemeConfig';
-import { externalIcon } from '../../../../bento/studyDetailData';
+import ExternalLinkIcon from '../../../../utils/ExternalLinkIcon';
 import {cn } from '@bento-core/util';
 import StudyPersonnel from './StudyPersonnel';
 import styles from './overviewStyle';
@@ -14,10 +14,8 @@ const Overview = ({ classes, data, }) => {
   const {
     study_description,
     study_design,
-    enrollment_beginning_year,
-    enrollment_ending_year,
-    study_beginning_year,
-    study_ending_year,
+    enrollment_period,
+    study_period,
     biospecimen_collection,
     study_status,
     dbgap_accession_id,
@@ -39,16 +37,13 @@ const Overview = ({ classes, data, }) => {
 
   const sortedLinks = [...associated_links].sort((a, b) => customSorting(a.associated_link_record_id, b.associated_link_record_id));
 
-  const enrollmenPeriod = `${enrollment_beginning_year} - ${enrollment_ending_year}`;
-  const studyPeriod = `${study_beginning_year} - ${study_ending_year}`;
-
   return (
     <OverviewThemeProvider>
       <div className={classes.detailContainer}>
         <Grid container>
           {/* Left Container Detail */}
           <Grid item xs={12} sm={6} className={cn(classes.borderRight, classes.detailContainerLeft)}>
-            <div className={classes.scrollDiv}>
+            <div className={classes.scrollDiv} tabIndex={0}>
               <Grid container direction="column" className={classes.leftInnerContainer} >
                 <Grid item xs={12} className={classes.mainLabel}>
                   <span>Description</span>
@@ -65,8 +60,8 @@ const Overview = ({ classes, data, }) => {
             <Grid container direction="column" className={classes.rightInnerContainer}>
             
               {renderInfo('STUDY DESIGN', study_design)}
-              {renderInfo('ENROLLMENT PERIOD', enrollmenPeriod)}
-              {renderInfo('STUDY PERIOD', studyPeriod)}
+              {renderInfo('ENROLLMENT PERIOD', enrollment_period)}
+              {renderInfo('STUDY PERIOD', study_period)}
               {renderInfo('BIOSPECIMEN COLLECTION', biospecimen_collection)} {/* TODO: check => Biospecimen or Biospecimens and Collected or Collection */}
               {renderInfo('STATUS', study_status)}
               {renderInfo('dbGaP ID', dbgap_accession_id)}
@@ -104,15 +99,6 @@ const Overview = ({ classes, data, }) => {
   );
 };
 
-const ExternalLinkIcon = ({ classes }) => (
-  <img
-    src={externalIcon}
-    width={14}
-    height={14}
-    className={classes.externalLinkIcon}
-    alt="outbound website icon"
-  />
-);
 
 const AssociatedLinks = ({ sortedLinks, classes }) => {
   if (sortedLinks.length === 0) {
@@ -135,7 +121,7 @@ const AssociatedLinks = ({ sortedLinks, classes }) => {
       >
         {link?.associated_link_name}
       </a>
-      &nbsp;<ExternalLinkIcon classes={classes} /> <br />
+      &nbsp;<ExternalLinkIcon className={classes.externalLinkIcon} /> <br />
     </Grid>
   ));
 };

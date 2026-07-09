@@ -20,11 +20,13 @@ import {
   resetAllData, chunkSplit,
   SearchView, SearchBoxGenerator, UploadModalGenerator,
 } from '@bento-core/local-find';
-import store from '../../../store';
-import styles from './BentoFacetFilterStyle';
 import { FacetFilter, ClearAllFiltersBtn } from '@bento-core/facet-filter';
+import ToolTip from '@bento-core/tool-tip';
+import store from '../../../store';
 import { facetsConfig, facetSectionVariables } from '../../../bento/dashTemplate';
+import { facetSectionTooltip } from '../../../bento/dashboardTabData';
 import FacetFilterThemeProvider from './FilterThemeConfig';
+import styles from './BentoFacetFilterStyle';
 import {
   getAllSubjectIds, getAllIds,
 } from './BentoFilterUtils';
@@ -132,6 +134,7 @@ const BentoFacetFilter = ({
           className={classes.customButton}
           classes={{ root: classes.clearAllButtonRoot }}
           style={{ border: `1px solid ${borderColor}` }}
+          aria-label="Clear all filtered selections"
         >
           <svg 
             className={classes.resetIcon}
@@ -149,7 +152,7 @@ const BentoFacetFilter = ({
             />
           </svg>
         </Button>
-        <span className={disable ? classes.resetTextDisabled : classes.resetText}>
+        <span className={disable ? classes.resetTextDisabled : classes.resetText} aria-disabled={disable}>
           Clear all filtered selections
         </span>
       </div>
@@ -191,7 +194,17 @@ const BentoFacetFilter = ({
           className={hasArrowDropDownIcon ? classes.customExpansionPanelSummaryRoot : classes.customExpansionPanelSummaryRoot2}
         >
           <div className={classes.sectionSummaryTextContainer}>
-            {name}
+            <h3 className={classes.sectionSummaryTitle}>
+              {name}
+              <ToolTip
+                classes={{ tooltip: classes.customTooltip, arrow: classes.customArrow }}
+                enterDelay="0"
+                placement="top"
+                title={facetSectionTooltip.tooltipText}
+              >
+                <img src={facetSectionTooltip.src} alt={facetSectionTooltip.alt} className={classes.icon}/>
+              </ToolTip>
+            </h3>
             {hasSearch && (
               <div className={classes.findCaseButton} onClick={toggleSearch}>
                 <img src="https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/bento/images/icons/svgs/FacetLocalFindSearchIcon.svg" className={classes.findCaseIcon} alt="search" />

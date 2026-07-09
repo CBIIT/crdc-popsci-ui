@@ -9,22 +9,26 @@ import { Button } from '../../components/Wrappers/Wrappers';
 import { landingPageData } from '../../bento/landingPageData';
 import icon from '../../assets/landing/LP_ReadMore.svg';
 import iconAbout from '../../assets/landing/LP_About_Fullarticle.Arrow.svg';
+import externalLinkIcon from '../../components/About/assets/About-ExternalIcon.svg'
 
 const LandingView = ({ classes, statsData }) => (
   <div className={classes.page}>
-    <div className={classes.container}>
-      <div className={classes.hero}>
+    <div className={classes.heroSection}>
+      <div className={classes.heroContent}>
         <Grid container direction="row" justifyContent='center' alignItems='flex-start' className={classes.heroImage}>
-          <Grid item className={classes.popPieChartImage}>
-          </Grid>
+          <img
+            src={landingPageData.landingPageHero.img}
+            alt={landingPageData.landingPageHero.alt}
+            className={classes.popPieChartImage}
+          />
           <Grid className={classes.heroTextContainer}>
             <div className={classes.heroTextWrapper}>
               <div className={classes.headerTitle1}>
-                { landingPageData.callToActionTitle } 
-               </div>
-              <div className={classes.headerTitle2}>
-                 {landingPageData.callToActionTitle2}
+                { landingPageData.callToActionTitle }
               </div>
+              <h1 className={classes.headerTitle2}>
+                {landingPageData.callToActionTitle2}
+              </h1>
               <div className={classes.headerContent}>
                 { landingPageData.callToActionDescription}
               </div>
@@ -42,8 +46,8 @@ const LandingView = ({ classes, statsData }) => (
     </div>
     {/*<div className={classes.whiteSection} /> */}
     {/*<StatsView stats={landingPageData.landingPageStatsBar} statsData={statsData} /> */}
-    <div className={classes.container}>
-      <div className={classes.texture}>
+    <div className={classes.texture}>
+      <div className={classes.gradientContent}>
         <Grid container spacing={16} direction="row" className={classes.landingContainer}>
           <div className={classes.contentLeft}>
             <div className={classes.about}>
@@ -55,7 +59,7 @@ const LandingView = ({ classes, statsData }) => (
                   id="tile1_image"
                 />
               </div>
-              <div className={classes.DCWords} id="tile1_title">
+              <h2 className={classes.DCWords} id="tile1_title">
                 {/* // TODO:- Create new function
                 landingPageData.tile1.titleText.match(/\b(\w+)\b/g).map((word) => (
                   <>
@@ -66,7 +70,7 @@ const LandingView = ({ classes, statsData }) => (
                 About <br/>
                 Population Science <br />
                 Data Common <br/>
-              </div>
+              </h2>
               <div className={classes.aboutContent} id="tile1_description">
                 {landingPageData.tile1.descriptionText}
               </div>
@@ -97,9 +101,9 @@ const LandingView = ({ classes, statsData }) => (
                   />
                 </div>
                 <div className={classes.content}>
-                  <div className={classes.contentHeader} id="tile2_title">
+                  <h3 className={classes.contentHeader} id="tile2_title">
                     {landingPageData.tile2.titleText}
-                  </div>
+                  </h3>
                   <div className={classes.contentContainer} id="tile2_description">
                     {landingPageData.tile2.descriptionText}
                   </div>
@@ -107,7 +111,7 @@ const LandingView = ({ classes, statsData }) => (
                 </div>
                 <div className={classes.blueButton}>
                   <div className={classes.blueButtonLeft}>
-                    <img className={classes.icon} src={icon} alt="CTDC about " />
+                    <img className={classes.icon} src={icon} alt="Popsci about " />
                     {' '}
                   </div>
                   <div className={classes.blueButtonRight} id="tile2_button">
@@ -125,14 +129,14 @@ const LandingView = ({ classes, statsData }) => (
                   <img
                     className={classes.image}
                     src={landingPageData.tile3.img}
-                    alt={landingPageData.tile3.src}
+                    alt={landingPageData.tile3.alt}
                     id="tile3_image"
                   />
                 </div>
                 <div className={classes.content}>
-                  <div className={classes.contentHeader} id="tile3_title">
+                  <h3 className={classes.contentHeader} id="tile3_title">
                     {landingPageData.tile3.titleText}
-                  </div>
+                  </h3>
                   <div className={classes.contentContainer} id="tile3_description">
                     {landingPageData.tile3.descriptionText}
                   </div>
@@ -140,7 +144,7 @@ const LandingView = ({ classes, statsData }) => (
                 </div>
                 <div className={classes.blueButton}>
                   <div className={classes.blueButtonLeft}>
-                    <img className={classes.icon} src={icon} alt="CTDC about " />
+                    <img className={classes.icon} src={icon} alt="Popsci about " />
                     {' '}
                   </div>
                   <div className={classes.blueButtonRight} id="tile3_button">
@@ -156,37 +160,39 @@ const LandingView = ({ classes, statsData }) => (
 
             </div>
             <div className={classes.contentRightBottom}>
+              <img
+                src={landingPageData.tile4.img}
+                alt={landingPageData.tile4.alt}
+                className={classes.tile4BackgroundImage}
+              />
               <div className={classes.cases} id="tile4_image">
-                <div className={classes.mountainMeadowContentHeader} id="tile4_title">
+                <h3 className={classes.mountainMeadowContentHeader} id="tile4_title">
                   {landingPageData.tile4.titleText}
-                </div>
-                <div className={classes.mountainMeadowContent} id="tile4_description">
-                  {landingPageData.tile4.descriptionText}
-                </div>
-                <div className={classes.mountainMeadowButtonSection}>
-                  <div className={classes.blueButtonLeft}>
-                    <img className={classes.mountainMeadowIcon} src={icon} alt="CTDC about " />
-                    {' '}
-                  </div>
-                  <div className={classes.blueButtonRight} id="tile4_button">
-                    <Link
-                      to={landingPageData.tile4.callToActionLink}
-                      className={classes.mountainMeadowButton}
-                    >
-                      {landingPageData.tile4.callToActionText}
-                    </Link>
-                  </div>
+                </h3>
+                <div className={classes.mountainMeadowContentWrapper}>
+                  <div
+                    className={classes.mountainMeadowContent}
+                    id="tile4_description"
+                    // Rendering trusted HTML from data source
+                    dangerouslySetInnerHTML={{
+                      __html: landingPageData.tile4.descriptionText,
+                    }}
+                  />
+                  <img
+                    src={externalLinkIcon}
+                    className={classes.externalLinkIcon}
+                    alt="outbounnd web site icon"
+                  />
                 </div>
               </div>
             </div>
           </div>
         </Grid>
       </div>
-
     </div>
   </div>
 );
-const styles = () => ({
+const styles = (theme) => ({
   popPieChartImage: {
     width: '570px',
     marginRight: '120px',
@@ -197,6 +203,24 @@ const styles = () => ({
     backgroundRepeat: 'no-repeat',
     backgroundSize: '100% 100%',
     overflow: 'hidden',
+    [theme.breakpoints.down('md')]: {
+      width: '420px',
+      height: '390px',
+      marginRight: '40px',
+      marginTop: '60px',
+      backgroundSize: 'contain',
+    },
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      height: '260px',
+      marginRight: 0,
+      marginTop: '30px',
+      backgroundPosition: 'center',
+      backgroundSize: 'contain',
+    },
+    [theme.breakpoints.down('xs')]: {
+      height: '200px',
+    },
   },
   page: {
     marginTop: '-47px',
@@ -208,15 +232,49 @@ const styles = () => ({
     backgroundRepeat: 'no-repeat',
     backgroundSize: '100% 100%',
     margin: '0 auto',
+    [theme.breakpoints.down('md')]: {
+      height: 'auto',
+      paddingBottom: '40px',
+    },
+    [theme.breakpoints.down('sm')]: {
+      display: 'flex',
+      flexDirection: 'column-reverse',
+      alignItems: 'center',
+      padding: '20px 20px 50px',
+      backgroundSize: 'cover',
+    },
+  },
+  heroSection: {
+    width: '100%',
+    background: '#164656',
+  },
+  heroContent: {
+    maxWidth: '1280px',
+    margin: '0 auto',
+    fontFamily: 'Raleway, sans-serif',
   },
   texture: {
     backgroundSize: 'cover',
     background: 'linear-gradient(180deg, #164656 1.82%, #0E94A9 86.24%)',
     padding: '81px 0 80px 0',
+    [theme.breakpoints.down('sm')]: {
+      padding: '40px 0 50px',
+    },
+  },
+  gradientContent: {
+    maxWidth: '1280px',
+    margin: '0 auto',
+    fontFamily: 'Raleway, sans-serif',
   },
   container: {
     fontFamily: 'Raleway, sans-serif',
     margin: '0 auto',
+    [theme.breakpoints.up('lg')]: {
+      maxWidth: '1280px',
+    },
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
   },
 
   whiteSection: {
@@ -229,7 +287,7 @@ const styles = () => ({
     fontFamily: 'Raleway',
     fontSize: '16px',
     fontWeight: 'bold',
-    lineHeight: '47px',
+    lineHeight: '2%',
     textAlign: 'center',
     textDecoration: 'none',
     textTransform: 'uppercase',
@@ -246,6 +304,14 @@ const styles = () => ({
     textAlign:'center',
     width:'375px',
     margin: 'auto',
+    [theme.breakpoints.down('sm')]: {
+      paddingTop: '40px',
+      fontSize: '26px',
+      width: '100%',
+      paddingLeft: '10px',
+      paddingRight: '10px',
+      boxSizing: 'border-box',
+    },
   },
   headerTitle2: {
     paddingTop: '10px',
@@ -257,7 +323,21 @@ const styles = () => ({
     letterSpacing: '-0.02em',
     textAlign:'center',
     width: '500px',
-
+    margin: 0,
+    padding: '10px 0 0 0',
+    border: 0,
+    display: 'block',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '40px',
+      width: '100%',
+      paddingLeft: '10px',
+      paddingRight: '10px',
+      boxSizing: 'border-box',
+      lineHeight: '110%',
+    },
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '32px',
+    },
   },
   paddingLeft50: {
     paddingLeft: '50px',
@@ -272,6 +352,12 @@ const styles = () => ({
     paddingLeft: '20px',
     marginLeft: '40px',
     borderLeft: '2px solid #bbb',
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: '0',
+      paddingLeft: '15px',
+      marginTop: '25px',
+      fontSize: '16px',
+    },
   },
   headerLink: {
     textDecoration: 'none',
@@ -308,22 +394,44 @@ const styles = () => ({
     letterSpacing: '-0.02em',
     padding: '30px 23px 30px 30px',
     fontFamily: 'Poppins',
+    margin: 0,
+    border: 0,
+    display: 'block',
   },
   landingContainer: {
     alignItems: 'center',
     justifyContent: 'center',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+      paddingLeft: '15px',
+      paddingRight: '15px',
+      boxSizing: 'border-box',
+    },
   },
   contentLeft: {
     float: 'left',
     paddingRight: '10px',
+    [theme.breakpoints.down('sm')]: {
+      float: 'none',
+      width: '100%',
+      paddingRight: 0,
+      marginBottom: '40px',
+    },
   },
   about: {
     width: '300px',
     backgroundColor: '#E0DBD3',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
   },
   image: {
     width: '293px',
     height: '249px',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      height: 'auto',
+    },
   },
   aboutContent: {
     background: '#E0DBD3',
@@ -335,6 +443,12 @@ const styles = () => ({
     fontSize: '16px',
     fontWeight: '500',
     lineHeight: '22px',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      minHeight: 'unset',
+      padding: '25px 20px 28px',
+      boxSizing: 'border-box',
+    },
   },
   aboutButtonSection: {
     background: '#E0DBD3',
@@ -359,8 +473,9 @@ const styles = () => ({
     color: '#ffffff',
     textDecoration: 'none',
     textTransform: 'uppercase',
-    fontSize: '12px',
-    fontWeight: '600',
+    fontFamily: 'Raleway',
+    fontWeight: 'bold',
+    fontSize: '14px',
     lineHeight: '45px',
     paddingLeft: '20px',
     boxShadow: 'none',
@@ -369,12 +484,17 @@ const styles = () => ({
 
   content: {
     width: '100%',
-    height: '165px',
+    height: '220px',
     overflowY: 'auto',
     background: '#fff',
     paddingLeft: '30px',
     paddingTop: '5px',
     minHeight: '138px',
+    [theme.breakpoints.down('sm')]: {
+      height: 'auto',
+      maxHeight: '320px',
+      paddingLeft: '20px',
+    },
   },
   contentHeader: {
     color: '#033D6F',
@@ -383,6 +503,13 @@ const styles = () => ({
     fontWeight: 'bold',
     lineHeight: '27px',
     padding: '10px 0',
+    margin: 0,
+    border: 0,
+    display: 'block',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '24px',
+      lineHeight: '30px',
+    },
   },
   contentContainer: {
     width: '215px',
@@ -392,32 +519,84 @@ const styles = () => ({
     lineHeight: '22px',
     paddingLeft: '2px',
     paddingBottom: '10px',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      paddingRight: '10px',
+      boxSizing: 'border-box',
+    },
   },
 
   program: {
     float: 'left',
     padding: '0 10px 6.8px 0px',
+    [theme.breakpoints.down('sm')]: {
+      float: 'none',
+      width: '100%',
+      padding: 0,
+      marginBottom: '30px',
+      display: 'flex',
+      flexDirection: 'column',
+      background: '#fff',
+    },
   },
   programImg: {
     background: '#fff',
     height: '246px',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      height: 'auto',
+      order: 0,
+    },
   },
   studies: {
     float: 'left',
+    [theme.breakpoints.down('sm')]: {
+      float: 'none',
+      width: '100%',
+      marginBottom: '30px',
+      display: 'flex',
+      flexDirection: 'column',
+      background: '#fff',
+    },
   },
 
   contentRightBottom: {
+    position: 'relative',
     float: 'left',
     width: '597px',
     background: '#fff',
-    backgroundImage: `url(${landingPageData.tile4.img})`,
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
+    [theme.breakpoints.down('sm')]: {
+      float: 'none',
+      width: '100%',
+      minHeight: '340px',
+      marginTop: '10px',
+    },
+  },
+  tile4BackgroundImage: {
+    width: '100%',
+    height: '403px',
+    objectFit: 'cover',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    zIndex: 1,
+    [theme.breakpoints.down('sm')]: {
+      height: '340px',
+    },
   },
   cases: {
-    height: '392px',
+    position: 'relative',
+    zIndex: 2,
+    height: '403px',
     paddingLeft: '340px',
     paddingTop: '70px',
+    [theme.breakpoints.down('sm')]: {
+      height: 'auto',
+      paddingLeft: '30px',
+      paddingTop: '40px',
+      paddingRight: '30px',
+      boxSizing: 'border-box',
+    },
   },
   mountainMeadowButtonSection: {
     height: '46px',
@@ -431,24 +610,37 @@ const styles = () => ({
     background: '#24415C',
     color: '#FFFFFF',
     fontFamily: 'Raleway',
-    fontSize: '12px',
-    fontWeight: '600',
-    lineHeight: '25px',
+    fontSize: '14px',
+    fontWeight: 'bold',
+    lineHeight: '2%',
     paddingLeft: '8px',
     textDecoration: 'none',
     letterSpacing: '1px',
+    [theme.breakpoints.down('sm')]: {
+      display: 'flex',
+      alignItems: 'center',
+      width: '100%',
+      lineHeight: '36px',
+      order: 2,
+    },
   },
   blueButtonLeft: {
     float: 'left',
   },
   blueButtonRight: {
     float: 'left',
-    lineHeight: '44px',
+    lineHeight: '45px',
     marginLeft: '8px',
-    fontFamily: 'Lato',
+    fontFamily: 'Raleway',
+    fontWeight: 'bold',
     fontSize: '14px',
     color: '#fff',
     textTransform: 'uppercase',
+  },
+  externalLinkIcon: {
+    margin: '0px 0px 0px 2px',
+    padding: '0px 2px 3px 3px',
+    verticalAlign: 'sub',
   },
   mountainMeadowContentHeader: {
     color: '#033D6F',
@@ -457,14 +649,41 @@ const styles = () => ({
     fontWeight: 'bold',
     lineHeight: '32px',
     padding: '15px 0',
+    margin: 0,
+    border: 0,
+    display: 'block',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '24px',
+      lineHeight: '30px',
+    },
+  },
+  mountainMeadowContentWrapper: {
+    maxWidth: '230px',
   },
   mountainMeadowContent: {
+    display: 'inline',
     height: '143px',
     width: '230px',
     color: '#010101',
     fontFamily: 'Nunito',
     fontSize: '15px',
     lineHeight: '22px',
+    [theme.breakpoints.down('sm')]: {
+      height: 'auto',
+      width: '100%',
+      paddingBottom: '20px',
+    },
+    '& a, & a:visited': {
+      color: '#274FA6',
+      fontWeight: 'bold',
+      fontFamily: 'inherit',
+      fontSize: 'inherit',
+      textDecoration: 'none'
+    },
+    '& a:hover, & a:focus, & a:active': {
+      outline: 'none',
+      textDecoration: 'underline',
+    },
   },
   mountainMeadowIcon: {
     width: '20px',
@@ -477,9 +696,10 @@ const styles = () => ({
     width: '71px',
     color: '#FFFFFF',
     fontFamily: 'Raleway',
-    fontSize: '12px',
-    fontWeight: '600',
-    lineHeight: '19.31px',
+    fontWeight: 'bold',
+    fontSize: '14px',
+    lineHeight: '2%',
+    textTransform: 'uppercase',
     textDecoration: 'none',
     marginLeft: '8px',
     letterSpacing: '1px',
@@ -503,27 +723,43 @@ const styles = () => ({
   },
   heroTextContainer: {
     marginLeft: '-63px',
+    [theme.breakpoints.down('md')]: {
+      marginLeft: '-20px',
+    },
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: 0,
+      width: '100%',
+    },
   },
   heroTextWrapper: {
     maxWidth: '500px',
     width:'max-content',
     margin: 'auto',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      maxWidth: '100%',
+    },
   },
   headerButtonSection: {
     width: '100%',
     textAlign: 'center',
     marginTop: '30px',
+    [theme.breakpoints.down('sm')]: {
+      marginTop: '25px',
+    },
   },
   buttonText: {
     fontFamily: 'Raleway',
-    fontWeight: 700,
-    fontSize: '12px',
+    fontWeight: 'bold',
+    fontSize: '14px',
     padding: '12px 30px',
     height: '36px',
     color: '#FFFFFF',
     width: '197px',
     borderRadius: '30px',
-    border: '2px solid #ffffff',
+    border: '1px solid #ffffff', // 1px stroke
+    boxSizing: 'border-box', // ensure border is inside
+    lineHeight: '2%',
   },
 });
 export default withStyles(styles, { withTheme: true })(LandingView);

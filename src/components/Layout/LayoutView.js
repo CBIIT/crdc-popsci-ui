@@ -17,7 +17,7 @@ import Login from '../../pages/login';
 // import ProfileController from '../../pages/profile/profileController';
 import OverlayWindow from '../OverlayWindow/OverlayWindow';
 import AUTH_MIDDLEWARE_CONFIG from '../Auth/authMiddlewareConfig';
-import AuthSessionTimeoutController from '../SessionTimeout/SessionTimeoutController';
+// import AuthSessionTimeoutController from '../SessionTimeout/SessionTimeoutController';
 import { AuthenticationMiddlewareGenerator } from '@bento-core/authentication';
 import UnderDev from '../../pages/error/Development';
 import Notifactions from '../Notifications/NotifactionView';
@@ -25,6 +25,7 @@ import DashTemplate from '../../pages/dashTemplate/DashTemplateController';
 import RAView from '../../pages/about/requestAccess'; 
 import ActivitiesController from '../ActivitiesController'; 
 import useVisitedPageSync from '../../utils/useVisitedPageSync';
+import CartView from '../../pages/fileCentricCart/cartController';
 
 const ScrollToTopComponent = () => {
   window.scrollTo(0, 0);
@@ -44,7 +45,7 @@ const Layout = ({ classes, isSidebarOpened }) => {
     <HashRouter>
       <>
         <Notifactions />
-        <AuthSessionTimeoutController />
+        {/* <AuthSessionTimeoutController /> */}
         <Header />
         <OverlayWindow />
         {/* Reminder: Ajay need to replace the ICDC with env variable and
@@ -67,9 +68,8 @@ const Layout = ({ classes, isSidebarOpened }) => {
               <Route exact path="/search" component={GlobalSearchController} />
               <Route path="/search/:id"  component={GlobalSearchController} />
               <Route path="/graphql" component={GraphqlClient} />
+              <Route exact path="/fileCentricCart" component={CartView} />
 
-           
-              {/* END: Private Routes */}
               {aboutPageRoutes.map(
                 (aboutPageRoute, index) => (
                   <Route
@@ -79,6 +79,7 @@ const Layout = ({ classes, isSidebarOpened }) => {
                   />
                 ),
               )}
+               
               <LoginRoute path="/user/login" component={Login} />
               <Route component={Error} />
           </Switch>

@@ -1,0 +1,317 @@
+import React, { useEffect, useState, useContext, useMemo, Fragment } from 'react';
+import {
+  withStyles,
+  MenuItem,
+  MenuList,
+  ClickAwayListener,
+  Popper,
+  Button,
+  Grow,
+  Paper,
+  Grid,
+} from '@material-ui/core';
+import clsx from 'clsx';
+import { useQuery } from '@apollo/client';
+import axios from 'axios';
+import { noop } from 'lodash';
+import { CartContext } from '@bento-core/cart';
+import { ToolTip as Tooltip } from '../../../../bento-core';
+import styles from './DropDownStyle';
+import {
+  table,
+  GET_MY_CART_DATA_QUERY,
+  myFilesPageData,
+  manifestData as manifestDataConfig,
+  getManifestFileSignedUrlEndPoint
+} from '../../../../bento/fileCentricCartWorkflowData';
+import env from '../../../../utils/env';
+import DownloadFileManifestDialog from './downloadFileManifestDialog';
+import { convertToCSV, createFileName, downloadCsvString } from '../../../../utils/fileDownload';
+
+import cgcIcon from '../../assets/exportToCancerGenomicsCloudIcon.svg';
+import dfmIcon from '../../assets/downloadFileManifestIcon.svg';
+
+import arrowDownSvg from '../../assets/arrowDown.svg';
+import arrowUpSvg from '../../assets/arrowUp.svg';
+
+const LABEL = 'Export and Download';
+const EXPORT_TO_CANCER_GENOMICS_CLOUD = 'Export to Cancer Genomics Cloud';
+const DOWNLOAD_FILE_MANIFEST = 'Download File Manifest';
+
+const TOOLTIP_CONTENT = {
+  EMPTY_CART: 'Add some files to the cart to get started.',
+  EXPORT_TO_CGC: "For immediate analysis, export files directly to your Cancer Genomics Cloud account.",
+  DOWNLOAD_FILE_MANIFEST: "For future analysis, create a File Manifest and upload it into your CGC account at the appropriate time."
+};
+
+const DropDownView = ({ classes, filesId = [] }) => {
+  const [open, setOpen] = useState(false);
+  const [manifestData, setManifestData] = useState([]);
+  const [manifestString, setManifestString] = useState('');
+  const [downloadFileManifestDialogOpen, setDownloadFileManifestDialogOpen] = React.useState(false);
+
+  const anchorRef = React.useRef(null);
+
+  // Context
+  const { context: cartContext } = useContext(CartContext);
+  const { cart: { comment = '' } = {} } = cartContext; // { cart: {comment: "", manifestData: {...}, queryVariables: {data_file_uuid: [...]}, table:{...} }}
+
+  // Derived States
+  const isCartEmpty = useMemo(() => filesId.length === 0, [filesId]);
+  const isDropDownDisabled = useMemo(() => isCartEmpty, [isCartEmpty]);
+
+  // Fetch Manifest Data
+  useQuery(GET_MY_CART_DATA_QUERY, {
+    variables: {
+      data_file_uuid: filesId,
+      first: filesId.length
+    },
+    skip: !filesId.length,
+    onCompleted: (data) => {
+      setManifestData(data[table.objectKey]); // Store raw data for manifest generation
+    }
+  })
+
+  // Generate Manifest String/CSV
+  useEffect(() => {
+    if (manifestData.length > 0) {
+      try {
+        const generatedManifest = convertToCSV(
+          manifestData,
+          comment,
+          manifestDataConfig.keysToInclude,
+          manifestDataConfig.header
+        );
+        setManifestString(generatedManifest);
+      } catch (error) {
+        console.error("Error generating CSV:", error);
+        setManifestString(""); // Reset the manifest string to avoid invalid data
+      }
+    }
+  }, [manifestData, comment]);
+
+  // Generate Manifest String/CSV
+  useEffect(() => {
+    setOpen(false);
+  }, []);
+
+  // Tooltip Titles
+  const dropDownTooltipTitle = useMemo(() => {
+    return isCartEmpty ? TOOLTIP_CONTENT.EMPTY_CART : '';
+  }, [isCartEmpty]);
+
+  
+
+  const handleToggle = () => setOpen((prevOpen) => !prevOpen);
+  const handleClose = (event) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) return;
+    setOpen(false);
+  };
+
+  function handleListKeyDown(event) {
+    if (event.key === 'Tab') {
+      event.preventDefault();
+      setOpen(false);
+    }
+  }
+
+  // return focus to the button when we transitioned from !open -> open
+  const prevOpen = React.useRef(open);
+  useEffect(() => {
+    if (prevOpen.current === true && open === false) {
+      anchorRef.current.focus();
+    }
+    prevOpen.current = open;
+  }, [open]);
+
+
+  // Fetch Manifest Signed URL
+  const fetchManifestSignedUrl = async () => {
+    const url = env.REACT_APP_INTEROP_SERVICE_URL + getManifestFileSignedUrlEndPoint;
+    const data = { manifest: manifestString };
+    const headers = { 'Content-Type': 'application/json' };
+  
+    try {
+      const response = await axios.post(url, data, { headers });
+      return response.data.manifestSignedUrl || '';
+    } catch (error) {
+      console.error('Error fetching manifest signed URL:', error);
+      return '';
+    }
+  };
+
+  // Handle Download Actions
+  const initiateDownload = async (action) => {
+    try {
+      switch (action) {
+        case EXPORT_TO_CANCER_GENOMICS_CLOUD: {
+          const manifestSignedUrl = await fetchManifestSignedUrl();
+  
+          if (manifestSignedUrl) {
+            window.open(
+              `https://cgc.sbgenomics.com/import-redirect/drs/csv?URL=${encodeURIComponent(manifestSignedUrl)}`,
+              '_blank'
+            );
+          } else {
+            console.error('Failed to retrieve manifest signed URL.');
+          }
+          break;
+        }
+  
+        case DOWNLOAD_FILE_MANIFEST: {
+          if (!manifestString) {
+            console.error('Downloading File Manifest failed. Manifest string is empty.');
+            break;
+          }
+  
+          const manifestFileName = createFileName(myFilesPageData.manifestFileName, '.csv');
+          downloadCsvString(manifestString, manifestFileName);
+          break;
+        }
+  
+        default:
+          noop();
+          break;
+      }
+    } catch (error) {
+      console.error('Error initiating download:', error);
+    }
+  };
+
+  // Handler for opening a dialog that allows the user to enter a comment using a textarea
+  // const handleDownloadFileManifestDialogOpen = () => setDownloadFileManifestDialogOpen(true);
+
+  const handleDownloadFileManifestDialogClose = () => {
+    setDownloadFileManifestDialogOpen(false);
+  };
+
+  // Render Menu Items
+  const getMenuItem = () => {
+    return (
+      <Fragment>
+         <MenuItem>
+          <Tooltip
+            arrow
+            interactive
+            title={TOOLTIP_CONTENT.EXPORT_TO_CGC}
+            placement="left"
+            classes={{tooltip: classes.menuItemTooltip, arrow: classes.arrow}} 
+          >
+            <Grid container alignItems='center' style={{ cursor: isDropDownDisabled && 'not-allowed'}} onClick={() => {
+              if (isDropDownDisabled) {
+                return noop()
+              };
+              initiateDownload(EXPORT_TO_CANCER_GENOMICS_CLOUD);
+              setOpen(false);
+              }}
+            >
+              <Grid item xs className={classes.dropDownLabel}>
+                Export to<br />Cancer Genomics Cloud
+              </Grid>
+              <Grid item>
+                <img className={classes.cgcIcon} src={cgcIcon} alt="icon" />
+              </Grid>
+            </Grid>
+          </Tooltip>
+        </MenuItem> 
+        <MenuItem style={{ cursor: isDropDownDisabled && 'not-allowed'}} className="downloadManifestBtn">
+          <Tooltip
+            arrow
+            interactive
+            title={TOOLTIP_CONTENT.DOWNLOAD_FILE_MANIFEST}
+            placement="left"
+            classes={{tooltip: classes.menuItemTooltip, arrow: classes.arrow}} 
+          >
+            <Grid container onClick={() => {
+                if(isDropDownDisabled) {
+                    return noop()
+                }
+                initiateDownload(DOWNLOAD_FILE_MANIFEST)
+            }}>
+              <Grid item xs className={classes.dropDownLabel}>Download<br/>File Manifest</Grid>
+              <Grid item>
+                <img className={classes.downloadFileIcon} src={dfmIcon} alt="icon"/>
+              </Grid>
+            </Grid>
+          </Tooltip>
+        </MenuItem>
+      </Fragment>
+    );
+  };
+
+  return (
+    <>
+      <div className={classes.dropDownBtnContainer}>
+        {' '}
+        <Tooltip
+          arrow
+          placement="left"
+          title={dropDownTooltipTitle}
+          classes={{ tooltip: classes.customTooltip, arrow: classes.arrow }} 
+        >
+          <div>
+            <Button
+              // disabled={isDropDownDisabled}
+              classes={{
+                root: clsx({
+                  [classes.availableDownloadDropdownBtnIsOpen]: !isDropDownDisabled && open,
+                  [classes.availableDownloadDropdownBtn]: isDropDownDisabled === false && !open,
+                  [classes.disabledDownloadDropdownBtnIsOpen]: isDropDownDisabled && open,
+                  [classes.disableDropDownBtn]: isDropDownDisabled
+                }),
+                label: classes.availableDownloadDropdownBtnLabel,
+                // contained: classes.availableDownloadBtnContained,
+                startIcon: classes.availableDownloadDropdownBtnStartIcon,
+                endIcon: classes.endIcon,
+              }}
+              endIcon={<img src={open ? arrowUpSvg : arrowDownSvg} alt="dropdown icon" />}
+              ref={anchorRef}
+              aria-controls={open ? 'menu-list-grow' : undefined}
+              aria-haspopup="true"
+              onClick={handleToggle}
+            >
+              {LABEL}
+            </Button>
+          </div>
+        </Tooltip>
+        <Popper
+          open={open}
+          anchorEl={anchorRef.current}
+          role={undefined}
+          transition
+          disablePortal
+          style={{zIndex: 99999,}}
+        >
+          {({ TransitionProps, placement }) => (
+            <Grow
+              {...TransitionProps}
+              style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom', position: 'relative'}}
+            >
+              <Paper className={classes.dropdownPaper}>
+                <ClickAwayListener onClickAway={handleClose}>
+                  <MenuList
+                    autoFocusItem={open}
+                    id="menu-list-grow"
+                    onKeyDown={handleListKeyDown}
+                    classes={{
+                      root: classes.dropdownMenuList,
+                    }}
+                  >
+                    {getMenuItem()}
+                  </MenuList>
+                </ClickAwayListener>
+              </Paper>
+            </Grow>
+          )}
+        </Popper>
+      </div>
+      <DownloadFileManifestDialog
+        onClose={handleDownloadFileManifestDialogClose}
+        open={downloadFileManifestDialogOpen}
+        filesId={filesId}
+      />
+    </>
+  );
+};
+
+export default withStyles(styles)(DropDownView);

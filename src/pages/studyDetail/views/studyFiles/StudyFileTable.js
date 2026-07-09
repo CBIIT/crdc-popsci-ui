@@ -1,17 +1,30 @@
 import React from "react";
-import { Grid, } from '@material-ui/core';
+import { Grid, withStyles, } from '@material-ui/core';
 import { 
   TableContextProvider,
   TableView,
+  Wrapper,
 } from '@bento-core/paginated-table';
 
 import { studyDataFileTableConfig } from '../../../../bento/studyDetailData';
 import { themeConfig } from './tableConfig/Theme';
-import { configColumn } from './tableConfig/Column';
+import { configColumn, useDownloadTableFunction } from './tableConfig/Column';
+import { configWrapper, wrapperConfig } from "./wrapperConfig/Wrapper";
+import { customTheme } from "./wrapperConfig/Theme";
+
+import styles from './tableStyle';
+
 
 const StudyPersonnel = (props) => {
   const config = studyDataFileTableConfig;
-  const { data } = props;
+  const { data, classes, studyShortName } = props;
+
+
+  const variables = {};
+  variables.study_short_name = studyShortName;
+
+  // Get the custom download table function
+  const downloadTable = useDownloadTableFunction(variables);
 
   /**
     * initialize state for useReducer
@@ -41,6 +54,8 @@ const StudyPersonnel = (props) => {
     * 11. selectedRows: (Optional) provides ids of the selected row (id defined by dataKey)
     * 12. themeConfig - (optional) configure table style
   */
+    // variables: { study_short_name: [studyShortName] },
+
   const initTblState = (initailState) => ({
     ...initailState,
     title: config.name,
@@ -53,30 +68,46 @@ const StudyPersonnel = (props) => {
     tableMsg: config.tableMsg,
     sortBy: config.defaultSortField,
     sortOrder: config.defaultSortDirection,
-    extendedViewConfig: config.extendedViewConfig,
+    extendedViewConfig: {
+      ...config.extendedViewConfig,
+      download: {
+        ...config.extendedViewConfig?.download,
+        downloadTable: downloadTable
+      }
+    },
     rowsPerPage: 10,
     page: 0,
   });
 
   return (
     <TableContextProvider>
-      <Grid container>
-        <Grid item xs={12} id={config.tableID}>
-          <TableView
-            /*
-              * The table will be client-side, not server-side.
-              * More info: https://github.com/CBIIT/bento-frontend/blob/master/packages/paginated-table/src/table/PaginatedTable.js
-            */
-            server={false} 
-            tblRows={data}
-            initState={initTblState}
-            themeConfig={themeConfig}
-            totalRowCount={data.length}
-          />
+      <Wrapper
+        wrapConfig={configWrapper(config, wrapperConfig, "", data.length)}
+        customTheme={customTheme}
+        classes={classes}
+        section={config.name}
+        activeFilters={{ study_short_name: [studyShortName] }}
+      >
+        <Grid container>
+          <Grid item xs={12} id={config.tableID}>
+            <TableView
+              /*
+                * The table will be client-side, not server-side.
+                * More info: https://github.com/CBIIT/bento-frontend/blob/master/packages/paginated-table/src/table/PaginatedTable.js
+              */
+              server={false} 
+              tblRows={data}
+              initState={initTblState}
+              themeConfig={themeConfig}
+              totalRowCount={data.length}
+            />
+          </Grid>
         </Grid>
-      </Grid>
+      </Wrapper>
     </TableContextProvider>
   );
 };
 
-export default StudyPersonnel;
+
+export default withStyles(styles)(StudyPersonnel);
+

@@ -114,6 +114,6 @@ export const customMyFilesTabDownloadCSV = {
   header: ['File Name', 'File Type', 'Association', 'Description', 'File Format', 'Size', 'Case Id', 'Study Code'],
   query: MY_CART,
   apiVariable: 'filesInList',
-  fileName: 'BENTO File Manifest',
-  defaultFullTableDownload: false,
+  fileName: 'Cart Table Content',
+  defaultFullTableDownload: true,
 };

@@ -1,6 +1,8 @@
+import React from 'react';
 import { sortType, InputTypes } from '@bento-core/facet-filter';
 import { DEFAULT_VALUE } from './siteWideConfig';
 import reset_icon from '../assets/dash/resetIcon.svg'
+import { Box, Typography } from '@material-ui/core';
 
 const Studies = 'Filter by Studies';
 const Participants = 'Filter by Participants';
@@ -26,6 +28,38 @@ export const facetSectionVariables = {
     hasArrowDropDownIcon: false,
   },
 };
+
+const CustomLowerUpperBound = (props) => {
+  const {minLowerBound, maxUpperBound, classes} = props
+  return (
+    <Box className={classes.lowerUpperBound}>
+    <Typography className={classes.lowerBound}>
+      {minLowerBound}
+    </Typography>
+    <Typography className={classes.upperBound}>
+      {maxUpperBound >= new Date().getFullYear() ? 'ongoing' : maxUpperBound}
+    </Typography>
+  </Box>
+  )
+}
+
+const CustomSliderValue = (props) => {
+  const {sliderValue, minLowerBound, maxUpperBound, isValid, quantifier, classes} = props
+  if (sliderValue[0] > minLowerBound || sliderValue[1] < maxUpperBound) {
+    return (
+      <Typography
+        className={isValid() ? classes.sliderText : classes.invalidSliderText}
+      >
+        {sliderValue[0]}
+        {' - '}
+        {sliderValue[1] >= new Date().getFullYear() ? 'ongoing' : sliderValue[1]}
+        &nbsp;
+        {quantifier}
+      </Typography>
+    );
+  }
+  return null;
+}
 
 export const facetsConfig = [
   {
@@ -85,6 +119,9 @@ export const facetsConfig = [
     slider: true,
     type: InputTypes.SLIDER,
     sort_type: 'none',
+    CustomLowerUpperBound: CustomLowerUpperBound,
+    CustomSliderValue: CustomSliderValue,
+    
     // minLowerBound: 1970,
     // maxUpperBound: 2021,
     // quantifier: 'Years',
@@ -101,6 +138,8 @@ export const facetsConfig = [
     slider: true,
     type: InputTypes.SLIDER,
     sort_type: 'none',
+    CustomLowerUpperBound: CustomLowerUpperBound,
+    CustomSliderValue: CustomSliderValue,
   },
   {
     section: Studies,
@@ -117,10 +156,10 @@ export const facetsConfig = [
   },
   {
     section: Studies,
-    label: 'Neoplasms',
+    label: 'Cancer Types',
     apiPath: 'studyCountByNeoplasm',
     apiForFiltering: 'filterStudyCountByNeoplasm',
-    datafield: 'primary_diagnosis_disease_term',
+    datafield: 'cancer_diagnosis_primary_site_list',
 
     field: GROUP,
     type: InputTypes.CHECKBOX,
@@ -168,10 +207,10 @@ export const facetsConfig = [
   },
   {
     section: Participants,
-    label: 'Race Representation',
+    label: 'Race',
     apiPath: 'studyCountByRace',
     apiForFiltering: 'filterStudyCountByRace',
-    datafield: 'races',
+    datafield: 'race',
     field: GROUP,
     type: InputTypes.CHECKBOX,
     sort_type: sortType.ALPHABET,
@@ -180,10 +219,10 @@ export const facetsConfig = [
   },
   {
     section: Participants,
-    label: 'Ethnic Representation',
+    label: 'Ethnicity',
     apiPath: 'studyCountByEthnicity',
     apiForFiltering: 'filterStudyCountByEthnicity',
-    datafield: 'ethnicities',
+    datafield: 'ethnicity',
     field: GROUP,
     type: InputTypes.CHECKBOX,
     sort_type: sortType.ALPHABET,
@@ -192,28 +231,16 @@ export const facetsConfig = [
   },
   {
     section: Participants,
-    label: 'Sex Representation',
+    label: 'Sex',
     apiPath: 'studyCountBySex',
     apiForFiltering: 'filterStudyCountBySex',
-    datafield: 'sexes',
+    datafield: 'sex',
     field: GROUP,
     type: InputTypes.CHECKBOX,
     sort_type: sortType.ALPHABET,
     show: true,
     defaultValue: DEFAULT_VALUE,
   },
-  {
-    section: Participants,
-    label: 'Gender Representation',
-    apiPath: 'studyCountByGender',
-    apiForFiltering: 'filterStudyCountByGender',
-    datafield: 'genders',
-    field: GROUP,
-    type: InputTypes.CHECKBOX,
-    sort_type: sortType.ALPHABET,
-    show: true,
-    defaultValue: DEFAULT_VALUE,
-  }
 ];
 
 // --------------- Dashboard Widgets configuration --------------
@@ -253,9 +280,9 @@ export const SUNBURST_COLORS_LEVEL_2 = [
 export const widgetConfig = [
   {
     type: 'donut',
-    title: 'Studies',
+    title: 'Studies: Participant Count',
     sliceTitle: "Participants",
-    dataName: 'globalStatsBar',
+    dataName: 'participantCountWidgetAndStats',
   },
   {
     type: 'donut',
@@ -265,8 +292,8 @@ export const widgetConfig = [
   },
   {
     type: 'donut',
-    title: 'Data Collected',
-    sliceTitle: "Studies",
-    dataName: 'studyCountByDataCollection',
+    title: 'Studies: Cancer Type Count',
+    sliceTitle: "Cancer Types",
+    dataName: 'cancerTypeCountWidget',
   }
 ];

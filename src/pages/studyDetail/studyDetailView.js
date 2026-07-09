@@ -16,7 +16,7 @@ import {
   Overview,
   Demographics,
   Publications,
-  Neoplasms,
+  CancerTypes,
   StudyFiles,
   Country,
   DataCollection,
@@ -24,7 +24,7 @@ import {
 import TabContentWrapper from './TabContentWrapper';
 import StatsView from '../../components/Stats/StatsView';
 
-const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
+const StudyDetailView = ({ classes, data, isLoading=false, isError=false, studyShortName}) => {
   const [snackbarState, setsnackbarState] = React.useState({ open: false, value: 0 });
   const [currentTab, setCurrentTab] = React.useState(0);
 
@@ -40,6 +40,9 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
   );
 
   const studyGeneral = {...data?.studyGeneral?.at(0), ...data?.tabStudy?.at(0), ...data?.globalStatsBar?.at(0)};
+  const studyDemographics = data?.studyDemographics?.at(0);
+  const primarySiteMorphology = data?.primarySiteMorphology?.at(0);
+  const studyFiles = data?.studyFiles;
 
   const statsbarData = {
     ...data.searchStudies,
@@ -53,12 +56,12 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
 
   const processedTabs = [
     { index: 0, label: 'Overview', content: <Overview data={studyGeneral || {}}  />},
-    { index: 1, label: 'Neoplasms', content: <Neoplasms data={studyGeneral || {}} /> },
-    { index: 2, label: 'Demographics', content: <Demographics data={studyGeneral || {}} /> },
+    { index: 1, label: 'Cancer Types', content: <CancerTypes data={primarySiteMorphology || {}} /> },
+    { index: 2, label: 'Demographics', content: <Demographics data={studyDemographics || {}} /> },
     { index: 3, label: 'Data Collected' ,content: <DataCollection data={data?.dataCollectionPage[0].data_collection || {}} /> },
     { index: 4, label: 'Countries and States',content: <Country data={studyGeneral || {}} /> },
     { index: 5, label: 'Publications', content: <Publications data={studyGeneral || {}} /> },
-    { index: 6, label: 'Study Files', content: <StudyFiles data={studyGeneral || {}} />},
+    { index: 6, label: 'Study Files', content: <StudyFiles data={studyFiles || []} studyShortName={studyShortName} />},
   ];
 
   if (isLoading) return <CircularProgress />;
@@ -83,6 +86,7 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
 
   return (
     <StudyThemeProvider>
+
       <Snackbar
         snackbarState={snackbarState}
         closeSnack={closeSnack}
@@ -90,10 +94,9 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
         // classes={classes}
       />
 
-      {/* <Stats /> */ }
-      <StatsView data={statsbarData} />
+            <StatsView data={statsbarData} />
 
-      <div className={classes.container}>
+      <main className={classes.container}>
         <div className={classes.breadCrumb}>
           <CustomBreadcrumb separator=">" data={breadCrumbJson} />
         </div>
@@ -107,16 +110,16 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
             <div className={classes.headerMainTitle}>
               <span>
                 Study:
-                <span className={classes.headerStudyShortName}>
+                <h1 className={classes.headerStudyShortName}>
                    {studyGeneral.study_short_name }
-                </span>
+                </h1>
               </span>
             </div>
 
-            <div className={classes.headerStudyName}>
-              <span style={{verticalAlign: 'bottom'}}>
+            <div>
+              <h2 className={classes.headerStudyName} style={{verticalAlign: 'bottom'}}>
                 {studyGeneral.study_name}
-              </span>
+              </h2>
             </div>
           </div>
 
@@ -147,7 +150,7 @@ const StudyDetailView = ({ classes, data, isLoading=false, isError=false}) => {
             {processedTab.content}
           </TabContentWrapper>
         ))}
-      </div>
+      </main>
     </StudyThemeProvider>
   );
 };

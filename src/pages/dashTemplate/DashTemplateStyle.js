@@ -1,3 +1,5 @@
+const SIDEBAR_WIDTH = '285px';
+
 export default (theme) => ({
   dashboardContainer: {
     backgroundColor: '#FFFFFF',
@@ -8,8 +10,16 @@ export default (theme) => ({
     margin: 'auto',
     padding: '0 32px',
   },
+  widgetsContainer: {
+    "& svg.recharts-surface, & .MuiPaper-root": {
+      overflow: "visible",
+    },
+    overflow: 'auto',
+  },
   sideBar: {
-    minWidth: '285px',
+    width: SIDEBAR_WIDTH,
+    flex: `0 0 ${SIDEBAR_WIDTH}`,
+    boxSizing: 'border-box',
     maxHeight: '1300px',
     overflowX: 'hidden',
     backgroundColor: 'transparent',
@@ -35,8 +45,22 @@ export default (theme) => ({
     },
   },
   rightContent: {
-    width: 'calc(100% - 275px)',
+    width: `calc(100% - ${SIDEBAR_WIDTH})`,
     position: 'relative',
     marginLeft: '25px',
   },
+  visuallyHidden: {
+    visibility: 'hidden',
+    pointerEvents: 'none',
+    border: 0,
+    clip: 'rect(0 0 0 0)',
+    clipPath: 'inset(50%)',
+    height: '1px',
+    margin: '-1px',
+    overflow: 'hidden',
+    padding: 0,
+    position: 'absolute',
+    whiteSpace: 'nowrap',
+    width: '1px',
+  }
 });
