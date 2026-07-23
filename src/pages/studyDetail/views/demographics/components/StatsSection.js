@@ -75,7 +75,7 @@ const StatsSection = ({ classes, data }) => {
         <SortableTable
           data={participant_races}
           sectionTitle="Participant Races"
-          sectionCaption="Participants may identify as more than one race"
+          sectionCaption="Participants may identify as being of more than one race"
         />
       )}
       {Array.isArray(participant_ethnicities) && (
