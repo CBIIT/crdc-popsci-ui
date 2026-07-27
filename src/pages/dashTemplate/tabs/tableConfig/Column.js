@@ -50,7 +50,7 @@ export const CustomCellView = (props) => {
       category[categoryName].forEach(item => {
         totalCount++;
         const matchingData = data.find(d => d.data_collection_category === item);
-        if (matchingData && matchingData.data_collection_category_annotation_count > 0) {
+        if (matchingData && matchingData.data_collection_category_assessed === "Yes") {
           nonZeroCount++;
         }
       });

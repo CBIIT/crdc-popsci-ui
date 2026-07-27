@@ -126,7 +126,7 @@ const DataCollection = ({ data }) => {
         category[categoryName].forEach(item => {
           totalCount++;
           const matchingData = data.find(d => d.data_collection_category === item);
-          if (matchingData && matchingData.data_collection_category_annotation_count > 0) {
+          if (matchingData && matchingData.data_collection_category_assessed === 'Yes') {
             nonZeroCount++;
           }
         });
@@ -142,7 +142,7 @@ const DataCollection = ({ data }) => {
   const renderCategoryItems = (items, data) =>
     items.map((item, index) => {
       const matchingData = data.find(d => d.data_collection_category === item);
-      const annotationCount = matchingData ? (matchingData.data_collection_category_annotation_count || 0) : 0;
+      const annotationCount = matchingData ? (matchingData.data_collection_category_assessed || 'No') : 'No';
       return (
         <Grid container key={index}>
           <Grid item xs={12} sm={10} md={10}>
