@@ -148,7 +148,7 @@ const DataCollection = ({ data }) => {
             <Typography className={classes.value}>{item}</Typography>
           </Grid>
           <Grid item xs={12} sm={2} md={2}>
-            <Typography className={classes.number}>{matchingData ? matchingData.data_collection_category_assessed : ''}</Typography>
+            <Typography className={classes.number}>{matchingData ? matchingData.data_collection_category_assessed : 'No'}</Typography>
           </Grid>
         </Grid>
       );
