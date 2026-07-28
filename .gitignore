@@ -3,6 +3,7 @@ build/
 dist/
 *.exe
 *.o
+.agents
 
 # Ignore system and editor files
 .DS_Store
