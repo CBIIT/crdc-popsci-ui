@@ -142,14 +142,13 @@ const DataCollection = ({ data }) => {
   const renderCategoryItems = (items, data) =>
     items.map((item, index) => {
       const matchingData = data.find(d => d.data_collection_category === item);
-      const category_assessed = matchingData ? (matchingData.data_collection_category_assessed || 'No') : 'No';
       return (
         <Grid container key={index}>
           <Grid item xs={12} sm={10} md={10}>
             <Typography className={classes.value}>{item}</Typography>
           </Grid>
           <Grid item xs={12} sm={2} md={2}>
-            <Typography className={classes.number}>{category_assessed === 'Yes' ? 'Yes': 'No'}</Typography>
+            <Typography className={classes.number}>{matchingData ? matchingData.data_collection_category_assessed : ''}</Typography>
           </Grid>
         </Grid>
       );
