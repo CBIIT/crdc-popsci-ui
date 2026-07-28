@@ -96,11 +96,11 @@ describe('convertToCSV', () => {
         data_collection: [
           {
             data_collection_category: 'Age',
-            data_collection_category_annotation_count: 2,
+            data_collection_category_assessed: 'Yes',
           },
           {
             data_collection_category: 'Biological Sex',
-            data_collection_category_annotation_count: 1,
+            data_collection_category_assessed: 'Yes',
           },
         ],
       },
