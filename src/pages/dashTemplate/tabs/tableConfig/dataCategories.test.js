@@ -6,15 +6,15 @@ describe('formatDataCategoriesSummary', () => {
       formatDataCategoriesSummary([
         {
           data_collection_category: 'Age',
-          data_collection_category_annotation_count: 3,
+          data_collection_category_assessed: 'Yes',
         },
         {
           data_collection_category: 'Biological Sex',
-          data_collection_category_annotation_count: 1,
+          data_collection_category_assessed: 'Yes',
         },
         {
           data_collection_category: 'Alcohol Consumption',
-          data_collection_category_annotation_count: 0,
+          data_collection_category_assessed: 'No',
         },
       ]),
     ).toBe('2 of 70');

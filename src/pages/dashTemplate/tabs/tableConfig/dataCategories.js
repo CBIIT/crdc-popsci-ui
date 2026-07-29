@@ -9,8 +9,8 @@ export const formatDataCategoriesSummary = (data = []) => {
     const categoryName = Object.keys(category)[0];
     category[categoryName].forEach((item) => {
       totalCount++;
-      const matchingData = categoryData.find((entry) => entry.data_collection_category === item);
-      if (matchingData && matchingData.data_collection_category_annotation_count > 0) {
+      const matchingData = categoryData.find((d) => d.data_collection_category === item);
+      if (matchingData && matchingData.data_collection_category_assessed === "Yes") {
         nonZeroCount++;
       }
     });
