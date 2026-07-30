@@ -138,8 +138,8 @@ const styles = theme => ({
   labelCaption: {
     fontFamily: 'Nunito',
     fontWeight: 500,
-    fontSize: '11px !important',
-    lineHeight: '100%',
+    fontSize: '16px !important',
+    lineHeight: 'auto',
     letterSpacing: '0%',
     color: '#497494',
     paddingTop: '3px',
