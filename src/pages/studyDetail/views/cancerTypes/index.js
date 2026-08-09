@@ -270,6 +270,13 @@ const CancerTypes = ({ classes, data }) => {
                     />
                   </Box>
                 </Grid>
+                <Grid item xs={12} className={classes.qualifyingStatementContainer}>
+                  <Typography className={classes.qualifyingStatement}>
+                    {view === 'PrimaryDiseaseSite'
+                      ? 'Participants may have been diagnosed with multiple types of cancer originating in different primary sites'
+                      : 'Participants may have been diagnosed with multiple types of cancer with different disease morphologies'}
+                  </Typography>
+                </Grid>
                 
                 {/* Responsive list */}
                 <Grid item xs={12} className={classes.mainValue}>

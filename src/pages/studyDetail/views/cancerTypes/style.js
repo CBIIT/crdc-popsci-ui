@@ -65,6 +65,19 @@ const styles = theme => ({
       textUnderlineOffset: '4px',
     },
   },
+  qualifyingStatementContainer: {
+    marginBottom: '7px',
+  },
+
+  qualifyingStatement: {
+    fontFamily: 'Nunito',
+    fontWeight: 500,
+    fontSize: '16px !important',
+    lineHeight: 'auto',
+    letterSpacing: '0',
+    color: '#497494',
+    paddingTop: '0px',
+  },
 
   NumCancerType: {
     paddingLeft: '23px',
@@ -95,10 +108,10 @@ const styles = theme => ({
     fontWeight: 400,
     lineHeight: '22px',
     color: '#000000',
-    margin: '-20px 0 0 30px',
+    margin: '0px 0px 0px 30px',
   },
   cancerTypesList: {
-    paddingBottom: '10px',
+    paddingBottom: '2px',
   },
 
   columnsContainer: {
@@ -106,7 +119,6 @@ const styles = theme => ({
     gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 320px))',
     gap: `${ROW_GAP} ${COLUMN_GAP}`,
     justifyContent: 'left',
-    marginTop: '20px',
 
     minHeight: SCROLL_HEIGHT,
     maxHeight: SCROLL_HEIGHT,

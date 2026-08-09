@@ -138,7 +138,7 @@ const useStyles = makeStyles(theme => ({
   sectionCaption: {
     fontFamily: 'Nunito',
     fontWeight: '500',
-    fontSize: '11px !important',
+    fontSize: '16px !important',
     lineHeight: '100%',
     letterSpacing: '0%',
     color: '#497494',
@@ -183,6 +183,13 @@ const useStyles = makeStyles(theme => ({
     width: '150px',
     textAlign: 'right', 
     paddingRight: '23px',
+    fontFamily: 'Open Sans',
+    fontWeight: 700,
+    fontSize: '11px',
+    lineHeight: '9px',
+    textTransform: 'uppercase',
+
+    color: '#2d3e47',
   },
   countCell: {
     width: '150px',

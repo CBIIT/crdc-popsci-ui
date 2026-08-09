@@ -138,7 +138,7 @@ const styles = theme => ({
   labelCaption: {
     fontFamily: 'Nunito',
     fontWeight: 500,
-    fontSize: '11px !important',
+    fontSize: '16px !important',
     lineHeight: '100%',
     letterSpacing: '0%',
     color: '#497494',
