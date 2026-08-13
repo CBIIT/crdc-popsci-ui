@@ -75,7 +75,7 @@ const StatsSection = ({ classes, data }) => {
         <SortableTable
           data={participant_races}
           sectionTitle="Participant Races"
-          sectionCaption="Participants may identify as more than one race"
+          sectionCaption="Participants may identify as being of more than one race"
         />
       )}
       {Array.isArray(participant_ethnicities) && (
@@ -138,8 +138,8 @@ const styles = theme => ({
   labelCaption: {
     fontFamily: 'Nunito',
     fontWeight: 500,
-    fontSize: '11px !important',
-    lineHeight: '100%',
+    fontSize: '16px !important',
+    lineHeight: 'normal',
     letterSpacing: '0%',
     color: '#497494',
     paddingTop: '3px',
