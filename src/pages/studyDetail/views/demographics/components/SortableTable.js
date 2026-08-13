@@ -139,7 +139,7 @@ const useStyles = makeStyles(theme => ({
     fontFamily: 'Nunito',
     fontWeight: '500',
     fontSize: '16px !important',
-    lineHeight: '100%',
+    lineHeight: 'normal',
     letterSpacing: '0%',
     color: '#497494',
     paddingTop: '3px',
