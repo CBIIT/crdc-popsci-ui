@@ -139,7 +139,7 @@ const useStyles = makeStyles(theme => ({
     fontFamily: 'Nunito',
     fontWeight: '500',
     fontSize: '16px !important',
-    lineHeight: 'auto',
+    lineHeight: 'normal',
     letterSpacing: '0%',
     color: '#497494',
     paddingTop: '3px',
@@ -187,9 +187,9 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 700,
     fontSize: '11px',
     lineHeight: '9px',
-    letterSpacing: '0',
     textTransform: 'uppercase',
-    color: '#2D3E47',
+
+    color: '#2d3e47',
   },
   countCell: {
     width: '150px',

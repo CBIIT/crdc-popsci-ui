@@ -139,7 +139,7 @@ const styles = theme => ({
     fontFamily: 'Nunito',
     fontWeight: 500,
     fontSize: '16px !important',
-    lineHeight: 'auto',
+    lineHeight: 'normal',
     letterSpacing: '0%',
     color: '#497494',
     paddingTop: '3px',
