@@ -11,24 +11,30 @@ export const programListingIcon = {
 
 /** certain search data items */
 /** used by the Global Search header autocomplete */
+const AUTOCOMPLETE_SEARCH_KEYS = ['gs_list'];
+const AUTOCOMPLETE_SEARCH_DATAFIELDS = ['autocomplete_list'];
+const CTDC_GLOBAL_SEARCH_CLIENT = 'ctdcGlobalSearchService';
+// CTDC dev exposes globalSearch directly but does not expose publicGlobalSearch.
+const SUPPORTS_PUBLIC_GLOBAL_SEARCH = false;
+
 export const SEARCH_KEYS = {
-  public: [],
-  private: ['gs_list'],
+  public: AUTOCOMPLETE_SEARCH_KEYS,
+  private: AUTOCOMPLETE_SEARCH_KEYS,
 };
 
 export const SEARCH_DATAFIELDS = {
-  public: [],
-  private: ['autocomplete_list'],
+  public: AUTOCOMPLETE_SEARCH_DATAFIELDS,
+  private: AUTOCOMPLETE_SEARCH_DATAFIELDS,
 };
 
 /** used by the Global Search page results */
 export const SEARCH_PAGE_KEYS = {
   private: [...SEARCH_KEYS.private, 'model_search'],
-  public: [],
+  public: [...SEARCH_KEYS.public, 'model_search'],
 };
 
 export const SEARCH_PAGE_DATAFIELDS = {
-  public: [],
+  public: [...SEARCH_DATAFIELDS.public, 'node'],
   private: [...SEARCH_DATAFIELDS.private, 'node'],
 };
 
@@ -41,7 +47,7 @@ export const SEARCH_PUBLIC = gql`
             program_count
             study_count
             subject_count
-            sample_count
+            specimen_count
             file_count
             about_page{
                 page
@@ -97,7 +103,7 @@ export const SEARCH_PAGE_RESULTS_PUBLIC = gql`
             about_count
             study_count
             subject_count
-            sample_count
+            specimen_count
             file_count
         }
     }
@@ -129,10 +135,10 @@ export const SEARCH = gql`
   query globalSearch($input: String){
     globalSearch(input: $input) {
       participants {
-        subject_id
+        participant_id
       }
       biospecimens {
-        parent_specimen_id
+        specimen_record_id
       }
       gs_list {
         autocomplete_list
@@ -157,11 +163,10 @@ export const SEARCH_PAGE_RESULT_PARTICIPANTS = gql`
         ctep_disease_term
         stage_of_disease
         sex
-        reported_gender
         race
         targeted_therapy
         ethnicity
-        subject_id
+        participant_id
         age_at_enrollment
       }
     }
@@ -178,10 +183,10 @@ export const SEARCH_PAGE_RESULT_BIOSPECIMENS = gql`
       biospecimens {
         type
         study_short_name
-        parent_specimen_id
-        subject_id
+        specimen_record_id
+        participant_id
         ctep_disease_term
-        parent_specimen_type
+        specimen_type
         tissue_category
         anatomical_collection_site
         assessment_timepoint
@@ -250,9 +255,11 @@ export const SEARCH_PAGE_RESULTS = gql`
  * @param {boolean} isPublic whether the search is public or not
  */
 export function getResultQueryByField(field, isPublic) {
+  const usePublicSearch = SUPPORTS_PUBLIC_GLOBAL_SEARCH && isPublic;
+
   switch (field) {
     case 'all':
-      return isPublic ? SEARCH_PUBLIC : SEARCH_PAGE_RESULT_PARTICIPANTS;
+      return usePublicSearch ? SEARCH_PUBLIC : SEARCH_PAGE_RESULT_PARTICIPANTS;
     case 'participants':
       return SEARCH_PAGE_RESULT_PARTICIPANTS;
     case 'biospecimens':
@@ -260,7 +267,7 @@ export function getResultQueryByField(field, isPublic) {
     case 'model':
       return SEARCH_PAGE_RESULT_MODEL;
     case 'about_page':
-      return isPublic ? SEARCH_PAGE_RESULT_ABOUT_PUBLIC : SEARCH_PAGE_RESULT_ABOUT;
+      return usePublicSearch ? SEARCH_PAGE_RESULT_ABOUT_PUBLIC : SEARCH_PAGE_RESULT_ABOUT;
     default:
       return SEARCH_PAGE_RESULT_PARTICIPANTS;
   }
@@ -273,16 +280,18 @@ export function getResultQueryByField(field, isPublic) {
  * @param {boolean} isPublic is the search public or private
  */
 export async function queryAutocompleteAPI(inputValue, isPublic) {
+  const usePublicSearch = SUPPORTS_PUBLIC_GLOBAL_SEARCH && isPublic;
+
   const data = await client.query({
-    query: isPublic ? SEARCH_PUBLIC : SEARCH,
+    query: usePublicSearch ? SEARCH_PUBLIC : SEARCH,
     variables: {
       input: inputValue,
     },
     context: {
-      clientName: isPublic ? 'publicService' : '',
+      clientName: usePublicSearch ? 'publicService' : CTDC_GLOBAL_SEARCH_CLIENT,
     },
   })
-    .then((result) => (isPublic ? result.data.publicGlobalSearch : result.data.globalSearch))
+    .then((result) => (usePublicSearch ? result.data.publicGlobalSearch : result.data.globalSearch))
     .catch(() => []);
 
   return data;
@@ -295,16 +304,18 @@ export async function queryAutocompleteAPI(inputValue, isPublic) {
  * @param {boolean} isPublic whether to use the public service or not
  */
 export async function queryCountAPI(inputValue, isPublic) {
+  const usePublicSearch = SUPPORTS_PUBLIC_GLOBAL_SEARCH && isPublic;
+
   const data = await client.query({
-    query: isPublic ? SEARCH_PAGE_RESULTS_PUBLIC : SEARCH_PAGE_RESULTS,
+    query: usePublicSearch ? SEARCH_PAGE_RESULTS_PUBLIC : SEARCH_PAGE_RESULTS,
     variables: {
       input: inputValue,
     },
     context: {
-      clientName: isPublic ? 'publicService' : '',
+      clientName: usePublicSearch ? 'publicService' : CTDC_GLOBAL_SEARCH_CLIENT,
     },
   })
-    .then((result) => (isPublic ? result.data.publicGlobalSearch : result.data.globalSearch))
+    .then((result) => (usePublicSearch ? result.data.publicGlobalSearch : result.data.globalSearch))
     .catch(() => {});
 
   return data;
@@ -318,14 +329,16 @@ export async function queryCountAPI(inputValue, isPublic) {
  * @param {boolean} isPublic is the search public or private
  */
 export async function queryResultAPI(datafield, input, isPublic) {
+  const usePublicSearch = SUPPORTS_PUBLIC_GLOBAL_SEARCH && isPublic;
+
   const data = await client.query({
     query: getResultQueryByField(datafield, isPublic),
     variables: input,
     context: {
-      clientName: isPublic ? 'publicService' : '',
+      clientName: usePublicSearch ? 'publicService' : CTDC_GLOBAL_SEARCH_CLIENT,
     },
   })
-    .then((result) => (isPublic ? result.data.publicGlobalSearch : result.data.globalSearch))
+    .then((result) => (usePublicSearch ? result.data.publicGlobalSearch : result.data.globalSearch))
     .catch(() => []);
 
   return data[datafield] || [];

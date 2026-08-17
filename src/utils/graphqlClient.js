@@ -13,6 +13,7 @@ const BACKEND = env.REACT_APP_BACKEND_API;
 const PUBLIC_BACKEND = env.REACT_APP_BACKEND_PUBLIC_API;
 const MOCK = 'https://aac6ff42-470b-40bc-af91-508217a9eab5.mock.pstmn.io';
 
+const CTDC_GLOBAL_SEARCH_SERVICE = "https://clinical-dev.datacommons.cancer.gov/v1/graphql/";
 const CTDC_OLD_SERVICE =  "https://clinical-stage.datacommons.cancer.gov/v1/graphql/";
 const LOCAL_SERVICE =  "http://localhost:8080/v1/graphql/";
 const AUTH_SERVICE = `${env.REACT_APP_AUTH_SERVICE_API}graphql`;
@@ -22,6 +23,10 @@ const backendService = new HttpLink({
   uri: BACKEND,
 });
 
+
+const ctdcGlobalSearchService = new HttpLink({
+  uri: CTDC_GLOBAL_SEARCH_SERVICE,
+});
 
 const CTDC_OLD_BackendService = new HttpLink({
   uri: CTDC_OLD_SERVICE,
@@ -65,10 +70,14 @@ const client = new ApolloClient({
             ApolloLink.split( 
               (operation) => operation.getContext().clientName === 'userService',
               userService, 
-               ApolloLink.split( 
-              (operation) => operation.getContext().clientName === 'ctdcOldService',
-                CTDC_OLD_BackendService,
-                backendService,
+              ApolloLink.split(
+                (operation) => operation.getContext().clientName === 'ctdcGlobalSearchService',
+                ctdcGlobalSearchService,
+                ApolloLink.split(
+                  (operation) => operation.getContext().clientName === 'ctdcOldService',
+                  CTDC_OLD_BackendService,
+                  backendService,
+                ),
               ),
             ), 
           ),

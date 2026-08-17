@@ -26,7 +26,7 @@ const SearchBar = (props) => {
   const SearchBarConfig = {
     classes: CUSTOM_STYLES(),
     config: {
-      placeholder: "",
+      placeholder: "e.g. colon, MSB-01068, CMB",
       query: async (search) => queryAutocompleteAPI(search, !authenticated),
       searchKeys: authenticated ? SEARCH_KEYS.private : SEARCH_KEYS.public,
       searchFields: authenticated ? SEARCH_DATAFIELDS.private : SEARCH_DATAFIELDS.public,
@@ -39,7 +39,7 @@ const SearchBar = (props) => {
   return (
     <SearchBarContainer>
       <label htmlFor="global_search_input" style={{ visibility: 'hidden' }}>
-        Search PSDC
+        Search CTDC
       </label>
       {!location.pathname.match('/search') && <SearchBar clearable={true}/>}
     </SearchBarContainer>

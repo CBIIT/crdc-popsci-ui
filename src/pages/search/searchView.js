@@ -76,14 +76,14 @@ async function queryAllAPI(search, offset, pageSize, isPublic) {
 function searchView(props) {
   const {
     classes, searchparam = '',
-    isSignedIn, isAuthorized, publicAccessEnabled,
+    isSignedIn, isAuthorized,
   } = props;
 
   const history = useHistory();
   const [searchText, setSearchText] = useState(searchparam);
   const [searchCounts, setSearchCounts] = useState([]);
 
-  const authCheck = () => isAuthorized || publicAccessEnabled;
+  const authCheck = () => true;
 
   /**
    * Handle the tab selection change event, and redirect the user
@@ -203,7 +203,7 @@ function searchView(props) {
   const { SearchBar } = SearchBarGenerator({
     classes,
     config: {
-      placeholder: 'e.g. colon, MSB-01068, panitumimab, FFPE, CMB, gender',
+      placeholder: 'e.g. colon, MSB-01068, panitumimab, FFPE, CMB',
       iconType: 'image',
       maxSuggestions: 0,
       minimumInputLength: 0,
@@ -218,6 +218,8 @@ function searchView(props) {
     classes,
     config: {
       resultCardMap: {
+        participant: ParticipantCard,
+        biospecimen: BiospecimenCard,
         participants: ParticipantCard,
         biospecimens: BiospecimenCard,
         property: ValueCard,
