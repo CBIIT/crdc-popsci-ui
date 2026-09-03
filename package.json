@@ -1,8 +1,12 @@
 {
   "homepage": ".",
   "name": "crdc-popsci-ui",
-  "version": "1.0.1",
+  "version": "2.0.1",
   "private": true,
+  "engines": {
+    "node": "^20.0.0",
+    "npm": "^10.0.0"
+  },
   "dependencies": {
     "@apollo/client": "^3.6.9",
     "@apollo/react-components": "^4.0.0",
@@ -49,9 +53,9 @@
     "graphql": "15.5.0",
     "graphql-tag": "2.11.0",
     "html-webpack-plugin": "4.0.0-alpha.2",
-    "html2pdf": "^0.0.11",
     "html2pdf.js": "^0.10.3",
     "identity-obj-proxy": "3.0.0",
+    "install": "^0.13.0",
     "isomorphic-fetch": "^2.2.1",
     "js-yaml": "^3.13.1",
     "jszip": "^3.10.1",
@@ -59,7 +63,8 @@
     "lodash": "^4.17.20",
     "marked": "^4.2.3",
     "mini-css-extract-plugin": "0.5.0",
-    "optimize-css-assets-webpack-plugin": "5.0.1",
+    "npm": "^11.17.0",
+    "optimize-css-assets-webpack-plugin": "5.0.8",
     "pnp-webpack-plugin": "1.2.1",
     "postcss-flexbugs-fixes": "4.1.0",
     "postcss-loader": "3.0.0",
@@ -95,7 +100,7 @@
     "sass-loader": "7.1.0",
     "style-loader": "0.23.1",
     "styled-components": "^4.4.1",
-    "terser-webpack-plugin": "1.2.2",
+    "terser-webpack-plugin": "1.4.5",
     "tinycolor2": "^1.4.1",
     "url-loader": "1.1.2",
     "uuid": "^3.3.3",
@@ -105,8 +110,8 @@
     "workbox-webpack-plugin": "3.6.3"
   },
   "scripts": {
-    "start": "CI=false && PORT=3010 node scripts/start.js",
-    "build": "CI=false && node scripts/build.js",
+    "start": "CI=false NODE_OPTIONS=--openssl-legacy-provider node scripts/start.js",
+    "build": "CI=false NODE_OPTIONS='--max-old-space-size=4096 --openssl-legacy-provider' node scripts/build.js",
     "test": "node scripts/test.js",
     "test:ci": "TZ=UTC CI=true node scripts/test.js --passWithNoTests --coverage --maxWorkers=2",
     "test:coverage": "node scripts/test.js --coverage",
@@ -175,13 +180,13 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.18.6",
+    "@babel/plugin-proposal-optional-chaining": "^7.21.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^14.3.1",
     "@testing-library/user-event": "^14.6.1",
     "babel-jest": "^29.7.0",
-    "@babel/plugin-proposal-class-properties": "^7.18.6",
-    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.18.6",
-    "@babel/plugin-proposal-optional-chaining": "^7.21.0",
     "eslint": "^6.2.2",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-plugin-import": "^2.22.0",
