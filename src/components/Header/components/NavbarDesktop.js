@@ -357,7 +357,11 @@ const useOutsideAlerter = (ref1, ref2) => {
   }, [ref1, ref2]);
 };
 
-const NavBar = () => {
+const NavBar = ({ aboutMenuItems }) => {
+  const renderedSublists = {
+    ...navbarSublists,
+    About: aboutMenuItems || navbarSublists.About,
+  };
   const authData = useSelector((state) => {
     console.log(state);
     return state.login;
@@ -410,10 +414,10 @@ const NavBar = () => {
     if (item.className === "navMobileItem") {
       return correctPath === correctLink;
     }
-    if (navbarSublists[linkName] === undefined) {
+    if (renderedSublists[linkName] === undefined) {
       return false;
     }
-    const linkNames = Object.values(navbarSublists[linkName]).map((e) => "/#".concat(e.link));
+    const linkNames = Object.values(renderedSublists[linkName]).map((e) => "/#".concat(e.link));
     return linkNames.includes(correctPath);
   }
 
@@ -497,7 +501,7 @@ const NavBar = () => {
         <DropdownContainer theme={theme}>
           <div className="dropdownList">
             {
-              clickedTitle !== "" && clickedTitle !== displayName ? navbarSublists[clickedTitle].map((dropItem, idx) => {
+              clickedTitle !== "" && clickedTitle !== displayName ? renderedSublists[clickedTitle].map((dropItem, idx) => {
                 const dropkey = `drop_${idx}`;
                 return (
                   dropItem.link && (

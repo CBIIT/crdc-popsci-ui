@@ -164,7 +164,11 @@ const MenuArea = styled.div`
     }
 `;
 
-const Header = () => {
+const Header = ({ aboutMenuItems }) => {
+  const renderedSublists = {
+    ...navbarSublists,
+    About: aboutMenuItems || navbarSublists.About,
+  };
   const path = useLocation().pathname;
   const [navMobileDisplay, setNavMobileDisplay] = useState('none');
   const [navbarMobileList, setNavbarMobileList] = useState(navMobileList);
@@ -174,7 +178,7 @@ const Header = () => {
       setNavbarMobileList("login")
     }else{
       const clickTitle = e.target.innerText;
-      setNavbarMobileList(navbarSublists[clickTitle]);
+      setNavbarMobileList(renderedSublists[clickTitle]);
     }
   };
 

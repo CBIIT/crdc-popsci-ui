@@ -38,7 +38,7 @@ const HeaderContainer = styled.div`
     }
 `;
 
-const Header = () => {
+const Header = ({ aboutMenuItems }) => {
   const { dark } = useTheme();
   const theme = dark ? themes.dark : themes.light;
   const path = useLocation().pathname;
@@ -52,7 +52,7 @@ const Header = () => {
         </div>
       </HeaderContainer>
 
-      <nav className="navbarContainer" role="navigation" aria-label="Primary Navigation"><NavBar /></nav>
+      <nav className="navbarContainer" role="navigation" aria-label="Primary Navigation"><NavBar aboutMenuItems={aboutMenuItems} /></nav>
       <div className="shadow"> </div>
     </HeaderBanner>
   );

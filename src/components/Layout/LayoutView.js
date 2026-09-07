@@ -1,7 +1,6 @@
 import React from 'react';
 import { withStyles, CssBaseline } from '@material-ui/core';
 import { HashRouter, Route, Switch } from 'react-router-dom';
-import aboutPageRoutes from '../../bento/aboutPagesRoutes';
 import Header from '../Header';
 import Footer from '../Footer';
 import ScrollToTop from '../ScrollButton/ScrollButtonView';
@@ -26,6 +25,7 @@ import RAView from '../../pages/about/requestAccess';
 import ActivitiesController from '../ActivitiesController'; 
 import useVisitedPageSync from '../../utils/useVisitedPageSync';
 import CartView from '../../pages/fileCentricCart/cartController';
+import useContentNavigation from '../../services/content/contentNavigation';
 
 const ScrollToTopComponent = () => {
   window.scrollTo(0, 0);
@@ -38,6 +38,8 @@ const Layout = ({ classes, isSidebarOpened }) => {
   const { LoginRoute } = AuthenticationMiddlewareGenerator(AUTH_MIDDLEWARE_CONFIG);
   
   useVisitedPageSync();
+  const { pages: contentPages, menuItems: aboutMenuItems } = useContentNavigation();
+  const contentRoutes = contentPages.map((page) => page.route);
 
   return (
   <>
@@ -46,7 +48,7 @@ const Layout = ({ classes, isSidebarOpened }) => {
       <>
         <Notifactions />
         {/* <AuthSessionTimeoutController /> */}
-        <Header />
+        <Header aboutMenuItems={aboutMenuItems} />
         <OverlayWindow />
         {/* Reminder: Ajay need to replace the ICDC with env variable and
           change build npm to read env variable */}
@@ -70,15 +72,7 @@ const Layout = ({ classes, isSidebarOpened }) => {
               <Route path="/graphql" component={GraphqlClient} />
               <Route exact path="/fileCentricCart" component={CartView} />
 
-              {aboutPageRoutes.map(
-                (aboutPageRoute, index) => (
-                  <Route
-                    key={index}
-                    path={aboutPageRoute}
-                    component={About}
-                  />
-                ),
-              )}
+              <Route exact path={contentRoutes} component={About} />
                
               <LoginRoute path="/user/login" component={Login} />
               <Route component={Error} />

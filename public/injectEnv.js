@@ -14,6 +14,15 @@ window.injectedEnv = {
   REACT_APP_AUTH_SERVICE_API: 'http://localhost:3000/api/auth/',
   REACT_APP_USER_SERVICE_API: 'http://localhost:3000/api/users/',
   REACT_APP_INTEROP_SERVICE_URL: 'https://populationsciences-dev.datacommons.cancer.gov/api/interoperation/',
+  // Runtime Markdown content. Use the branch matching this application tier.
+  REACT_APP_REMOTE_CONTENT_ENABLED: true,
+  REACT_APP_CONTENT_GITHUB_RAW_BASE: 'https://raw.githubusercontent.com',
+  REACT_APP_CONTENT_GITHUB_OWNER: 'CBIIT',
+  REACT_APP_CONTENT_GITHUB_REPO: 'crdc-popsci-content',
+  REACT_APP_CONTENT_GITHUB_REF: 'dev',
+  REACT_APP_CONTENT_MANIFEST_PATH: 'manifest.json',
+  REACT_APP_CONTENT_POLL_MS: '300000',
+  REACT_APP_CONTENT_FALLBACK_ENABLED: true,
   // IDP Auth url
   REACT_APP_NIH_AUTH_URL: 'https://stsstg.nih.gov/auth/oauth/v2/authorize',
   // Client IDs for IDP

@@ -43,17 +43,17 @@ const HeaderContainer = styled.header`
   }
 `;
 
-const Header = () => (
+const Header = ({ aboutMenuItems }) => (
   <HeaderContainer role="banner" aria-label="Header">
     <USABanner />
     <div className="desktop">
-      <HeaderDesktop />
+      <HeaderDesktop aboutMenuItems={aboutMenuItems} />
     </div>
     <div className="tablet">
-      <HeaderTablet />
+      <HeaderTablet aboutMenuItems={aboutMenuItems} />
     </div>
     <div className="mobile">
-      <HeaderMobile />
+      <HeaderMobile aboutMenuItems={aboutMenuItems} />
     </div>
   </HeaderContainer>
   );
