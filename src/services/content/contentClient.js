@@ -130,7 +130,7 @@ const fetchText = async ({ url, config, signal, maxBytes, allowedTypes, retry = 
     const timeout = setTimeout(abort, config.timeoutMs);
     try {
       const response = await fetch(url.toString(), {
-        cache: url.pathname.endsWith(config.manifestPath) ? 'no-store' : 'default',
+        cache: 'no-store',
         credentials: 'omit',
         headers: { Accept: allowedTypes.join(', ') },
         signal: controller.signal,
@@ -231,7 +231,7 @@ export const validateMarkdownText = (markdown) => {
 export const createContentClient = (config) => {
   validateConfig(config);
   const fetchManifest = async (signal) => {
-    const manifestUrl = buildRawUrl(config, config.manifestPath, { cb: Date.now() });
+    const manifestUrl = buildRawUrl(config, config.manifestPath, { timestamp: Date.now() });
     const manifestText = await fetchText({
       url: manifestUrl,
       config,
@@ -255,7 +255,10 @@ export const createContentClient = (config) => {
       const manifest = await fetchManifest(signal);
       const page = manifest.pages.find((candidate) => candidate.route === route);
       if (!page) throw new ContentNotFoundError('This page is not present in the content manifest.');
-      const markdownUrl = buildRawUrl(config, page.markdown, { rev: manifest.revision });
+      const markdownUrl = buildRawUrl(config, page.markdown, {
+        rev: manifest.revision,
+        timestamp: Date.now(),
+      });
       const markdown = await fetchText({
         url: markdownUrl,
         config,

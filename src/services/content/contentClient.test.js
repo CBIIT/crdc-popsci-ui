@@ -50,7 +50,7 @@ describe('runtime content client', () => {
     delete global.fetch;
   });
 
-  it('fetches a manifest and revision-busted Markdown at runtime', async () => {
+  it('fetches timestamp-busted manifest and Markdown content at runtime', async () => {
     global.fetch = jest.fn((requestUrl) => Promise.resolve(
       requestUrl.includes('manifest.json')
         ? response(JSON.stringify(manifest), requestUrl, 'text/plain; charset=utf-8')
@@ -61,9 +61,11 @@ describe('runtime content client', () => {
 
     expect(page.markdown).toBe('## Runtime content');
     expect(global.fetch).toHaveBeenCalledTimes(2);
-    expect(global.fetch.mock.calls[0][0]).toContain('/prod/manifest.json?cb=');
+    expect(global.fetch.mock.calls[0][0]).toContain('/prod/manifest.json?timestamp=');
     expect(global.fetch.mock.calls[0][1]).toMatchObject({ cache: 'no-store', credentials: 'omit' });
     expect(global.fetch.mock.calls[1][0]).toContain('/prod/pages/about.md?rev=2026-09-06.1');
+    expect(global.fetch.mock.calls[1][0]).toContain('&timestamp=');
+    expect(global.fetch.mock.calls[1][1]).toMatchObject({ cache: 'no-store', credentials: 'omit' });
   });
 
   it('accepts and fetches a new safe page declared only in the manifest', async () => {
@@ -94,6 +96,7 @@ describe('runtime content client', () => {
       markdown: '## Latest research',
     }));
     expect(global.fetch.mock.calls[1][0]).toContain('/prod/pages/research-updates.md?rev=2026-09-06.1');
+    expect(global.fetch.mock.calls[1][0]).toContain('&timestamp=');
   });
 
   it('rejects a branch outside the four application tiers', () => {
