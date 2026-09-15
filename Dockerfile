@@ -8,9 +8,7 @@ RUN NODE_OPTIONS="--max-old-space-size=4096" npm install --legacy-peer-deps
 
 RUN NODE_OPTIONS="--max-old-space-size=4096" npm run build
 
-FROM nginx:stable-alpine3.23-slim AS fnl_base_image
-
-RUN apk add --no-cache --upgrade libcrypto3=3.5.8-r0 libssl3=3.5.8-r0
+FROM nginx:stable-alpine3.24-slim@sha256:77da26c31397bf6694b4bf93275f5b40b0b120ba1b8f114264b603e592c561d6 AS fnl_base_image
 
 COPY --from=build /usr/src/app/dist /usr/share/nginx/html
 COPY --from=build /usr/src/app/conf/inject.template.js /usr/share/nginx/html/inject.template.js
