@@ -13,9 +13,52 @@ export const programListingIcon = {
 /** used by the Global Search header autocomplete */
 const AUTOCOMPLETE_SEARCH_KEYS = ['gs_list'];
 const AUTOCOMPLETE_SEARCH_DATAFIELDS = ['autocomplete_list'];
-const CTDC_GLOBAL_SEARCH_CLIENT = 'ctdcGlobalSearchService';
-// CTDC dev exposes globalSearch directly but does not expose publicGlobalSearch.
-const SUPPORTS_PUBLIC_GLOBAL_SEARCH = false;
+const MODEL_NORMALIZATION_FETCH_LIMIT = 1000;
+
+const RESULT_TYPE_BY_FIELD = {
+  study: 'study',
+  about_page: 'about',
+};
+
+const getModelResultKey = ({
+  node_name: nodeName,
+  property_name: propertyName,
+}) => `${nodeName || ''}::${propertyName || ''}`;
+
+const getRenderableModelResults = (results = []) => {
+  const seen = new Set();
+
+  return results.reduce((acc, item) => {
+    if (!item || item.type !== 'property') {
+      return acc;
+    }
+
+    const key = getModelResultKey(item);
+
+    if (seen.has(key)) {
+      return acc;
+    }
+
+    seen.add(key);
+    acc.push(item);
+    return acc;
+  }, []);
+};
+
+const paginateResults = (results, input = {}) => {
+  const offset = input.offset || 0;
+  const first = input.first || results.length;
+
+  return results.slice(offset, offset + first);
+};
+
+const normalizeSearchCounts = (searchResult) => {
+  const { model, ...counts } = searchResult || {};
+
+  return Array.isArray(model)
+    ? { ...counts, model_count: getRenderableModelResults(model).length }
+    : counts;
+};
 
 export const SEARCH_KEYS = {
   public: AUTOCOMPLETE_SEARCH_KEYS,
@@ -38,107 +81,12 @@ export const SEARCH_PAGE_DATAFIELDS = {
   private: [...SEARCH_DATAFIELDS.private, 'node'],
 };
 
-/** Public search queries */
-export const SEARCH_PUBLIC = gql`
-    query publicGlobalSearchQuery($input: String) {
-        publicGlobalSearch(input: $input) {
-            model_count
-            about_count
-            program_count
-            study_count
-            subject_count
-            specimen_count
-            file_count
-            about_page{
-                page
-                title
-                type
-                text
-            }
-        }
-    }
-`;
-
-export const SEARCH_PAGE_RESULT_PROGRAM_PUBLIC = gql`
-    query publicGlobalSearchQuery($input: String, $first: Int, $offset: Int) {
-        publicGlobalSearchQuery(
-            input: $input
-            first: $first
-            offset: $offset) {
-            programs{
-                type
-                program_id
-                program_name
-                program_code
-            }
-        }
-    }
-`;
-
-export const SEARCH_PAGE_RESULT_ABOUT_PUBLIC = gql`
-    query publicGlobalSearch($input: String, $first: Int, $offset: Int){
-        publicGlobalSearch(
-            input: $input
-            first: $first
-            offset: $offset
-        ) {
-            about_page {
-                type
-                text
-                page
-                title
-            }
-        }
-    }`;
-
-export const SEARCH_PAGE_RESULTS_PUBLIC = gql`
-    query publicGlobalSearch($input: String, $first: Int, $offset: Int){
-        publicGlobalSearch(
-            input: $input
-            first: $first
-            offset: $offset
-        ) {
-            program_count
-            model_count
-            about_count
-            study_count
-            subject_count
-            specimen_count
-            file_count
-        }
-    }
-`;
-
-export const SEARCH_PAGE_RESULT_MODEL_PUBLIC = gql`
-    query publicGlobalSearch($input: String, $first: Int, $offset: Int){
-        publicGlobalSearch(
-            input: $input
-            first: $first
-            offset: $offset
-        ) {
-            model {
-                type
-                node_name
-                property_name
-                property_description
-                property_required
-                property_type
-                value
-                highlight
-            }
-        }
-    }
-`;
-
 // AutoComplete main Query
 export const SEARCH = gql`
   query globalSearch($input: String){
     globalSearch(input: $input) {
-      participants {
-        participant_id
-      }
-      biospecimens {
-        specimen_record_id
+      study {
+        study_short_name
       }
       gs_list {
         autocomplete_list
@@ -150,46 +98,21 @@ export const SEARCH = gql`
   }
 `;
 
-export const SEARCH_PAGE_RESULT_PARTICIPANTS = gql`
+export const SEARCH_PAGE_RESULT_STUDY = gql`
   query globalSearch($input: String, $first: Int, $offset: Int){
     globalSearch(
       input: $input
       first: $first
       offset: $offset
     ) {
-      participants {
-        type
+      study {
+        study_name
         study_short_name
-        ctep_disease_term
-        stage_of_disease
-        sex
-        race
-        targeted_therapy
-        ethnicity
-        participant_id
-        age_at_enrollment
-      }
-    }
-  }
-`;
-
-export const SEARCH_PAGE_RESULT_BIOSPECIMENS = gql`
-  query globalSearch($input: String, $first: Int, $offset: Int){
-    globalSearch(
-      input: $input
-      first: $first
-      offset: $offset
-    ) {
-      biospecimens {
-        type
-        study_short_name
-        specimen_record_id
-        participant_id
-        ctep_disease_term
-        specimen_type
-        tissue_category
-        anatomical_collection_site
-        assessment_timepoint
+        study_participant_minimum_age
+        study_participant_maximum_age
+        study_design
+        number_of_participants
+        cancer_type_count
       }
     }
   }
@@ -209,7 +132,6 @@ export const SEARCH_PAGE_RESULT_MODEL = gql`
                 property_description
                 property_required
                 property_type
-                value
                 highlight
             }
         }
@@ -240,10 +162,18 @@ export const SEARCH_PAGE_RESULTS = gql`
       first: $first
       offset: $offset
     ) {
-        participant_count
-        biospecimen_count
+        study_count
         model_count
         about_count
+        model {
+            type
+            node_name
+            property_name
+            property_description
+            property_required
+            property_type
+            highlight
+        }
     }
   }
 `;
@@ -252,24 +182,18 @@ export const SEARCH_PAGE_RESULTS = gql`
  * Maps a datafield to the correct search query
  *
  * @param {string} field datatable field name
- * @param {boolean} isPublic whether the search is public or not
  */
-export function getResultQueryByField(field, isPublic) {
-  const usePublicSearch = SUPPORTS_PUBLIC_GLOBAL_SEARCH && isPublic;
-
+export function getResultQueryByField(field) {
   switch (field) {
     case 'all':
-      return usePublicSearch ? SEARCH_PUBLIC : SEARCH_PAGE_RESULT_PARTICIPANTS;
-    case 'participants':
-      return SEARCH_PAGE_RESULT_PARTICIPANTS;
-    case 'biospecimens':
-      return SEARCH_PAGE_RESULT_BIOSPECIMENS;
+    case 'study':
+      return SEARCH_PAGE_RESULT_STUDY;
     case 'model':
       return SEARCH_PAGE_RESULT_MODEL;
     case 'about_page':
-      return usePublicSearch ? SEARCH_PAGE_RESULT_ABOUT_PUBLIC : SEARCH_PAGE_RESULT_ABOUT;
+      return SEARCH_PAGE_RESULT_ABOUT;
     default:
-      return SEARCH_PAGE_RESULT_PARTICIPANTS;
+      return SEARCH_PAGE_RESULT_STUDY;
   }
 }
 
@@ -277,22 +201,16 @@ export function getResultQueryByField(field, isPublic) {
  * Query the backend API for autocomplete results
  *
  * @param {object} inputValue search text
- * @param {boolean} isPublic is the search public or private
  */
-export async function queryAutocompleteAPI(inputValue, isPublic) {
-  const usePublicSearch = SUPPORTS_PUBLIC_GLOBAL_SEARCH && isPublic;
-
+export async function queryAutocompleteAPI(inputValue) {
   const data = await client.query({
-    query: usePublicSearch ? SEARCH_PUBLIC : SEARCH,
+    query: SEARCH,
     variables: {
       input: inputValue,
     },
-    context: {
-      clientName: usePublicSearch ? 'publicService' : CTDC_GLOBAL_SEARCH_CLIENT,
-    },
   })
-    .then((result) => (usePublicSearch ? result.data.publicGlobalSearch : result.data.globalSearch))
-    .catch(() => []);
+    .then((result) => result.data.globalSearch)
+    .catch(() => ({}));
 
   return data;
 }
@@ -301,22 +219,18 @@ export async function queryAutocompleteAPI(inputValue, isPublic) {
  * Query the backend API for the search result counts by search string
  *
  * @param {string} inputValue search text
- * @param {boolean} isPublic whether to use the public service or not
  */
-export async function queryCountAPI(inputValue, isPublic) {
-  const usePublicSearch = SUPPORTS_PUBLIC_GLOBAL_SEARCH && isPublic;
-
+export async function queryCountAPI(inputValue) {
   const data = await client.query({
-    query: usePublicSearch ? SEARCH_PAGE_RESULTS_PUBLIC : SEARCH_PAGE_RESULTS,
+    query: SEARCH_PAGE_RESULTS,
     variables: {
       input: inputValue,
-    },
-    context: {
-      clientName: usePublicSearch ? 'publicService' : CTDC_GLOBAL_SEARCH_CLIENT,
+      first: MODEL_NORMALIZATION_FETCH_LIMIT,
+      offset: 0,
     },
   })
-    .then((result) => (usePublicSearch ? result.data.publicGlobalSearch : result.data.globalSearch))
-    .catch(() => {});
+    .then((result) => normalizeSearchCounts(result.data.globalSearch))
+    .catch(() => ({}));
 
   return data;
 }
@@ -326,20 +240,27 @@ export async function queryCountAPI(inputValue, isPublic) {
  *
  * @param {string} datafield
  * @param {object} input search query variable input
- * @param {boolean} isPublic is the search public or private
  */
-export async function queryResultAPI(datafield, input, isPublic) {
-  const usePublicSearch = SUPPORTS_PUBLIC_GLOBAL_SEARCH && isPublic;
+export async function queryResultAPI(datafield, input) {
+  const variables = datafield === 'model'
+    ? { ...input, first: MODEL_NORMALIZATION_FETCH_LIMIT, offset: 0 }
+    : input;
 
   const data = await client.query({
-    query: getResultQueryByField(datafield, isPublic),
-    variables: input,
-    context: {
-      clientName: usePublicSearch ? 'publicService' : CTDC_GLOBAL_SEARCH_CLIENT,
-    },
+    query: getResultQueryByField(datafield),
+    variables,
   })
-    .then((result) => (usePublicSearch ? result.data.publicGlobalSearch : result.data.globalSearch))
-    .catch(() => []);
+    .then((result) => result.data.globalSearch)
+    .catch(() => ({}));
 
-  return data[datafield] || [];
+  const results = data[datafield] || [];
+  const type = RESULT_TYPE_BY_FIELD[datafield];
+
+  if (datafield === 'model') {
+    return paginateResults(getRenderableModelResults(results), input);
+  }
+
+  return type
+    ? results.map((item) => ({ ...item, type }))
+    : results;
 }

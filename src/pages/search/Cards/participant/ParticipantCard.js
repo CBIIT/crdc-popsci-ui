@@ -61,9 +61,6 @@ const ParticipantCard = ({ data = {}, index })=> {
         </div>
       </Grid>
 
-      <Grid item xs={12} className={classes.hrContainer}>
-        <hr className={classes.hr}/>
-      </Grid>
     </Grid>
   );
 };

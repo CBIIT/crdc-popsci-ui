@@ -20,25 +20,50 @@ import LineBreaksRenderer from '../../../utils/LineBreaksRenderer';
  */
 const PropertyItem = ({ ...props }) => {
   const {
-    label, linkText, value, link, labelLink, classes, index, hasBreakLine
+    label,
+    linkText,
+    value,
+    link,
+    labelLink,
+    classes,
+    index,
+    hasBreakLine,
   } = props;
   const defaultValue = '';
 
   const renderLabel = () => (
-    <Typography variant="h6" className={classes.title} id={`section_title_${index + 1}`}>
-      {labelLink ? <Anchor link={labelLink} text={label} classes={classes} /> : `${label}:`}
+    <Typography
+      variant="h6"
+      className={classes.title}
+      id={`section_title_${index + 1}`}
+    >
+      {labelLink ? (
+        <Anchor link={labelLink} text={label} classes={classes} />
+      ) : (
+        `${label}:`
+      )}
     </Typography>
   );
 
   const renderValue = () => (
-    <Typography variant="body1" className={classes.content} id={`section_description_${index + 1}`}>
+    <Typography
+      variant="body1"
+      className={classes.content}
+      id={`section_description_${index + 1}`}
+    >
       {value || value === 0 ? renderValueContent() : defaultValue}
     </Typography>
   );
 
   const renderValueContent = () => {
     if (link !== undefined) {
-      return <Anchor link={link} text={linkText ? linkText : value} classes={classes} />;
+      return (
+        <Anchor
+          link={link}
+          text={linkText ? linkText : value}
+          classes={classes}
+        />
+      );
     } else if (hasBreakLine) {
       return <LineBreaksRenderer htmlContent={value} classes={classes} />;
     } else {
@@ -63,26 +88,25 @@ const styles = () => ({
     display: 'flex',
     margin: '0px',
     padding: '0px',
+    gap: '15px',
   },
   content: {
     color: '#000000',
-    fontFamily: 'Roboto',
+    fontFamily: 'Open Sans',
     fontSize: '16px',
     fontWeight: 400,
-    lineHeight: '24px',
-    letterSpacing: '0em',
+    lineHeight: '22px',
+    letterSpacing: '0.32px',
     textAlign: 'left',
     marginTop: '-2px',
   },
   title: {
     textTransform: 'uppercase',
-    width: '212px',
-    minWidth: '212px',
-    color: '#000000',
-    fontFamily: 'Roboto',
-    fontSize: '14px',
+    color: '#27424E',
+    fontFamily: 'Open Sans',
+    fontSize: '16px',
     fontWeight: 700,
-    lineHeight: '21px',
+    lineHeight: '16.8px',
     letterSpacing: '0px',
     textAlign: 'left',
   },
@@ -91,15 +115,15 @@ const styles = () => ({
     paddingLeft: '3px',
   },
   link: {
-    color: '#990099',
-    textDecoration: 'none',
-    fontFamily: 'Roboto',
+    color: '#005D85',
+    textDecoration: 'underline',
+    fontFamily: 'Open Sans',
     fontSize: '16px',
     fontWeight: 600,
-    lineHeight: '24px',
+    lineHeight: '22px',
     letterSpacing: '0px',
     '&:hover': {
-      textDecoration: 'underline',
+      textDecoration: 'none',
     },
   },
 });

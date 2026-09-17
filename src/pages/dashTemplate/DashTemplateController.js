@@ -11,7 +11,6 @@ const fetchDashData = async (client, activeFilters) => {
   const result = await client.query({
     query: DASHBOARD_QUERY_NEW,
     variables: activeFilters,
-    // context: { clientName: 'ctdcOldService' },
   });
   return result.data;
 };

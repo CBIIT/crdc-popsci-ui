@@ -2,9 +2,7 @@ import React from 'react';
 import { Grid, Typography, withStyles } from '@material-ui/core';
 import Anchor from '../../../utils/Anchor';
 
-const AboutCard = ({
-  searchText, data, classes, index,
-}) => {
+const AboutCard = ({ searchText, data, classes, index }) => {
   const results = data.text.map((result) => result.replaceAll('$', ''));
 
   function getHighlightedText(text, highlight, classes) {
@@ -24,21 +22,29 @@ const AboutCard = ({
     return (
       <span>
         {' '}
-        { parts.map((part, i) => (
-          <span id={i} className={part.toLowerCase() === highlight.toLowerCase() ? classes.highlightText : {} }>
-            { part }
+        {parts.map((part, i) => (
+          <span
+            id={i}
+            className={
+              part.toLowerCase() === highlight.toLowerCase()
+                ? classes.highlightText
+                : {}
+            }
+          >
+            {part}
           </span>
-        ))}
-        {' '}
+        ))}{' '}
       </span>
     );
   }
 
   return (
-    <Grid item container className={classes.card} id={`global_search_card_${index}`}>
-      <Grid item className={classes.indexContainer}>
-        {index + 1 }
-      </Grid>
+    <Grid
+      item
+      container
+      className={classes.card}
+      id={`global_search_card_${index}`}
+    >
       <Grid item xs={true} className={classes.propertyContainer}>
         <div className={classes.titleRow}>
           <span className={classes.detailContainerHeader}>GENERAL</span>
@@ -47,130 +53,119 @@ const AboutCard = ({
           </Typography>
         </div>
         <div className={classes.cardBody}>
-          <div className={classes.text}>{getHighlightedText(results, searchText, classes)}</div>
+          <div className={classes.text}>
+            {getHighlightedText(results, searchText, classes)}
+          </div>
           <div className={classes.linkText}>
-            <Anchor link={data.page} text={`${window.location.origin}${data.page}`} classes={classes}/>
+            <Anchor
+              link={data.page}
+              text={`${window.location.origin}${data.page}`}
+              classes={classes}
+            />
           </div>
         </div>
-      </Grid>
-      <Grid item xs={12} className={classes.hrContainer}>
-        <hr className={classes.hr}/>
       </Grid>
     </Grid>
   );
 };
 
 const styles = (theme) => {
-  const mdBreakpoint = '@media (min-width: 750px)';
-  const lgBreakpoint = '@media (min-width: 1000px)';
-
   return {
     card: {
       '&:last-child $hrContainer': {
         display: 'none',
       },
-      [lgBreakpoint]: {
-        minWidth: '959px',
-        width: '959px',
+      '&:first-child': {
+        borderTop: '0.25px solid #828282',
       },
-      maxWidth: '800px',
-      padding: '0px',
+      width: '100%',
+      maxWidth: '100%',
+      margin: '0 auto',
+      padding: '15px 32px 30px',
+      boxSizing: 'border-box',
+      borderBottom: '0.25px solid #828282',
     },
     linkText: {
       marginTop: '4px',
     },
     link: {
-      fontFamily: 'Roboto',
-      fontSize: '15px',
-      fontWeight: 500,
-      lineHeight: '23px',
+      fontFamily: 'Open Sans',
+      fontSize: '16px',
+      fontWeight: 600,
+      lineHeight: '22px',
       letterSpacing: '0em',
       textAlign: 'left',
-      color: '#990099',
-      textDecoration: 'none',
+      color: '#005D85',
+      textDecoration: 'underline',
       '&:hover': {
-        textDecoration: 'underline',
+        textDecoration: 'none',
       },
-    },
-    indexContainer: {
-      fontFamily: 'Roboto',
-      fontSize: '16px',
-      fontWeight: 400,
-      lineHeight: '16px',
-      letterSpacing: '0px',
-      textAlign: 'left',
-      color: '#747474',
-      width: '25px',
-      [mdBreakpoint]: {
-        width: '49px',
-      }
     },
     titleRow: {
       display: 'flex',
+      alignItems: 'flex-start',
       margin: '0px',
       padding: '0px',
-      marginBottom: '5px',
+      marginBottom: '17px',
     },
     cardTitle: {
       textDecoration: 'none',
-      fontFamily: 'Inter',
-      fontWeight: 500,
+      fontFamily: 'Open Sans',
+      fontWeight: 600,
       fontSize: '18px',
-      lineHeight: '22px',
-      color: '#004D73',
+      lineHeight: '19.8px',
+      color: '#27424E',
       paddingLeft: '10px',
       verticalAlign: 'middle',
     },
     detailContainerHeader: {
       textTransform: 'uppercase',
-      padding: '6px 5px',
-      backgroundColor: '#EEDEF1',
-      color: '#092630',
-      fontFamily: 'Roboto',
-      fontSize: '12px',
+      padding: '5px 20px',
+      backgroundColor: '#347DA3',
+      color: '#FFFFFF',
+      flexShrink: 0,
+      whiteSpace: 'nowrap',
+      fontFamily: 'Poppins',
+      fontSize: '14px',
       fontWeight: '400',
-      lineHeight: '12px',
+      lineHeight: 'normal',
       verticalAlign: 'middle',
-      borderRadius: '2px',
+      borderRadius: '20px',
       textAlign: 'left',
     },
     cardBody: {
       marginLeft: '3px',
     },
     text: {
-      color: '#000000',
-      fontFamily: 'Roboto',
+      color: '#4B4B4B',
+      fontFamily: 'Inter',
       fontSize: '16px',
       fontWeight: 400,
-      lineHeight: '24px',
-      letterSpacing: '0em',
+      lineHeight: '23px',
+      letterSpacing: '0.32px',
       textAlign: 'left',
     },
     highlightText: {
-      color: '#004D73',
+      color: '#0077B6',
+      fontFamily: 'Inter',
+      fontSize: '16px',
       fontWeight: 600,
+      lineHeight: '23px',
+      letterSpacing: '0.32px',
     },
     hrContainer: {
       paddingTop: '10px',
       paddingBottom: '10px',
-      maxWidth: '800px',
-      marginLeft: '18px',
-      [mdBreakpoint]: {
-        marginLeft: '36px',
-      },
-      [lgBreakpoint]: {
-        marginLeft: '36px',
-        width: '925px',
-        minWidth: '925px',
-      },
+      maxWidth: '100%',
+      marginLeft: '0px',
     },
     hr: {
-      width: '100%', 
-      border: '1px solid #E7EEF5',
-      margin: '10px 0px',
+      width: '100%',
+      border: '0',
+      margin: '0',
       padding: '0px',
-    }
-  }
+    },
+  };
 };
 
 export default withStyles(styles, { withTheme: true })(AboutCard);

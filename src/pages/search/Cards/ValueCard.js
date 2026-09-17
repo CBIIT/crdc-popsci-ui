@@ -1,4 +1,4 @@
-import { Grid, withStyles } from '@material-ui/core';
+import { Grid, Typography, withStyles } from '@material-ui/core';
 import React from 'react';
 import { prepareLinks } from '@bento-core/util';
 import PropertyItem from './PropertyItem';
@@ -7,10 +7,6 @@ const CARD_PROPERTIES = [
   {
     label: 'Data Model Node',
     dataField: 'node_name',
-  },
-  {
-    label: 'Property Name',
-    dataField: 'property_name',
   },
   {
     label: 'Property Description',
@@ -40,113 +36,93 @@ const CARD_PROPERTIES = [
 const ValueCard = ({ data, classes, index }) => {
   const propertiesWithLinks = prepareLinks(CARD_PROPERTIES, data);
   return (
-    <Grid item container className={classes.card} id={`global_search_card_${index}`}>
-      <Grid item className={classes.indexContainer}>
-        {index + 1 }
-      </Grid>
+    <Grid
+      item
+      container
+      className={classes.card}
+      id={`global_search_card_${index}`}
+    >
       <Grid item xs={true} className={classes.propertyContainer}>
         <div className={classes.titleRow}>
-          <span className={classes.detailContainerHeader}>MODEL</span>
+          <span className={classes.detailContainerHeader}>DATA MODEL</span>
+          <Typography variant="h3" className={classes.cardTitle}>
+            {data.property_name}
+          </Typography>
         </div>
         {propertiesWithLinks.map((prop, idx) => (
-          <PropertyItem
-            index={idx}
-            value={data[prop.dataField]}
-            {...prop}
-          />
+          <PropertyItem index={idx} value={data[prop.dataField]} {...prop} />
         ))}
-      </Grid>
-      <Grid item xs={12} className={classes.hrContainer}>
-        <hr className={classes.hr}/>
       </Grid>
     </Grid>
   );
 };
 
 const styles = (theme) => {
-  const mdBreakpoint = '@media (min-width: 750px)';
-  const lgBreakpoint = '@media (min-width: 1000px)';
-
   return {
     card: {
       '&:last-child $hrContainer': {
         display: 'none',
       },
-      [lgBreakpoint]: {
-        minWidth: '959px',
-        width: '959px',
+      '&:first-child': {
+        borderTop: '0.25px solid #828282',
       },
-      maxWidth: '800px',
-      padding: '0px',
-    },
-    indexContainer: {
-      fontFamily: 'Roboto',
-      fontSize: '16px',
-      fontWeight: 400,
-      lineHeight: '16px',
-      letterSpacing: '0px',
-      textAlign: 'left',
-      color: '#747474',
-      width: '25px',
-      [mdBreakpoint]: {
-        width: '49px',
-      }
+      width: '100%',
+      maxWidth: '100%',
+      margin: '0 auto',
+      padding: '15px 32px 30px',
+      boxSizing: 'border-box',
+      borderBottom: '0.25px solid #828282',
     },
     titleRow: {
       display: 'flex',
+      alignItems: 'flex-start',
       margin: '0px',
       padding: '0px',
-      marginBottom: '5px',
+      marginBottom: '17px',
     },
     detailContainerHeader: {
       textTransform: 'uppercase',
-      backgroundColor: '#F4D5D1',
-      color: '#092630',
+      backgroundColor: '#4D7E49',
+      color: '#FFFFFF',
       verticalAlign: 'middle',
+      flexShrink: 0,
+      whiteSpace: 'nowrap',
 
-      fontFamily: 'Roboto',
-      fontSize: '12px',
+      fontFamily: 'Poppins',
+      fontSize: '14px',
       fontWeight: 400,
-      lineHeight: '12px',
+      lineHeight: 'normal',
       letterSpacing: '0em',
       textAlign: 'left',
-      height: '24px',
-      padding: '6px 5px',
-      borderRadius: '2px',
+      height: 'auto',
+      padding: '5px 20px',
+      borderRadius: '20px',
       gap: '10px',
     },
     cardTitle: {
       textDecoration: 'none',
-      fontFamily: 'Inter',
-      fontWeight: 500,
+      fontFamily: 'Open Sans',
+      fontWeight: 600,
       fontSize: '18px',
-      lineHeight: '22px',
-      color: '#004D73',
-      paddingLeft: '10px',
+      lineHeight: '20.7px',
+      color: '#27424E',
+      paddingLeft: '15px',
       verticalAlign: 'middle',
     },
 
     hrContainer: {
       paddingTop: '10px',
       paddingBottom: '10px',
-      maxWidth: '800px',
-      marginLeft: '18px',
-      [mdBreakpoint]: {
-        marginLeft: '36px',
-      },
-      [lgBreakpoint]: {
-        marginLeft: '36px',
-        width: '925px',
-        minWidth: '925px',
-      },
+      maxWidth: '100%',
+      marginLeft: '0px',
     },
     hr: {
-      width: '100%', 
-      border: '1px solid #E7EEF5',
-      margin: '10px 0px',
+      width: '100%',
+      border: '0',
+      margin: '0',
       padding: '0px',
-    }
-  }
+    },
+  };
 };
 
 export default withStyles(styles, { withTheme: true })(ValueCard);

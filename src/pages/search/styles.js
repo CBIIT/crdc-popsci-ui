@@ -1,19 +1,17 @@
 const buttonRoot = {
-  height: '56px',
-  fontSize: '16px',
-  marginRight: '20px',
+  height: '46px',
+  fontSize: '17.5px',
+  marginRight: '0px',
+  padding: '10px 12px',
+  fontFamily: 'Open Sans',
+  fontWeight: 400,
+  lineHeight: '22.75px',
   textTransform: 'none',
-  '@media (min-width: 800px)': {
-    marginRight: '33px',
-  },
-  '@media (min-width: 1000px)': {
-    marginRight: '68px',
-  }
 };
 
 const styles = () => ({
-  'global_search_tab_label_1': {
-    border: '1px solid black'
+  global_search_tab_label_1: {
+    border: '1px solid black',
   },
   allText: {
     marginLeft: '8px',
@@ -22,23 +20,63 @@ const styles = () => ({
     color: '#142D64',
   },
   indicator: {
-    backgroundColor: '#142D64',
+    backgroundColor: '#073155',
     height: '4px',
+  },
+  disabledIndicator: {
+    display: 'none',
+  },
+  disabledTab: {
+    color: '#A4A4A4 !important',
+    opacity: '1 !important',
+    pointerEvents: 'none',
+    '& $tabColor': {
+      color: '#A4A4A4',
+    },
   },
   tabContainter: {
     display: 'flex',
-    maxWidth: '840px',
-    height: '56px',
+    width: '100%',
+    height: '46px',
     margin: '0 auto',
+    gap: '60px',
+    justifyContent: 'center',
+    borderBottom: '1px solid #B4B4B4',
     '& .MuiTab-root': {
-      padding: '0px'
-    }
+      padding: '10px 12px',
+      color: '#000000',
+      fontFamily: 'Open Sans',
+      fontWeight: 400,
+      letterSpacing: '0.17px',
+      textTransform: 'capitalize',
+    },
+    '& .Mui-selected': {
+      color: '#000000',
+      fontWeight: 600,
+      letterSpacing: '0.26px',
+    },
+    '@media (max-width: 750px)': {
+      gap: 0,
+      padding: '0 8px',
+      boxSizing: 'border-box',
+      overflow: 'hidden',
+      '& .MuiTabs-flexContainer': {
+        width: '100%',
+      },
+      '& .MuiTab-root': {
+        minWidth: 0,
+        flex: '1 1 25%',
+        padding: '10px 4px',
+        fontSize: '14px',
+      },
+    },
   },
   tabColor: { color: '#142D64' },
   allButton: {
     ...buttonRoot,
-    width: '64px',
-    minWidth: 'fit-content',
+  },
+  studyButton: {
+    ...buttonRoot,
   },
   participantButton: {
     ...buttonRoot,
@@ -51,15 +89,9 @@ const styles = () => ({
   },
   aboutButton: {
     ...buttonRoot,
-    width: '95px',
-    minWidth: '95px',
   },
   modelButton: {
-    height: '56px',
-    fontSize: '16px',
-    textTransform: 'none',
-    width: '81px',
-    minWidth: '81px',
+    ...buttonRoot,
   },
   input: {
     borderRadius: '8px',
@@ -70,17 +102,25 @@ const styles = () => ({
   },
   heroArea: {
     width: '100%',
-    height: '185px',
-    background: '#285A6C',
+    minHeight: '227px',
+    padding: '73px 20px 46px',
+    boxSizing: 'border-box',
+    background:
+      'linear-gradient(107deg, rgba(95, 53, 134, 0.8), rgba(31, 99, 148, 0.8)), #285A6C',
   },
   searchTitle: {
-    color: '#B4E2F5',
+    color: '#FFFFFF',
     fontFamily: 'Inter',
-    fontWeight: '400',
-    fontSize: '24px',
-    lineHeight: '31.47px',
-    margin: '0px 0px 15px 0px',
+    fontWeight: '600',
+    fontSize: '32px',
+    lineHeight: '35px',
+    letterSpacing: '0.32px',
+    margin: '0px 0px 10px 0px',
     textAlign: 'center',
+    '@media (max-width: 750px)': {
+      fontSize: '24px',
+      lineHeight: '30px',
+    },
   },
   autocomplete: {
     margin: '0 auto',
@@ -92,8 +132,9 @@ const styles = () => ({
       outline: '4px solid #3395CA',
     },
     '@media (max-width: 750px)': {
-      width: '400px',
-    }
+      width: '100%',
+      maxWidth: '700px',
+    },
   },
   chipSection: {
     display: 'flex',
@@ -130,6 +171,13 @@ const styles = () => ({
     marginBottom: '108px',
     '& .MuiTabPanel-root': {
       padding: '0px !important',
+      marginTop: '45px',
+    },
+    paddingTop: '24px',
+  },
+  noResultsBody: {
+    '& .MuiTabPanel-root': {
+      display: 'none',
     },
   },
   width1100: {
@@ -223,39 +271,144 @@ const styles = () => ({
     color: '#142D64',
     '@media (max-width: 1000px)': {
       marginRight: '30px',
-    }
+    },
   },
   totalResults: {
-    color: '#225987',
-    fontFamily: 'Roboto',
-    fontSize: '20px',
+    color: '#27424E',
+    fontFamily: 'Open Sans',
+    fontSize: '16px',
     fontWeight: 400,
-    lineHeight: '31px',
-    letterSpacing: '0.02em',
+    lineHeight: '20.8px',
+    textTransform: 'lowercase',
     textAlign: 'left',
-    paddingLeft: '16px',
-    maxWidth: '959px',
-    margin: '11px auto 2px auto'
+    paddingLeft: '32px',
+    boxSizing: 'border-box',
+    maxWidth: '1047px',
+    margin: '0px auto 20px auto',
   },
   totalCount: {
-    fontFamily: 'Roboto',
+    fontFamily: 'Open Sans',
+    fontSize: '16px',
+    fontWeight: 700,
+    lineHeight: '20.8px',
+    color: '#27424E',
   },
   subsection: {
-    borderBottom: '1px solid #8A8A8A',
-    paddingBottom: '22px',
-    paddingTop: '22px',
+    maxWidth: '1047px',
+    margin: '0 auto',
+    background: '#FFFFFF',
   },
   subsectionBody: {
-    padding: '0px 16px',
-    maxWidth: '959px',
-    minWidth: '500px',
+    // Override the library's xs={9} 75% width restriction
+    maxWidth: '100% !important',
+    flexBasis: '100% !important',
+    width: '100%',
+    minWidth: '0px',
+    margin: '0 auto',
   },
   paginationContainer: {
     paddingBottom: '0px',
   },
   noData: {
-    margin: 'auto',
-    textAlign: 'center',
+    display: 'none',
+  },
+  noResultsWrapper: {
+    width: '100%',
+    padding: '60px max(20px, calc((100% - 1047px) / 2))',
+    boxSizing: 'border-box',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  noResultsContent: {
+    width: '100%',
+    maxWidth: '1047px',
+    padding: '40px 0',
+    boxSizing: 'border-box',
+  },
+  suggestedTopics: {
+    width: '100%',
+    padding: '0 18px',
+    boxSizing: 'border-box',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    gap: '20px',
+  },
+  suggestedTopicsTitle: {
+    margin: 0,
+    color: '#136071',
+    fontFamily: 'Poppins',
+    fontSize: '28px',
+    fontWeight: 500,
+    lineHeight: '33px',
+  },
+  suggestedTopicsGrid: {
+    width: '100%',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+    columnGap: '30px',
+    rowGap: '20px',
+    '@media (max-width: 750px)': {
+      gridTemplateColumns: 'minmax(0, 1fr)',
+      rowGap: '10px',
+    },
+  },
+  suggestedTopic: {
+    width: '100%',
+    minWidth: 0,
+    padding: '10px 18px 15px',
+    border: 0,
+    background: 'transparent',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    gap: '10px',
+    textAlign: 'left',
+    cursor: 'pointer',
+    '&:hover $suggestedTopicTitle, &:focus-visible $suggestedTopicTitle': {
+      textDecoration: 'underline',
+    },
+    '&:focus-visible': {
+      outline: '2px solid #136071',
+      outlineOffset: '2px',
+    },
+  },
+  suggestedTopicTitle: {
+    color: '#27424E',
+    fontFamily: 'Open Sans',
+    fontSize: '18px',
+    fontWeight: 600,
+    lineHeight: '18px',
+  },
+  suggestedTopicDescription: {
+    width: '100%',
+    color: '#4B4B4B',
+    fontFamily: 'Inter',
+    fontSize: '16px',
+    fontWeight: 400,
+    lineHeight: '23px',
+    letterSpacing: '0.32px',
+  },
+  noResultsMessage: {
+    width: '100%',
+    maxWidth: '1047px',
+    minHeight: '86px',
+    padding: '0 15px',
+    borderBottom: '1px solid #CCCED1',
+    boxSizing: 'border-box',
+    display: 'flex',
+    alignItems: 'flex-start',
+    color: '#27424E',
+    fontFamily: 'Poppins',
+    fontSize: '18px',
+    fontWeight: 500,
+    lineHeight: '16px',
+    '@media (max-width: 750px)': {
+      minHeight: '64px',
+      lineHeight: '22px',
+    },
   },
 });
 
