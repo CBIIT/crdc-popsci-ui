@@ -133,6 +133,7 @@ const styles = () => ({
     },
     '@media (max-width: 750px)': {
       width: '100%',
+      minWidth: '300px',
       maxWidth: '700px',
     },
   },
@@ -168,7 +169,7 @@ const styles = () => ({
     color: '#000000',
     fontSize: '15px',
     lineHeight: '22px',
-    marginBottom: '108px',
+    marginBottom: '45px',
     '& .MuiTabPanel-root': {
       padding: '0px !important',
       marginTop: '45px',
@@ -323,7 +324,7 @@ const styles = () => ({
   noResultsContent: {
     width: '100%',
     maxWidth: '1047px',
-    padding: '40px 0',
+    paddingTop: '40px',
     boxSizing: 'border-box',
   },
   suggestedTopics: {

@@ -91,6 +91,8 @@ const styles = () => ({
     gap: '15px',
   },
   content: {
+    flex: '1 1 auto',
+    minWidth: 0,
     color: '#000000',
     fontFamily: 'Open Sans',
     fontSize: '16px',
@@ -101,6 +103,8 @@ const styles = () => ({
     marginTop: '-2px',
   },
   title: {
+    flex: '0 0 auto',
+    whiteSpace: 'nowrap',
     textTransform: 'uppercase',
     color: '#27424E',
     fontFamily: 'Open Sans',
@@ -112,7 +116,8 @@ const styles = () => ({
   },
   propertyContainer: {
     lineHeight: '17px',
-    paddingLeft: '3px',
+    paddingLeft: '4px',
+    marginBottom: '9px',
   },
   link: {
     color: '#005D85',

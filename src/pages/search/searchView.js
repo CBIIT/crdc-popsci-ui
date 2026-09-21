@@ -1,57 +1,42 @@
-import React, { useEffect, useState } from 'react';
-import { withStyles, Box, Grid } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { withStyles, Box, Grid } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
+import yaml from "js-yaml";
 import {
   SearchBarGenerator,
   SearchResultsGenerator,
   countValues,
-} from '@bento-core/global-search';
-import styles from './styles';
+} from "@bento-core/global-search";
+import styles from "./styles";
 import {
   SEARCH_PAGE_DATAFIELDS,
   SEARCH_PAGE_KEYS,
   queryCountAPI,
   queryResultAPI,
   queryAutocompleteAPI,
-} from '../../bento/search';
-import { StudyCard, AboutCard, ValueCard } from './Cards';
-
-const SUGGESTED_TOPICS = [
-  {
-    title: 'About Popsci',
-    description:
-      'Population science research aims to understand the causes and distribution of cancer in populations, monitor and explain cancer trends across different groups defined by geography or demographics, and support the development and implementation of broad-based interventions...',
-    path: '/about',
-  },
-  {
-    title: 'Accessing Data',
-    description:
-      'PSDC hosts both open and controlled access data, accessible for analysis and download through the Seven Bridges Cancer Genomics Cloud. The PSDC portal provides faceted searching for studies of interest using various...',
-    path: '/access_data',
-  },
-  {
-    title: 'Analyzing Data',
-    description:
-      'The Seven Bridges Cancer Genomics Cloud (SB-CGC), powered by Velsera, collaborates with the PSDC to facilitate access to its data for analysis. SB-CGC offers secure personal workspaces on the AWS cloud platform as well as publicly available analytical tools shared by the research...',
-    path: '/analyze_data',
-  },
-  {
-    title: 'More Information',
-    description: 'For more information or support, users can visit...',
-    path: '/contact',
-  },
-];
+} from "../../bento/search";
+import { StudyCard, AboutCard, ValueCard } from "./Cards";
+import aboutPagesContent from "../../content/prod/aboutPagesContent.yaml";
 
 const SEARCH_RESULT_SECTIONS = [
-  { countField: 'study_count', nameField: 'study' },
-  { countField: 'model_count', nameField: 'model' },
-  { countField: 'about_count', nameField: 'about_page' },
+  { countField: "study_count", nameField: "study" },
+  { countField: "model_count", nameField: "model" },
+  { countField: "about_count", nameField: "about_page" },
 ];
 
 const normalizeCounts = (counts) =>
-  counts && typeof counts === 'object' ? counts : {};
+  counts && typeof counts === "object" ? counts : {};
 
 const normalizeResults = (results) => (Array.isArray(results) ? results : []);
+
+const stripContentFormatting = (value = "") =>
+  value
+    .replace(/\$\$\[([^\]]+)\]\([^)]*\)\$\$/g, "$1")
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+    .replace(/\$\$|[*_`]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
 
 /**
  * Determine the correct datafield and offset for the All tab based
@@ -88,7 +73,7 @@ async function getAllQueryField(searchText, calcOffset, pageSize, isPublic) {
     };
   }
 
-  return { datafieldValue: 'study', offsetValue: 0 };
+  return { datafieldValue: "study", offsetValue: 0 };
 }
 
 /**
@@ -117,19 +102,20 @@ async function queryAllAPI(search, offset, pageSize, isPublic) {
 }
 
 function searchView(props) {
-  const { classes, searchparam = '', isSignedIn, isAuthorized } = props;
+  const { classes, searchparam = "", isSignedIn, isAuthorized } = props;
 
   const history = useHistory();
   const [searchText, setSearchText] = useState(searchparam);
   const [searchCounts, setSearchCounts] = useState({});
+  const [suggestedTopics, setSuggestedTopics] = useState([]);
 
   const hasResolvedCounts = Object.keys(searchCounts).length > 0;
   const hasNoResults =
-    searchText.trim() === '' ||
+    searchText.trim() === "" ||
     (hasResolvedCounts && countValues(searchCounts) === 0);
 
   const getTabClasses = (root) => ({
-    root: `${root} ${hasNoResults ? classes.disabledTab : ''}`,
+    root: `${root} ${hasNoResults ? classes.disabledTab : ""}`,
     wrapper: classes.tabColor,
     totalResults: classes.totalResults,
     totalCount: classes.totalCount,
@@ -150,9 +136,9 @@ function searchView(props) {
    * @returns void
    */
   const onTabChange = (event, newTab) => {
-    const activeVal = newTab.split('-')[0];
+    const activeVal = newTab.split("-")[0];
 
-    if (activeVal === 'inactive') {
+    if (activeVal === "inactive") {
       if (isSignedIn && !isAuthorized) {
         history.push(`/request?redirect=/search/${searchText}`);
         return;
@@ -168,13 +154,13 @@ function searchView(props) {
    * @returns void
    */
   const onSearchChange = (value) => {
-    if (!value || typeof value !== 'string') {
+    if (!value || typeof value !== "string") {
       return;
     }
     if (value === searchText) {
       return;
     }
-    if (value.trim() === '') {
+    if (value.trim() === "") {
       return;
     }
 
@@ -193,15 +179,15 @@ function searchView(props) {
    * @param {string} reason reason for the function call
    */
   const getSearchSuggestions = async (_config, value, reason) => {
-    if (!value || typeof value !== 'string') {
-      setSearchText('');
+    if (!value || typeof value !== "string") {
+      setSearchText("");
       setSearchCounts([]);
-      if (reason === 'clear') {
-        history.push('/search');
+      if (reason === "clear") {
+        history.push("/search");
       }
       return [];
     }
-    if (value.trim() === '') {
+    if (value.trim() === "") {
       return [];
     }
 
@@ -238,7 +224,7 @@ function searchView(props) {
     const isPublic = !authCheck();
 
     // Handle the 'All' tab search separately
-    if (field === 'all') {
+    if (field === "all") {
       if (!searchText) {
         return [];
       }
@@ -292,8 +278,8 @@ function searchView(props) {
   const { SearchBar } = SearchBarGenerator({
     classes,
     config: {
-      placeholder: 'e.g. population, cancer screening trial, PLCO',
-      iconType: 'image',
+      placeholder: "e.g. population, cancer screening trial, PLCO",
+      iconType: "image",
       maxSuggestions: 0,
       minimumInputLength: 0,
     },
@@ -324,44 +310,66 @@ function searchView(props) {
     },
     tabs: [
       {
-        name: 'All',
-        field: 'all',
+        name: "All",
+        field: "all",
         classes: getTabClasses(classes.allButton),
         count: countValues(searchCounts) || 0,
-        value: '1',
+        value: "1",
       },
       {
-        name: 'Study',
-        field: 'study',
+        name: "Study",
+        field: "study",
         classes: getTabClasses(classes.studyButton),
         count: searchCounts.study_count || 0,
-        value: '2',
+        value: "2",
       },
       {
-        name: 'Data Model',
-        field: 'model',
+        name: "Data Model",
+        field: "model",
         classes: getTabClasses(classes.modelButton),
         count: searchCounts.model_count || 0,
-        value: '3',
+        value: "3",
       },
       {
-        name: 'General',
-        field: 'about_page',
+        name: "General",
+        field: "about_page",
         classes: getTabClasses(classes.aboutButton),
         count: searchCounts.about_count || 0,
-        value: '4',
+        value: "4",
       },
     ],
   });
 
   useEffect(() => {
-    if (searchparam.trim() === '') {
+    if (searchparam.trim() === "") {
       return;
     }
 
     queryCountAPI(searchparam, !authCheck()).then((d = {}) => {
       setSearchCounts(normalizeCounts(d));
     });
+  }, []);
+
+  useEffect(() => {
+    const loadSuggestedTopics = async () => {
+      try {
+        const response = await axios.get(aboutPagesContent);
+        const pages = yaml.safeLoad(response.data) || [];
+        setSuggestedTopics(
+          pages.map((page) => ({
+            title: stripContentFormatting(page.title),
+            description: stripContentFormatting(
+              page.content?.[0]?.paragraph || "",
+            ),
+            path: page.page,
+          })),
+        );
+      } catch (error) {
+        setSuggestedTopics([]);
+      }
+    };
+
+    loadSuggestedTopics();
   }, []);
 
   return (
@@ -385,10 +393,10 @@ function searchView(props) {
 
       <div
         className={`${classes.bodyContainer} ${
-          hasNoResults ? classes.noResultsBody : ''
+          hasNoResults ? classes.noResultsBody : ""
         }`}
       >
-        <Box sx={{ width: '100%', typography: 'body1' }}>
+        <Box sx={{ width: "100%", typography: "body1" }}>
           <SearchResults searchText={searchText} />
           {hasNoResults && (
             <div className={classes.noResultsWrapper}>
@@ -401,7 +409,7 @@ function searchView(props) {
                     Suggested Topics
                   </h2>
                   <div className={classes.suggestedTopicsGrid}>
-                    {SUGGESTED_TOPICS.map((topic) => (
+                    {suggestedTopics.map((topic) => (
                       <button
                         type="button"
                         key={topic.title}

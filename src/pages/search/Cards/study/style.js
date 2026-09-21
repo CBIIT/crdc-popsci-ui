@@ -44,6 +44,11 @@ const useStyles = makeStyles(() => {
     },
     titleRow: {
       marginBottom: "17px",
+      display: "flex",
+      margin: "0px",
+      padding: "0px",
+      flexWrap: "wrap",
+      alignItems: "center",
     },
     titleKey: {
       margin: "0px",
@@ -62,7 +67,7 @@ const useStyles = makeStyles(() => {
     titleValue: {
       margin: "0px",
       padding: "0px",
-      marginLeft: "10px",
+      marginLeft: "15px",
       fontFamily: "Open Sans",
       fontSize: "18px",
       fontWeight: 600,

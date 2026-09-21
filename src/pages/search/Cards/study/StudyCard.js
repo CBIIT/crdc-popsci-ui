@@ -55,7 +55,7 @@ const StudyCard = ({ data = {}, index }) => {
   return (
     <Grid item container className={classes.card}>
       <Grid item xs={true}>
-        <div className={cn(classes.keyAndValueRow, classes.titleRow)}>
+        <div className={classes.titleRow}>
           <span className={classes.titleKey}>STUDY</span>
           <Typography variant="h3" className={classes.titleValue}>
             {studyShortName ? (

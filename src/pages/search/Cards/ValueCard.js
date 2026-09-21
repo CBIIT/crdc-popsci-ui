@@ -1,4 +1,4 @@
-import { Grid, Typography, withStyles } from '@material-ui/core';
+import { Grid, withStyles } from '@material-ui/core';
 import React from 'react';
 import { prepareLinks } from '@bento-core/util';
 import PropertyItem from './PropertyItem';
@@ -13,22 +13,10 @@ const CARD_PROPERTIES = [
     dataField: 'property_description',
     hasBreakLine: true,
   },
-  // {
-  //   label: 'Property Required',
-  //   dataField: 'property_required',
-  // },
-  // {
-  //   label: 'Property Type',
-  //   dataField: 'property_type',
-  // },
-  // {
-  //   label: 'Property Value',
-  //   dataField: 'value',
-  // },
   {
     label: 'Page Link',
     dataField: 'node_name',
-    link: '/data-model',
+    link: 'https://hub.datacommons.cancer.gov/model-navigator/PSDC/latest',
     linkText: 'Data Model',
   },
 ];
@@ -45,9 +33,6 @@ const ValueCard = ({ data, classes, index }) => {
       <Grid item xs={true} className={classes.propertyContainer}>
         <div className={classes.titleRow}>
           <span className={classes.detailContainerHeader}>DATA MODEL</span>
-          <Typography variant="h3" className={classes.cardTitle}>
-            {data.property_name}
-          </Typography>
         </div>
         {propertiesWithLinks.map((prop, idx) => (
           <PropertyItem index={idx} value={data[prop.dataField]} {...prop} />
