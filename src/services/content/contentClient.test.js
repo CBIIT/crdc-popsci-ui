@@ -61,9 +61,9 @@ describe('runtime content client', () => {
 
     expect(page.markdown).toBe('## Runtime content');
     expect(global.fetch).toHaveBeenCalledTimes(2);
-    expect(global.fetch.mock.calls[0][0]).toContain('/prod/manifest.json?timestamp=');
+    expect(global.fetch.mock.calls[0][0]).toContain('/refs/heads/prod/manifest.json?timestamp=');
     expect(global.fetch.mock.calls[0][1]).toMatchObject({ cache: 'no-store', credentials: 'omit' });
-    expect(global.fetch.mock.calls[1][0]).toContain('/prod/pages/about.md?rev=2026-09-06.1');
+    expect(global.fetch.mock.calls[1][0]).toContain('/refs/heads/prod/pages/about.md?rev=2026-09-06.1');
     expect(global.fetch.mock.calls[1][0]).toContain('&timestamp=');
     expect(global.fetch.mock.calls[1][1]).toMatchObject({ cache: 'no-store', credentials: 'omit' });
   });
@@ -95,7 +95,7 @@ describe('runtime content client', () => {
       menuLabel: 'Updates',
       markdown: '## Latest research',
     }));
-    expect(global.fetch.mock.calls[1][0]).toContain('/prod/pages/research-updates.md?rev=2026-09-06.1');
+    expect(global.fetch.mock.calls[1][0]).toContain('/refs/heads/prod/pages/research-updates.md?rev=2026-09-06.1');
     expect(global.fetch.mock.calls[1][0]).toContain('&timestamp=');
   });
 

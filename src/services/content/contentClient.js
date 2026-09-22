@@ -90,7 +90,7 @@ const validateConfig = (config) => {
 const buildRawUrl = (config, filePath, query = {}) => {
   validateConfig(config);
   const path = filePath === config.manifestPath ? filePath : normalizedPath(filePath, filePath.startsWith('pages/') ? 'pages/' : 'assets/');
-  const url = new URL(`${RAW_ORIGIN}/${config.owner}/${config.repository}/${config.ref}/${path}`);
+  const url = new URL(`${RAW_ORIGIN}/${config.owner}/${config.repository}/refs/heads/${config.ref}/${path}`);
   Object.entries(query).forEach(([key, value]) => url.searchParams.set(key, String(value)));
   return url;
 };
@@ -98,7 +98,7 @@ const buildRawUrl = (config, filePath, query = {}) => {
 const assertFinalUrl = (response, requestedUrl, config) => {
   if (!response.url) return;
   const finalUrl = new URL(response.url);
-  const expectedPrefix = `/${config.owner}/${config.repository}/${config.ref}/`;
+  const expectedPrefix = `/${config.owner}/${config.repository}/refs/heads/${config.ref}/`;
   assert(finalUrl.origin === requestedUrl.origin, 'Content request redirected to an unapproved origin.');
   assert(finalUrl.pathname.startsWith(expectedPrefix), 'Content request redirected outside the approved repository branch.');
 };

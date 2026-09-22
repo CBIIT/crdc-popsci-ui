@@ -116,7 +116,7 @@ The current browser request is therefore runtime loading of a **build-owned asse
 The already-deployed browser requests a JSON manifest and Markdown from URLs under:
 
 ```text
-https://raw.githubusercontent.com/{owner}/{repository}/{ref}/{path}
+https://raw.githubusercontent.com/{owner}/{repository}/refs/heads/{ref}/{path}
 ```
 
 This is the smallest solution and meets the primary objective. The content request occurs only at browser runtime: the UI build neither imports nor synchronizes the Markdown. It requires a public repository, careful browser validation, CSP changes, honest handling of GitHub outages/rate behavior, and cache-aware publication conventions. No authentication is sent.
@@ -171,10 +171,10 @@ sequenceDiagram
     participant Raw as GitHub raw content
 
     User->>UI: Navigate to /about
-    UI->>Raw: GET {matching-branch}/manifest.json?cb={token}, cache: no-store
+    UI->>Raw: GET refs/heads/{matching-branch}/manifest.json?cb={token}, cache: no-store
     alt manifest valid
         Raw-->>UI: 200 manifest with revision
-        UI->>Raw: GET {matching-branch}/pages/about.md?rev={revision}
+        UI->>Raw: GET refs/heads/{matching-branch}/pages/about.md?rev={revision}
         alt Markdown valid
             Raw-->>UI: 200 Markdown
             UI->>UI: Validate manifest, URL, size, and Markdown

@@ -1,0 +1,70 @@
+{
+  "deck_name": "runtime-markdown-content-slide",
+  "language": "English",
+  "goal": "Explain how approved PSDC content can be published without rebuilding or redeploying the UI.",
+  "deck_context": {
+    "source_summary": "The deployed React browser fetches a validated manifest and Markdown directly from a public GitHub content repository whose dev, qa, stage, and prod branches mirror application tiers.",
+    "core_claim": "Reviewed content changes become visible at runtime without a UI rebuild while strict validation and fallback behavior preserve safety and availability.",
+    "canonical_terms": [
+      "manifest.json",
+      "direct browser fetch",
+      "dev → qa → stage → prod",
+      "safe Markdown",
+      "bundled fallback"
+    ]
+  },
+  "selected_image_backend": "built-in image tool",
+  "max_concurrent_slides": 6,
+  "sample_generation_method": {
+    "backend_used": "built-in image tool",
+    "tool_name": "image_gen",
+    "mode": "generate",
+    "prompt_source": "conversation-approved slide 1 generation prompt",
+    "size": "16:9 landscape; generated at 1672x941",
+    "quality": "built-in default",
+    "approved_sample_path": "origin_image/slide_01.png",
+    "input_context_preparation": "No source images were required; the architecture visual was generated from the approved outline and style brief.",
+    "handoff_rule": "Subagents must use the same built-in image tool in generate mode and return a blocker if unavailable."
+  },
+  "style": {
+    "name": "NCI clean professional",
+    "visual_direction": "Clean modern professional technical presentation inspired by the PSDC interface, with a clear evidence-driven architecture layout and generous whitespace.",
+    "color_palette": "Warm white and pale blue-gray backgrounds, deep navy, restrained medium blue, teal highlights, light gray borders, and pale amber only for fallback risk.",
+    "typography": "Large authoritative sans-serif title, compact readable labels, strong left-aligned hierarchy.",
+    "texture_and_finish": "Crisp flat vector diagram with restrained icons and no decorative clutter."
+  },
+  "approved_style_reference": {
+    "path": "origin_image/slide_01.png",
+    "role": "approved sample slide style reference",
+    "fidelity": "match style only; do not copy layout or content"
+  },
+  "slides": [
+    {
+      "number": 1,
+      "title": "Publish Content Without Rebuilding the UI",
+      "role": "architecture",
+      "intent": "Summarize the operating model, security boundary, and principal benefit in one glance.",
+      "key_points": [
+        "Direct browser fetch from a public GitHub content repository",
+        "Controlled PR promotion from dev to qa to stage to prod",
+        "Validated manifest and safe Markdown rendering",
+        "Navigation, focus, refresh, and polling discover approved changes",
+        "Bundled fallback preserves basic availability"
+      ],
+      "layout": {
+        "composition": "Upper branch-promotion lane, central left-to-right runtime architecture, three compact operational callouts, and a bottom takeaway band.",
+        "content_zones": "Title at top; promotion flow below; repository, browser validation, and content outputs in the center; refresh, security, and fallback callouts at bottom."
+      },
+      "visual_elements": {
+        "main_visual": "Flat vector architecture showing GitHub content repository to deployed React UI to validated pages.",
+        "supporting_elements": "Branch cards, PR arrows, shield, refresh, lock, and fallback icons."
+      },
+      "constraints": [
+        "All slide text must remain exact and readable.",
+        "No watermark, unrelated logo, stock photo, or page number."
+      ],
+      "sample_approved": true,
+      "use_approved_style_reference": false
+    }
+  ]
+}

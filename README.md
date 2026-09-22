@@ -32,7 +32,7 @@ To add a page, add its Markdown file and a page entry to `manifest.json`. The me
   "menuLabel": "Research Updates",
   "markdown": "pages/research-updates.md",
   "primaryImage": {
-    "src": "https://raw.githubusercontent.com/CBIIT/crdc-popsci-content/dev/assets/research-updates.png",
+    "src": "https://raw.githubusercontent.com/CBIIT/crdc-popsci-content/refs/heads/dev/assets/research-updates.png",
     "alt": "Researchers reviewing population science data",
     "position": "left"
   }
