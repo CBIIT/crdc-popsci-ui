@@ -114,8 +114,8 @@ function searchView(props) {
     searchText.trim() === "" ||
     (hasResolvedCounts && countValues(searchCounts) === 0);
 
-  const getTabClasses = (root) => ({
-    root: `${root} ${hasNoResults ? classes.disabledTab : ""}`,
+  const getTabClasses = (root, count) => ({
+    root: `${root} ${count <= 0 ? classes.disabledTab : ""}`,
     wrapper: classes.tabColor,
     totalResults: classes.totalResults,
     totalCount: classes.totalCount,
@@ -312,29 +312,41 @@ function searchView(props) {
       {
         name: "All",
         field: "all",
-        classes: getTabClasses(classes.allButton),
         count: countValues(searchCounts) || 0,
+        classes: getTabClasses(
+          classes.allButton,
+          countValues(searchCounts) || 0,
+        ),
         value: "1",
       },
       {
         name: "Study",
         field: "study",
-        classes: getTabClasses(classes.studyButton),
         count: searchCounts.study_count || 0,
+        classes: getTabClasses(
+          classes.studyButton,
+          searchCounts.study_count || 0,
+        ),
         value: "2",
       },
       {
         name: "Data Model",
         field: "model",
-        classes: getTabClasses(classes.modelButton),
         count: searchCounts.model_count || 0,
+        classes: getTabClasses(
+          classes.modelButton,
+          searchCounts.model_count || 0,
+        ),
         value: "3",
       },
       {
         name: "General",
         field: "about_page",
-        classes: getTabClasses(classes.aboutButton),
         count: searchCounts.about_count || 0,
+        classes: getTabClasses(
+          classes.aboutButton,
+          searchCounts.about_count || 0,
+        ),
         value: "4",
       },
     ],
