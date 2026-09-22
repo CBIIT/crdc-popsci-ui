@@ -6,7 +6,7 @@ export const DEFAULT_CONTENT_CONFIG = Object.freeze({
   rawBase: 'https://raw.githubusercontent.com',
   owner: 'CBIIT',
   repository: 'crdc-popsci-content',
-  ref: 'prod',
+  ref: 'dev',
   manifestPath: 'manifest.json',
   pollMs: 300000,
   fallbackEnabled: true,
