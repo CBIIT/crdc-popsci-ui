@@ -2,6 +2,7 @@ import { Grid, withStyles } from '@material-ui/core';
 import React from 'react';
 import { prepareLinks } from '@bento-core/util';
 import PropertyItem from './PropertyItem';
+import externalLinkIcon from '../../../assets/externalLinkIcon.svg';
 
 const CARD_PROPERTIES = [
   {
@@ -18,6 +19,7 @@ const CARD_PROPERTIES = [
     dataField: 'node_name',
     link: 'https://hub.datacommons.cancer.gov/model-navigator/PSDC/latest',
     linkText: 'Data Model',
+    externalLinkIcon,
   },
 ];
 

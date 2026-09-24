@@ -25,6 +25,7 @@ const PropertyItem = ({ ...props }) => {
     value,
     link,
     labelLink,
+    externalLinkIcon,
     classes,
     index,
     hasBreakLine,
@@ -58,11 +59,20 @@ const PropertyItem = ({ ...props }) => {
   const renderValueContent = () => {
     if (link !== undefined) {
       return (
-        <Anchor
-          link={link}
-          text={linkText ? linkText : value}
-          classes={classes}
-        />
+        <>
+          <Anchor
+            link={link}
+            text={linkText ? linkText : value}
+            classes={classes}
+          />
+          {externalLinkIcon && (
+            <img
+              src={externalLinkIcon}
+              alt=""
+              className={classes.externalLinkIcon}
+            />
+          )}
+        </>
       );
     } else if (hasBreakLine) {
       return <LineBreaksRenderer htmlContent={value} classes={classes} />;
@@ -130,6 +140,13 @@ const styles = () => ({
     '&:hover': {
       textDecoration: 'none',
     },
+  },
+  externalLinkIcon: {
+    width: '14px',
+    height: '14px',
+    marginLeft: '6px',
+    marginBottom: '4px',
+    verticalAlign: 'middle',
   },
 });
 
