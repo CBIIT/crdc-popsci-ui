@@ -6,6 +6,7 @@ import downloadSuccess from '../assets/dash/downloadSuccess.svg'
 import downloadLock from '../assets/dash/downloadLock.svg'
 import previewLarge from '../assets/dash/previewLarge.svg'
 import questionMarkCircle from '../assets/dash/questionMarkCircle.svg'
+import { formatDataCategoriesSummary } from '../pages/dashTemplate/tabs/tableConfig/dataCategories';
 
 // --------------- Tooltip configuration --------------
 export const tooltipContent = {
@@ -882,6 +883,7 @@ export const tabContainers = [
         dataField: 'study_short_name',
         header: 'Study Acronym',
         display: true,
+        viewColumns: false,
         tooltipText: 'sort',
         link: '/study/{study_short_name}',
         cellType: cellTypes.LINK,
@@ -895,6 +897,7 @@ export const tabContainers = [
         dataField: 'study_name',
         header: 'Study Name',
         display: true,
+        viewColumns: false,
         tooltipText: 'sort',
         role: cellTypes.DISPLAY,
         headerType: headerTypes.CUSTOM_ELEM,
@@ -930,12 +933,13 @@ export const tabContainers = [
         tooltipText: 'sort',
       },
       {
-        dataField: 'data_collection',
+        dataField: '_dataCategoryCount',
         header: 'Data Categories',
         display: true,
         tooltipText: 'sort',
         isDataCateColumn: true,
         cellType: cellTypes.CUSTOM_ELEM,
+        _customDownloadRender: (_, row) => formatDataCategoriesSummary(row?.data_collection),
         dataCateColumnProps:{
           dataField: 'data_collection'
         }
@@ -956,6 +960,7 @@ export const tabContainers = [
         dataField: 'number_of_participants',
         header: 'Participants',
         display: true,
+        viewColumns: false,
         isNumber: true,
         tooltipText: 'sort',
         cellType: cellTypes.CUSTOM_ELEM,

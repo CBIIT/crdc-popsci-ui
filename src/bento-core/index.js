@@ -13,8 +13,7 @@ import {
   clearFacetSection,
   clearSliderSection,
   toggleCheckBox,
-  sideBarActionTypes,
-} from '@bento-core/facet-filter';
+} from './facet-filter';
 import {
   TableView,
   Wrapper,
