@@ -88,7 +88,6 @@ export {
   clearFacetSection,
   clearSliderSection,
   toggleCheckBox,
-  sideBarActionTypes,
   TableView, // paginated-table (states/button actions)
   Wrapper,
   TableContext,
