@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Grid, Typography } from "@material-ui/core";
-import { cn } from "@bento-core/util";
 import useStyles from "./style";
 
 const formatNumber = (value) => {
@@ -72,7 +71,7 @@ const StudyCard = ({ data = {}, index }) => {
         </div>
         <div className={classes.row}>
           {renderInfo("Study Name:", studyName)}
-          {renderInfo("Study Type:", studyDesign)}
+          {renderInfo("Study Design:", studyDesign)}
           {renderInfo("Cancer Types:", formatNumber(cancerTypeCount))}
           {renderInfo("Participants:", formatNumber(numberOfParticipants))}
           {renderInfo(
@@ -81,7 +80,6 @@ const StudyCard = ({ data = {}, index }) => {
           )}
         </div>
       </Grid>
-
     </Grid>
   );
 };

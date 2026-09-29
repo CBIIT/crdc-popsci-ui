@@ -14,6 +14,7 @@ import { navMobileList, navbarSublists } from '../../config/globalHeaderData';
 
 const HeaderBanner = styled.div`
   width: 100%;
+  background: #FFFFFF;
 `;
 
 const HeaderContainer = styled.div`
