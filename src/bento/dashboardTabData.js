@@ -444,7 +444,7 @@ sort_direction: $sort_direction
     
     data_collection{
         data_collection_category
-        data_collection_category_assessed
+        data_collection_category_annotation_count
     }
     __typename
   }
