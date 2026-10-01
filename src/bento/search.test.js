@@ -1,18 +1,18 @@
+import React from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import client from "../utils/graphqlClient";
+import { queryCountAPI, queryResultAPI } from "./search";
+import DataModelCard from "../pages/search/Cards/DataModelCard";
+
 jest.mock("../utils/graphqlClient", () => ({
   __esModule: true,
   default: { query: jest.fn() },
 }));
 
-import React from "react";
-import { renderToStaticMarkup } from "react-dom/server";
-import client from "../utils/graphqlClient";
-import { queryCountAPI, queryResultAPI } from "./search";
-import ValueCard from "../pages/search/Cards/ValueCard";
-
 describe("search API helpers", () => {
   it("renders the property name on a Data Model result card", () => {
     const markup = renderToStaticMarkup(
-      <ValueCard
+      <DataModelCard
         data={{
           type: "property",
           node_name: "study",

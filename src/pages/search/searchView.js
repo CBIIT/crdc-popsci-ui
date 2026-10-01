@@ -16,7 +16,7 @@ import {
   queryResultAPI,
   queryAutocompleteAPI,
 } from "../../bento/search";
-import { StudyCard, AboutCard, ValueCard } from "./Cards";
+import { StudyCard, AboutCard, DataModelCard } from "./Cards";
 import aboutPagesContent from "../../content/prod/aboutPagesContent.yaml";
 
 const SEARCH_RESULT_SECTIONS = [
@@ -297,9 +297,9 @@ function searchView(props) {
     config: {
       resultCardMap: {
         study: StudyCard,
-        property: ValueCard,
-        node: ValueCard,
-        value: ValueCard,
+        property: DataModelCard,
+        node: DataModelCard,
+        value: DataModelCard,
         about: AboutCard,
       },
       showFilterBy: false,
