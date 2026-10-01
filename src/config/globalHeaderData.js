@@ -69,12 +69,6 @@ export const navbarSublists = {
       className: 'navMobileSubItem',
     },
     {
-      name: 'Submit',
-      link: '/submit',
-      id: 'navbar-dropdown-item-submit',
-      className: 'navMobileSubItem',
-    },
-    {
       name: 'GraphQL',
       link: '/graphql',
       id: 'navbar-dropdown-item-graphql',
