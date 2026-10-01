@@ -10,6 +10,10 @@ const CARD_PROPERTIES = [
     dataField: 'node_name',
   },
   {
+    label: "Property Name",
+    dataField: "property_name",
+  },
+  {
     label: 'Property Description',
     dataField: 'property_description',
     hasBreakLine: true,

@@ -1,5 +1,4 @@
-import React from 'react';
-import DOMPurify from 'dompurify';
+import React from "react";
 
 /**
  * LineBreaksRenderer: A React component for rendering text with line breaks.
@@ -11,12 +10,31 @@ import DOMPurify from 'dompurify';
  * @returns {JSX.Element} - React component
  */
 const LineBreaksRenderer = ({ htmlContent, sanitize = true, classes }) => {
-  const sanitizedHTML = sanitize
-    ? DOMPurify.sanitize(htmlContent, { ALLOWED_TAGS: ['br'] })
-    : htmlContent;
+  if (!sanitize) {
+    return (
+      <span
+        className={classes}
+        dangerouslySetInnerHTML={{ __html: htmlContent || "" }}
+      />
+    );
+  }
 
-  // Render the sanitized text with <br> tags replaced by new lines
-  return <span className={classes} dangerouslySetInnerHTML={{ __html: sanitizedHTML }} />;
+  const content =
+    htmlContent === null || htmlContent === undefined
+      ? ""
+      : String(htmlContent);
+  const lines = content.split(/<br\s*\/?\s*>/gi);
+
+  return (
+    <span className={classes}>
+      {lines.map((line, index) => (
+        <React.Fragment key={index}>
+          {index > 0 && <br />}
+          {line}
+        </React.Fragment>
+      ))}
+    </span>
+  );
 };
 
 export default LineBreaksRenderer;

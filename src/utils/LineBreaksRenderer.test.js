@@ -1,38 +1,37 @@
-import React from 'react';
-import { renderToStaticMarkup } from 'react-dom/server';
-import DOMPurify from 'dompurify';
-import LineBreaksRenderer from './LineBreaksRenderer';
+import React from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import LineBreaksRenderer from "./LineBreaksRenderer";
 
-jest.mock('dompurify', () => ({
-  sanitize: jest.fn((html) => html),
-}));
-
-describe('LineBreaksRenderer', () => {
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
-  it('sanitizes content by default and preserves allowed line breaks', () => {
-    DOMPurify.sanitize.mockReturnValueOnce('Line 1<br>Line 2');
-
+describe("LineBreaksRenderer", () => {
+  it("preserves angle-bracket text and renders br tags as line breaks", () => {
     const markup = renderToStaticMarkup(
-      <LineBreaksRenderer htmlContent="Line 1<br><script>bad()</script>Line 2" classes="copy" />,
+      <LineBreaksRenderer
+        htmlContent={
+          "<The type of information contained in an electronic record.> A curated indicator<br>CDE ID = 14824731"
+        }
+        classes="copy"
+      />,
     );
 
-    expect(DOMPurify.sanitize).toHaveBeenCalledWith(
-      'Line 1<br><script>bad()</script>Line 2',
-      { ALLOWED_TAGS: ['br'] },
-    );
     expect(markup).toContain('class="copy"');
-    expect(markup).toContain('Line 1<br>Line 2');
+    expect(markup).toContain(
+      "&lt;The type of information contained in an electronic record.&gt;",
+    );
+    expect(markup).toContain("A curated indicator<br/>CDE ID = 14824731");
+    expect(markup).not.toContain("<The type of information");
   });
 
-  it('renders raw content when sanitization is disabled', () => {
+  it("renders other markup as literal text", () => {
     const markup = renderToStaticMarkup(
-      <LineBreaksRenderer htmlContent="Alpha<br>Beta" sanitize={false} classes="copy" />,
+      <LineBreaksRenderer
+        htmlContent="Alpha<script>alert('unsafe')</script><br>Beta"
+        classes="copy"
+      />,
     );
 
-    expect(DOMPurify.sanitize).not.toHaveBeenCalled();
-    expect(markup).toContain('Alpha<br>Beta');
+    expect(markup).toContain(
+      'Alpha&lt;script&gt;alert(&#x27;unsafe&#x27;)&lt;/script&gt;',
+    );
+    expect(markup).toContain("<br/>Beta");
   });
 });

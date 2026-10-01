@@ -25,7 +25,7 @@ const getModelResultKey = ({
   property_name: propertyName,
 }) => `${nodeName || ''}::${propertyName || ''}`;
 
-const getRenderableModelResults = (results = []) => {
+export const getRenderableModelResults = (results = []) => {
   const seen = new Set();
 
   return results.reduce((acc, item) => {
