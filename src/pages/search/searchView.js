@@ -387,7 +387,7 @@ function searchView(props) {
             Search Population Science Data Commons
           </h2>
         </Grid>
-        <Grid item>
+        <Grid item className={classes.searchBarContainer}>
           <SearchBar value={searchText} clearable={!false} />
         </Grid>
       </Grid>

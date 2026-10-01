@@ -105,6 +105,11 @@ const styles = () => ({
     background:
       "linear-gradient(107deg, rgba(95, 53, 134, 0.8), rgba(31, 99, 148, 0.8)), #285A6C",
   },
+  searchBarContainer: {
+    width: "100%",
+    maxWidth: "700px",
+    minWidth: 0,
+  },
   searchTitle: {
     color: "#FFFFFF",
     fontFamily: "Inter",
@@ -121,17 +126,14 @@ const styles = () => ({
   },
   autocomplete: {
     margin: "0 auto",
-    width: "700px",
+    width: "100%",
+    minWidth: "200px",
+    maxWidth: "700px",
     '& .MuiAutocomplete-inputRoot[class*="Mui-focused"]': {
       outline: "4px solid #3395CA",
     },
     "&:hover .MuiAutocomplete-inputRoot": {
       outline: "4px solid #3395CA",
-    },
-    "@media (max-width: 750px)": {
-      width: "100%",
-      minWidth: "300px",
-      maxWidth: "700px",
     },
   },
   chipSection: {
