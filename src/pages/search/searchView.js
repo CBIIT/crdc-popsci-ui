@@ -16,6 +16,7 @@ import {
   queryResultAPI,
   queryAutocompleteAPI,
 } from "../../bento/search";
+import aboutPageRoutes from "../../bento/aboutPagesRoutes";
 import { StudyCard, AboutCard, DataModelCard } from "./Cards";
 import aboutPagesContent from "../../content/prod/aboutPagesContent.yaml";
 
@@ -357,13 +358,15 @@ function searchView(props) {
         const response = await axios.get(aboutPagesContent);
         const pages = yaml.safeLoad(response.data) || [];
         setSuggestedTopics(
-          pages.map((page) => ({
-            title: stripContentFormatting(page.title),
-            description: stripContentFormatting(
-              page.content?.[0]?.paragraph || "",
-            ),
-            path: page.page,
-          })),
+          pages
+            .filter((page) => aboutPageRoutes.includes(page.page))
+            .map((page) => ({
+              title: stripContentFormatting(page.title),
+              description: stripContentFormatting(
+                page.content?.[0]?.paragraph || "",
+              ),
+              path: page.page,
+            })),
         );
       } catch (error) {
         setSuggestedTopics([]);
