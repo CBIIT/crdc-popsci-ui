@@ -23,17 +23,6 @@ const styles = () => ({
     backgroundColor: "#073155",
     height: "4px",
   },
-  disabledIndicator: {
-    display: "none",
-  },
-  disabledTab: {
-    color: "#A4A4A4 !important",
-    opacity: "1 !important",
-    pointerEvents: "none",
-    "& $tabColor": {
-      color: "#A4A4A4",
-    },
-  },
   tabContainter: {
     display: "flex",
     width: "100%",

@@ -115,8 +115,8 @@ function searchView(props) {
     !isEmptySearch && hasResolvedCounts && countValues(searchCounts) === 0;
   const showSuggestedTopics = isEmptySearch || hasNoResults;
 
-  const getTabClasses = (root, count) => ({
-    root: `${root} ${count <= 0 ? classes.disabledTab : ""}`,
+  const getTabClasses = (root) => ({
+    root,
     wrapper: classes.tabColor,
     totalResults: classes.totalResults,
     totalCount: classes.totalCount,
@@ -293,7 +293,7 @@ function searchView(props) {
   const { SearchResults } = SearchResultsGenerator({
     classes: {
       ...classes,
-      indicator: hasNoResults ? classes.disabledIndicator : classes.indicator,
+      indicator: classes.indicator,
     },
     config: {
       resultCardMap: {
@@ -314,40 +314,28 @@ function searchView(props) {
         name: "All",
         field: "all",
         count: countValues(searchCounts) || 0,
-        classes: getTabClasses(
-          classes.allButton,
-          countValues(searchCounts) || 0,
-        ),
+        classes: getTabClasses(classes.allButton),
         value: "1",
       },
       {
         name: "Study",
         field: "study",
         count: searchCounts.study_count || 0,
-        classes: getTabClasses(
-          classes.studyButton,
-          searchCounts.study_count || 0,
-        ),
+        classes: getTabClasses(classes.studyButton),
         value: "2",
       },
       {
         name: "Data Model",
         field: "model",
         count: searchCounts.model_count || 0,
-        classes: getTabClasses(
-          classes.modelButton,
-          searchCounts.model_count || 0,
-        ),
+        classes: getTabClasses(classes.modelButton),
         value: "3",
       },
       {
         name: "General",
         field: "about_page",
         count: searchCounts.about_count || 0,
-        classes: getTabClasses(
-          classes.aboutButton,
-          searchCounts.about_count || 0,
-        ),
+        classes: getTabClasses(classes.aboutButton),
         value: "4",
       },
     ],
