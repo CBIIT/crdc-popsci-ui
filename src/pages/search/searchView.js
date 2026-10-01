@@ -110,9 +110,10 @@ function searchView(props) {
   const [suggestedTopics, setSuggestedTopics] = useState([]);
 
   const hasResolvedCounts = Object.keys(searchCounts).length > 0;
+  const isEmptySearch = searchText.trim() === "";
   const hasNoResults =
-    searchText.trim() === "" ||
-    (hasResolvedCounts && countValues(searchCounts) === 0);
+    !isEmptySearch && hasResolvedCounts && countValues(searchCounts) === 0;
+  const showSuggestedTopics = isEmptySearch || hasNoResults;
 
   const getTabClasses = (root, count) => ({
     root: `${root} ${count <= 0 ? classes.disabledTab : ""}`,
@@ -405,16 +406,18 @@ function searchView(props) {
 
       <div
         className={`${classes.bodyContainer} ${
-          hasNoResults ? classes.noResultsBody : ""
+          showSuggestedTopics ? classes.noResultsBody : ""
         }`}
       >
         <Box sx={{ width: "100%", typography: "body1" }}>
           <SearchResults searchText={searchText} />
-          {hasNoResults && (
+          {showSuggestedTopics && (
             <div className={classes.noResultsWrapper}>
-              <div className={classes.noResultsMessage}>
-                No Results found for this search criteria
-              </div>
+              {hasNoResults && (
+                <div className={classes.noResultsMessage}>
+                  No Results found for this search criteria
+                </div>
+              )}
               <div className={classes.noResultsContent}>
                 <section className={classes.suggestedTopics}>
                   <h2 className={classes.suggestedTopicsTitle}>
