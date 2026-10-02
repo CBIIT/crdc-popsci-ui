@@ -14,6 +14,7 @@ import { navMobileList, navbarSublists } from '../../config/globalHeaderData';
 
 const HeaderBanner = styled.div`
   width: 100%;
+  background: #FFFFFF;
 `;
 
 const HeaderContainer = styled.div`
@@ -24,7 +25,6 @@ const HeaderContainer = styled.div`
     .searchBarArea {
         padding: 0 16px 0 0;
         margin-left: 24px;
-            display: none;
     }
 
     .headerLowerContainer {

@@ -1,15 +1,43 @@
-import React, { useEffect, useState } from 'react';
-import { withStyles, Box, Grid } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { withStyles, Box, Grid } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
+import yaml from "js-yaml";
 import {
-  SearchBarGenerator, SearchResultsGenerator, countValues,
-} from '@bento-core/global-search';
-import styles from './styles';
+  SearchBarGenerator,
+  SearchResultsGenerator,
+  countValues,
+} from "@bento-core/global-search";
+import styles from "./styles";
 import {
-  SEARCH_PAGE_DATAFIELDS, SEARCH_PAGE_KEYS,
-  queryCountAPI, queryResultAPI, queryAutocompleteAPI,
-} from '../../bento/search';
-import { ParticipantCard, BiospecimenCard, AboutCard, ValueCard } from './Cards';
+  SEARCH_PAGE_DATAFIELDS,
+  SEARCH_PAGE_KEYS,
+  queryCountAPI,
+  queryResultAPI,
+  queryAutocompleteAPI,
+} from "../../bento/search";
+import aboutPageRoutes from "../../bento/aboutPagesRoutes";
+import { StudyCard, AboutCard, DataModelCard } from "./Cards";
+import aboutPagesContent from "../../content/prod/aboutPagesContent.yaml";
+
+const SEARCH_RESULT_SECTIONS = [
+  { countField: "study_count", nameField: "study" },
+  { countField: "model_count", nameField: "model" },
+  { countField: "about_count", nameField: "about_page" },
+];
+
+const normalizeCounts = (counts) =>
+  counts && typeof counts === "object" ? counts : {};
+
+const normalizeResults = (results) => (Array.isArray(results) ? results : []);
+
+const stripContentFormatting = (value = "") =>
+  value
+    .replace(/\$\$\[([^\]]+)\]\([^)]*\)\$\$/g, "$1")
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+    .replace(/\$\$|[*_`]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
 
 /**
  * Determine the correct datafield and offset for the All tab based
@@ -21,25 +49,23 @@ import { ParticipantCard, BiospecimenCard, AboutCard, ValueCard } from './Cards'
  * @param {boolean} isPublic
  */
 async function getAllQueryField(searchText, calcOffset, pageSize, isPublic) {
-  const searchResp = await queryCountAPI(searchText, isPublic);
-  const custodianConfigForTabData = isPublic ? [{ countField: 'about_count', nameField: 'about_page' }]
-    : [{ countField: 'participant_count', nameField: 'participants' },
-      { countField: 'biospecimen_count', nameField: 'biospecimens' },
-      { countField: 'model_count', nameField: 'model' },
-      { countField: 'about_count', nameField: 'about_page' }];
+  const searchResp = (await queryCountAPI(searchText, isPublic)) || {};
 
   let acc = 0;
-  const mapCountAndName = custodianConfigForTabData.map((obj) => {
-    acc += searchResp[obj.countField];
+  const mapCountAndName = SEARCH_RESULT_SECTIONS.map((obj) => {
+    acc += searchResp[obj.countField] || 0;
     return { ...obj, value: acc };
   });
 
   // Create filter for next Query
   const filter = mapCountAndName.filter((obj) => obj.value > calcOffset)[0];
-  const filterForOffset = mapCountAndName.filter((obj) => obj.value <= calcOffset);
-  const val = filterForOffset.length === 0
-    ? 0
-    : filterForOffset[filterForOffset.length - 1].value;
+  const filterForOffset = mapCountAndName.filter(
+    (obj) => obj.value <= calcOffset,
+  );
+  const val =
+    filterForOffset.length === 0
+      ? 0
+      : filterForOffset[filterForOffset.length - 1].value;
 
   if (filter !== undefined) {
     return {
@@ -48,7 +74,7 @@ async function getAllQueryField(searchText, calcOffset, pageSize, isPublic) {
     };
   }
 
-  return { datafieldValue: isPublic ? 'about_page' : 'participants', offsetValue: 0 };
+  return { datafieldValue: "study", offsetValue: 0 };
 }
 
 /**
@@ -60,9 +86,12 @@ async function getAllQueryField(searchText, calcOffset, pageSize, isPublic) {
  * @param {boolean} isPublic whether to use a public or private query
  */
 async function queryAllAPI(search, offset, pageSize, isPublic) {
-  const {
-    datafieldValue, offsetValue,
-  } = await getAllQueryField(search, offset, pageSize, isPublic);
+  const { datafieldValue, offsetValue } = await getAllQueryField(
+    search,
+    offset,
+    pageSize,
+    isPublic,
+  );
 
   const input = {
     input: search,
@@ -74,16 +103,45 @@ async function queryAllAPI(search, offset, pageSize, isPublic) {
 }
 
 function searchView(props) {
-  const {
-    classes, searchparam = '',
-    isSignedIn, isAuthorized, publicAccessEnabled,
-  } = props;
+  const { classes, searchparam = "", isSignedIn, isAuthorized } = props;
 
   const history = useHistory();
   const [searchText, setSearchText] = useState(searchparam);
-  const [searchCounts, setSearchCounts] = useState([]);
+  const [searchCounts, setSearchCounts] = useState({});
+  const [suggestedTopics, setSuggestedTopics] = useState([]);
+  const [selectedTab, setSelectedTab] = useState("1");
 
-  const authCheck = () => isAuthorized || publicAccessEnabled;
+  const hasResolvedCounts = Object.keys(searchCounts).length > 0;
+  const isEmptySearch = searchText.trim() === "";
+  const hasNoResults =
+    !isEmptySearch && hasResolvedCounts && countValues(searchCounts) === 0;
+  const selectedTabCount = {
+    1: countValues(searchCounts) || 0,
+    2: searchCounts.study_count || 0,
+    3: searchCounts.model_count || 0,
+    4: searchCounts.about_count || 0,
+  }[selectedTab];
+  const showTabNoResults =
+    selectedTab !== "1" &&
+    !isEmptySearch &&
+    hasResolvedCounts &&
+    !hasNoResults &&
+    selectedTabCount === 0;
+  const showSuggestedTopics = isEmptySearch || hasNoResults || showTabNoResults;
+  const showNoResultsMessage = hasNoResults || showTabNoResults;
+
+  const getTabClasses = (root, count) => ({
+    root: `${root} ${count <= 0 ? classes.disabledTab : ""}`,
+    wrapper: classes.tabColor,
+    totalResults: classes.totalResults,
+    totalCount: classes.totalCount,
+    subsection: classes.subsection,
+    subsectionBody: classes.subsectionBody,
+    paginationContainer: classes.paginationContainer,
+    noData: classes.hiddenNoData,
+  });
+
+  const authCheck = () => true;
 
   /**
    * Handle the tab selection change event, and redirect the user
@@ -94,9 +152,13 @@ function searchView(props) {
    * @returns void
    */
   const onTabChange = (event, newTab) => {
-    const activeVal = newTab.split('-')[0];
+    if (hasNoResults) {
+      return;
+    }
+    setSelectedTab(newTab);
+    const activeVal = newTab.split("-")[0];
 
-    if (activeVal === 'inactive') {
+    if (activeVal === "inactive") {
       if (isSignedIn && !isAuthorized) {
         history.push(`/request?redirect=/search/${searchText}`);
         return;
@@ -112,13 +174,20 @@ function searchView(props) {
    * @returns void
    */
   const onSearchChange = (value) => {
-    if (!value || typeof value !== 'string') { return; }
-    if (value === searchText) { return; }
-    if (value.trim() === '') { return; }
+    if (!value || typeof value !== "string") {
+      return;
+    }
+    if (value === searchText) {
+      return;
+    }
+    if (value.trim() === "") {
+      return;
+    }
 
-    queryCountAPI(value, !authCheck()).then((d) => {
+    queryCountAPI(value, !authCheck()).then((d = {}) => {
       setSearchText(value);
-      setSearchCounts(d);
+      setSearchCounts(normalizeCounts(d));
+      setSelectedTab("1");
       history.push(`/search/${value}`);
     });
   };
@@ -131,29 +200,39 @@ function searchView(props) {
    * @param {string} reason reason for the function call
    */
   const getSearchSuggestions = async (_config, value, reason) => {
-    if (!value || typeof value !== 'string') {
-      setSearchText('');
+    if (!value || typeof value !== "string") {
+      setSearchText("");
       setSearchCounts([]);
-      if (reason === 'clear') {
-        history.push('/search');
+      setSelectedTab("1");
+      if (reason === "clear") {
+        history.push("/search");
       }
       return [];
     }
-    if (value.trim() === '') { return []; }
+    if (value.trim() === "") {
+      return [];
+    }
 
     const authed = authCheck();
     const res = await queryAutocompleteAPI(value, !authed);
-    const mapOption = (authed ? SEARCH_PAGE_KEYS.private : SEARCH_PAGE_KEYS.public).map(
-      (key, index) => res[key].map(
-        (id) => (id[authed
-          ? SEARCH_PAGE_DATAFIELDS.private[index]
-          : SEARCH_PAGE_DATAFIELDS.public[index]]),
+    const mapOption = (
+      authed ? SEARCH_PAGE_KEYS.private : SEARCH_PAGE_KEYS.public
+    ).map((key, index) =>
+      (Array.isArray(res[key]) ? res[key] : []).map(
+        (id) =>
+          id[
+            authed
+              ? SEARCH_PAGE_DATAFIELDS.private[index]
+              : SEARCH_PAGE_DATAFIELDS.public[index]
+          ],
       ),
     );
-    const option = mapOption.length > 0
-      ? mapOption.reduce((acc = [], iterator) => [...acc, ...iterator]) : [];
+    const option =
+      mapOption.length > 0
+        ? mapOption.reduce((acc = [], iterator) => [...acc, ...iterator])
+        : [];
 
-    return [...[value.toUpperCase()], ...option];
+    return [value.toUpperCase(), ...option];
   };
 
   /**
@@ -167,20 +246,37 @@ function searchView(props) {
     const isPublic = !authCheck();
 
     // Handle the 'All' tab search separately
-    if (field === 'all') {
-      const count = isPublic ? searchCounts.about_count : countValues(searchCounts);
-      let data = await queryAllAPI(searchText, (currentPage - 1) * pageSize, pageSize, isPublic);
+    if (field === "all") {
+      if (!searchText) {
+        return [];
+      }
+      const count = countValues(searchCounts);
+      let data = normalizeResults(
+        await queryAllAPI(
+          searchText,
+          (currentPage - 1) * pageSize,
+          pageSize,
+          isPublic,
+        ),
+      );
 
       // If the current set of data is less than the page size,
       // we need to query the next datafield for it's data
-      if (data && (data.length !== pageSize)) {
+      if (data && data.length !== pageSize) {
         let apiQueries = 0;
         let calcOffset2 = (currentPage - 1) * pageSize + data.length;
 
         // eslint-disable-next-line max-len
-        while (apiQueries < 5 && data.length !== count && calcOffset2 < count && data.length !== pageSize) {
+        while (
+          apiQueries < 5 &&
+          data.length !== count &&
+          calcOffset2 < count &&
+          data.length !== pageSize
+        ) {
           // eslint-disable-next-line no-await-in-loop
-          const data2 = await queryAllAPI(searchText, calcOffset2, pageSize, isPublic);
+          const data2 = normalizeResults(
+            await queryAllAPI(searchText, calcOffset2, pageSize, isPublic),
+          );
           data = [...data, ...data2];
           calcOffset2 = (currentPage - 1) * pageSize + data.length;
           apiQueries += 1;
@@ -191,20 +287,21 @@ function searchView(props) {
     }
 
     // Handle all of the other tabs
+    const offset = (currentPage - 1) * pageSize;
     const input = {
       input: searchText,
       first: pageSize,
-      offset: (currentPage - 1) * pageSize,
+      offset,
     };
     const data = await queryResultAPI(field, input, isPublic);
-    return (data || []).slice(0, pageSize);
+    return normalizeResults(data).slice(0, pageSize);
   };
 
   const { SearchBar } = SearchBarGenerator({
     classes,
     config: {
-      placeholder: 'e.g. colon, MSB-01068, panitumimab, FFPE, CMB, gender',
-      iconType: 'image',
+      placeholder: "e.g. population, cancer screening trial, PLCO",
+      iconType: "image",
       maxSuggestions: 0,
       minimumInputLength: 0,
     },
@@ -215,17 +312,20 @@ function searchView(props) {
   });
 
   const { SearchResults } = SearchResultsGenerator({
-    classes,
+    classes: {
+      ...classes,
+      indicator: classes.indicator,
+    },
     config: {
+      defaultTab: hasNoResults ? "" : selectedTab,
       resultCardMap: {
-        participants: ParticipantCard,
-        biospecimens: BiospecimenCard,
-        property: ValueCard,
-        node: ValueCard,
-        value: ValueCard,
+        study: StudyCard,
+        property: DataModelCard,
+        node: DataModelCard,
+        value: DataModelCard,
         about: AboutCard,
       },
-      showFilterBy: true,
+      showFilterBy: false,
     },
     functions: {
       onTabChange,
@@ -233,112 +333,141 @@ function searchView(props) {
     },
     tabs: [
       {
-        name: 'All',
-        field: 'all',
-        classes: {
-          root: classes.allButton,
-          wrapper: classes.tabColor,
-          totalResults: classes.totalResults,
-          totalCount: classes.totalCount,
-          subsection: classes.subsection,
-          subsectionBody: classes.subsectionBody,
-          paginationContainer: classes.paginationContainer,
-          noData: classes.noData,
-        },
-        count: (!authCheck() ? searchCounts.about_count : countValues(searchCounts)) || 0,
-        value: '1',
+        name: "All",
+        field: "all",
+        count: countValues(searchCounts) || 0,
+        classes: getTabClasses(
+          classes.allButton,
+          countValues(searchCounts) || 0,
+        ),
+        value: "1",
       },
       {
-        name: 'Participants',
-        field: 'participants',
-        classes: {
-          root: classes.participantButton,
-          wrapper: classes.tabColor,
-          totalResults: classes.totalResults,
-          totalCount: classes.totalCount,
-          subsection: classes.subsection,
-          subsectionBody: classes.subsectionBody,
-          paginationContainer: classes.paginationContainer,
-          noData: classes.noData,
-        },
-        count: searchCounts.participant_count || 0,
-        value: `${!authCheck() ? 'inactive-' : ''}2`,
+        name: "Study",
+        field: "study",
+        count: searchCounts.study_count || 0,
+        classes: getTabClasses(
+          classes.studyButton,
+          searchCounts.study_count || 0,
+        ),
+        value: "2",
       },
       {
-        name: 'Biospecimens',
-        field: 'biospecimens',
-        classes: {
-          root: classes.biospecimenButton,
-          wrapper: classes.tabColor,
-          totalResults: classes.totalResults,
-          totalCount: classes.totalCount,
-          subsection: classes.subsection,
-          subsectionBody: classes.subsectionBody,
-          paginationContainer: classes.paginationContainer,
-          noData: classes.noData,
-        },
-        count: searchCounts.biospecimen_count || 0,
-        value: `${!authCheck() ? 'inactive-' : ''}3`,
-      },
-      {
-        name: 'General',
-        field: 'about_page',
-        classes: {
-          root: classes.aboutButton,
-          wrapper: classes.tabColor,
-          totalResults: classes.totalResults,
-          totalCount: classes.totalCount,
-          subsection: classes.subsection,
-          subsectionBody: classes.subsectionBody,
-          paginationContainer: classes.paginationContainer,
-          noData: classes.noData,
-        },
-        count: searchCounts.about_count || 0,
-        value: '4',
-      },
-      {
-        name: 'Model',
-        field: 'model',
-        classes: {
-          root: classes.modelButton,
-          wrapper: classes.tabColor,
-          totalResults: classes.totalResults,
-          totalCount: classes.totalCount,
-          subsection: classes.subsection,
-          subsectionBody: classes.subsectionBody,
-          paginationContainer: classes.paginationContainer,
-          noData: classes.noData,
-        },
+        name: "Data Model",
+        field: "model",
         count: searchCounts.model_count || 0,
-        value: `${!authCheck() ? 'inactive-' : ''}5`,
+        classes: getTabClasses(
+          classes.modelButton,
+          searchCounts.model_count || 0,
+        ),
+        value: "3",
+      },
+      {
+        name: "General",
+        field: "about_page",
+        count: searchCounts.about_count || 0,
+        classes: getTabClasses(
+          classes.aboutButton,
+          searchCounts.about_count || 0,
+        ),
+        value: "4",
       },
     ],
   });
 
   useEffect(() => {
-    if (searchparam.trim() === '') {
+    if (searchparam.trim() === "") {
       return;
     }
 
-    queryCountAPI(searchparam, !authCheck()).then((d) => {
-      setSearchCounts(d);
+    queryCountAPI(searchparam, !authCheck()).then((d = {}) => {
+      setSearchCounts(normalizeCounts(d));
     });
+  }, []);
+
+  useEffect(() => {
+    const loadSuggestedTopics = async () => {
+      try {
+        const response = await axios.get(aboutPagesContent);
+        const pages = yaml.safeLoad(response.data) || [];
+        setSuggestedTopics(
+          pages
+            .filter((page) => aboutPageRoutes.includes(page.page))
+            .map((page) => ({
+              title: stripContentFormatting(page.title),
+              description: stripContentFormatting(
+                page.content?.[0]?.paragraph || "",
+              ),
+              path: page.page,
+            })),
+        );
+      } catch (error) {
+        setSuggestedTopics([]);
+      }
+    };
+
+    loadSuggestedTopics();
   }, []);
 
   return (
     <>
-      <Grid container direction="column" alignItems="center" justifyContent="center" className={classes.heroArea}>
+      <Grid
+        container
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
+        className={classes.heroArea}
+      >
         <Grid item>
-          <h2 className={classes.searchTitle}>Search Clinical and Translational Data Commons</h2>
+          <h2 className={classes.searchTitle}>
+            Search Population Science Data Commons
+          </h2>
         </Grid>
-        <Grid item>
-          <SearchBar value={searchText} clearable={!false}/>
+        <Grid item className={classes.searchBarContainer}>
+          <SearchBar value={searchText} clearable={!false} />
         </Grid>
       </Grid>
 
-      <div className={classes.bodyContainer}>
-        <Box sx={{ width: '100%', typography: 'body1' }}>
+      <div
+        className={`${classes.bodyContainer} ${
+          showSuggestedTopics ? classes.noResultsBody : ""
+        }`}
+      >
+        <Box sx={{ width: "100%", typography: "body1" }}>
           <SearchResults searchText={searchText} />
+          {showSuggestedTopics && (
+            <div className={classes.noResultsWrapper}>
+              {showNoResultsMessage && (
+                <div className={classes.noResultsMessage}>
+                  No Results found for this search criteria
+                </div>
+              )}
+              <div className={classes.noResultsContent}>
+                <section className={classes.suggestedTopics}>
+                  <h2 className={classes.suggestedTopicsTitle}>
+                    Suggested Topics
+                  </h2>
+                  <div className={classes.suggestedTopicsGrid}>
+                    {suggestedTopics.map((topic) => (
+                      <button
+                        type="button"
+                        key={topic.title}
+                        className={classes.suggestedTopic}
+                        onClick={() => history.push(topic.path)}
+                      >
+                        <span className={classes.suggestedTopicTitle}>
+                          {topic.title}
+                        </span>
+                        <span className={classes.suggestedTopicDescription}>
+                          {topic.description}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </section>
+              </div>
+            </div>
+          )}
         </Box>
       </div>
     </>

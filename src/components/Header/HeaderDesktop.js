@@ -25,7 +25,6 @@ const HeaderContainer = styled.div`
 
     .searchBarArea {
         padding: 5px 32px 0 0;
-        display: none;
     }
 
     .headerLowerContainer {

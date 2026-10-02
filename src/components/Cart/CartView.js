@@ -11,29 +11,33 @@ const CartView = (props) => {
 
 const CartContainer = styled.div`
   .badge{
-    padding-top: 45px;
     display: flex;
     vertical-align: middle;
-     padding-right: 20px;
-  },
+    padding-right: 20px;
+    position: relative;
+    top: 18px;
+  }
   .cartLink{
+    display: inline-flex;
     text-decoration: none;
-  },
+    cursor: pointer;
+  }
   .cartIcon{
-     height: 63px;
-     z-index: 1;
-  },
+    height: 63px;
+    cursor: pointer;
+    z-index: 1;
+  }
   .cartCounter {
     min-width: 16px;
     font-family: inter;
     font-weight: 600;
     letter-spacing: 0.8px;
     transform: scale(1) translate(0%, -50%);
-  },
+  }
   .cartCounter2Wrapper {
     padding-top: 4px;
     margin-left: -3px;
-  },
+  }
   .cartCounter2 {
     color: #6D6D6D;
     font-size: 12px;
@@ -94,17 +98,16 @@ const getCartLabel = (labelType) => {
   const Tooltip =  MuiTooltip;
   return (
     <CartContainer>
-      <Link to="/fileCentricCart" className="cartLink">
-        <dev className="badge">
+        <div className="badge">
+          <Link to="/fileCentricCart" className="cartLink">
             <img
               className="cartIcon"
               src={navBarCartData.cartIcon}
               alt={navBarCartData.cartIconAlt}
             />
-          
-          {getCartLabel(navBarCartData.cartLabelType)}
-        </dev>
-      </Link>
+            {getCartLabel(navBarCartData.cartLabelType)}
+          </Link>
+        </div>
     </CartContainer>
   )
 }

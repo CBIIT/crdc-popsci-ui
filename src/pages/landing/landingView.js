@@ -196,7 +196,7 @@ const styles = (theme) => ({
   popPieChartImage: {
     width: '570px',
     marginRight: '120px',
-    marginTop: '103px',
+    marginTop: '73px',
     height: '530px',
     maxHeight: '530px',
     background: `url(${landingPageData.landingPageHero.img})`,
@@ -223,7 +223,7 @@ const styles = (theme) => ({
     },
   },
   page: {
-    marginTop: '-47px',
+    marginTop: 0,
   },
   heroImage: {
     width: '100%',
