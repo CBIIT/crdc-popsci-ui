@@ -109,22 +109,36 @@ function searchView(props) {
   const [searchText, setSearchText] = useState(searchparam);
   const [searchCounts, setSearchCounts] = useState({});
   const [suggestedTopics, setSuggestedTopics] = useState([]);
+  const [selectedTab, setSelectedTab] = useState("1");
 
   const hasResolvedCounts = Object.keys(searchCounts).length > 0;
   const isEmptySearch = searchText.trim() === "";
   const hasNoResults =
     !isEmptySearch && hasResolvedCounts && countValues(searchCounts) === 0;
-  const showSuggestedTopics = isEmptySearch || hasNoResults;
+  const selectedTabCount = {
+    1: countValues(searchCounts) || 0,
+    2: searchCounts.study_count || 0,
+    3: searchCounts.model_count || 0,
+    4: searchCounts.about_count || 0,
+  }[selectedTab];
+  const showTabNoResults =
+    selectedTab !== "1" &&
+    !isEmptySearch &&
+    hasResolvedCounts &&
+    !hasNoResults &&
+    selectedTabCount === 0;
+  const showSuggestedTopics = isEmptySearch || hasNoResults || showTabNoResults;
+  const showNoResultsMessage = hasNoResults || showTabNoResults;
 
-  const getTabClasses = (root) => ({
-    root,
+  const getTabClasses = (root, count) => ({
+    root: `${root} ${count <= 0 ? classes.disabledTab : ""}`,
     wrapper: classes.tabColor,
     totalResults: classes.totalResults,
     totalCount: classes.totalCount,
     subsection: classes.subsection,
     subsectionBody: classes.subsectionBody,
     paginationContainer: classes.paginationContainer,
-    noData: classes.noData,
+    noData: classes.hiddenNoData,
   });
 
   const authCheck = () => true;
@@ -138,6 +152,10 @@ function searchView(props) {
    * @returns void
    */
   const onTabChange = (event, newTab) => {
+    if (hasNoResults) {
+      return;
+    }
+    setSelectedTab(newTab);
     const activeVal = newTab.split("-")[0];
 
     if (activeVal === "inactive") {
@@ -169,6 +187,7 @@ function searchView(props) {
     queryCountAPI(value, !authCheck()).then((d = {}) => {
       setSearchText(value);
       setSearchCounts(normalizeCounts(d));
+      setSelectedTab("1");
       history.push(`/search/${value}`);
     });
   };
@@ -184,6 +203,7 @@ function searchView(props) {
     if (!value || typeof value !== "string") {
       setSearchText("");
       setSearchCounts([]);
+      setSelectedTab("1");
       if (reason === "clear") {
         history.push("/search");
       }
@@ -297,6 +317,7 @@ function searchView(props) {
       indicator: classes.indicator,
     },
     config: {
+      defaultTab: hasNoResults ? "" : selectedTab,
       resultCardMap: {
         study: StudyCard,
         property: DataModelCard,
@@ -315,28 +336,40 @@ function searchView(props) {
         name: "All",
         field: "all",
         count: countValues(searchCounts) || 0,
-        classes: getTabClasses(classes.allButton),
+        classes: getTabClasses(
+          classes.allButton,
+          countValues(searchCounts) || 0,
+        ),
         value: "1",
       },
       {
         name: "Study",
         field: "study",
         count: searchCounts.study_count || 0,
-        classes: getTabClasses(classes.studyButton),
+        classes: getTabClasses(
+          classes.studyButton,
+          searchCounts.study_count || 0,
+        ),
         value: "2",
       },
       {
         name: "Data Model",
         field: "model",
         count: searchCounts.model_count || 0,
-        classes: getTabClasses(classes.modelButton),
+        classes: getTabClasses(
+          classes.modelButton,
+          searchCounts.model_count || 0,
+        ),
         value: "3",
       },
       {
         name: "General",
         field: "about_page",
         count: searchCounts.about_count || 0,
-        classes: getTabClasses(classes.aboutButton),
+        classes: getTabClasses(
+          classes.aboutButton,
+          searchCounts.about_count || 0,
+        ),
         value: "4",
       },
     ],
@@ -404,7 +437,7 @@ function searchView(props) {
           <SearchResults searchText={searchText} />
           {showSuggestedTopics && (
             <div className={classes.noResultsWrapper}>
-              {hasNoResults && (
+              {showNoResultsMessage && (
                 <div className={classes.noResultsMessage}>
                   No Results found for this search criteria
                 </div>

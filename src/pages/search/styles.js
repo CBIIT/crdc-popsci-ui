@@ -23,6 +23,14 @@ const styles = () => ({
     backgroundColor: "#073155",
     height: "4px",
   },
+  disabledTab: {
+    color: "#A4A4A4 !important",
+    opacity: "1 !important",
+    pointerEvents: "none",
+    "& $tabColor": {
+      color: "#A4A4A4",
+    },
+  },
   tabContainter: {
     display: "flex",
     width: "100%",
@@ -117,7 +125,7 @@ const styles = () => ({
     fontSize: "32px",
     lineHeight: "35px",
     letterSpacing: "0.32px",
-    margin: "0px 0px 10px 0px",
+    margin: "0px 0px 15px 0px",
     textAlign: "center",
     "@media (max-width: 750px)": {
       fontSize: "24px",
@@ -309,7 +317,7 @@ const styles = () => ({
   paginationContainer: {
     paddingBottom: "0px",
   },
-  noData: {
+  hiddenNoData: {
     display: "none",
   },
   noResultsWrapper: {
