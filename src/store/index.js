@@ -2,7 +2,7 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { sideBarReducerGenerator } from '@bento-core/facet-filter';
+import { sideBarReducerGenerator } from '../bento-core/facet-filter';
 import layout from '../components/Layout/LayoutState';
 import stats from '../components/Stats/StatsState';
 import { cartReducerGenerator } from '@bento-core/cart';

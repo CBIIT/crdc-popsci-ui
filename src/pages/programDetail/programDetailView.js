@@ -11,7 +11,7 @@ import {
 } from '@bento-core/util';
 import {
   CustomDataTable
-} from '@bento-core/data-table';
+} from '../../bento-core/data-tables';
 import clsx from 'clsx';
 import globalData from '../../bento/siteWideConfig';
 import {

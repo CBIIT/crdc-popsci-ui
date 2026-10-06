@@ -5,7 +5,7 @@ import {
 } from '@material-ui/core';
 import {
   CustomDataTable
-} from '@bento-core/data-table';
+} from '../../bento-core/data-tables';
 import { getOptions, getColumns } from '@bento-core/util';
 import globalData from '../../bento/siteWideConfig';
 import {

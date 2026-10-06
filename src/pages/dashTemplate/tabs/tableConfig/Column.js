@@ -3,7 +3,7 @@ import { Typography } from '@material-ui/core';
 import { cellTypes, headerTypes } from '@bento-core/table';
 import DocumentDownloadView from '../../../../components/DocumentDownload/DocumentDownloadView';
 import { removeSquareBracketsFromString } from '../../../../utils/utils';
-import DataCollected from '../../../studyDetail/views/data_collection/data_collection.json';
+import { formatDataCategoriesSummary } from './dataCategories';
 
 export const CustomCellView = (props) => {
   const {
@@ -39,24 +39,10 @@ export const CustomCellView = (props) => {
      return  <Typography>{parseInt(number,10).toLocaleString()} </Typography>
 
   } else if (isDataCateColumn){
-
+ 
     const data =props[dataCateColumnProps['dataField']];
 
-    let nonZeroCount = 0;
-    let totalCount = 0;
-
-    DataCollected.data_collected.forEach(category => {
-      const categoryName = Object.keys(category)[0];
-      category[categoryName].forEach(item => {
-        totalCount++;
-        const matchingData = data.find(d => d.data_collection_category === item);
-        if (matchingData && matchingData.data_collection_category_annotation_count > 0) {
-          nonZeroCount++;
-        }
-      });
-    });
-
-    return  <Typography>{nonZeroCount} of {totalCount} </Typography>
+    return  <Typography>{formatDataCategoriesSummary(data)} </Typography>
   }
 
   // other custom elem

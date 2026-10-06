@@ -18,7 +18,7 @@ const ChartSection = ({ classes, data }) => {
       <Grid container spacing={4}>
         {participant_count_by_age && participant_count_by_age.length > 0 && (
           <Grid item xs={12} sm={12} md={12} lg={6}>
-            <BarChartV2 chartData={participant_count_by_age} chartTitle="Age of Enrollment" barWidth={30} fromChartSection={true}/>
+            <BarChartV2 chartData={participant_count_by_age} chartTitle="Age at Enrollment" barWidth={30} fromChartSection={true}/>
           </Grid>
         )}
         {participant_races && participant_races.length > 0 && (

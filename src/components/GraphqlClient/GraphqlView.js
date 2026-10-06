@@ -38,16 +38,12 @@ const defaultQuery =
 #   Auto Complete:  Ctrl-Space (or just start typing)
 #
 query search {
-  getHomePage {
-    numberOfParticipants
-    numberOfDiagnoses
-    numberOfTherapies
-    specimenCountbyStageOfDisease {
-      group
-      subjects
-      __typename
-    }
-    __typename
+  searchStudies {
+    dataVolume
+    numberOfStudies
+    numberOfDataCollectionCatagory
+    numberOfDiagnosis
+    numberOfDataFiles
   }
 }
 
@@ -66,47 +62,6 @@ function graphQLFetcher(graphQLParams) {
 
 const GraphqlView = ({ classes }) => (
 <>
-<Stats />
-    <AboutHeader title="GraphQL"/>
- 
-    <Grid className={classes.aboutSection} container direction="row" spacing={16}>
-    <Grid className={classes.imageSection} item lg={3} md={3} sm={10} xs={12}>
-      <img alt="GraphQl" className={classes.graphQLImg} src={graphGridImage}></img>
-      </Grid>
- 
-      <Grid className={classes.contentSection} item lg={9} md={9} sm={12} xs={12}>
-        <span className={classes.text}>  
-        GraphQL is a powerful query language for APIs. It provides a more efficient, powerful, and flexible alternative to the traditional REST API. Unlike traditional REST APIs, which typically require multiple endpoints to retrieve various pieces of data, GraphQL allows clients (the systems making the queries) to fetch exactly what they need in a single request. The Clinical and Translational Data Commons (CTDC) leverages this technology by offering a GraphQL API interface, which enables users to interact with CTDC data directly from their own systems, such as through Jupyter notebooks.
-        </span>
-        <br />
-        <br />
-        <span className={classes.text}>
-          
-        To begin querying the CTDC data via GraphQL, access our API endpoint at 
-        <a className={classes.link} href={BACKEND}> {BACKEND}</a>.
-        <img
-          alt="outbounnd web site icon"
-          src={externalLinkIcon}
-          className={classes.linkIcon}
-          style= {{padding: '0 2px 2px 2px',color: '#274FA6'}}
-        />
-        </span>
-        <span className={classes.text}>
-        <br />
-        <br />
-        If you are new to GraphQL and want to learn more about query language, comprehensive tutorials and example queries are available at  
-        <a className={classes.link} href="https://graphql.org/learn/"> graphql.org</a>
-        <img
-          alt="outbounnd web site icon"
-          src={externalLinkIcon}
-
-          className={classes.linkIcon}
-          style= {{padding: '0 2px 2px 2px',color: '#274FA6'}}
-        />. These resources provide an excellent starting point for understanding and utilizing GraphQL effectively.
-        </span>
-      </Grid>
-    </Grid>
- 
     <div className={classes.grapqhQlContainer}>
       <GraphiQL editorTheme="solarized light" fetcher={graphQLFetcher} query={defaultQuery}/>
     </div>

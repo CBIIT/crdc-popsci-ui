@@ -6,6 +6,7 @@ import downloadSuccess from '../assets/dash/downloadSuccess.svg'
 import downloadLock from '../assets/dash/downloadLock.svg'
 import previewLarge from '../assets/dash/previewLarge.svg'
 import questionMarkCircle from '../assets/dash/questionMarkCircle.svg'
+import { formatDataCategoriesSummary } from '../pages/dashTemplate/tabs/tableConfig/dataCategories';
 
 // --------------- Tooltip configuration --------------
 export const tooltipContent = {
@@ -896,7 +897,6 @@ export const tabContainers = [
         header: 'Study Name',
         display: true,
         tooltipText: 'sort',
-        role: cellTypes.DISPLAY,
         headerType: headerTypes.CUSTOM_ELEM,
       },
       {
@@ -904,38 +904,45 @@ export const tabContainers = [
         header: 'Enrollment Period',
         display: true,
         tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
       },
       {
         dataField: 'study_period',
         header: 'Study Period',
         display: true,
         tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
       },
       {
         dataField: 'study_design',
         header: 'Study Design',
         display: true,
         tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
       },
       {
         dataField: 'study_status',
         header: 'Study Status',
         display: true,
         tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
       },
       {
         dataField: 'primary_diagnosis_disease_count',
         header: 'Cancer Types',
         display: true,
         tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
       },
       {
-        dataField: 'data_collection',
+        dataField: '_dataCategoryCount',
         header: 'Data Categories',
         display: true,
         tooltipText: 'sort',
         isDataCateColumn: true,
         cellType: cellTypes.CUSTOM_ELEM,
+        role: cellTypes.DISPLAY,
+        _customDownloadRender: (_, row) => formatDataCategoriesSummary(row?.data_collection),
         dataCateColumnProps:{
           dataField: 'data_collection'
         }
@@ -945,12 +952,14 @@ export const tabContainers = [
         header: 'Biospecimens',
         display: true,
         tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
       },
       {
         dataField: 'participant_age_range',
         header: 'Enrollment Age',
         display: true,
         tooltipText: 'sort',
+        role: cellTypes.DISPLAY,
       },
       {
         dataField: 'number_of_participants',
