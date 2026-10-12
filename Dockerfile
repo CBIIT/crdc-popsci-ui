@@ -10,7 +10,7 @@ RUN NODE_OPTIONS="--max-old-space-size=4096" npm run build
 
 FROM nginx:stable-alpine3.23-slim AS fnl_base_image
 
-RUN apk upgrade --no-cache libcrypto3 libssl3
+RUN apk upgrade --no-cache libcrypto3 libssl3 && apk add --no-cache zlib=1.3.2-r1
 
 COPY --from=build /usr/src/app/dist /usr/share/nginx/html
 COPY --from=build /usr/src/app/conf/inject.template.js /usr/share/nginx/html/inject.template.js
