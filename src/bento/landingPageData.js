@@ -21,8 +21,8 @@ export const landingPageData = {
   tile1: {
     alt: 'Male and female researcher looking over data on a computer screen in a lab',
     img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/homeImageforAboutCard.png',
-    titleText: 'About the Population Science Data Commons (PSDC)',
-    descriptionText: 'Population science research aims to understand the causes and distribution of cancer in populations, monitor and explain cancer trends across different groups defined by geography or demographics, and support the development and implementation of broad-based interventions. The PSDC manages, houses, and shares data from various NCI-funded research programs and awards, including the Cancer Epidemiology Cohorts (CECs), supported by the NCI’s Division of Cancer Control and Population Sciences (DCCPS).',
+    titleText: 'About',
+    descriptionText: 'Population science research aims to understand the causes and distribution of cancer in populations, monitor and explain cancer trends across different groups defined by geography or demographics, and support the development and implementation of broad-based interventions.    The PSDC manages, houses, and shares data from various NCI-funded research programs and awards. It currently focuses on comprehensive study data with searchable summary data, allowing users to identify potential studies of interest using parameters including study name, study design, enrollment period, number of participants, cancer types, demographics such as age at enrollment, race, ethnicity and sex, and whether or not particular categories of data elements were collected as part of the study.',
     callToActionText: 'Read More',
     callToActionLink: '/about', // This links to the "About" static page.
   },
@@ -30,7 +30,7 @@ export const landingPageData = {
     alt: 'Abstract image of network data',
     img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/TrialsImage.png',
     titleText: 'Access Data',
-    descriptionText: 'PSDC hosts both open and controlled access data, accessible for analysis and download through the Seven Bridges Cancer Genomics Cloud.',
+    descriptionText: 'The PSDC portal provides faceted searching for studies of interest using various parameters, including study name, study design, enrollment period, number of participants, cancer types, study country, biospecimen collection, demographics such as age at enrollment, race, ethnicity and sex, and whether or not particular categories of data elements were collected as part of the study.',
        callToActionText: 'Read More',
     callToActionLink: '/access_data', // This links to the Programs Listing Page.
   },
@@ -38,7 +38,7 @@ export const landingPageData = {
     alt: 'Image of person using laptop with national cancer institute website displayed on laptop',
     img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/requestAccessImage.png',
     titleText: 'Analyze Data',
-    descriptionText: 'The Seven Bridges Cancer Genomics Cloud (SB-CGC), powered by Velsera, collaborates with the PSDC to facilitate access to its data for analysis. ',
+    descriptionText: 'The Seven Bridges Cancer Genomics Cloud (SB-CGC), powered by Velsera, collaborates with the PSDC to facilitate access to its data for analysis. SB-CGC offers secure personal workspaces on the AWS cloud platform as well as publicly available analytical tools shared by the research community. ',
     callToActionText: 'Read More',
     callToActionLink: '/analyze_data', // Link to the Request Access Page
   },
@@ -46,7 +46,7 @@ export const landingPageData = {
     alt: 'Abstract image of hand holding 2 dimensional images of people',
     img: 'https://raw.githubusercontent.com/CBIIT/datacommons-assets/main/popsci/images/icons/png/Popsci_Cases.png',
     titleText: 'Submit Data',
-  descriptionText: 'Data submission to PSDC will open in early 2026.  To discuss submitting data before then, contact the CRDC Help Desk at <a href="mailto:NCICRDC@mail.nih.gov">NCICRDC@mail.nih.gov</a>',
+  descriptionText: 'To get started with a submission please submit a request on the <a href="https://datacommons.cancer.gov/submit" target="_blank">CRDC Submission Portal</a> ',
   },
 };
 

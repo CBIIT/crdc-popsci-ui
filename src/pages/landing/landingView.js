@@ -435,7 +435,7 @@ const styles = (theme) => ({
   },
   aboutContent: {
     background: '#E0DBD3',
-    minHeight: '372px',
+    minHeight: '655px',
     width: '300px',
     padding: '30px 30px 32px 30px',
     color: '#000000',
@@ -484,7 +484,7 @@ const styles = (theme) => ({
 
   content: {
     width: '100%',
-    height: '220px',
+    height: '440px',
     overflowY: 'auto',
     background: '#fff',
     paddingLeft: '30px',

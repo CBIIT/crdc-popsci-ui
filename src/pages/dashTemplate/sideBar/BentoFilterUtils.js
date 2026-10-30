@@ -1,5 +1,5 @@
 
-import { clearAllAndSelectFacet } from '@bento-core/facet-filter';
+import { clearAllAndSelectFacet } from '../../../bento-core/facet-filter';
 import {
   GET_IDS_BY_TYPE, GET_SUBJECT_IDS,
 } from '../../../bento/localSearchData';

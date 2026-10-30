@@ -10,7 +10,83 @@ jest.mock("../utils/graphqlClient", () => ({
   },
 }));
 
-import { removeSquareBracketsFromString } from "./utils";
+jest.mock('../pages/dashTemplate/sideBar/BentoFilterUtils', () => ({
+  onClearAllAndSelectFacetValue: jest.fn(),
+}));
+
+import {
+  removeSquareBracketsFromString,
+  convertCRDCLinksToValue,
+  customSorting,
+  navigatedToDashboard,
+} from './utils';
+import { onClearAllAndSelectFacetValue } from '../pages/dashTemplate/sideBar/BentoFilterUtils';
+
+describe('navigatedToDashboard', () => {
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
+  it('calls the dashboard facet selector with study and provided code', () => {
+    navigatedToDashboard('STUDY-001');
+
+    expect(onClearAllAndSelectFacetValue).toHaveBeenCalledWith('study', 'STUDY-001');
+  });
+});
+
+describe('convertCRDCLinksToValue', () => {
+  it('converts CRDCLinks length using the first object key when key is not provided', () => {
+    const input = {
+      node: [
+        { id: 1, CRDCLinks: ['a', 'b'] },
+        { id: 2, CRDCLinks: [] },
+      ],
+    };
+
+    const result = convertCRDCLinksToValue(input);
+
+    expect(result.node[0]).toEqual({
+      id: 1,
+      CRDCLinks: 2,
+      links: ['a', 'b'],
+    });
+    expect(result.node[1]).toEqual({
+      id: 2,
+      CRDCLinks: 0,
+      links: [],
+    });
+  });
+
+  it('converts CRDCLinks length only for the provided key', () => {
+    const input = {
+      listA: [{ id: 1, CRDCLinks: ['x'] }],
+      listB: [{ id: 2, CRDCLinks: ['y', 'z'] }],
+    };
+
+    const result = convertCRDCLinksToValue(input, 'listB');
+
+    expect(result.listA[0]).toEqual({ id: 1, CRDCLinks: ['x'] });
+    expect(result.listB[0]).toEqual({
+      id: 2,
+      CRDCLinks: 2,
+      links: ['y', 'z'],
+    });
+  });
+});
+
+describe('customSorting', () => {
+  it('returns -1 when first value is lower', () => {
+    expect(customSorting(1, 2)).toBe(-1);
+  });
+
+  it('returns 1 when first value is higher', () => {
+    expect(customSorting(3, 2)).toBe(1);
+  });
+
+  it('returns 0 when values are equal', () => {
+    expect(customSorting(4, 4)).toBe(0);
+  });
+});
 
 describe("removeSquareBracketsFromString", () => {
   it("should remove square brackets from a string with brackets", () => {

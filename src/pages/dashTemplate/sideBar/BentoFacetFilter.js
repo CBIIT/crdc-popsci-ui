@@ -20,7 +20,7 @@ import {
   resetAllData, chunkSplit,
   SearchView, SearchBoxGenerator, UploadModalGenerator,
 } from '@bento-core/local-find';
-import { FacetFilter, ClearAllFiltersBtn } from '@bento-core/facet-filter';
+import { FacetFilter, ClearAllFiltersBtn } from '../../../bento-core/facet-filter';
 import ToolTip from '@bento-core/tool-tip';
 import store from '../../../store';
 import { facetsConfig, facetSectionVariables } from '../../../bento/dashTemplate';

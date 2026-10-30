@@ -1,5 +1,5 @@
 import { WidgetGenerator, DonutChartGenerator } from '@bento-core/widgets';
-import { CustomDataTable } from '@bento-core/data-table';
+import { CustomDataTable } from './data-tables';
 import { Header } from '@bento-core/header';
 import {
   clearAllAndSelectFacet,
@@ -13,8 +13,7 @@ import {
   clearFacetSection,
   clearSliderSection,
   toggleCheckBox,
-  sideBarActionTypes,
-} from '@bento-core/facet-filter';
+} from './facet-filter';
 import {
   TableView,
   Wrapper,
@@ -89,7 +88,6 @@ export {
   clearFacetSection,
   clearSliderSection,
   toggleCheckBox,
-  sideBarActionTypes,
   TableView, // paginated-table (states/button actions)
   Wrapper,
   TableContext,
