@@ -8,7 +8,7 @@ RUN NODE_OPTIONS="--max-old-space-size=4096" npm install --legacy-peer-deps
 
 RUN NODE_OPTIONS="--max-old-space-size=4096" npm run build
 
-FROM nginx:1.30.6-alpine3.24-slim AS fnl_base_image
+FROM nginx:1.30.7-alpine3.24-slim AS fnl_base_image
 
 RUN apk upgrade --no-cache libcrypto3 libssl3 && apk add --no-cache musl=1.2.6-r3 musl-utils=1.2.6-r3 zlib=1.4-r0 'pcre2=10.49-r0'
 
